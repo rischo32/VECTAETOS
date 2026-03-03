@@ -1,4 +1,4 @@
-# VORTEX — Projection Layer of VECTAETOS
+# VORTEX — Projection Layer of VECTAETOS™
 
 Vortex is a projection interface built on top of the Vectaetos epistemic framework.
 
@@ -57,3 +57,7 @@ Experimental projection interface.
 Not a decision engine.
 Not an AI model.
 Not an authority.
+
+VECTAETOS™ — Onto-Epistemic Field Framework
+© 2026 Richard Fonfára
+All projections are non-prescriptive.
