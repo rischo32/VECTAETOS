@@ -1,4 +1,5 @@
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![GitHub release](https://img.shields.io/github/v/release/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/releases)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 [![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
@@ -238,11 +239,11 @@ https://github.com/rischo32/Vectaetos
 
 Zenodo DOIs:
 - Canonical Core v0.1.1  
-  https://zenodo.org/records/18395048
+  [![DOI: Canonical Core v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048)
 - Supporting Epistemic Artefacts  
-  https://zenodo.org/records/18076787
+[![DOI: Supporting Epistemic Artefacts](https://zenodo.org/badge/DOI/10.5281/zenodo.18076787.svg)](https://doi.org/10.5281/zenodo.18076787)
 - Epistemic crypthography
-  https://zenodo.org/records/18676110
+[![DOI: Epistemic Cryptography](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110)
 [ "Auditná vrstva Φ je kryptografická integritná štruktúra, ktorá overuje konzistenciu prechodov bez akumulácie významu." ]
   
 ---
@@ -252,9 +253,9 @@ Zenodo DOIs:
 If you reference Vectaetos™, please cite:
 
 Fonfára, R. (2026).  
-ORCID : https://orcid.org/0009-0008-5980-8940
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 *Vectaetos™: Canonical Core v0.2.1*.  
-Zenodo. https://doi.org/10.5281/zenodo.18395048
+[![DOI: Canonical Core v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048)
 
 See `CITATION.cff` for full metadata.
 
