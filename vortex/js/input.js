@@ -1,100 +1,70 @@
-import { computeSigma } from './sigma.js';
-import { computeEM } from './em.js';
-import { OverlayManager } from './overlay.js';
+// VORTEX — Input Manager
+// Deterministic bridge between UI and scoring engine
+
+import { computeDelta } from './sigma.js';
 
 export class InputManager {
 
-  constructor(sceneManager) {
-
+  constructor(sceneManager, overlayManager = null) {
     this.sceneManager = sceneManager;
+    this.overlayManager = overlayManager;
 
     this.textarea = document.getElementById("question");
     this.bufferFill = document.getElementById("bufferFill");
 
-    this.overlay = new OverlayManager();
-
-    this.maxChars = 100;
     this.intensity = 0;
   }
-
-  /* =========================
-     INIT
-  ========================= */
 
   init() {
-
     if (!this.textarea) return;
 
-    this.textarea.addEventListener("input", () => {
-      this.handleInput();
-    });
-
-    this.textarea.addEventListener("keydown", (e) => {
-
-      if (e.key === "Enter") {
-        e.preventDefault();
-        this.handleSubmit();
-      }
-    });
+    this.textarea.addEventListener("input", () => this.handleInput());
+    this.textarea.addEventListener("keydown", (e) => this.handleKeyDown(e));
   }
 
-  /* =========================
-     INPUT TRACKING
-  ========================= */
-
+  // -------------------------
+  // BUFFER INTENSITY UPDATE
+  // -------------------------
   handleInput() {
-
     const length = this.textarea.value.length;
 
-    this.intensity = Math.min(1, length / this.maxChars);
+    this.intensity = Math.min(1, length / 100);
 
     if (this.bufferFill) {
-      this.bufferFill.style.width =
-        `${this.intensity * 100}%`;
+      this.bufferFill.style.width = `${this.intensity * 100}%`;
     }
-
-    this.sceneManager.setIntensity(this.intensity);
   }
 
-  /* =========================
-     SUBMIT
-  ========================= */
+  // -------------------------
+  // SUBMIT ON ENTER
+  // -------------------------
+  handleKeyDown(e) {
 
-  handleSubmit() {
+    if (e.key === "Enter") {
+      e.preventDefault();
 
-    const text = this.textarea.value.trim();
-    if (!text.length) return;
+      const text = this.textarea.value.trim();
+      if (!text) return;
 
-    // 1️⃣ Sigma
-    const { W, H, D } = computeSigma(text);
+      const result = computeDelta(text);
 
-    // 2️⃣ Epistemický Moment
-    const { value, state } = computeEM(W, H, D);
+      // ---- Send to Scene ----
+      if (this.sceneManager) {
+        this.sceneManager.startSplit(
+          result.W,
+          result.H,
+          result.D,
+          result.intensity
+        );
+      }
 
-    // 3️⃣ 3D split
-    this.sceneManager.startSplit(
-      W,
-      H,
-      D,
-      this.intensity
-    );
+      // ---- Send to Overlay ----
+      if (this.overlayManager) {
+        this.overlayManager.update(result);
+      }
 
-    // 4️⃣ Overlay zrkadlo
-    this.overlay.show({
-      W,
-      H,
-      D,
-      EM: value,
-      state
-    });
-
-    // 5️⃣ Reset buffer (nie text)
-    this.intensity = 0;
-
-    if (this.bufferFill) {
-      this.bufferFill.style.width = "0%";
+      console.log("Δ RESULT:", result);
     }
-
-    this.sceneManager.setIntensity(0);
   }
+
 }
