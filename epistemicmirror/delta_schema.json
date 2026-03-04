@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vortex Delta Projection Schema",
+  "description": "Projection layer schema for 3Gate structural scoring. Not ontological. Not authoritative.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "W",
+    "H",
+    "D",
+    "sigma",
+    "delta_type",
+    "state",
+    "gate_pass",
+    "intensity"
+  ],
+  "properties": {
+    "W": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Width stability (horizontal scope deformation)"
+    },
+    "H": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Height stability (abstraction/binary deformation)"
+    },
+    "D": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Depth stability (assumption load deformation)"
+    },
+    "sigma": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Structural tension intensity (1 - gate_pass)"
+    },
+    "delta_type": {
+      "type": "string",
+      "enum": ["ΔW", "ΔH", "ΔD", "Δ0"],
+      "description": "Dominant deformation axis"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NON_REPRESENTABLE",
+        "LOW_COHERENCE",
+        "MEDIUM_COHERENCE",
+        "HIGH_COHERENCE"
+      ],
+      "description": "Projection stability band"
+    },
+    "gate_pass": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Minimum of W, H, D"
+    },
+    "intensity": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Input length intensity (buffer-based)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional non-authoritative metadata",
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
