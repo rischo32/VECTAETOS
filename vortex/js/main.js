@@ -1,59 +1,75 @@
-/* =========================
-   CDN IMPORTS (NO BUNDLER)
-========================= */
-
-import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
-
-/* =========================
-   INTERNAL MODULES
-========================= */
+// VORTEX — Main Entry
+// Stable orchestration layer
 
 import { SceneManager } from './scene.js';
 import { InputManager } from './input.js';
-
-/* =========================
-   APP CORE
-========================= */
+import { OverlayManager } from './overlay.js';
 
 class VortexApp {
 
   constructor() {
-
-    console.log("VORTEX MAIN LOADED");
-
-    this.sceneManager = new SceneManager();
-    this.inputManager = new InputManager(this.sceneManager);
+    this.sceneManager = null;
+    this.overlayManager = null;
+    this.inputManager = null;
 
     this.init();
   }
 
   init() {
 
+    // ---------------------------
+    // Scene
+    // ---------------------------
+    this.sceneManager = new SceneManager();
     this.sceneManager.init();
+
+    // ---------------------------
+    // Overlay (optional safe init)
+    // ---------------------------
+    try {
+      this.overlayManager = new OverlayManager();
+      this.overlayManager.init();
+    } catch (e) {
+      console.warn("Overlay not initialized:", e);
+      this.overlayManager = null;
+    }
+
+    // ---------------------------
+    // Input
+    // ---------------------------
+    this.inputManager = new InputManager(
+      this.sceneManager,
+      this.overlayManager
+    );
     this.inputManager.init();
 
+    // ---------------------------
+    // Resize handling
+    // ---------------------------
+    window.addEventListener('resize', () => {
+      if (this.sceneManager) {
+        this.sceneManager.onResize();
+      }
+    });
+
+    // ---------------------------
+    // Start loop
+    // ---------------------------
     this.animate();
-    this.setupResize();
   }
 
   animate() {
-
     requestAnimationFrame(() => this.animate());
 
-    this.sceneManager.update();
+    if (this.sceneManager) {
+      this.sceneManager.update();
+      this.sceneManager.render();
+    }
   }
 
-  setupResize() {
-
-    window.addEventListener('resize', () => {
-      this.sceneManager.onResize();
-    });
-  }
 }
 
-/* =========================
-   START
-========================= */
-
-new VortexApp();
+// Boot safely after DOM ready
+window.addEventListener("DOMContentLoaded", () => {
+  new VortexApp();
+});
