@@ -1,0 +1,44 @@
+{
+  "version": "delta_prompts_v1",
+  "description": "Deterministic mirror prompts mapped to Δ structural deformation axes.",
+  "ΔW": [
+    "What remains unasked beneath the surface of this question?",
+    "What are you refusing to notice in the margins?",
+    "What makes this feel like it belongs to you?",
+    "What is the question preventing you from seeing?",
+    "What are you measuring this against?",
+    "What silence does your framing require to make sense?",
+    "What if the problem is the framing itself?",
+    "What if the map and territory are the same?"
+  ],
+  "ΔH": [
+    "What assumptions make this feel like a binary choice?",
+    "What if both options are equally incomplete?",
+    "What if the opposite is also structurally true?",
+    "What makes this question feel like it needs an answer?",
+    "What would confirmation actually give you?",
+    "What if the answer changes nothing?",
+    "What does \"solution\" assume about endings?",
+    "What makes you trust the premise?"
+  ],
+  "ΔD": [
+    "What does your \"I\" assume about identity?",
+    "What are you protecting by asking it this way?",
+    "What makes this feel like progress rather than movement?",
+    "What is the cost of the clarity you seek?",
+    "What does your metaphor hide from view?",
+    "What does \"understanding\" assume about knowledge?",
+    "What does your urgency assume about time?",
+    "What makes this feel like a problem to solve?"
+  ],
+  "Δ0": [
+    "What if the tension you're feeling is the entire point?",
+    "What would it mean to sit with the contradiction instead?",
+    "What remains after the question is answered?",
+    "What would it mean to stop searching?",
+    "What is the question serving beyond itself?",
+    "Who would you be if this problem didn't exist?",
+    "What if the question is the answer wearing a mask?",
+    "What remains if the need to resolve disappears?"
+  ]
+}
