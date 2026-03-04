@@ -115,4 +115,4 @@ Author:
 Richard Fonfára
 
 Project:
-VECTAETOS
+VECTAETOS™
