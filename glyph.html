@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vectaetos Φ</title>
+
+<style>
+
+body{
+background:#060606;
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+font-family:monospace;
+color:#eaeaea;
+}
+
+svg{
+overflow:visible;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+.orb{
+animation:spin 60s linear infinite;
+transform-origin:50px 50px;
+opacity:.18;
+}
+
+@keyframes breathe{
+0%,100%{opacity:.75}
+50%{opacity:1}
+}
+
+.core{
+animation:breathe 6s ease-in-out infinite;
+}
+
+.dot{
+opacity:.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<svg viewBox="0 0 100 100" width="260" height="260">
+
+<!-- orbit / time layer -->
+
+<circle
+class="orb"
+cx="50"
+cy="50"
+r="44"
+stroke="#eaeaea"
+stroke-width="1"
+stroke-dasharray="3 10"
+fill="none"
+/>
+
+<!-- field circle -->
+
+<circle
+class="core"
+cx="50"
+cy="50"
+r="30"
+stroke="#eaeaea"
+stroke-width="5.2"
+fill="none"
+/>
+
+<!-- axis -->
+
+<line
+class="core"
+x1="50"
+y1="10"
+x2="50"
+y2="90"
+stroke="#eaeaea"
+stroke-width="5.2"
+/>
+
+<!-- observer -->
+
+<circle
+class="dot"
+cx="50"
+cy="6"
+r="2.4"
+fill="#eaeaea"
+/>
+
+</svg>
+
+</body>
+</html>
