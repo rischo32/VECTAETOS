@@ -24,6 +24,82 @@ It is a **map of epistemic reality**.
 If any component violates this map,  
 it is **no longer VECTAETOS**.
 
+### Canonical System Map (ASCII)
+
+Vectaetos operates as an epistemic field rather than a decision system.
+The architecture below visualizes the canonical ontological and epistemic flow.
+
+                         HUMAN
+                           │
+                           ▼
+                     Epistemic Input
+                           │
+                       ┌────────┐
+                       │ 3Gate  │
+                       │ W·D·H  │
+                       └────────┘
+                           │
+                           ▼
+                        4ES + QE
+                           │
+               ────────── NIR ──────────
+            (Non-Intervention Regime)
+                           │
+                           ▼
+
+
+                INT            LEX            VER
+               ZÁMER       EXISTENCIA        PRAVDA
+                   ╲          │          ╱
+                    ╲         │         ╱
+        LIB ──────────────── Φ ──────────────── UNI
+      SLOBODA           Epistemic Field        JEDNOTA
+                    (Held by 8 axiomatic poles)
+                    ╱         │         ╲
+                   ╱          │          ╲
+               REL            WIS            CRE
+           VZÁJOMNOSŤ       MÚDROSŤ         TVORBA
+
+
+                           │
+                           ▼
+                          K(Φ)
+                (Coherence Predicate)
+                           │
+                           ▼
+                   Simulation Vortex
+            (Generator of candidate trajectories)
+                           │
+                           ▼
+                     Runic Projection
+                           │
+                           ▼
+                    LLM Text Adapter
+                           │
+                           ▼
+                         HUMAN
+
+Ontological Notes
+
+• Φ is not an agent
+• Φ is not a decision system
+• Φ is an epistemic field stabilized by 8 axiomatic centers
+
+Pipeline Summary
+
+Human
+→ 3Gate (Epistemic representability)
+→ 4ES + QE (Epistemic state evaluation)
+→ Field Φ
+→ Coherence predicate K(Φ)
+→ Simulation Vortex
+→ Runic projection
+→ LLM adapter (text rendering only)
+→ Human
+
+Vectaetos does not decide.
+Vectaetos reveals structure.
+
 ---
 
 ## 1. ZMYSEL — Ontodynamic Meta-Layer
