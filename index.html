@@ -1,58 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vectaetos — Epistemic Mirror</title>
+
+<!-- favicon -->
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="shortcut icon" href="/favicon.svg">
-  <meta name="description" content="Vectaetos — epistemic topology and simulation vortex. The Epistemic Mirror reflects structure, not truth.">
+
+<!-- basic metadata -->
+
+<meta name="description" content="Vectaetos — epistemic topology and simulation vortex. The Epistemic Mirror reflects structure, not truth.">
+<meta name="author" content="Richard Fonfára">
+<meta name="robots" content="index, follow">
+
+<!-- mobile theme -->
 
 <meta name="theme-color" content="#050505">
+
+<!-- OpenGraph (social preview) -->
 
 <meta property="og:title" content="Vectaetos — Epistemic Mirror">
 <meta property="og:description" content="Deterministic projection of a question. Not an answer.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vectaetos.eu">
-  
-<title>VECTAETOS — Epistemic Mirror</title>
+<meta property="og:image" content="https://vectaetos.eu/preview.png">
+
+<!-- Twitter preview -->
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vectaetos — Epistemic Mirror">
+<meta name="twitter:description" content="Deterministic projection of a question.">
+<meta name="twitter:image" content="https://vectaetos.eu/preview.png">
 
 <style>
 
+<title>Vectaetos — Epistemic Mirror</title>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<meta name="description" content="Vectaetos — epistemic topology and simulation vortex.">
+<meta name="theme-color" content="#050505">
+
+<style>
+
+/* ===== GLOBAL ===== */
+
 body{
 margin:0;
-background:#000;
+background:#050505;
 color:#eaeaea;
 font-family:monospace;
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
+min-height:100vh;
+text-align:center;
 }
 
+/* ===== LAYOUT ===== */
+
 .wrapper{
-text-align:center;
 max-width:720px;
 padding:40px;
 }
 
+/* ===== HEADINGS ===== */
+
 h1{
 font-size:34px;
 margin-top:30px;
-margin-bottom:16px;
+margin-bottom:18px;
 font-weight:normal;
 }
 
 p{
 line-height:1.6;
-opacity:0.85;
+opacity:.85;
 }
 
 .question{
 margin-top:26px;
 font-style:italic;
-opacity:0.9;
+opacity:.9;
 }
+
+/* ===== BUTTON ===== */
 
 .button{
 display:inline-block;
@@ -60,19 +98,21 @@ margin-top:40px;
 padding:14px 28px;
 border:1px solid #444;
 background:#141414;
-color:white;
+color:#fff;
 text-decoration:none;
-transition:0.2s;
+transition:.2s;
 }
 
 .button:hover{
 background:#1f1f1f;
 }
 
+/* ===== LINKS ===== */
+
 .links{
 margin-top:60px;
 font-size:13px;
-opacity:0.6;
+opacity:.6;
 }
 
 .links a{
@@ -85,82 +125,111 @@ margin:0 10px;
 text-decoration:underline;
 }
 
-.footer{
-margin-top:30px;
-font-size:11px;
-opacity:0.45;
+/* ===== FOOTER ===== */
+
+.framework{
+margin-top:70px;
+font-size:10px;
+letter-spacing:.25em;
+color:#2a2a2a;
+line-height:1.8;
 }
 
-/* ===== Glyph animation ===== */
+/* ===== GLYPH ===== */
 
-@keyframes orbitFlow{
-from{stroke-dashoffset:0}
-to{stroke-dashoffset:-120}
+@keyframes spin-cw{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
 }
 
 @keyframes breathe{
-0%,100%{opacity:.85}
+0%,100%{opacity:.82}
 50%{opacity:1}
 }
 
-.orbit{
-animation:orbitFlow 18s linear infinite;
+.orbit-group{
+animation:spin-cw 60s linear infinite;
+transform-origin:200px 280px;
 }
 
 .core{
 animation:breathe 6s ease-in-out infinite;
 }
 
+/* ===== MOBILE ===== */
+
+@media (max-width:600px){
+
+.wrapper{
+padding:28px;
+}
+
+h1{
+font-size:26px;
+}
+
+}
+
 </style>
 
 </head>
+
 
 <body>
 
 <div class="wrapper">
 
-<!-- VECTAETOS glyph -->
 
-<svg viewBox="0 0 100 100" width="160" height="160">
+<!-- ===== ORBITAL Φ GLYPH ===== -->
+
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 400 600"
+width="220"
+height="330">
+
+<rect width="400" height="600" fill="#050505"/>
+
+<g class="orbit-group">
 
 <circle
-class="orbit"
-cx="50"
-cy="50"
-r="42"
+cx="200"
+cy="280"
+r="132"
 stroke="#eaeaea"
-stroke-width="1"
-stroke-dasharray="3 12"
+stroke-width="1.4"
+stroke-dasharray="9 30"
 fill="none"
-opacity=".35"
+opacity=".28"
 />
 
 <circle
+cx="200"
+cy="148"
+r="6"
+fill="#d0d0d0"
+opacity=".65"
+/>
+
+</g>
+
+<circle
 class="core"
-cx="50"
-cy="50"
-r="30"
+cx="200"
+cy="280"
+r="90"
 stroke="#eaeaea"
-stroke-width="6"
+stroke-width="14"
 fill="none"
 />
 
 <line
 class="core"
-x1="50"
-y1="10"
-x2="50"
-y2="90"
+x1="200"
+y1="160"
+x2="200"
+y2="400"
 stroke="#eaeaea"
-stroke-width="6"
-/>
-
-<circle
-cx="50"
-cy="6"
-r="2.5"
-fill="#eaeaea"
-opacity=".7"
+stroke-width="14"
 />
 
 </svg>
@@ -180,6 +249,7 @@ What question would you ask if you knew you would not receive an answer?
 <a class="button" href="/epistemicmirror/">
 Enter Mirror
 </a>
+
 
 <div class="links">
 
@@ -207,12 +277,19 @@ Experimental Vortex
 
 </div>
 
-<div class="footer">
 
-Vectaetos is an epistemic topology.<br>
-The Mirror reflects structure, not truth.
+<div class="framework">
+
+Φ does not answer questions.<br>
+It reveals their structure.
+
+<br><br>
+
+Vectaetos™ Epistemic Framework<br>
+© 2026 Richard Fonfára
 
 </div>
+
 
 </div>
 
