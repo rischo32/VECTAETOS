@@ -1,103 +1,142 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vectaetos — Epistemic Mirror</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: #0d0d0d;
-      color: #eaeaea;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .wrapper {
-      text-align: center;
-      max-width: 600px;
-      padding: 20px;
-    }
+<title>VECTAETΦS™ — Epistemic Mirror</title>
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
+<style>
 
-    p {
-      opacity: 0.7;
-      line-height: 1.6;
-    }
+body{
+background:#0b0b0b;
+color:#eaeaea;
+font-family:monospace;
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
 
-    .button {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 12px 24px;
-      border: 1px solid #444;
-      background: #1a1a1a;
-      color: #fff;
-      text-decoration: none;
-      cursor: pointer;
-    }
+.wrapper{
+text-align:center;
+max-width:720px;
+padding:40px;
+}
 
-    .button:hover {
-      background: #262626;
-    }
+h1{
+font-size:34px;
+margin-bottom:20px;
+font-weight:normal;
+}
 
-    .sub {
-      margin-top: 40px;
-      font-size: 12px;
-      opacity: 0.5;
-    }
+p{
+line-height:1.6;
+opacity:0.85;
+}
 
-    a.secondary {
-      color: #aaa;
-      text-decoration: none;
-    }
+.question{
+margin-top:30px;
+font-style:italic;
+opacity:0.9;
+}
 
-    a.secondary:hover {
-      text-decoration: underline;
-    }
-  </style>
+.button{
+display:inline-block;
+margin-top:40px;
+padding:14px 28px;
+border:1px solid #444;
+background:#141414;
+color:white;
+text-decoration:none;
+transition:0.2s;
+}
+
+.button:hover{
+background:#1f1f1f;
+}
+
+.links{
+margin-top:60px;
+font-size:13px;
+opacity:0.6;
+}
+
+.links a{
+color:#ccc;
+text-decoration:none;
+margin:0 10px;
+}
+
+.links a:hover{
+text-decoration:underline;
+}
+
+.footer{
+margin-top:30px;
+font-size:11px;
+opacity:0.45;
+}
+
+</style>
+
 </head>
 
 <body>
 
-  <div class="wrapper">
+<div class="wrapper">
 
-    <h1>Epistemic Mirror</h1>
+<h1>Epistemic Mirror</h1>
 
-    <p>
-      Deterministická projekcia otázky.<br>
-      Nie odpoveď. Nie rada. Nie rozhodnutie.
-    </p>
+<p>
+Deterministic projection of a question.<br>
+Not an answer. Not advice. Not a decision.
+</p>
 
-    <a href="/epistemicmirror/" class="button">
-      Enter Mirror
-    </a>
+<p class="question">
+What question would you ask if you knew you would not receive an answer?
+</p>
 
-    <div class="sub">
-      <p>
-        Epistemic Mirror generuje automatizované reflexívne otázky.<br>
-        Nenahrádza odborné poradenstvo ani rozhodovanie.
-      </p>
+<a class="button" href="/epistemicmirror/">
+Enter Mirror
+</a>
 
-      <p>
-        <a href="/epistemicmirror/AI_ACT_NOTICE.md" class="secondary">
-          Transparency Notice (EU AI Act)
-        </a>
-        &nbsp;|&nbsp;
-        <a href="/vortex/" class="secondary">
-          Experimental Vortex
-        </a>
-      </p>
-    </div>
+<div class="links">
 
-  </div>
+<a href="https://github.com/rischo32/Vectaetos" target="_blank">
+GitHub Repository
+</a>
+
+|
+
+<a href="https://doi.org/10.5281/zenodo.18395048" target="_blank">
+Zenodo Archive
+</a>
+
+|
+
+<a href="/epistemicmirror/AI_ACT_NOTICE.md">
+AI Act Transparency Notice
+</a>
+
+|
+
+<a href="/vortex/">
+Experimental Vortex
+</a>
+
+</div>
+
+<div class="footer">
+
+Vectaetos is an epistemic topology.<br>
+The Mirror reflects structure, not truth.
+
+</div>
+
+</div>
 
 </body>
 </html>
