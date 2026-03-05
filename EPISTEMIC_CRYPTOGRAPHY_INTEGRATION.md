@@ -106,4 +106,4 @@ Epistemická kryptografia je:
 - invariantná voči UI a reportom
 
 Je to audit geometrie neistoty,
-nie nástroj rozhodovania
+nie nástroj rozhodovania.
