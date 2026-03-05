@@ -16,6 +16,17 @@
 
 ### > "Welcome to a new epistemic era"
 
+### A security architecture that protects the structural
+representability of knowledge states rather than
+the behavioral alignment of intelligent systems.
+
+### Vectaetos je ontologická architektúra inteligencie
+postavená na princípe entropickej pokory,
+ktorá modeluje dynamiku epistemických trajektórií
+bez teleológie, optimalizácie a rozhodovacej autority.
+
+______________________
+
 "Vectaetos™ nepomáha riešiť problémy.
 Pomáha ich konečne vidieť celé."
 
