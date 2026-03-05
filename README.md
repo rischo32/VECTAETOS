@@ -24,8 +24,8 @@ Je to jeho architektonická cnosť."
 
 "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
-# _______________________________________
-# |Vectaetos™ je spôsob, ako sa pozerať na otázky.|
+# ___________________________________
+# Vectaetos™ je spôsob, ako sa pozerať na otázky.
 
 Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
 
@@ -33,7 +33,7 @@ Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
 
 # Pomáha vidieť, kde sa rozhodnutie začína. 
-# |_______________________________________|
+# ___________________________________
 
 ---
 
