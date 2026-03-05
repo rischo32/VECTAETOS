@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="420" height="120">
+
+<style>
+
+@keyframes orbitSpin{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
+}
+
+.orbit{
+animation:orbitSpin 24s linear infinite;
+transform-origin:60px 60px;
+}
+
+.core{
+opacity:.9;
+}
+
+.label{
+font-family: monospace;
+fill:#eaeaea;
+}
+
+.title{
+font-size:22px;
+letter-spacing:.18em;
+}
+
+.subtitle{
+font-size:12px;
+letter-spacing:.25em;
+opacity:.6;
+}
+
+</style>
+
+<!-- background -->
+
+<rect width="420" height="120" fill="#050505"/>
+
+<!-- glyph -->
+
+<g transform="translate(10,0)">
+
+<circle
+class="orbit"
+cx="60"
+cy="60"
+r="44"
+stroke="#eaeaea"
+stroke-width="1"
+stroke-dasharray="3 10"
+fill="none"
+opacity=".35"
+/>
+
+<circle
+class="core"
+cx="60"
+cy="60"
+r="30"
+stroke="#eaeaea"
+stroke-width="5"
+fill="none"
+/>
+
+<line
+class="core"
+x1="60"
+y1="18"
+x2="60"
+y2="102"
+stroke="#eaeaea"
+stroke-width="5"
+/>
+
+<circle
+cx="60"
+cy="14"
+r="2.4"
+fill="#eaeaea"
+opacity=".7"
+/>
+
+</g>
+
+<!-- text -->
+
+<text class="label title" x="150" y="55">
+VECTAETOS
+</text>
+
+<text class="label subtitle" x="150" y="85">
+EPISTEMIC FRAMEWORK
+</text>
+
+</svg>
