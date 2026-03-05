@@ -1,3 +1,21 @@
+@keyframes orbitFlow{
+from{stroke-dashoffset:0}
+to{stroke-dashoffset:-120}
+}
+
+@keyframes breathe{
+0%,100%{opacity:.85}
+50%{opacity:1}
+}
+
+.orbit{
+animation:orbitFlow 14s linear infinite;
+}
+
+.core{
+animation:breathe 6s ease-in-out infinite;
+}
+
 body {
   margin: 0;
   background: #0e0e0e;
