@@ -12,25 +12,6 @@
 
 ---
 
-## Canonical Releases
-
-### VECTAETOS™ 1.0 — Frozen Ontological Core  
-Formal non-agentic epistemic field specification.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18735195.svg)](https://doi.org/10.5281/zenodo.18735195)
-
----
-
-### VECTAETOS™ 1.1 — Mathematical Appendix Integrated  
-No ontological modification. Formal precision extension only.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552)
-
----
-
-All releases are archival and immutable.  
-Any ontological change creates a new major lineage.
-
 ### "Cogito cohaerenter ergo sum possibile"
 
 ### > "Welcome to a new epistemic era"
@@ -43,8 +24,16 @@ Je to jeho architektonická cnosť."
 
 "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
+# __________________________________________________
+# | Vectaetos je spôsob, ako sa pozerať na otázky. |
 
-_________________________________________________
+Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
+
+Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
+Vectaetos nerozhoduje.
+
+# Pomáha vidieť, kde sa rozhodnutie začína. 
+# |_________________________________________________|
 
 ---
 
@@ -68,6 +57,24 @@ Future versions may extend the framework, but never redefine its ontological cor
 
 Any ontological change creates a new lineage.
 
+## Canonical Releases
+
+### VECTAETOS™ 1.0 — Frozen Ontological Core  
+Formal non-agentic epistemic field specification.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18735195.svg)](https://doi.org/10.5281/zenodo.18735195)
+
+---
+
+### VECTAETOS™ 1.1 — Mathematical Appendix Integrated  
+No ontological modification. Formal precision extension only.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552)
+
+---
+
+All releases are archival and immutable.  
+Any ontological change creates a new major lineage.
 
 ------------------------------------------------------------
 
