@@ -8,7 +8,9 @@
 [![Intrinsic Humility](https://img.shields.io/badge/Intrinsic-Humility_%CE%BC%2FA-blue?style=flat)](https://github.com/rischo32/Vectaetos)
 [![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
 
-## VECTAETOS™ — Onto-Epistemic Field © Framework
+## VECTAETOS™ — Onto-Epistemic Field © framework of structure
+
+###  I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
 
 ---
 
