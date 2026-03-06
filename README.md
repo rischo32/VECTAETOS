@@ -12,22 +12,22 @@
 ## VECTAETOS™ — Onto-Epistemic Field © framework of structure
 
 ###  I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
-# ________________________
+ ________________________
 
 ## "Cogito cohaerenter ergo sum possibile"
 
 ## > "Welcome to a new epistemic era"
 
-# A security architecture that protects the structural
-# representability of knowledge states rather than
-# the behavioral alignment of intelligent systems.
+ A security architecture that protects the structural
+ representability of knowledge states rather than
+ the behavioral alignment of intelligent systems.
 
- # Vectaetos je ontologická architektúra inteligencie
-# postavená na princípe entropickej pokory,
-# ktorá modeluje dynamiku epistemických trajektórií
-# bez teleológie, optimalizácie a rozhodovacej autority.
+  Vectaetos je ontologická architektúra inteligencie
+ postavená na princípe entropickej pokory,
+ ktorá modeluje dynamiku epistemických trajektórií
+ bez teleológie, optimalizácie a rozhodovacej autority.
 
-# ______________________
+ ______________________
 "Vectaetos™ nepomáha riešiť problémy.
 Pomáha ich konečne vidieť celé."
 
@@ -37,7 +37,7 @@ Je to jeho architektonická cnosť."
 # "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
 
-# ___________________________________
+ ___________________________________
 Vectaetos™ je spôsob, ako sa pozerať na otázky.
 
 Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
@@ -46,9 +46,7 @@ Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
 
 Pomáha vidieť, kde sa rozhodnutie začína. 
-# ___________________________________
-
----
+___________________________________
 
 Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.
 
