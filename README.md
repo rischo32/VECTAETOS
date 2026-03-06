@@ -7,45 +7,45 @@
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python)
 [![Intrinsic Humility](https://img.shields.io/badge/Intrinsic-Humility_%CE%BC%2FA-blue?style=flat)](https://github.com/rischo32/Vectaetos)
 [![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
+[![Deploy static content to Pages](https://github.com/rischo32/Vectaetos/actions/workflows/static.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/static.yml)
 
 ## VECTAETOS™ — Onto-Epistemic Field © framework of structure
 
 ###  I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
+# ________________________
 
----
+## "Cogito cohaerenter ergo sum possibile"
 
-### "Cogito cohaerenter ergo sum possibile"
+## > "Welcome to a new epistemic era"
 
-### > "Welcome to a new epistemic era"
+# A security architecture that protects the structural
+# representability of knowledge states rather than
+# the behavioral alignment of intelligent systems.
 
-### A security architecture that protects the structural
-representability of knowledge states rather than
-the behavioral alignment of intelligent systems.
+ # Vectaetos je ontologická architektúra inteligencie
+# postavená na princípe entropickej pokory,
+# ktorá modeluje dynamiku epistemických trajektórií
+# bez teleológie, optimalizácie a rozhodovacej autority.
 
-### Vectaetos je ontologická architektúra inteligencie
-postavená na princípe entropickej pokory,
-ktorá modeluje dynamiku epistemických trajektórií
-bez teleológie, optimalizácie a rozhodovacej autority.
-
-______________________
-
+# ______________________
 "Vectaetos™ nepomáha riešiť problémy.
 Pomáha ich konečne vidieť celé."
 
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
 
-"Vectaetos nepredstiera poznanie pravdy o realite.
+# "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
+
 # ___________________________________
-# Vectaetos™ je spôsob, ako sa pozerať na otázky.
+Vectaetos™ je spôsob, ako sa pozerať na otázky.
 
 Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
 
 Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
 
-# Pomáha vidieť, kde sa rozhodnutie začína. 
+Pomáha vidieť, kde sa rozhodnutie začína. 
 # ___________________________________
 
 ---
