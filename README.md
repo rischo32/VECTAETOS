@@ -8,22 +8,20 @@
 [![Intrinsic Humility](https://img.shields.io/badge/Intrinsic-Humility_%CE%BC%2FA-blue?style=flat)](https://github.com/rischo32/Vectaetos)
 [![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
 
-## VECTAETOS™ — Onto-Epistemic Field © framework of structure
+# VECTAETOS™ — Onto-Epistemic Field © framework of structure
 
-##  I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
+ I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
  ________________________
 
-# "Cogito cohaerenter ergo sum possibile"
+"Cogito cohaerenter ergo sum possibile"
 
 # > "Welcome to a new epistemic era"
 
-# "Cesta osvietenia je dláždená temnotou."
+"Cesta osvietenia je dláždená temnotou."
+ "Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
 
-# "Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
-
-# "The path of enlightenment is paved with darkness."
-
-# "Intent is the spark that illuminates the present in the darkness of eternity."
+"The path of enlightenment is paved with darkness."
+ "Intent is the spark that illuminates the present in the darkness of eternity."
 
  A security architecture that protects the structural
  representability of knowledge states rather than
