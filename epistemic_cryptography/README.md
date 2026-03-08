@@ -1,5 +1,7 @@
 # Epistemic Cryptography
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18911932.svg)](https://doi.org/10.5281/zenodo.18911932)
+
 Epistemic Cryptography is a structural audit layer for relational systems.
 
 Unlike classical cryptography, which protects the content of information,
