@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "Epistemic Cryptography: A Structural Audit Layer for Relational Systems"
+version: "1.0"
+doi: 10.5281/zenodo.18911932
+date-released: 2026
+authors:
+  - family-names: Fonfara
+    given-names: Richard
+    orcid: "https://orcid.org/0009-0008-5980-8940"
+
+license: CC-BY-4.0
+
+abstract: >
+  Epistemic Cryptography is a structural audit layer designed for relational
+  systems. Unlike classical cryptography, which protects informational content,
+  the framework preserves the geometry of epistemic structure by recording
+  relational configurations through deterministic structural fingerprints.
+
+repository-code: https://vectaetos.eu
