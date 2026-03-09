@@ -1,67 +1,108 @@
-# VORTEX — Projection Layer of VECTAETOS™
+# VORTEX — Relational Dynamics Layer of VECTAETOS
 
-# Simulačný Vortex
-
-[![Vectaetos](https://img.shields.io/badge/Φ-Vectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
-
-Vortex is a projection interface built on top of the Vectaetos epistemic framework.
-
-It is not Φ.
-It does not modify Φ.
-It does not redefine 3Gate.
+Status: Official  
+Scope: Epistemic Field Deformation  
+Ontology: Non-Agentic  
 
 ---
 
-## Purpose
+# Overview
 
-Vortex provides:
+The Vortex is the **dynamical layer** of the VECTAETOS epistemic architecture.
 
-- Structural decomposition of user questions
-- 3Gate projection (W, H, D axes)
-- Delta-type deformation detection
-- Sigma structural tension estimation
-- Epistemic Moment visualization
+While the Core defines the ontological structure of the epistemic field
 
----
+Φ = (Σ, R)
 
-## Architectural Boundary
+the Vortex generates **candidate relational deformations** of that field.
 
-Vortex is a projection layer.
+The Vortex introduces **motion in epistemic space** without introducing:
 
-∂Φ / ∂Vortex = 0
+- optimization
+- goal functions
+- reward systems
+- agents
 
-Core ontological mechanisms remain in repository root:
-- 3GATE_MECHANISM.py
-- Anchors
-- Epistemic topology
-
-Vortex contains only:
-- UI logic
-- Projection scoring
-- Visualization
-- JSON schema definitions
+It therefore preserves the non-teleological nature of the VECTAETOS framework.
 
 ---
 
-## Transparency
+# Vortex Operator
 
-The scoring model used in Vortex is structural and deterministic.
-It does not interpret meaning.
-It does not evaluate morality.
-It does not store user data.
+The Simulation Vortex is formally defined as:
 
-Projection schema:
-- /vortex/projection/delta_schema.json
+V : Φ → {Φ₁ … Φₙ}
+
+where each candidate field is
+
+Φᵢ = (Σ, Rᵢ)
+
+Properties:
+
+- Σ remains invariant
+- Rᵢ preserves antisymmetry
+- relational tension remains bounded
+- no preferred trajectory exists
+
+The Vortex generates **possible relational configurations**, not solutions.
 
 ---
 
-## Status
+# Structural Constraints
 
-Experimental projection interface.
-Not a decision engine.
-Not an AI model.
-Not an authority.
+The Vortex must preserve the core invariants of the epistemic field.
 
-VECTAETOS™ — Onto-Epistemic Field Framework
-© 2026 Richard Fonfára
-All projections are non-prescriptive.
+These include:
+
+- antisymmetry of R
+- invariance of Σ
+- absence of optimization operators
+- absence of global attractors
+
+Thus the Vortex performs **structural deformation without teleology**.
+
+---
+
+# Relation to QE
+
+Certain relational deformations may leave the admissible epistemic space.
+
+This results in:
+
+QE — Qualitative Epistemic Aporia.
+
+QE is not an error condition.
+
+It represents the **boundary of epistemic representability**.
+
+---
+
+# Implementation
+
+The reference implementation of the vortex dynamics is provided in:
+VORTEX_CORE_PHI_v1.0.0.py
+
+This implementation explores relational deformation of the epistemic field while preserving the structural constraints of VECTAETOS.
+
+---
+
+# Architectural Context
+
+The Vortex operates between the ontological core and the audit layer.
+
+Architecture: Core (ontology of Φ) ↓ Vortex (relational deformation) ↓ Epistemic Cryptography (structural audit)
+
+The Vortex therefore acts as a **structural probe of epistemic space**.
+
+---
+
+# Principle
+
+The Vortex does not search for answers.
+
+It reveals how the epistemic field **can deform without collapsing coherence**.
+
+---
+
+© VECTAETOS™
+
