@@ -383,6 +383,15 @@ Use of this framework does not transfer decision authority.
 
 See LICENSE.md
 
+## Compliance
+
+Vectaetos 1.x includes a regulatory position statement
+regarding Regulation (EU) 2024/1689.
+
+See:
+
+/compliance/EU_AI_ACT_POSITION.md
+
 ------------------------------------------------------------
 
 FINAL NOTE
