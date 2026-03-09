@@ -7,7 +7,6 @@
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python)
 [![Intrinsic Humility](https://img.shields.io/badge/Intrinsic-Humility_%CE%BC%2FA-blue?style=flat)](https://github.com/rischo32/Vectaetos)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./compliance/EU_AI_ACT_POSITION.md)
-[![CodeQL(https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
 
