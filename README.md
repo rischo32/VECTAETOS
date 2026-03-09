@@ -9,8 +9,6 @@
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./compliance/EU_AI_ACT_POSITION.md)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
-
- I N F O : ... v procese aktualne finalna formulacia matematiky ktora realne riesi celo civilizačnú otázku bezpečnosti voči "Terminatorom"
  ________________________
 
 "Cogito cohaerenter ergo sum possibile"
