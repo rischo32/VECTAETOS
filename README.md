@@ -391,6 +391,15 @@ See:
 /compliance/EU_AI_ACT_POSITION.md
 
 ------------------------------------------------------------
+## Papers
+
+- Vectaetos: Epistemic Field Architecture  
+  [PDF](papers/Vectaetos_ArXiv_Preprint_v1.pdf)
+
+- Epistemic Cryptography  
+  [Zenodo DOI](https://zenodo.org/records/18911932)
+
+  ______________________
 
 FINAL NOTE
 
