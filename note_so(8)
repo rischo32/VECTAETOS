@@ -1,0 +1,240 @@
+# SO(8) — Practical Notes for VECTAETOS
+
+## 1. Základná definícia
+
+SO(8) = Special Orthogonal Group in 8 dimensions.
+
+Formálne:
+
+SO(8) = { R ∈ ℝ⁸ˣ⁸ | RᵀR = I , det(R) = 1 }
+
+Interpretácia:
+
+SO(8) obsahuje všetky **rotácie v 8-rozmernom priestore**.
+
+Je to **Lie group**.
+
+---
+
+## 2. Lie algebra
+
+Lie algebra tejto grupy je:
+
+so(8)
+
+Definícia:
+
+so(8) = { A ∈ ℝ⁸ˣ⁸ | Aᵀ = −A }
+
+teda **antisymetrické 8×8 matice**.
+
+Rozmer algebry:
+
+dim so(8) = 8(8 − 1)/2 = 28
+
+To znamená:
+
+so(8) má **28 nezávislých generátorov rotácie**.
+
+---
+
+## 3. Prečo sa objaví číslo 28
+
+Ak máme:
+
+8 objektov
+
+potom počet antisymetrických relácií medzi nimi je:
+
+8 choose 2 = 28
+
+To znamená: 8 singularít 28 relácií
+
+→ presne zodpovedá **so(8)**.
+
+---
+
+## 4. Vzťah medzi so(8) a SO(8)
+
+Lie algebra generuje grupu cez exponenciálnu mapu:
+
+R = exp(A)
+
+kde
+
+A ∈ so(8)
+R ∈ SO(8)
+
+Interpretácia:
+
+so(8) = generátory rotácií  
+SO(8) = samotné rotácie.
+
+---
+
+## 5. Eigenvalues antisymetrickej matice
+
+Ak:
+
+A ∈ so(8)
+
+potom:
+
+eigenvalues sú **čisto imaginárne**.
+
+λ = ± iω
+
+Interpretácia:
+
+systém neprodukuje gradient ani optimalizáciu,
+ale **rotácie v priestore relácií**.
+
+---
+
+## 6. Trialita
+
+so(8) je špeciálna Lie algebra,
+pretože má **výnimočnú symetriu nazývanú trialita**.
+
+Existujú tri ekvivalentné reprezentácie:
+
+V⁸   — vektorová reprezentácia  
+S⁺⁸  — pozitívna spinorová  
+S⁻⁸  — negatívna spinorová  
+
+Automorfizmus:
+
+τ : V⁸ → S⁺⁸ → S⁻⁸ → V⁸
+
+To znamená:
+
+žiadna z reprezentácií nie je privilegovaná.
+
+---
+
+## 7. Bezpečnostná interpretácia triality
+
+Trialita znamená:
+
+žiadna os systému nemôže byť permanentne dominantná.
+
+Ak by dominancia vznikla:
+
+|λ₁| >> |λ₂|
+
+trialita sa rozpadne.
+
+Interpretácia:
+
+trialita = **prirodzený anti-dominance mechanizmus**.
+
+---
+
+## 8. Vzťah k oktoniónom
+
+Trialita súvisí s algebrou:
+
+𝕆 = octonions
+
+Automorfizmy oktoniónov:
+
+G₂ = Aut(𝕆)
+
+a platí:
+
+G₂ ⊂ SO(8)
+
+To znamená že:
+
+geometria so(8) je úzko spojená s **výnimkovými Lie algebrami**.
+
+---
+
+## 9. Pre Epistemickú Kryptografiu
+
+Relational matrix:
+
+A = [Aᵢⱼ]
+
+má vlastnosť:
+
+Aᵀ = −A
+
+teda:
+
+A ∈ so(n)
+
+Ak:
+
+n = 8
+
+potom:
+
+A ∈ so(8)
+
+a spektrálna analýza:
+
+Spec(A) = {λ₁ … λ₈}
+
+odhaľuje:
+
+- dominantné módy
+- centralizáciu
+- symetrický kolaps.
+
+---
+
+## 10. Architektúra v systéme VECTAETOS
+
+Vectaetos pole:
+
+Φ = (Σ, R)
+
+Σ = {σ₁ … σ₈}
+
+Relational observables:
+
+Aᵢⱼ
+
+Relational matrix:
+
+A ∈ so(8)
+
+Spektrálna analýza:
+
+Spec(A)
+
+Trialita:
+
+SO(8) symetria
+
+---
+
+## 11. Intuitívny obraz
+
+so(8)
+
+= algebra **napätí medzi 8 bodmi**.
+
+SO(8)
+
+= všetky možné **rotácie tejto konfigurácie**.
+
+Trialita
+
+= symetria ktorá nedovolí
+dominanciu jednej osi systému.
+
+---
+
+## 12. Prečo je so(8) výnimočná
+
+so(8) je jediná Lie algebra kde existuje:
+
+trialita (symetria rádu 3).
+
+Preto sa často objavuje v:
+
+- string theory
+- exceptional geometry
+- octonionic algebra
