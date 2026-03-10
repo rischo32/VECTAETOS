@@ -17,6 +17,17 @@ It does not compute, decide, evaluate, or optimize.
 
 ZMYSEL defines only whether epistemic structure can exist as meaningful configuration.
 
+Definition (Epistemic Carrier)
+
+The epistemic carrier Ξ is not an active structure of the system.
+
+Ξ denotes the ontological condition under which relational epistemic
+fields Φ can exist as representable configurations.
+
+Mathematically Ξ is expressed as the set of representable fields,
+but ontologically it represents the substrate that allows epistemic
+structures to be instantiated.
+
 ---
 
 1. Ontological Position
