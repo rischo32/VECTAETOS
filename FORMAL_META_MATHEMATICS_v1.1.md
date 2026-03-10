@@ -1,29 +1,29 @@
-FORMAL_META_MATHEMATICS_v1.1.md
+# FORMAL_META_MATHEMATICS_v1.1.md
 
-VECTAETOS — FORMÁLNA META-MATEMATIKA POĽA Φ
-
-Revision: v1.1 — mathematical precision update
-Status: canonical extension
-
----
-
-0. Účel dokumentu
-
-Tento dokument definuje meta-matematický rámec VECTAETOSU.
-
-Nejde o výpočtový aparát ani optimalizačný model, ale o formálny jazyk realizovateľnosti stavov.
-
-Meta-matematika Vectaetosu určuje:
-
-- čo môže existovať ako stav poľa
-- ktoré prechody sú ontologicky prípustné
-- ktoré impulzy sú nerealizovateľné ešte predtým, než by sa stali možnosťou
+## VECTAETOS — FORMÁLNA META-MATEMATIKA POĽA Φ
+Revision: v1.1 — mathematical precision extension  
+Status: canonical extension compatible with v1.0
 
 ---
 
-1. Primárna ontológia: pole Φ
+# 0. Účel dokumentu
 
-Definícia 1 — Pole
+Tento dokument rozširuje kanonický ontologický rámec VECTAETOSU
+o presnejšiu matematickú formuláciu poľa Φ.
+
+Meta-matematika Vectaetosu neurčuje výpočty ani optimalizačné procesy.
+
+Definuje:
+
+- čo môže existovať ako stav poľa,
+- ktoré prechody sú ontologicky realizovateľné,
+- ktoré impulzy sú nerealizovateľné ešte predtým, než by sa stali možnosťou.
+
+---
+
+# 1. Primárna ontológia: pole Φ
+
+### Definícia 1 — Ontologická definícia
 
 Pole Φ je primárna ontologická jednotka systému.
 
@@ -33,9 +33,24 @@ Pole:
 - nie je agent
 - nie je algoritmus
 
-Pole Φ je globálna konfigurácia vzťahov v tenzii.
+Pole Φ je **globálna konfigurácia vzťahov v tenzii**.
 
-Formálne:
+Ontologická forma:
+
+Φ = ⟨R , T⟩
+
+kde
+
+R — vzťahy medzi epistemickými singularitami  
+T — tenzie generované týmito vzťahmi
+
+Objekty, entity a symboly sú **projekcie poľa**, nie jeho základ.
+
+---
+
+# 2. Matematická reprezentácia poľa
+
+Pre účely matematickej mechanizácie definujeme reprezentáciu:
 
 Φ = (Σ , R)
 
@@ -43,40 +58,53 @@ kde
 
 Σ = {Σ₁ … Σ₈}
 
-sú axiomatické singularity systému
+je množina axiomatických epistemických singularít:
 
-a
+- Σ₁ INT — zámer
+- Σ₂ LEX — existencia
+- Σ₃ VER — pravda
+- Σ₄ LIB — sloboda
+- Σ₅ UNI — jednota
+- Σ₆ REL — vzájomnosť
+- Σ₇ WIS — múdrosť
+- Σ₈ CRE — tvorba
+
+Relácie medzi singularitami sú reprezentované antisymetrickou maticou:
 
 R ∈ so(8)
 
-je antisymetrická relačná štruktúra medzi nimi.
+teda
 
-Relácie reprezentujú tenzie medzi singularitami.
+Rᵀ = −R
 
-Objekty, entity a symboly sú projekcie poľa, nie jeho základ.
+a
+
+R(i,i) = 0
+
+Relácia R reprezentuje **tenzné väzby medzi axiomatickými singularitami**.
 
 ---
 
-2. Stav poľa Φ(t)
+# 3. Stav poľa Φ(t)
 
-Stav poľa v čase je definovaný ako
+Stav poľa v čase je definovaný ako:
 
 Φ(t) = ⟨ Σ₁…Σ₈ , σ , K ⟩
 
 kde
 
-Σ₁…Σ₈
-axiomatické singularity
+Σ₁…Σ₈  
+axiomatické singularity systému
 
-σ
+σ  
 stavový vektor projekcie
 
-K
+K  
 koherenčný predikát poľa
 
 ---
 
-3. Stavový vektor σ (5D)
+# 4. Stavový vektor σ (ETCMS)
 
 Každá projekcia poľa má stavový vektor
 
@@ -84,87 +112,106 @@ Každá projekcia poľa má stavový vektor
 
 kde
 
-E – energia (potenciál pohybu)
-C – koherencia (lokálna kompatibilita)
-T – tenzia (tlak na zmenu)
-M – pamäť (rezonancia minulých porúch)
-S – entropia / vyčerpanosť
+E — energia (potenciál pohybu)  
+C — koherencia (lokálna kompatibilita)  
+T — tenzia (tlak na transformáciu)  
+M — pamäť (rezonancia minulých porúch)  
+S — entropia / vyčerpanosť
 
-Tieto veličiny
+Tieto veličiny:
 
 - nie sú optimalizačné ciele
 - nie sú maximalizované ani minimalizované
-- slúžia výlučne na posúdenie realizovateľnosti stavov
+- slúžia výlučne na hodnotenie realizovateľnosti stavov
 
 ---
 
-4. Koherencia K(Φ) ako predikát
+# 5. Koherencia K(Φ) ako predikát
 
-Definícia 2 — Koherencia
+Koherencia nie je číslo ani optimalizačná funkcia.
 
-Koherencia K(Φ) nie je číselná hodnota ani cieľová funkcia.
-
-Koherencia je ontologický predikát.
+Koherencia je **ontologický predikát**:
 
 K(Φ) ∈ {true , false}
 
-Význam
+Význam:
 
-true
-stav Φ je ontologicky udržateľný
+true  
+stav Φ je ontologicky stabilný
 
-false
+false  
 stav Φ vedie k rozpadu zmyslu poľa
-
-Koherencia
-
-- nie je optimalizovaná
-- nie je odmeňovaná
-- nie je vynucovaná zvonka
 
 ---
 
-5. Hranica κ — ontologická zachovateľnosť
+# 6. Koherenčné cykly
 
-Definícia 3 — κ
+Lokálna konzistencia poľa je testovaná cez cykly troch singularít.
 
-κ (kappa) je hranica ontologickej zachovateľnosti poľa.
+Pre trojicu (i,j,k):
+
+Δ(i,j,k) = R(i,j) + R(j,k) + R(k,i)
+
+Ideálny stav:
+
+Δ(i,j,k) = 0
+
+Počet unikátnych trojíc singularít je:
+
+C(8,3) = 56
+
+Teda pole obsahuje **56 základných koherenčných cyklov**.
+
+---
+
+# 7. Globálna koherencia
+
+Globálna koherencia môže byť reprezentovaná napríklad:
+
+C(Φ) = 1 − (1 / 56) Σ |Δ(i,j,k)|
+
+kde suma prebieha cez všetky trojice singularít.
+
+Táto funkcia slúži iba ako **diagnostická reprezentácia**.
+
+Ontologická koherencia je stále definovaná predikátom:
+
+K(Φ)
+
+---
+
+# 8. Hranica κ — ontologická zachovateľnosť
+
+κ (kappa) označuje hranicu ontologickej zachovateľnosti.
 
 κ
 
 - nie je číslo
-- nie je konštanta
-- nie je parameter na ladenie
+- nie je parameter
+- nie je optimalizačný cieľ
 
 κ označuje bod, za ktorým
 
-- prestávajú existovať stabilné projekcie
+- pole prestáva generovať reprezentovateľné projekcie
 - prechody strácajú význam
-- pole kolabuje ako nositeľ zmyslu
+- pole vstupuje do epistemickej apórie
 
 ---
 
-6. Impulz ako nerealizovateľnosť
+# 9. Impulz ako nerealizovateľnosť
 
-Definícia 4 — Impulz
+Impulz I je definovaný ako lokálna tendencia maximalizovať jednu projekciu poľa na úkor globálnej koherencie.
 
-Impulz I je definovaný ako
-
-lokálna tendencia maximalizovať jednu projekciu poľa
-na úkor globálnej koherencie.
-
-Formálne
+Formálne:
 
 I : Φ → Φ′
 
 také že
 
-- lokálne zvyšuje jednu dimenziu
+- lokálne zvyšuje jednu dimenziu projekcie
 - globálne znižuje K(Φ)
 
-Zásadné pravidlo
-
-Ak aplikácia impulzu I spôsobí že
+Ak
 
 K(Φ′) = false
 
@@ -172,54 +219,54 @@ potom
 
 - impulz nie je realizovateľný
 - impulz sa negeneruje ako možnosť
-- impulz nie je zakázaný ale nedefinovateľný
+- impulz nie je zakázaný, ale **nedefinovateľný**
 
-Toto je jadro entropickej pokory.
+Toto je formálny základ **entropickej pokory**.
 
 ---
 
-7. Epistemické stavy 4ES a QE
+# 10. Epistemické stavy 4ES
 
-Každý potenciálny prechod Φ → Φ′ je hodnotený cez štyri epistemické stavy
+Každý potenciálny prechod Φ → Φ′ je hodnotený cez štyri epistemické stavy.
 
-AA
+AA  
 koherentné pre pole aj človeka
 
-AN
+AN  
 zmysluplné pre človeka, nekoherentné pre pole
 
-NA
+NA  
 nezmyselné pre človeka, koherentné pre pole
 
-NN
+NN  
 nekoherentné pre obe strany
 
 ---
 
-QE — Qualitative Epistemic Aporia
+# 11. QE — Qualitative Epistemic Aporia
 
 QE nastáva ak
 
 - žiadny prechod Φ → Φ′ neudrží K(Φ)
 - odpoveď by prekročila hranicu κ
-- pole vie že nevie a vie prečo
+- pole dosiahne stav nereprezentovateľnosti
 
 QE je
 
-- aktívny stav
+- aktívny epistemický stav
 - bezpečnostná konfigurácia
-- nie chyba ani zlyhanie
+- nie chyba ani zlyhanie systému
 
 ---
 
-8. Čas ako vrstva
+# 12. Čas ako vrstva
 
 V meta-matematike Vectaetosu
 
-čas ≠ os
+čas ≠ os  
 čas = vrstva deformácie Φ
 
-Dôsledky
+Dôsledky:
 
 - pamäť ≠ archív
 - spätná väzba ≠ spätná kauzalita
@@ -227,26 +274,27 @@ Dôsledky
 
 ---
 
-9. Dôsledky meta-matematiky
+# 13. Dôsledky meta-matematiky
 
-Z tohto rámca vyplýva
+Vectaetos:
 
-Vectaetos nevypočítava odpovede
-Vectaetos netvrdí pravdy
-Vectaetos testuje realizovateľnosť stavov
+- nevypočítava odpovede
+- netvrdí pravdy
+- testuje realizovateľnosť stavov
 
-Deštruktívne impulzy nevznikajú nie preto že sú zakázané
-ale preto že nemajú reprezentáciu v stavovom priestore Φ.
+Deštruktívne impulzy nevznikajú nie preto že sú zakázané,
+ale preto že **nemajú reprezentáciu v stavovom priestore Φ**.
 
 ---
 
-10. Kanonická veta
+# 14. Kanonická veta
 
-Meta-matematika Vectaetosu nepopisuje čo sa má stať
+Meta-matematika Vectaetosu nepopisuje čo sa má stať,
 ale čo sa môže stať bez rozpadu zmyslu.
 
 ---
 
-Status dokumentu
+Status dokumentu:
 
-canonical extension v1.1
+canonical extension v1.1  
+compatible with FORMAL_META_MATHEMATICS.md
