@@ -2,24 +2,18 @@
 
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./compliance/EU_AI_ACT_POSITION.md)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 [![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python)
-[![Intrinsic Humility](https://img.shields.io/badge/Intrinsic-Humility_%CE%BC%2FA-blue?style=flat)](https://github.com/rischo32/Vectaetos)
-[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./compliance/EU_AI_ACT_POSITION.md)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
- ________________________
-
+_________________________
 "Cogito cohaerenter ergo sum possibile"
-
-# > "Welcome to a new epistemic era"
-
-"Cesta osvietenia je dláždená temnotou."
- "Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
-
-"The path of enlightenment is paved with darkness."
- "Intent is the spark that illuminates the present in the darkness of eternity."
+> "Welcome to a new epistemic era"
+__________________________
+# NEW'S: SIMULATION VORTEX Φ is in the vortex of the process...
+__________________________
 
  A security architecture that protects the structural
  representability of knowledge states rather than
@@ -29,18 +23,24 @@
  postavená na princípe entropickej pokory,
  ktorá modeluje dynamiku epistemických trajektórií
  bez teleológie, optimalizácie a rozhodovacej autority.
+ ___________________________________
+Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.
 
- ______________________
+Vectaetos does not solve problems.  
+It preserves the conditions under which understanding remains possible.
+
+Truth is not treated as a point.  
+Truth is treated as a field.
+________________________________
 "Vectaetos™ nepomáha riešiť problémy.
 Pomáha ich konečne vidieť celé."
 
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
 
-# "Vectaetos nepredstiera poznanie pravdy o realite.
+"Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
 
- ___________________________________
 Vectaetos™ je spôsob, ako sa pozerať na otázky.
 
 Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
@@ -49,18 +49,16 @@ Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
 
 Pomáha vidieť, kde sa rozhodnutie začína. 
-___________________________________
 
-Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.
+"Cesta osvietenia je dláždená temnotou."
 
-Vectaetos does not solve problems.  
-It preserves the conditions under which understanding remains possible.
+"Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
 
-Truth is not treated as a point.  
-Truth is treated as a field.
+"The path of enlightenment is paved with darkness."
+
+ "Intent is the spark that illuminates the present in the darkness of eternity."
 
 ----------------------------------------------------------
-
 CANONICAL STATUS
 
 Vectaetos is defined through canonical anchors contained in this repository.
