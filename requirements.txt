@@ -4,13 +4,7 @@ pandas
 pytest
 nano
 x11-repo
-vulkan
-glsg
-root-repo
 neovim
 npm
-pip
-termux-util
-aarch64
+python
 python3
-python-venv
