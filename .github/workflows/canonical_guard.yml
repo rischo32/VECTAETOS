@@ -1,0 +1,32 @@
+name: Canonical Ontology Guard
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  canonical-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Detect canonical ontology modifications
+        run: |
+          echo "Checking canonical ontology files..."
+
+          CHANGED=$(git diff --name-only HEAD^ HEAD | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
+
+          if [ ! -z "$CHANGED" ]; then
+            echo ""
+            echo "🚨 Canonical ontology files modified:"
+            echo "$CHANGED"
+            echo ""
+            echo "ERROR: Ontological layer modification detected."
+            echo "Canonical files must not change without explicit ontology protocol."
+            exit 1
+          fi
+
+          echo "Canonical ontology integrity preserved."
