@@ -6,11 +6,12 @@ on:
   pull_request:
 
 jobs:
-  ontology-check:
+  ontology-guard:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -21,8 +22,31 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install import-linter grimp
 
-      - name: Run ontology check
+      - name: Debug repository structure
         run: |
-          lint-imports
+          echo "Repository structure:"
+          ls -R
+
+      - name: Verify Python packages
+        run: |
+          echo "Checking package visibility"
+          python - <<EOF
+import os
+
+packages = ["Core","vortex","epistemic_cryptography","formal"]
+
+for p in packages:
+    if os.path.isdir(p):
+        init = os.path.join(p,"__init__.py")
+        print(f"{p}: ", "OK" if os.path.exists(init) else "MISSING __init__.py")
+EOF
+
+      - name: Run Ontology Guard (Import Linter)
+        run: |
+          lint-imports --config importlinter.ini
+
+      - name: Ontology Guard Passed
+        run: |
+          echo "Ontology integrity preserved"
