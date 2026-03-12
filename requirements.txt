@@ -3,7 +3,6 @@ matplotlib
 pandas
 pytest
 nano
-x11-repo
 neovim
 npm
 python
