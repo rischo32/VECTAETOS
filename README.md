@@ -6,6 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 [![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg?logo=python)
+[![Vortex Test](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_test.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_test.yml)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
 _________________________
