@@ -14,4 +14,3 @@ termux-util
 aarch64
 python3
 python-venv
-python3-pypy
