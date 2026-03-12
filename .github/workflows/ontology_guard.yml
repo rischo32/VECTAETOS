@@ -44,6 +44,9 @@ for p in packages:
         print(f"{p}: MISSING {init}")
 EOF
 
+      - name: Show import graph
+        run: lint-imports --show-imports
+  
       - name: Run Ontology Guard
         run: lint-imports --config importlinter.ini
 
