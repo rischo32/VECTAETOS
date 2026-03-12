@@ -5,5 +5,3 @@ pytest
 nano
 neovim
 npm
-python
-python3
