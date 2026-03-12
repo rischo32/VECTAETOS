@@ -16,6 +16,19 @@ pycache/
 *.so
 *.pyd
 
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+.venv
+venv/
+
+*.log
+
+.DS_Store
+
 Python virtual environments
 
 venv/
