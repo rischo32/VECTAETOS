@@ -1,0 +1,17 @@
+numpy
+matplotlib
+pandas
+pytest
+nano
+x11-repo
+vulkan
+glsg
+root-repo
+neovim
+npm
+pip
+termux-util
+aarch64
+python3
+python-venv
+python3-pypy
