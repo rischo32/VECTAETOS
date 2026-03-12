@@ -2,7 +2,7 @@ name: Ontology Guard
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
 
 jobs:
@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -38,15 +37,15 @@ import os
 packages = ["Core","vortex","epistemic_cryptography","formal"]
 
 for p in packages:
-    if os.path.isdir(p):
-        init = os.path.join(p,"__init__.py")
-        print(f"{p}: ", "OK" if os.path.exists(init) else "MISSING __init__.py")
+    init = os.path.join(p,"__init__.py")
+    if os.path.exists(init):
+        print(f"{p}: OK")
+    else:
+        print(f"{p}: MISSING {init}")
 EOF
 
-      - name: Run Ontology Guard (Import Linter)
-        run: |
-          lint-imports --config importlinter.ini
+      - name: Run Ontology Guard
+        run: lint-imports --config importlinter.ini
 
       - name: Ontology Guard Passed
-        run: |
-          echo "Ontology integrity preserved"
+        run: echo "Ontology integrity preserved"
