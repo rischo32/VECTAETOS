@@ -31,7 +31,7 @@ jobs:
       - name: Verify Python packages
         run: |
           echo "Checking package visibility"
-          python - <<EOF
+          python - <<'EOF'
 import os
 
 packages = ["Core","vortex","epistemic_cryptography","formal"]
@@ -52,3 +52,4 @@ EOF
 
       - name: Ontology Guard Passed
         run: echo "Ontology integrity preserved"
+
