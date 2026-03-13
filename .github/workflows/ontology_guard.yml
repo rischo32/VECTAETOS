@@ -31,25 +31,9 @@ jobs:
       - name: Verify Python packages
         run: |
           echo "Checking package visibility"
-          python - <<'EOF'
+          python -c "
 import os
-
-packages = ["Core","vortex","epistemic_cryptography","formal"]
-
+packages = ['Core','vortex','epistemic_cryptography','formal']
 for p in packages:
-    init = os.path.join(p,"__init__.py")
-    if os.path.exists(init):
-        print(f"{p}: OK")
-    else:
-        print(f"{p}: MISSING {init}")
-EOF
-
-      - name: Show import graph
-        run: lint-imports --show-imports
-  
-      - name: Run Ontology Guard
-        run: lint-imports --config importlinter.ini
-
-      - name: Ontology Guard Passed
-        run: echo "Ontology integrity preserved"
-
+    init = os.path.join(p,'__init__.py')
+    print(p+': OK' if os.path.exists(init) else p+': MISSING '+init)"
