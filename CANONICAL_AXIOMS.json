@@ -1,0 +1,12 @@
+{
+ "axioms": [
+  "INT",
+  "LEX",
+  "VER",
+  "REL",
+  "WIS",
+  "CRE",
+  "LIB",
+  "UNI"
+ ]
+}
