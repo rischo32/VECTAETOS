@@ -1,0 +1,37 @@
+name: Epistemic Observatory
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  observatory:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate ontology hash
+        run: |
+          python scripts/generate_ontology_hash.py
+
+      - name: Update observatory
+        run: |
+          python scripts/ontology_observatory.py
+
+      - name: Commit observatory data
+        run: |
+          git config --global user.name "vectaetos-observatory"
+          git config --global user.email "observatory@vectaetos.eu"
+          git add docs/observatory.json
+          git commit -m "update epistemic observatory" || echo "no changes"
+          git push
