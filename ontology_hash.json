@@ -1,0 +1,11 @@
+{
+  "ontology": "VECTAETOS",
+  "version": "1.0",
+  "invariant": {
+    "singularities": 8,
+    "algebra": "so(8)",
+    "triality": true
+  },
+  "canonical_files": {},
+  "root_hash": {}
+}
