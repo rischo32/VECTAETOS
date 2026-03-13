@@ -4,81 +4,40 @@ import hashlib
 import json
 import base64
 from pathlib import Path
-import sha3
 
 
-# -------------------------------
-# Canonical ontology files
-# -------------------------------
-
-CANONICAL_FILES = [
-    "formal/ZMYSEL.md"
-]
+FORMAL_DIR = Path("formal")
 
 
-# -------------------------------
-# Hash helpers (Base64)
-# -------------------------------
-
-def sha256_hash_b64(data: bytes) -> str:
-    h = hashlib.sha256(data).digest()
-    return base64.b64encode(h).decode()
+def sha256_b64(data: bytes):
+    return base64.b64encode(hashlib.sha256(data).digest()).decode()
 
 
-def keccak256_hash_b64(data: bytes) -> str:
-    k = sha3.keccak_256()
-    k.update(data)
-    h = k.digest()
-    return base64.b64encode(h).decode()
+def sha3_256_b64(data: bytes):
+    return base64.b64encode(hashlib.sha3_256(data).digest()).decode()
 
 
-# -------------------------------
-# Generate hashes
-# -------------------------------
+canonical_files = {}
 
-canonical_hashes = {}
+for file in sorted(FORMAL_DIR.glob("*.md")):
 
-for file in CANONICAL_FILES:
+    data = file.read_bytes()
 
-    path = Path(file)
-
-    if not path.exists():
-        raise SystemExit(f"Missing canonical file: {file}")
-
-    data = path.read_bytes()
-
-    canonical_hashes[file] = {
-        "sha256": sha256_hash_b64(data),
-        "keccak256": keccak256_hash_b64(data)
+    canonical_files[str(file)] = {
+        "sha256": sha256_b64(data),
+        "sha3_256": sha3_256_b64(data)
     }
 
 
-# -------------------------------
-# Merkle-like root hash
-# -------------------------------
-
 combined = "".join(
-    canonical_hashes[f]["sha256"]
-    for f in sorted(canonical_hashes)
+    canonical_files[f]["sha256"]
+    for f in sorted(canonical_files)
 ).encode()
 
 
-root_sha256 = base64.b64encode(
-    hashlib.sha256(combined).digest()
-).decode()
+root_sha256 = base64.b64encode(hashlib.sha256(combined).digest()).decode()
+root_sha3 = base64.b64encode(hashlib.sha3_256(combined).digest()).decode()
 
-
-k = sha3.keccak_256()
-k.update(combined)
-
-root_keccak = base64.b64encode(
-    k.digest()
-).decode()
-
-
-# -------------------------------
-# Output JSON
-# -------------------------------
 
 output = {
     "ontology": "VECTAETOS",
@@ -88,10 +47,10 @@ output = {
         "algebra": "so(8)",
         "triality": True
     },
-    "canonical_files": canonical_hashes,
+    "canonical_files": canonical_files,
     "root_hash": {
         "sha256": root_sha256,
-        "keccak256": root_keccak
+        "sha3_256": root_sha3
     }
 }
 
@@ -99,6 +58,4 @@ output = {
 with open("ontology_hash.json", "w") as f:
     json.dump(output, f, indent=2)
 
-
-print("Ontology hash generated:")
-print(json.dumps(output, indent=2))
+print("Ontology Merkle root generated.")
