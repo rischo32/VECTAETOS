@@ -1,31 +1,60 @@
-import json
-from datetime import datetime
-from pathlib import Path
+name: Epistemic Observatory
 
-status_file = Path("field_status.json")
-history_file = Path("observatory_history.json")
+on:
+  push:
+    branches:
+      - main
 
-if not status_file.exists():
-    print("No field_status.json")
-    exit()
+permissions:
+  contents: write
+  pull-requests: write
 
-status = json.load(open(status_file))
+jobs:
 
-entry = {
-    "time": datetime.utcnow().isoformat(),
-    "h_topo": status["h_topo_mean"],
-    "qe": status["qe_total"],
-    "triality": status["triality_ok"]
-}
+  observatory:
 
-if history_file.exists():
-    history = json.load(open(history_file))
-else:
-    history = []
+    runs-on: ubuntu-latest
 
-history.append(entry)
+    steps:
 
-with open(history_file,"w") as f:
-    json.dump(history,f,indent=2)
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-print("Observatory updated")
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Generate ontology hash
+        run: |
+          python scripts/generate_ontology_hash.py
+
+      - name: Update epistemic observatory
+        run: |
+          python scripts/ontology_observatory.py
+
+      - name: Epistemic Drift Detection
+        run: |
+          python scripts/epistemic_drift.py || true
+
+      - name: Φ Field Monitor
+        run: |
+          python scripts/phi_field_monitor.py || true
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: update epistemic observatory
+          title: Epistemic Observatory Update
+          body: |
+            Automated update of:
+            - ontology hash
+            - observatory timeline
+            - drift metrics
+            - Φ field state
+          branch: observatory-update
+          delete-branch: true
