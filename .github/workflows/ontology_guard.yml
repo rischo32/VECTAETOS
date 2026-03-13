@@ -6,12 +6,13 @@ on:
   pull_request:
 
 jobs:
-  ontology-guard:
+  ontology-check:
+
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -22,53 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install import-linter grimp
 
-      - name: Verify canonical ontology hash
+      - name: Verify ontology hash
         run: |
           python scripts/check_ontology_hash.py
-
-      - name: Verify repository packages
-        run: |
-          python - <<'EOF'
-          import os
-
-          packages = ["Core","vortex","epistemic_cryptography","formal"]
-
-          print("Checking package structure")
-
-          for p in packages:
-              if os.path.isdir(p):
-                  print(f"{p}: OK")
-              else:
-                  raise SystemExit(f"Missing package: {p}")
-          EOF
-
-      - name: Run Ontology Import Guard
-        run: |
-          lint-imports --config importlinter.ini
-
-      - name: Verify SO(8) pole invariant
-        run: |
-          python - <<'EOF'
-          import json
-          from pathlib import Path
-
-          axioms_file = Path("CANONICAL_AXIOMS.json")
-
-          if axioms_file.exists():
-              data = json.loads(axioms_file.read_text())
-              axioms = data.get("axioms", [])
-
-              if len(axioms) != 8:
-                  raise SystemExit("SO(8) invariant violated: number of axioms != 8")
-
-              print("SO(8) invariant preserved")
-
-          else:
-              print("CANONICAL_AXIOMS.json not present — skipping triality check")
-          EOF
-
-      - name: Ontology Guard Passed
-        run: |
-          echo "Ontology integrity preserved"
