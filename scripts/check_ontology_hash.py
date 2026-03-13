@@ -1,19 +1,35 @@
 import json
 import hashlib
+import base64
 from pathlib import Path
 
+
+FORMAL_DIR = Path("formal")
+
+
+def sha256_b64(data):
+    return base64.b64encode(hashlib.sha256(data).digest()).decode()
+
+
+def sha3_256_b64(data):
+    return base64.b64encode(hashlib.sha3_256(data).digest()).decode()
+
+
 with open("ontology_hash.json") as f:
-    stored = json.load(f)
+    reference = json.load(f)
 
-for file, expected in stored.items():
-    p = Path(file)
 
-    if not p.exists():
+for file, hashes in reference["canonical_files"].items():
+
+    path = Path(file)
+
+    if not path.exists():
         raise SystemExit(f"Missing canonical file: {file}")
 
-    h = hashlib.sha256(p.read_bytes()).hexdigest()
+    data = path.read_bytes()
 
-    if h != expected:
-        raise SystemExit(f"Ontology violation: {file} modified")
+    if sha256_b64(data) != hashes["sha256"]:
+        raise SystemExit(f"Ontology drift detected in {file}")
 
-print("Canonical ontology intact.")
+
+print("Ontology integrity verified.")
