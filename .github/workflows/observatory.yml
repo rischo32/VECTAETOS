@@ -31,15 +31,11 @@ jobs:
         run: |
           python scripts/ontology_observatory.py
 
-      - name: Commit observatory data
-        run: |
-          git config --global user.name "vectaetos-observatory"
-          git config --global user.email "observatory@vectaetos.eu"
-          - name: Create Pull Request
-  uses: peter-evans/create-pull-request@v6
-  with:
-    commit-message: update epistemic observatory
-    title: Epistemic Observatory Update
-    body: Automated ontology observatory update
-    branch: observatory-update
-    delete-branch: true
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: update epistemic observatory
+          title: Epistemic Observatory Update
+          body: Automated ontology observatory update
+          branch: observatory-update
+          delete-branch: true
