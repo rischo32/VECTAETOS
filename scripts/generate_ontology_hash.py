@@ -2,35 +2,39 @@
 
 import hashlib
 import json
+import base64
 from pathlib import Path
-import sha3   # pip install pysha3
+import sha3
 
-# -----------------------------------------
-# Kanonické súbory ontológie
-# -----------------------------------------
+
+# -------------------------------
+# Canonical ontology files
+# -------------------------------
 
 CANONICAL_FILES = [
-    "formal/ZMYSEL.md",
-    "formal/epistemic_space.md",
-    "formal/VECTAETOS_FIELD_DIAGRAM.md",
-    "formal/QE_BOUNDARY_THEOREM.md"
+    "formal/ZMYSEL.md"
 ]
 
-# -----------------------------------------
-# Hash výpočet
-# -----------------------------------------
 
-def sha256_hash(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
+# -------------------------------
+# Hash helpers (Base64)
+# -------------------------------
 
-def keccak256_hash(data: bytes) -> str:
+def sha256_hash_b64(data: bytes) -> str:
+    h = hashlib.sha256(data).digest()
+    return base64.b64encode(h).decode()
+
+
+def keccak256_hash_b64(data: bytes) -> str:
     k = sha3.keccak_256()
     k.update(data)
-    return k.hexdigest()
+    h = k.digest()
+    return base64.b64encode(h).decode()
 
-# -----------------------------------------
-# Generovanie hashov
-# -----------------------------------------
+
+# -------------------------------
+# Generate hashes
+# -------------------------------
 
 canonical_hashes = {}
 
@@ -44,28 +48,37 @@ for file in CANONICAL_FILES:
     data = path.read_bytes()
 
     canonical_hashes[file] = {
-        "G0xpHPXvJd8wSDKXTBtWKNA+ttPZMzU7ZOvw0rHH+9U=": sha256_hash(data),
-        "jzOfNjiw+YY2JHa3CaAM3BoxQnXITKbOQXt6tYzFlr8=": keccak256_hash(data)
+        "sha256": sha256_hash_b64(data),
+        "keccak256": keccak256_hash_b64(data)
     }
 
-# -----------------------------------------
-# Root hash (Merkle pre budúcnosť)
-# -----------------------------------------
+
+# -------------------------------
+# Merkle-like root hash
+# -------------------------------
 
 combined = "".join(
     canonical_hashes[f]["sha256"]
     for f in sorted(canonical_hashes)
 ).encode()
 
-root_sha256 = hashlib.sha256(combined).hexdigest()
+
+root_sha256 = base64.b64encode(
+    hashlib.sha256(combined).digest()
+).decode()
+
 
 k = sha3.keccak_256()
 k.update(combined)
-root_keccak = k.hexdigest()
 
-# -----------------------------------------
-# Výstupný JSON
-# -----------------------------------------
+root_keccak = base64.b64encode(
+    k.digest()
+).decode()
+
+
+# -------------------------------
+# Output JSON
+# -------------------------------
 
 output = {
     "ontology": "VECTAETOS",
@@ -82,7 +95,10 @@ output = {
     }
 }
 
+
 with open("ontology_hash.json", "w") as f:
     json.dump(output, f, indent=2)
 
-print("ontology_hash.json generated")h
+
+print("Ontology hash generated:")
+print(json.dumps(output, indent=2))
