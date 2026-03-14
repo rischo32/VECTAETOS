@@ -15,7 +15,7 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-# NEW'S: SIMULATION VORTEX Φ is in the vortex of the process...
+# NEW'S: Epistemic Cryptography 2.0 based on meta-language in the process
 __________________________
 
  A security architecture that protects the structural
