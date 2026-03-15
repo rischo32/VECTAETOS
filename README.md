@@ -15,8 +15,16 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
- Aktuality Φ :
-# ~ Epistemic Cryptography 2.0 based on meta-language in the process
+#  Φ Updates :
+
+The Vectaetos architecture is currently evolving in several foundational directions:
+
+- Development of a native meta-language — a structural language designed to represent transformations of relational topology without introducing external semantics.
+- Formalization of Epistemic Cryptography 2.0 — extending the existing framework toward topology-aware and state-space-aware cryptographic fingerprints of epistemic field configurations.
+- Introduction of a Family of Epistemic Spaces — extending the ontology of a single Φ field toward a structured family of epistemic fields, including the theoretical possibility of field interaction and fusion.
+- Implementation of an Epistemic Merkle Tree — enabling tree-structured verification of Vortex trajectories and providing cryptographic integrity not only for simulation outputs but for the epistemic field evolution itself.
+
+These developments expand Vectaetos from a single-field observational architecture toward a broader framework for modeling, verifying, and projecting epistemic field dynamics.
 __________________________
 
  A security architecture that protects the structural
