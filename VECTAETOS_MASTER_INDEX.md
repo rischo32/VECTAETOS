@@ -349,6 +349,100 @@ Principles:
 - no layer performs optimization
 - the ontological core remains immutable
 
+# XIII. CURRENT RESEARCH DIRECTIONS
+
+The following research directions represent active development areas of the VECTAETOS framework.  
+They do not modify the ontological core of Φ but extend the surrounding structural, cryptographic and research infrastructure.
+
+---
+
+## Epistemic Cryptography 2.0
+
+Ongoing formalization of a second generation of epistemic cryptographic mechanisms.
+
+Goals:
+
+- topology-aware field fingerprints
+- cryptographic verification of field configurations
+- non-interventional structural audit
+
+Future extensions include the integration of Merkle structures for epistemic state verification.
+
+---
+
+## Epistemic Merkle Tree
+
+Development of a Merkle-tree based structure representing trajectories of epistemic field configurations.
+
+Purpose:
+
+- cryptographic verification of simulation trajectories
+- branching exploration of possible relational configurations
+- reproducible verification of Vortex experiments
+
+The Merkle root may represent the integrity of a trajectory within epistemic space.
+
+---
+
+## Family of Epistemic Spaces
+
+Current research explores the extension from a single epistemic field Φ to a **family of epistemic fields**:
+
+ℱ = { Φ₁, Φ₂, Φ₃ … }
+
+Key questions include:
+
+- interaction between fields
+- possible field fusion
+- ontological consistency of multi-field structures
+
+This work remains exploratory and does not modify the canonical definition of Φ.
+
+---
+
+## TetraGlyph Meta-Language
+
+Development of a structural meta-language designed to represent transformations of relational topology.
+
+Properties:
+
+- content-independent
+- purely structural
+- graph-equivalent representation
+
+The language aims to express reconfigurations of relational connectivity without introducing semantic interpretation.
+
+---
+
+## Epistemic Observatory
+
+Design of an observational infrastructure for monitoring structural properties of field simulations.
+
+Metrics under consideration include:
+
+- topological humility
+- triality stability
+- QE boundary events
+- relational asymmetry spectra
+
+The observatory functions as a **non-interventional monitoring layer**.
+
+---
+
+## Reproducible Research Infrastructure
+
+The repository infrastructure is evolving toward reproducible experimental workflows.
+
+Key components include:
+
+- deterministic simulation pipelines
+- automated experiment reports
+- dataset generators
+- CI-based validation of field integrity
+- ontology guards and structural validators
+
+These tools support scientific transparency and repeatability of VECTAETOS experiments.
+
 ---
 
 © VECTAETOS™  
