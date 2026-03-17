@@ -6,6 +6,18 @@
     "algebra": "so(8)",
     "triality": true
   },
-  "canonical_files": {},
-  "root_hash": {}
+  "canonical_files": {
+    "formal/Z4_rotation_hypothesis.md": {
+      "sha256": "MDmdQyWBzCphOz8b/08t8ldbseIdVOsPYcTIKWoPBYE=",
+      "sha3_256": "cVaAcelZwGX1+9lgiMnj94bQYO2skO9B7NzGCc2+gS8="
+    },
+    "formal/ZMYSEL.md": {
+      "sha256": "UAnsj9nsTmZVE71h2nThQzXfeAD2N6cFARu48YBx0GQ=",
+      "sha3_256": "VUaNmNHxxhXPgN6Xmu5bMjf6rjx655s/FWPW7mLAfjA="
+    }
+  },
+  "root_hash": {
+    "sha256": "VFZn7innnbLUFCyfDg4Z8Y/ACPMjByCLyadOdOPBqM0=",
+    "sha3_256": "JKKOdXl5Jp46uiLRNubc9N8hgOqjU3ndhzrSKncH0E8="
+  }
 }
