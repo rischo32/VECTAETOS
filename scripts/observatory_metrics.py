@@ -3,11 +3,18 @@
 # Version: 2.0.0 (robust + merkle integrated)
 # =========================================
 
-import json
+import sys
 import os
+import json
 import hashlib
+from datetime import datetime
 
-# 🔗 Merkle import
+# 🔥 ROOT PATH FIX (kritické pre CI)
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
+# ✅ teraz už import funguje
 from tetraglyph.epistemic_merkle import EpistemicMerkleLedger
 
 
@@ -15,107 +22,57 @@ INPUT_FILE = "observatory_output.json"
 OUTPUT_FILE = "observatory_metrics.json"
 
 
-# =========================================
-# SAFE LOAD
-# =========================================
-
-def safe_load_json(path):
+def load_input(path):
     if not os.path.exists(path):
-        print(f"[WARN] Missing file: {path}")
-        return None
+        print(f"[WARN] {path} not found → creating fallback")
+        return {
+            "runs": [],
+            "status": "empty"
+        }
 
-    try:
-        with open(path, "r") as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"[ERROR] Failed to read {path}: {e}")
-        return None
-
-
-# =========================================
-# HASH (STATE FINGERPRINT)
-# =========================================
-
-def compute_state_hash(data):
-    try:
-        serialized = json.dumps(data, sort_keys=True)
-        return hashlib.sha256(serialized.encode()).hexdigest()
-    except Exception as e:
-        print(f"[WARN] Hash generation failed: {e}")
-        return None
+    with open(path, "r") as f:
+        return json.load(f)
 
 
-# =========================================
-# DEFAULT METRICS
-# =========================================
+def compute_basic_metrics(data):
+    runs = data.get("runs", [])
 
-def default_metrics():
     return {
-        "status": "NO_DATA",
-        "num_poles": 0,
-        "topological_humility": None,
-        "dominant_mode": None,
-        "triality_preserved": None,
-        "total_asymmetry": None,
-        "state_hash": None,
-        "merkle_root": None
+        "run_count": len(runs),
+        "status": data.get("status", "unknown"),
     }
 
 
-# =========================================
-# BUILD METRICS
-# =========================================
+def compute_hash(data):
+    serialized = json.dumps(data, sort_keys=True).encode()
+    return hashlib.sha256(serialized).hexdigest()
 
-def build_metrics(data):
-
-    poles = data.get("poles", [])
-    epistemic = data.get("epistemic", {})
-
-    state_hash = compute_state_hash(data)
-
-    # 🌳 Merkle
-    ledger = EpistemicMerkleLedger()
-
-    if state_hash:
-        ledger.append(state_hash)
-        merkle_root = ledger.root()
-    else:
-        merkle_root = None
-
-    return {
-        "status": "OK",
-        "num_poles": len(poles),
-        "topological_humility": epistemic.get("topological_humility"),
-        "dominant_mode": epistemic.get("dominant_mode"),
-        "triality_preserved": epistemic.get("triality_preserved"),
-        "total_asymmetry": epistemic.get("total_asymmetry"),
-        "state_hash": state_hash,
-        "merkle_root": merkle_root
-    }
-
-
-# =========================================
-# MAIN
-# =========================================
 
 def main():
+    data = load_input(INPUT_FILE)
 
-    data = safe_load_json(INPUT_FILE)
+    metrics = compute_basic_metrics(data)
 
-    if data is None:
-        metrics = default_metrics()
-    else:
-        metrics = build_metrics(data)
+    # 🔐 Epistemic Merkle
+    ledger = EpistemicMerkleLedger()
 
-    try:
-        with open(OUTPUT_FILE, "w") as f:
-            json.dump(metrics, f, indent=2)
+    for run in data.get("runs", []):
+        ledger.add_leaf(json.dumps(run, sort_keys=True))
 
-        print("[OK] Observatory metrics generated")
+    merkle_root = ledger.get_root()
 
-    except Exception as e:
-        print("[CRITICAL] Failed to write metrics:", str(e))
-        raise
+    output = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "metrics": metrics,
+        "merkle_root": merkle_root,
+        "data_hash": compute_hash(data),
+    }
+
+    with open(OUTPUT_FILE, "w") as f:
+        json.dump(output, f, indent=2)
+
+    print("[OK] Observatory metrics generated")
+    print(f"Merkle root: {merkle_root}")
 
 
 if __name__ == "__main__":
