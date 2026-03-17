@@ -1,7 +1,6 @@
 # =========================================
 # VECTAETOS :: EPISTEMIC MERKLE TREE
-# Version: 1.0.0
-# Hash-based integrity of Φ evolution
+# Version: 1.0.1 (compat fix)
 # =========================================
 
 import hashlib
@@ -13,9 +12,6 @@ from typing import List
 # =========================================
 
 def hash_pair(left: str, right: str) -> str:
-    """
-    Kombinuje dva hashe do jedného
-    """
     combined = left + right
     return hashlib.sha256(combined.encode()).hexdigest()
 
@@ -26,9 +22,6 @@ def hash_pair(left: str, right: str) -> str:
 
 class EpistemicMerkleTree:
     def __init__(self, leaves: List[str]):
-        """
-        leaves = list of hashes (napr. z canonicalizer)
-        """
         self.leaves = leaves
         self.levels = []
 
@@ -46,7 +39,6 @@ class EpistemicMerkleTree:
 
                 left = current_level[i]
 
-                # ak nepárny počet → duplikuj posledný
                 if i + 1 < len(current_level):
                     right = current_level[i + 1]
                 else:
@@ -68,7 +60,7 @@ class EpistemicMerkleTree:
 
 
 # =========================================
-# APPEND (dynamický rast)
+# LEDGER (APPEND)
 # =========================================
 
 class EpistemicMerkleLedger:
@@ -78,12 +70,24 @@ class EpistemicMerkleLedger:
     def append(self, h: str):
         self.hashes.append(h)
 
+    # 🔥 NOVÉ: kompatibilita s metrics
+    def add_leaf(self, data: str):
+        """
+        umožní priamo pridať raw dáta (nie hash)
+        """
+        h = hashlib.sha256(data.encode()).hexdigest()
+        self.append(h)
+
     def build_tree(self) -> EpistemicMerkleTree:
         return EpistemicMerkleTree(self.hashes)
 
     def root(self) -> str:
         tree = self.build_tree()
         return tree.root()
+
+    # 🔥 KRITICKÝ FIX
+    def get_root(self) -> str:
+        return self.root()
 
 
 # =========================================
@@ -92,7 +96,6 @@ class EpistemicMerkleLedger:
 
 if __name__ == "__main__":
 
-    # simulované hash-e z canonicalizer
     hashes = [
         "a1"*32,
         "b2"*32,
