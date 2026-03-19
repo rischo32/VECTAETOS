@@ -172,7 +172,6 @@ def main():
         if len(data1) != len(data2):
             print(f"  Record count mismatch: Run 1 has {len(data1)}, Run 2 has {len(data2)}")
             
-        import sys
         sys.exit(1)
     
     print("\nSUCCESS: Determinism verified!")
