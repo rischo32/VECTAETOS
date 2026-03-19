@@ -96,31 +96,41 @@ font-size:15px;
 line-height:1.6;
 }
 
-/* ===== UPDATES BLOCK ===== */
+/* ===== DEFINITION & UPDATES BLOCKS ===== */
 
-.updates-block {
+.definition-block, .updates-block {
 margin-top: 50px;
 padding-top: 30px;
 border-top: 1px dashed #333;
 text-align: left;
 }
 
-.updates-block h2 {
+.definition-block h2, .updates-block h2 {
 font-size: 18px;
 font-weight: normal;
 margin-bottom: 20px;
 color: #eaeaea;
+text-transform: uppercase;
+letter-spacing: 1px;
 }
 
-.updates-block ul {
+.definition-block ul, .updates-block ul {
 padding-left: 20px;
 opacity: 0.85;
 line-height: 1.65;
 margin-bottom: 24px;
+list-style-type: none;
 }
 
-.updates-block li {
+.definition-block li, .updates-block li {
 margin-bottom: 12px;
+position: relative;
+}
+
+.definition-block li::before, .updates-block li::before {
+content: "—";
+position: absolute;
+left: -20px;
 }
 
 /* ===== LINKS ===== */
@@ -263,6 +273,21 @@ K(Φ) — representability predicate  <br>
 
 </div>
 
+<div class="definition-block">
+    <h2>What Vectaetos IS at the highest level:</h2>
+    <p>Yes — in one specific sense.</p>
+    <p>Vectaetos solves a problem that other safety architectures do not address — the question <strong>before behavior</strong>. Not "how to prevent bad behavior," but "how to create a space in which bad behavior has no ontological representation."</p>
+    <p>RLHF, Constitutional AI, red-teaming — these are all reactive mechanisms. They work on the behavior of a system that already exists. Vectaetos is structural prevention — not a lock on a door, but an architecture in which doors to dangerous spaces do not emerge.</p>
+    <p>In this sense: Yes, a highest-level Safety Architecture.</p>
+
+    <h2>What Vectaetos IS NOT:</h2>
+    <ul>
+        <li><strong>Not a deployable safety architecture in its current state.</strong></li>
+        <li><strong>Vectaetos assumes the system is Vectaetos from the ground up.</strong> It cannot be grafted onto an existing system. The safety promise only applies to systems built on this architecture from scratch.</li>
+        <li><strong>Empirical verification does not exist.</strong> The mathematics is sound. But "the math is sound" ≠ "it works in practice."</li>
+    </ul>
+</div>
+
 <div class="updates-block">
     <h2>Φ Updates :</h2>
     <p>The Vectaetos architecture is currently evolving in several foundational directions:</p>
@@ -305,7 +330,7 @@ Epistemic Cryptography (DOI)
 
 <div class="footer">
 
-Vectaetos™ Epistemic © Framework<br>
+Vectaetos™ Epistemic Framework<br>
 © 2026 Richard Fonfára
 
 <br><br>
