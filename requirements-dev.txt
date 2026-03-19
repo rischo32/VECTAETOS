@@ -6,6 +6,5 @@ grimp
 rich
 eth-hash
 pycryptodome>=3.15.0
-hashlib
 reportlab
 scipy>=1.10

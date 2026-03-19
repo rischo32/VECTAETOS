@@ -8,15 +8,19 @@ import json
 import hashlib
 import subprocess
 import os
+import math
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Constants for normalization
+FLOAT_PRECISION = 6
 
 # Keccak256 from pycryptodome
 try:
     from Crypto.Hash import keccak
 except ImportError:
     print("CRITICAL: pycryptodome not installed. Run 'pip install pycryptodome'")
-    import sys
     sys.exit(1)
 
 def parse_jsonl(filepath: Path) -> List[Dict]:
@@ -35,7 +39,12 @@ def parse_jsonl(filepath: Path) -> List[Dict]:
     return data
 
 def normalize_output(data: Any) -> Any:
-    """Recursively normalize data: remove timestamps, round floats."""
+    """
+    Recursively normalize data:
+    1. Remove non-deterministic fields (timestamp, time)
+    2. Round floats to fixed precision to handle floating point drift
+    3. Handle nested structures (dicts, lists)
+    """
     if isinstance(data, dict):
         return {
             k: normalize_output(v) 
@@ -45,11 +54,21 @@ def normalize_output(data: Any) -> Any:
     elif isinstance(data, list):
         return [normalize_output(item) for item in data]
     elif isinstance(data, float):
-        return round(data, 6)
+        # Explicit rounding to handle cross-platform floating point differences
+        if math.isfinite(data):
+            return round(data, FLOAT_PRECISION)
+        else:
+            return str(data) # Handle Inf/NaN as strings
     elif isinstance(data, (int, str)) or data is None:
         return data
     else:
-        return str(data)
+        # Fallback for any other types (e.g. numpy types if they escaped)
+        try:
+            if hasattr(data, "item"): # numpy scalar
+                return normalize_output(data.item())
+            return str(data)
+        except:
+            return str(data)
 
 def sort_jsonl_data(data: List[Dict]) -> List[Dict]:
     """Sort JSONL data by serialized representation for consistent ordering."""
@@ -84,7 +103,7 @@ def run_simulation(seed: int, steps: int, output_path: Path) -> None:
         output_path.unlink()
         
     cmd = [
-        "python3", "vortex/vortex_v2.0.py",
+        sys.executable, "vortex/vortex_v2.0.py",
         "--seed", str(seed),
         "--steps", str(steps),
         "--output", str(output_path),
@@ -108,8 +127,9 @@ def main():
     
     # Parse and process run 1
     data1 = parse_jsonl(output1)
-    data1 = sort_jsonl_data(data1)
     norm1 = normalize_output(data1)
+    # Sort normalized data to ensure consistent ordering regardless of timestamp/float differences
+    norm1 = sort_jsonl_data(norm1)
     hashes1 = compute_hash(norm1)
     
     # Run 2
@@ -118,8 +138,9 @@ def main():
     
     # Parse and process run 2
     data2 = parse_jsonl(output2)
-    data2 = sort_jsonl_data(data2)
     norm2 = normalize_output(data2)
+    # Sort normalized data to ensure consistent ordering regardless of timestamp/float differences
+    norm2 = sort_jsonl_data(norm2)
     hashes2 = compute_hash(norm2)
     
     # Save normalized outputs for debugging
