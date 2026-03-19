@@ -26,4 +26,4 @@ jobs:
 
       - name: Verify ontology hash
         run: |
-          python scripts/check_ontology_hash.py
+          python scripts/audit/check_ontology_hash.py
