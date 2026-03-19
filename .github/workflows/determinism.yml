@@ -21,4 +21,4 @@ jobs:
         run: pip install numpy scipy
 
       - name: Run determinism check
-        run: python scripts/check_determinism.py
+        run: python scripts/run/run_verified_vortex.py
