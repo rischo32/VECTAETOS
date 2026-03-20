@@ -21,12 +21,221 @@ __________________________
 
 The Vectaetos architecture is currently evolving in several foundational directions:
 
-- Development of a native meta-language — a structural language designed to represent transformations of relational topology without introducing external semantics.
-- Formalization of Epistemic Cryptography 2.0 — extending the existing framework toward topology-aware and state-space-aware cryptographic fingerprints of epistemic field configurations.
-- Introduction of a Family of Epistemic Spaces — extending the ontology of a single Φ field toward a structured family of epistemic fields, including the theoretical possibility of field interaction and fusion.
-- Implementation of an Epistemic Merkle Tree — enabling tree-structured verification of Vortex trajectories and providing cryptographic integrity not only for simulation outputs but for the epistemic field evolution itself.
+Φ Updates — Formal Progress Specification
 
-These developments expand Vectaetos from a single-field observational architecture toward a broader framework for modeling, verifying, and projecting epistemic field dynamics.
+1. Meta-Language (Structural Topology Language)
+
+Objective: definovať jazyk, ktorý reprezentuje transformácie relácií bez zavedenia sémantiky.
+
+Formálne:
+
+Nech:
+
+- Φ = (Σ, R), R ∈ so(8)
+- Δ = dR ∈ ℝ⁵⁶
+
+Definujeme:
+
+- 𝓛_Φ = jazyk operátorov nad R a Δ
+
+Základné operátory:
+
+- τ_R : R → R′  (relational deformation)
+- τ_Δ : Δ → Δ′  (induced cycle deformation)
+
+Podmienka zachovania ontológie:
+
+- τ ∈ 𝓛_Φ ⇔ τ neindukuje sémantiku ∧ zachováva antisymetriu R
+
+t.j.:
+
+- R′(i,j) = −R′(j,i)
+- τ: Im(d) → Im(d)
+
+---
+
+2. Epistemic Cryptography 2.0
+
+Objective: topologicky citlivý fingerprint epistemického poľa.
+
+Formálne:
+
+Nech:
+
+- Δ ∈ ℝ⁵⁶
+- μᵢ = lokálna epistemická neurčitosť
+- Aᵢⱼ = antisymetrická relácia
+
+Definujeme hash:
+
+- H(Φ) = H(Δ, μ, A)
+
+Rozšírenie:
+
+- H_topo(Φ) = H(Δ | ∂𝒟, invariants)
+
+kde:
+
+- 𝒟 = {Δ | ∃ R ∈ so(8), Δ = dR}
+- κ = ∂𝒟
+
+Požiadavky:
+
+- H(Φ₁) = H(Φ₂) ⇔ Φ₁ ≡ Φ₂ (topologicky)
+- citlivosť na Δ-deformácie
+- nezávislosť od reprezentácie ρ
+
+---
+
+3. Family of Epistemic Spaces (ℱ)
+
+Objective: rozšíriť Φ na množinu polí.
+
+Formálne:
+
+- ℱ = {Φₐ | a ∈ I}
+
+kde:
+
+- Φₐ = (Σ, Rₐ), Rₐ ∈ so(8)
+
+Definujeme:
+
+- interakciu: I(Φₐ, Φ_b) → Φ_c
+- fúziu: Φₐ ⊕ Φ_b = Φ_c
+
+Podmienky:
+
+- K(Φ_c) = 1
+- Δ_c ∈ 𝒟
+
+t.j.:
+
+- dR_c = Δ_c ∈ Im(d)
+
+Zachovanie:
+
+- Σ invariantné
+- antisymetria zachovaná
+
+---
+
+4. Epistemic Merkle Structure
+
+Objective: verifikácia trajektórií Vortexu.
+
+Formálne:
+
+Nech trajektória:
+
+- T = (Φ₀ → Φ₁ → … → Φ_n)
+
+Hash list:
+
+- h_i = H(Φ_i)
+
+Merkle root:
+
+- M(T) = Merkle(h₀, h₁, …, h_n)
+
+Podmienky:
+
+- ∀i: Δ_i ∈ 𝒟
+- ∀i: K(Φ_i) ≥ κ
+
+Validita trajektórie:
+
+- T valid ⇔ všetky uzly reprezentovateľné ∧ hash konzistentný
+
+---
+
+5. Global Constraint (κ)
+
+Zjednotenie:
+
+- Δ ∈ ℝ⁵⁶
+- 𝒟 ⊂ ℝ⁵⁶
+
+Definícia:
+
+- κ = ∂𝒟
+
+Koherencia:
+
+- K(Φ) = 1 ⇔ Δ ∈ 𝒟
+- K(Φ) = 0 ⇔ Δ ∉ 𝒟
+
+---
+
+6. System Interpretation
+
+Vectaetos je formálne:
+
+- (ℱ, 𝓛_Φ, H_topo, M)
+
+kde:
+
+- ℱ = family of fields
+- 𝓛_Φ = meta-language transformácií
+- H_topo = epistemická kryptografia
+- M = Merkle validácia trajektórií
+
+Bez:
+
+- optimalizácie
+- agentnosti
+- cieľovej funkcie
+
+---
+
+7. Current Progress State
+
+Implementované:
+
+- Φ = (Σ, R), R ∈ so(8)
+- Δ = dR, Δ ∈ ℝ⁵⁶
+- K(Φ), κ ako ∂𝒟
+- základný Merkle (epistemic_merkle.py)
+
+Rozpracované:
+
+- H_topo(Φ) (Epistemic Cryptography 2.0)
+- 𝓛_Φ (meta-language)
+- ℱ (multi-field interaction)
+
+---
+
+8. Boundary Condition
+
+Ak existuje:
+
+- τ: Φ → Φ′ tak, že Δ′ ∉ 𝒟
+
+potom:
+
+- Φ′ → QE
+
+t.j.:
+
+- strata reprezentovateľnosti
+- koniec trajektórie
+
+---
+
+Summary:
+
+Vectaetos formalizuje:
+
+- geometriu: Φ = (Σ, R)
+- krivosť: Δ = dR
+- priestor: 𝒟 ⊂ ℝ⁵⁶
+- hranicu: κ = ∂𝒟
+- validitu: K(Φ)
+- evolúciu: T
+- integritu: H, M
+
+Nie systém odpovedí.
+Ale systém reprezentovateľnosti.
 __________________________
 
  A security architecture that protects the structural
