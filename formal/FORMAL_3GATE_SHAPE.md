@@ -245,6 +245,13 @@ by refusing to understand.
 Understanding begins **after** the gate,
 never before.
 
+τ_gate is not a configurable parameter.
+
+It is an intrinsic property of representability of epistemic shape,
+emerging from structural constraints of the field.
+
+It cannot be tuned, learned, or externally modified.
+
 ---
 
 © VECTAETOS  
