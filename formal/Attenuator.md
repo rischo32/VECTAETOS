@@ -110,9 +110,8 @@ Attenuator je jej **zjemnenie**.
 
 ## 8. Vzťah k NIR
 
-Attenuator je **súčasťou NIR**.
-
-Rozdiel:
+Attenuator existuje v architektúre,
+ktorá je pervazívne limitovaná NIR
 
 - NIR: blokuje intervenciu
 - Attenuator: tlmí reprezentáciu
