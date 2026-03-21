@@ -143,13 +143,18 @@ It does NOT:
 
 ---
 
-7. Non-Intervention Rule (NIR)
+7. Non-Intervention Regime (NIR)
 
 This layer MUST NOT:
 
 - modify Φ
 - influence K(Φ)
 - create feedback loops
+
+- NIR is not a rule or constraint.
+
+It is an ontological regime in which intervention
+is structurally impossible, not prohibited.
 
 All outputs are:
 
