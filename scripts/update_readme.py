@@ -1,142 +1,100 @@
-#!/usr/bin/env python3
-"""
-VECTAETOS — README Φ State Adapter
-
-- číta posledný artifacts/run_*.jsonl
-- extrahuje deterministický stav
-- zapisuje do ROOT README medzi Φ markery
-- CI-safe, deterministic, fail-fast
-"""
-
 from pathlib import Path
 import json
-import re
-import sys
+
+README_PATH = Path("README.md")
+JSON_PATH = Path("artifacts/run_2.jsonl")  # uprav ak máš iný názov
 
 
-# === PATHS ===
+# ---------- LOAD ----------
 
-ROOT = Path(__file__).resolve().parents[1]
-README_PATH = ROOT / "README.md"
-ARTIFACTS_DIR = ROOT / "artifacts"
+def load_latest_state():
+    if not JSON_PATH.exists():
+        raise FileNotFoundError(f"{JSON_PATH} not found")
 
-
-# === MARKERS ===
-
-START = "<!-- Φ_STATE_START -->"
-END = "<!-- Φ_STATE_END -->"
-
-
-# === LOAD LAST ARTIFACT ===
-
-def get_latest_artifact():
-    files = sorted(ARTIFACTS_DIR.glob("run_*.jsonl"))
-    if not files:
-        raise FileNotFoundError("No artifacts/run_*.jsonl found")
-    return files[-1]
-
-
-def load_last_state(path: Path):
-    with open(path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+    with open(JSON_PATH, "r", encoding="utf-8") as f:
+        lines = [l.strip() for l in f.readlines() if l.strip()]
 
     if not lines:
-        raise ValueError("Artifact file is empty")
+        raise ValueError("JSONL is empty")
 
     return json.loads(lines[-1])
 
 
-# === EXTRACT STATE ===
+# ---------- FORMAT ----------
 
-def extract_metrics(state: dict):
-    try:
-        poles = state["poles"]
-        qe = state["qe_aporia"]["aporia"]
-        epistemic = state["epistemic"]
+def format_main_metrics(state):
+    epistemic = state.get("epistemic", {})
 
-        # agregácia (deterministická)
-        E = sum(p["E"] for p in poles) / len(poles)
-        C = sum(p["C"] for p in poles) / len(poles)
-        T = sum(p["T"] for p in poles) / len(poles)
-        M = sum(p["M"] for p in poles) / len(poles)
-        S = sum(p["S"] for p in poles) / len(poles)
-
-        return {
-            "E": E,
-            "C": C,
-            "T": T,
-            "M": M,
-            "S": S,
-            "qe": qe,
-            "h": epistemic.get("topological_humility", 0.0),
-            "asym": epistemic.get("total_asymmetry", 0.0),
-            "integrity": epistemic.get("integrity", 0.0),
-            "triality": epistemic.get("triality_preserved", False),
-        }
-
-    except KeyError as e:
-        raise RuntimeError(f"Missing key in state: {e}")
+    return f"""| Metric | Value |
+|--------|------|
+| E | {state["poles"][0]["E"]:.4f} |
+| C | {state["poles"][0]["C"]:.4f} |
+| T | {state["poles"][0]["T"]:.4f} |
+| M | {state["poles"][0]["M"]:.4f} |
+| S | {state["poles"][0]["S"]:.4f} |
+| QE | {"YES" if state.get("qe_aporia", {}).get("aporia") else "NO"} |
+| h (humility) | {epistemic.get("topological_humidity", 0):.4f} |
+| Asymmetry | {epistemic.get("total_asymmetry", 0):.4f} |
+| Integrity | {1.0 if epistemic.get("integrity", False) else 0.0:.4f} |
+| Triality | {"OK" if epistemic.get("triality_preserved") else "FAIL"} |
+"""
 
 
-# === RENDER ===
+def format_singularities(poles):
+    rows = []
+    for i, p in enumerate(poles, start=1):
+        rows.append(
+            f"| Σ{i} | {p['E']:.3f} | {p['C']:.3f} | {p['T']:.3f} | {p['M']:.3f} | {p['S']:.3f} |"
+        )
 
-def render_block(m: dict) -> str:
-    return f"""
-### Live Epistemic State
-
-| Metric | Value |
-|-------|------|
-| E | {m["E"]:.4f} |
-| C | {m["C"]:.4f} |
-| T | {m["T"]:.4f} |
-| M | {m["M"]:.4f} |
-| S | {m["S"]:.4f} |
-| QE | {"YES" if m["qe"] else "NO"} |
-| h (humility) | {m["h"]:.4f} |
-| Asymmetry | {m["asym"]:.4f} |
-| Integrity | {m["integrity"]:.4f} |
-| Triality | {"OK" if m["triality"] else "BROKEN"} |
-""".strip()
+    return f"""| Σ | E | C | T | M | S |
+|--|--|--|--|--|--|
+{chr(10).join(rows)}
+"""
 
 
-# === UPDATE README ===
+# ---------- UPDATE BLOCK ----------
 
-def update_readme(content: str, new_block: str) -> str:
-    pattern = re.compile(
-        rf"{START}.*?{END}",
-        re.DOTALL
+def replace_block(content, start_tag, end_tag, new_block):
+    if start_tag not in content or end_tag not in content:
+        raise ValueError(f"Missing markers: {start_tag} / {end_tag}")
+
+    before = content.split(start_tag)[0]
+    after = content.split(end_tag)[1]
+
+    return f"{before}{start_tag}\n\n{new_block}\n{end_tag}{after}"
+
+
+# ---------- MAIN ----------
+
+def update_readme():
+    state = load_latest_state()
+    poles = state["poles"]
+
+    readme = README_PATH.read_text(encoding="utf-8")
+
+    # --- update main metrics ---
+    metrics_block = format_main_metrics(state)
+    readme = replace_block(
+        readme,
+        "<!-- Φ_STATE_START -->",
+        "<!-- Φ_STATE_END -->",
+        metrics_block
     )
 
-    replacement = f"{START}\n{new_block}\n{END}"
+    # --- update singularities table ---
+    singularities_block = format_singularities(poles)
+    readme = replace_block(
+        readme,
+        "<!-- Φ_SINGULARITIES_START -->",
+        "<!-- Φ_SINGULARITIES_END -->",
+        singularities_block
+    )
 
-    if not pattern.search(content):
-        raise RuntimeError("Φ markers not found in README.md")
-
-    return pattern.sub(replacement, content)
+    README_PATH.write_text(readme, encoding="utf-8")
 
 
-# === MAIN ===
-
-def main():
-    if not README_PATH.exists():
-        print("ERROR: README.md not found", file=sys.stderr)
-        sys.exit(1)
-
-    artifact = get_latest_artifact()
-    state = load_last_state(artifact)
-    metrics = extract_metrics(state)
-    block = render_block(metrics)
-
-    original = README_PATH.read_text(encoding="utf-8")
-    updated = update_readme(original, block)
-
-    if original == updated:
-        print("No changes in README")
-        return
-
-    README_PATH.write_text(updated, encoding="utf-8")
-    print(f"README updated from {artifact.name}")
-
+# ---------- ENTRY ----------
 
 if __name__ == "__main__":
-    main()
+    update_readme()
