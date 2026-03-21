@@ -1,28 +1,39 @@
 #!/usr/bin/env python3
 """
-VECTAETOS — README Glyph Updater
+VECTAETOS — README Glyph Updater (FINAL)
 
-- Injects deterministic glyph projection into README
-- Includes SVG visualization
-- No epistemic authority
+- Deterministic glyph generation (commit-based seed)
+- SVG visualization
+- Safe README patching
+- CI-ready (GitHub Actions)
+
+NON-ONTOLOGICAL
+NO EPISTEMIC AUTHORITY
 """
 
+import sys
+from pathlib import Path
 import subprocess
 import hashlib
 import random
 import re
-import sys
-from pathlib import Path
 
-# add repo root to path
+# ─────────────────────────────────────────────
+# PATH FIX (CRITICAL)
+# ─────────────────────────────────────────────
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT))
 
+# local import (same folder)
+from glyph_generator import generate_glyph_line
+
+# repo imports
 from infrastructure.projection_adapter_v2 import generate_projection_bundle
 from TetraGlyph.glyph_svg import glyph_to_svg
 
 
-README_PATH = Path("README.md")
+README_PATH = ROOT / "README.md"
 
 
 # ─────────────────────────────────────────────
@@ -40,10 +51,10 @@ def seed_from_hash(commit_hash: str) -> int:
 
 
 # ─────────────────────────────────────────────
-# GLYPH GENERATION
+# GLYPH + SVG GENERATION
 # ─────────────────────────────────────────────
 
-def generate_glyph_bundle():
+def generate_visual_block():
     commit = get_git_hash()
     seed = seed_from_hash(commit)
 
@@ -57,14 +68,19 @@ def generate_glyph_bundle():
     glyphs = bundle["glyphs"]
     entropy = bundle["entropy"]
 
-    # glyph text line
+    # text line
     glyph_line = " | ".join(glyphs.values())
 
-    # merged glyph for SVG (first projection as representative)
+    # SVG (first projection as representative)
     first_key = list(glyphs.keys())[0]
     svg = glyph_to_svg(glyphs[first_key])
 
-    return glyph_line, svg, entropy
+    # entropy summary
+    entropy_line = " | ".join(
+        f"{k}:{round(v,3)}" for k, v in entropy.items()
+    )
+
+    return glyph_line, svg, entropy_line
 
 
 # ─────────────────────────────────────────────
@@ -77,12 +93,7 @@ def update_readme():
 
     content = README_PATH.read_text()
 
-    glyph_line, svg, entropy = generate_glyph_bundle()
-
-    # optional: entropy summary
-    entropy_line = " | ".join(
-        f"{k}:{round(v,3)}" for k, v in entropy.items()
-    )
+    glyph_line, svg, entropy_line = generate_visual_block()
 
     new_block = f"""<!-- GLYPH_SEQUENCE_START -->
 {glyph_line}
