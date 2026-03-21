@@ -5,3 +5,4 @@ import-linter
 grimp
 rich
 eth-hash
+pycryptodome>=3.15.0

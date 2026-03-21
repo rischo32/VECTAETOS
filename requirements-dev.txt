@@ -5,6 +5,6 @@ import-linter
 grimp
 rich
 eth-hash
-hashlib
+pycryptodome>=3.15.0
 reportlab
 scipy>=1.10

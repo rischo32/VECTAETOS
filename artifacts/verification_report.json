@@ -1,0 +1,15 @@
+{
+  "seed": 42,
+  "steps": 1000,
+  "run_1": {
+    "sha256": "8e493ae3ff2b3e3ec4730672d12fd4ba5267f5c7c101f267d362af9536b52ad2",
+    "keccak256": "eb2d19be7fe99d26e41ebd531a28b82465a24f79a8c43c714ec7bc3cc02a2db5",
+    "serialized_size_bytes": 12694
+  },
+  "run_2": {
+    "sha256": "8e493ae3ff2b3e3ec4730672d12fd4ba5267f5c7c101f267d362af9536b52ad2",
+    "keccak256": "eb2d19be7fe99d26e41ebd531a28b82465a24f79a8c43c714ec7bc3cc02a2db5",
+    "serialized_size_bytes": 12694
+  },
+  "deterministic": true
+}
