@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+title: "TetraGlyph: A Non-Intervention Relational Projection Language for Epistemic Field Topologies"
+message: "If you use this work, please cite it using the DOI below."
+type: "software"
+
+authors:
+  - family-names: "Fonfara"
+    given-names: "Richard"
+    orcid: "https://orcid.org/0009-0008-5980-8940"
+
+version: "1.0.0"
+doi: "10.5281/zenodo.19148358"
+date-released: 2026-03-21
+
+repository-code: "https://github.com/rischo32/Vectaetos"
+url: "https://zenodo.org/records/19148358"
+
+license: "CC-BY-4.0"
+
+keywords:
+  - epistemic field
+  - relational topology
+  - projection systems
+  - non-agentic
+  - glyph language
+  - vectaetos
+  - epistemic cryptography
+  - non-intervention
+  - QE aporia
+  - so(8)
+  - epistemic layering
