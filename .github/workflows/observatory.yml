@@ -23,21 +23,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install numpy
 
-      - name: Run Vortex Simulation
+      - name: Run Vortex (multi)
         run: |
-          python vortex/vortex_v1.2.3.py \
-            --steps 500 \
-            --seed 42 \
-            --output observatory_output.json
+          python vortex/vortex_runner.py
 
-      - name: Generate Observatory Metrics
+      - name: Generate README projection
         run: |
-          python scripts/observatory_metrics.py
+          python scripts/update_readme.py
 
-      - name: Upload Observatory Artifact
-        uses: actions/upload-artifact@v4
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@github.com"
+
+          git add artifacts/ README.md
+          git commit -m "auto(phi): update projection" || echo "no changes"
+
+      - name: Push via PR
+        uses: peter-evans/create-pull-request@v6
         with:
-          name: epistemic-observatory
-          path: |
-            observatory_output.json
-            observatory_metrics.json
+          branch: phi/auto-update
+          title: "auto(phi): update projection"
+          commit-message: "auto(phi): update projection"
