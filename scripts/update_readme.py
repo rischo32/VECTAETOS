@@ -30,7 +30,8 @@ from glyph_generator import generate_glyph_line
 
 # repo imports
 from infrastructure.projection_adapter_v2 import generate_projection_bundle
-from TetraGlyph.glyph_svg import glyph_to_svg
+from tetraglyph.glyph_projection import multi_projection_to_glyphs
+from tetraglyph.glyph_svg import glyph_to_svg
 
 
 README_PATH = ROOT / "README.md"
