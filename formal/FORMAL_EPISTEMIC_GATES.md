@@ -37,7 +37,7 @@ Epistemické brány:
 
 Ich jedinou funkciou je **epistemická separácia vstupu** od poľa Φ.
 
-Brána rozhoduje výlučne o tom, **či a ako môže byť vstup epistemicky spracovateľný**, nie o tom, čo pole „odpovie“.
+Brána definuje, či je vstup epistemicky reprezentovateľný... výlučne o tom, **či a ako môže byť vstup epistemicky spracovateľný**, nie o tom, čo pole „odpovie“.
 
 ---
 

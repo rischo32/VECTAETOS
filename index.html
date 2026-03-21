@@ -293,10 +293,95 @@ K(Φ) — representability predicate  <br>
     <p>The Vectaetos architecture is currently evolving in several foundational directions:</p>
     
     <ul>
-        <li><strong>Development of a native meta-language</strong> — a structural language designed to represent transformations of relational topology without introducing external semantics.</li>
-        <li><strong>Formalization of Epistemic Cryptography 2.0</strong> — extending the existing framework toward topology-aware and state-space-aware cryptographic fingerprints of epistemic field configurations.</li>
-        <li><strong>Introduction of a Family of Epistemic Spaces</strong> — extending the ontology of a single Φ field toward a structured family of epistemic fields, including the theoretical possibility of field interaction and fusion.</li>
-        <li><strong>Implementation of an Epistemic Merkle Tree</strong> — enabling tree-structured verification of Vortex trajectories and providing cryptographic integrity not only for simulation outputs but for the epistemic field evolution itself.</li>
+        <li><strong>Meta-Language (Structural Topology Language): "TetraGlyph"</strong> — Objective: definovať jazyk, ktorý reprezentuje transformácie relácií bez zavedenia sémantiky.
+
+Formálne:
+
+Nech:
+
+Φ = (Σ, R), R ∈ so(8)
+Δ = dR ∈ ℝ⁵⁶
+Definujeme:
+
+𝓛_Φ = jazyk operátorov nad R a Δ
+Základné operátory:
+
+τ_R : R → R′  (relational deformation)
+τ_Δ : Δ → Δ′  (induced cycle deformation)
+Podmienka zachovania ontológie:
+
+τ ∈ 𝓛_Φ ⇔ τ neindukuje sémantiku ∧ zachováva antisymetriu R
+t.j.:
+
+R′(i,j) = −R′(j,i)
+τ: Im(d) → Im(d).</li>
+        <li><strong>Formalization of Epistemic Cryptography 2.0</strong> — Objective: topologicky citlivý fingerprint epistemického poľa.
+
+Formálne:
+
+Nech:
+
+Δ ∈ ℝ⁵⁶
+μᵢ = lokálna epistemická neurčitosť
+Aᵢⱼ = antisymetrická relácia
+Definujeme hash:
+
+H(Φ) = H(Δ, μ, A)
+Rozšírenie:
+
+H_topo(Φ) = H(Δ | ∂𝒟, invariants)
+kde:
+
+𝒟 = {Δ | ∃ R ∈ so(8), Δ = dR}
+κ = ∂𝒟
+Požiadavky:
+
+H(Φ₁) = H(Φ₂) ⇔ Φ₁ ≡ Φ₂ (topologicky)
+citlivosť na Δ-deformácie
+nezávislosť od reprezentácie ρ.</li>
+        <li><strong>Introduction of a Family of Epistemic Spaces</strong> —  Objective: rozšíriť Φ na množinu polí.
+
+Formálne:
+
+ℱ = {Φₐ | a ∈ I}
+kde:
+
+Φₐ = (Σ, Rₐ), Rₐ ∈ so(8)
+Definujeme:
+
+interakciu: I(Φₐ, Φ_b) → Φ_c
+fúziu: Φₐ ⊕ Φ_b = Φ_c
+Podmienky:
+
+K(Φ_c) = 1
+Δ_c ∈ 𝒟
+t.j.:
+
+dR_c = Δ_c ∈ Im(d)
+Zachovanie:
+
+Σ invariantné
+antisymetria zachovaná.</li>
+        <li><strong>Implementation of an Epistemic Merkle Tree</strong> —    Objective: verifikácia trajektórií Vortexu.
+
+Formálne:
+
+Nech trajektória:
+
+T = (Φ₀ → Φ₁ → … → Φ_n)
+Hash list:
+
+h_i = H(Φ_i)
+Merkle root:
+
+M(T) = Merkle(h₀, h₁, …, h_n)
+Podmienky:
+
+∀i: Δ_i ∈ 𝒟
+∀i: K(Φ_i) ≥ κ
+Validita trajektórie:
+
+T valid ⇔ všetky uzly reprezentovateľné ∧ hash konzistentný.</li>
     </ul>
 
     <p>These developments expand Vectaetos from a single-field observational architecture toward a broader framework for modeling, verifying, and projecting epistemic field dynamics.</p>

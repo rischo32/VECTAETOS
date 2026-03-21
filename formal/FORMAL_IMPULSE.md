@@ -43,7 +43,7 @@ Nech:
 ### Definícia:
 
 > **Impulz I** je lokálna tendencia konfigurácie Φ,
-> ktorá by pri realizácii viedla k poklesu K(Φ) pod κ.
+> ktorá by pri realizácii prechodu mimo realizovateľnej oblasti poľa (Δ ∉ 𝒟)
 
 Dôležité:
 - impulz nie je ešte prechod

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "timestamp": 1773756009,
+    "root_sha256": "VFZn7innnbLUFCyfDg4Z8Y/ACPMjByCLyadOdOPBqM0=",
+    "root_sha3": "JKKOdXl5Jp46uiLRNubc9N8hgOqjU3ndhzrSKncH0E8=",
+    "singularities": 8,
+    "algebra": "so(8)",
+    "triality": true
+  }
+]
