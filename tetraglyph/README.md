@@ -1,183 +1,239 @@
-TetraGlyph
+# TetraGlyph
 
-Status: Experimental Meta-Layer
-Architecture Role: Symbolic Projection Layer
-Execution Power: None
-Agency: None
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358)
+
+**Status:** Canonical Projection Layer  
+**Architecture Role:** Epistemic Projection (EAT subset)  
+**Execution Power:** None  
+**Agency:** None  
 
 ---
 
-0. Overview
+## 0. Overview
 
-TetraGlyph is a symbolic meta-language layer within the VECTAETOS architecture.
+TetraGlyph is a non-agentic, non-semantic projection system within the VECTAETOS architecture.
 
 It does not compute, decide, optimize, or interpret.
 
-Its purpose is to provide a compact, structured projection of epistemic states derived from the field Φ.
+Its sole function is to project structural properties of epistemic field configurations into a symbolic form.
 
-TetraGlyph operates strictly as a representation system, not as a transformation mechanism.
-
----
-
-1. Position in Architecture
-
-The VECTAETOS stack:
-
-Ξ (ZMYSEL — epistemic carrier)
-↓
-Φ = (Σ, R) — epistemic field
-↓
-Vortex — deformation generator
-↓
-Epistemic Cryptography — structural audit
-↓
-TetraGlyph — symbolic projection
-
-TetraGlyph exists after all computation.
-
-It has no influence on:
-
-- Φ
-- Vortex
-- K(Φ)
-- QE
+TetraGlyph operates strictly as a representation layer, not as a transformation mechanism.
 
 ---
 
-2. Purpose
+## 1. Formal Definition
+
+Π_glyph : Φ → Γ
+
+Where:
+
+- Φ — epistemic field  
+- Γ — glyph space  
+
+Extended form:
+
+Γ = Π(Δ, R, μ, QE)
+
+- Δ — cycle curvature (Δ ∈ ℝ⁵⁶ over Σ₈)  
+- R — relational structure  
+- μ — local uncertainty distribution  
+- QE — Qualitative Epistemic Aporia  
+
+---
+
+## 2. Epistemic Position
+
+TetraGlyph exists within a strict layered architecture:
+
+
+Φ (Vortex Core)
+→ Epistemic Cryptography
+→ Projection Layer (EAT / TetraGlyph)
+→ Human Interpretation (ZMYSEL)
+
+
+Properties:
+
+- No backward influence is permitted  
+- Projection does not affect Φ  
+- Meaning is not recoverable from lower layers  
+- Interpretation exists exclusively at the human layer  
+
+---
+
+## 3. Purpose
 
 TetraGlyph provides:
 
-- compressed representation of field states
-- symbolic encoding of relational structure
-- human-readable projection of epistemic configurations
+- structural projection of epistemic states  
+- symbolic encoding of relational topology  
+- human-readable representation of field configurations  
 
 It does not:
 
-- evaluate meaning
-- assign correctness
-- generate recommendations
-- alter system state
+- evaluate meaning  
+- assign correctness  
+- generate recommendations  
+- alter system state  
 
 ---
 
-3. Core Principle
+## 4. Core Principle
 
 TetraGlyph preserves structure, not interpretation.
 
 It encodes:
 
-- relational tension patterns
-- curvature signatures (Δ)
-- coherence states
+- relational tension patterns  
+- curvature signatures (Δ)  
+- coherence regimes  
+- QE states  
 
 without assigning semantic meaning.
 
 ---
 
-4. Glyph Structure
+## 5. Glyph Structure
 
-A TetraGlyph is a finite symbolic object derived from Φ.
+A TetraGlyph is a finite symbolic configuration derived from Φ.
 
 It may encode:
 
-- local curvature patterns (Δ over selected triples)
-- global coherence indicator C(Φ)
-- QE state (binary)
-- structural invariants
+- local curvature patterns  
+- global coherence indicator C(Φ)  
+- QE state  
+- structural invariants  
 
 Glyphs are:
 
-- non-hierarchical
-- non-ranked
-- non-evaluative
+- non-hierarchical  
+- non-ranked  
+- non-evaluative  
+- non-semantic  
 
 ---
 
-5. Non-Intervention Guarantee
+## 6. Non-Intervention Regime (NIR)
 
-TetraGlyph:
+TetraGlyph satisfies:
 
-- does not feed back into Φ
-- does not affect Vortex dynamics
-- does not influence future states
-- does not persist as adaptive memory
+dΦ / dΠ_glyph = 0
+
+It:
+
+- does not feed back into Φ  
+- does not affect Vortex dynamics  
+- does not influence future states  
+- does not persist as adaptive memory  
 
 It is strictly:
 
-«projection → observation → termination»
+projection → observation → termination
 
 ---
 
-6. Relation to Epistemic Cryptography
+## 7. Validator
 
-Epistemic Cryptography ensures:
+T(Φ_fragment) → {  
+COHERENT_REGION,  
+CONFLICT_REGION,  
+QE  
+}
 
-- preservation of uncertainty geometry
-- non-interventional audit
+The validator:
 
-TetraGlyph operates on top of this:
+- does not score  
+- does not rank  
+- does not recommend  
+- does not correct  
 
-- transforming audited structure into symbolic form
-- without adding interpretation
+QE is a valid output state.
 
 ---
 
-7. Design Constraints
+## 8. Relation to Epistemic Cryptography
+
+Epistemic Cryptography provides:
+
+- topology hashing  
+- structural audit  
+- uncertainty preservation  
+
+TetraGlyph operates on top of this layer:
+
+- projecting audited structure into symbolic form  
+- without introducing interpretation  
+
+---
+
+## 9. Design Constraints
 
 TetraGlyph must never introduce:
 
-- optimization
-- scoring
-- ranking
-- preference ordering
-- semantic authority
+- optimization  
+- scoring  
+- ranking  
+- preference ordering  
+- semantic authority  
 
 Any such addition violates VECTAETOS ontology.
 
 ---
 
-8. Example (Abstract)
+## 10. Example (Abstract)
 
-Given a field Φ:
+Given Φ:
 
-- compute Δ over triangle set
-- derive C(Φ)
-- detect QE
+- compute Δ over triangle set  
+- derive C(Φ)  
+- detect QE  
 
 TetraGlyph encodes:
 
-- curvature distribution signature
-- coherence regime
-- structural state
+- curvature distribution signature  
+- coherence regime  
+- structural state  
 
 without labeling it as “good” or “bad”.
 
 ---
 
-9. Future Directions
+## 11. Limitations
 
-Possible extensions:
-
-- canonical glyph grammar
-- invariant glyph classes
-- compression of trajectory sequences
-- visualization mapping
-
-These must remain:
-
-- non-decisional
-- non-interventional
-- structurally faithful
+- No semantic interpretation  
+- No decision capability  
+- No optimization  
+- No inverse mapping (Γ → Φ not defined)  
+- Dependent on upstream correctness  
 
 ---
 
-10. Summary
+## 12. DOI
 
-TetraGlyph is not a language of meaning.
+https://doi.org/10.5281/zenodo.19148358
 
-It is a language of structure.
+---
 
-It does not answer questions.
+## 13. Relationship to VECTAETOS
 
-It makes the structure of the field visible.
+TetraGlyph is a projection-layer component of the VECTAETOS framework.
+
+It operates strictly as:
+
+Φ → Cryptography → Projection → Human
+
+It is a subset of the broader Projection Layer (EAT).
+
+---
+
+## 14. License
+
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+---
+
+## 15. Citation
+
+Fonfara, R. (2026).  
+*TetraGlyph: A Non-Intervention Relational Projection Language for Epistemic Field Topologies.*  
+Zenodo. https://doi.org/10.5281/zenodo.19148358
