@@ -19,8 +19,6 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-## Live Epistemic State
-
 <!-- Φ_STATE_START -->
 ### Live Epistemic State
 
