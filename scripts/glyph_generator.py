@@ -1,3 +1,17 @@
+#!/usr/bin/env python3
+
+import sys
+from pathlib import Path
+
+# ─────────────────────────────────────────────
+# PATH FIX (CRITICAL)
+# ─────────────────────────────────────────────
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(ROOT))
+
+# ─────────────────────────────────────────────
+
 import subprocess
 import hashlib
 import random
@@ -21,14 +35,12 @@ def generate_glyph_line():
 
     random.seed(seed)
 
-    # minimal "query" — neinterpretujeme nič
     query = commit[:12]
 
     bundle = generate_projection_bundle(query)
 
     glyphs = bundle["glyphs"]
 
-    # zložíme sekvenciu
     sequence = " | ".join(glyphs.values())
 
     return sequence
