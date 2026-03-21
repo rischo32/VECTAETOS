@@ -4,44 +4,62 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # každú hodinu
 
 jobs:
   observatory:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
+      # --- checkout ---
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # --- python ---
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # --- deps ---
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install numpy
 
+      # --- CRITICAL FIX ---
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
+      # --- run vortex (multi) ---
       - name: Run Vortex (multi)
         run: |
           python vortex/vortex_runner.py
 
-      - name: Generate README projection
+      # --- update README ---
+      - name: Update README projection
         run: |
           python scripts/update_readme.py
 
+      # --- commit ---
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@github.com"
 
-          git add artifacts/ README.md
-          git commit -m "auto(phi): update projection" || echo "no changes"
+          git add artifacts/ README.md || true
+          git commit -m "auto(phi): hourly projection update" || echo "no changes"
 
-      - name: Push via PR
+      # --- PR ---
+      - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           branch: phi/auto-update
-          title: "auto(phi): update projection"
-          commit-message: "auto(phi): update projection"
+          title: "auto(phi): hourly projection update"
+          commit-message: "auto(phi): hourly projection update"
+          body: "Automated Vortex multi-trajectory projection (hourly)"
