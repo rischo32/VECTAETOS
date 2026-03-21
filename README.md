@@ -18,10 +18,10 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-# Live Projection 
-<!-- GLYPH_SEQUENCE_START -->
+## Live Epistemic State
 
-<!-- GLYPH_SEQUENCE_END -->
+<!-- Φ_STATE_START -->
+<!-- Φ_STATE_END -->
 __________________________
 #  Φ Updates :
 
