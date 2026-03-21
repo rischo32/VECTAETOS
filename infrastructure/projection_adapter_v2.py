@@ -26,8 +26,8 @@ import json
 from datetime import datetime
 
 # External bridge
-from TetraGlyph.glyph_projection import multi_projection_to_glyphs
-
+from tetraglyph.glyph_projection import multi_projection_to_glyphs
+from tetraglyph.glyph_svg import glyph_to_svg
 
 # ─────────────────────────────────────────────
 # AXIOMS (Σ₁…Σ₈)
