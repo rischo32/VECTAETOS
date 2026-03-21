@@ -72,7 +72,7 @@ It never receives:
 
 ## 5. Obligations of the LLM Adapter
 
-The LLM Adapter **must**:
+The LLM Adapter **is constrained to**:
 
 - preserve uncertainty
 - preserve openness
