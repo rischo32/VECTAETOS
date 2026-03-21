@@ -11,7 +11,12 @@ import subprocess
 import hashlib
 import random
 import re
+import sys
 from pathlib import Path
+
+# add repo root to path
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(ROOT))
 
 from infrastructure.projection_adapter_v2 import generate_projection_bundle
 from TetraGlyph.glyph_svg import glyph_to_svg
