@@ -22,7 +22,20 @@ __________________________
 ## Live Epistemic State
 
 <!-- Φ_STATE_START -->
-<!-- no data -->
+### Live Epistemic State
+
+| Metric | Value |
+|-------|------|
+| E | 0.7338 |
+| C | 0.2271 |
+| T | 0.9564 |
+| M | 0.1019 |
+| S | 1.0000 |
+| QE | YES |
+| h (humility) | 0.8331 |
+| Asymmetry | 0.7196 |
+| Integrity | 1.0000 |
+| Triality | OK |
 <!-- Φ_STATE_END -->
 __________________________
 #  Φ Updates :
