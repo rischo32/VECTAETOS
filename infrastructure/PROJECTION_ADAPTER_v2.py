@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VECTAETOS © — Projection Adapter v2 (Multi-Π)
+VECTAETOS © — Projection Adapter v2 (Multi-Π + Glyph)
 
 STATUS:
 - NON-ONTOLOGICAL
@@ -8,14 +8,15 @@ STATUS:
 - NO EPISTEMIC AUTHORITY
 
 PURPOSE:
-- Generate multiple projection candidates Π(Φ|Σ)
-- Provide entropy of projections
-- Provide Merkle integrity for audit
+- Generate projection space Π(Φ|Σ)
+- Provide entropy (H)
+- Provide Merkle integrity
+- Map projections → TetraGlyph shapes
 
 IMPORTANT:
-- This module does NOT compute Φ, K(Φ), κ, or decisions
+- This module does NOT compute Φ, K(Φ), κ
 - This module does NOT interpret meaning
-- This module produces projection space, not answers
+- This module produces candidate projections only
 """
 
 import random
@@ -23,6 +24,9 @@ import math
 import hashlib
 import json
 from datetime import datetime
+
+# External bridge
+from TetraGlyph.glyph_projection import multi_projection_to_glyphs
 
 
 # ─────────────────────────────────────────────
@@ -42,7 +46,7 @@ AXIOMS = {
 
 
 # ─────────────────────────────────────────────
-# SIGNAL EXTRACTION (NON-SEMANTIC, SHALLOW)
+# SIGNAL EXTRACTION (SHALLOW, NON-SEMANTIC)
 # ─────────────────────────────────────────────
 
 def extract_signal(text: str) -> dict:
@@ -103,11 +107,10 @@ PROJECTION_OPERATORS = {
 # ─────────────────────────────────────────────
 
 def multi_projection(signal: dict) -> dict:
-    """
-    Generate multiple projections simultaneously.
-    No selection = no authority.
-    """
-    return {name: op(signal) for name, op in PROJECTION_OPERATORS.items()}
+    return {
+        name: operator(signal)
+        for name, operator in PROJECTION_OPERATORS.items()
+    }
 
 
 # ─────────────────────────────────────────────
@@ -172,8 +175,8 @@ def merkle_from_projections(projections: dict) -> dict:
 
 def generate_projection_bundle(query_text: str) -> dict:
     """
-    Multi-projection bundle (Π space).
-    No epistemic authority.
+    Multi-Π projection bundle.
+    Returns projection space, not answer.
     """
 
     signal = extract_signal(query_text)
@@ -182,10 +185,15 @@ def generate_projection_bundle(query_text: str) -> dict:
     entropies = entropy_map(projections)
     merkle = merkle_from_projections(projections)
 
+    glyphs = multi_projection_to_glyphs({
+        "projections": projections
+    })
+
     return {
         "type": "multi_projection_bundle",
         "axioms": AXIOMS,
         "projections": projections,
+        "glyphs": glyphs,
         "entropy": entropies,
         "merkle": merkle,
         "epistemic_status": "descriptive_only",
@@ -202,7 +210,7 @@ def main():
     import sys
 
     if len(sys.argv) < 2:
-        print("Usage: python projection_adapter_v2.py '<query text>'")
+        print("Usage: python projection_adapter_v2.py '<query>'")
         sys.exit(1)
 
     query = sys.argv[1].strip()
