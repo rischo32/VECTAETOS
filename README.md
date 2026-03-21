@@ -22,6 +22,7 @@ __________________________
 ## Live Epistemic State
 
 <!-- Φ_STATE_START -->
+<!-- no data -->
 <!-- Φ_STATE_END -->
 __________________________
 #  Φ Updates :
