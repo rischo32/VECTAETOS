@@ -11,6 +11,7 @@
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
 [![Canonical Ontology Guard](https://github.com/rischo32/Vectaetos/actions/workflows/canonical_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical_guard.yml)
 [![Φ Determinism Check](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml)
+[![Update Glyph Projection](https://github.com/rischo32/Vectaetos/actions/workflows/glyph.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/glyph.yml)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
 _________________________
