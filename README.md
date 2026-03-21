@@ -20,22 +20,22 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-<!-- Φ_STATE_START -->
-### Live Epistemic State
+## 🔹 Φ Singularities (Live)
 
-| Metric | Value |
-|-------|------|
-| E | 0.7338 |
-| C | 0.2271 |
-| T | 0.9564 |
-| M | 0.1019 |
-| S | 1.0000 |
-| QE | YES |
-| h (humility) | 0.8331 |
-| Asymmetry | 0.7196 |
-| Integrity | 1.0000 |
-| Triality | OK |
-<!-- Φ_STATE_END -->
+<!-- Φ_SINGULARITIES_START -->
+
+| Σ | E | C | T | M | S |
+|--|--|--|--|--|--|
+| Σ₁ | - | - | - | - | - |
+| Σ₂ | - | - | - | - | - |
+| Σ₃ | - | - | - | - | - |
+| Σ₄ | - | - | - | - | - |
+| Σ₅ | - | - | - | - | - |
+| Σ₆ | - | - | - | - | - |
+| Σ₇ | - | - | - | - | - |
+| Σ₈ | - | - | - | - | - |
+
+<!-- Φ_SINGULARITIES_END -->
 __________________________
 #  Φ Updates :
 
