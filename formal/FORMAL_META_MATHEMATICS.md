@@ -149,7 +149,7 @@ Každý potenciálny prechod Φ → Φ′ je hodnotený cez štyri epistemické 
 QE nastáva, ak:
 - žiadny prechod Φ → Φ′ neudrží K(Φ),
 - odpoveď by prekročila hranicu κ,
-- pole vie, že nevie, a vie prečo.
+- pole vie, že nevie, a vie prečo, alebo ináč, stav poľa je nerealizovateľný vo všetkých projekciách
 
 QE je:
 - aktívny stav,
