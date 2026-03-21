@@ -9,8 +9,7 @@
 <meta name="citation_author" content="Richard Fonfara">
 <meta name="citation_public_url" content="https://vectaetos.eu">
 
-  <!-- Google Scholar citation meta tags -->
-<meta name="citation_title" content="Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility">
+  <meta name="citation_title" content="Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility">
 <meta name="citation_author" content="Fonfára, Richard">
 <meta name="citation_publication_date" content="2025/12/28">
 <meta name="citation_doi" content="10.5281/zenodo.18076787">
@@ -31,7 +30,6 @@
 <meta name="citation_pdf_url" content="https://vectaetos.eu/papers/Epistemic_Cryptography_v1.pdf">
 <meta name="citation_language" content="en">
 
-<!-- JSON-LD pre Google -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ScholarlyArticle","name":"Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility","author":{"@type":"Person","name":"Richard Fonfára","identifier":"https://orcid.org/0009-0008-5980-8940"},"datePublished":"2025-12-28","identifier":"https://doi.org/10.5281/zenodo.18076787","keywords":["epistemic field","AI safety","non-agentic","so(8)","Lie algebra","triality"]}
 </script>
@@ -45,7 +43,7 @@
 <meta name="author" content="Richard Fonfára">
 <meta name="robots" content="index, follow">
 
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#000000">
 
 <style>
 
@@ -53,7 +51,7 @@
 
 body{
 margin:0;
-background:#050505;
+background:#000000;
 color:#eaeaea;
 font-family:monospace;
 display:flex;
@@ -98,11 +96,49 @@ font-size:15px;
 line-height:1.6;
 }
 
+/* ===== DEFINITION & UPDATES BLOCKS ===== */
+
+.definition-block, .updates-block {
+margin-top: 50px;
+padding-top: 30px;
+border-top: 1px dashed #333;
+text-align: left;
+}
+
+.definition-block h2, .updates-block h2 {
+font-size: 18px;
+font-weight: normal;
+margin-bottom: 20px;
+color: #eaeaea;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+.definition-block ul, .updates-block ul {
+padding-left: 20px;
+opacity: 0.85;
+line-height: 1.65;
+margin-bottom: 24px;
+list-style-type: none;
+}
+
+.definition-block li, .updates-block li {
+margin-bottom: 12px;
+position: relative;
+}
+
+.definition-block li::before, .updates-block li::before {
+content: "—";
+position: absolute;
+left: -20px;
+}
+
 /* ===== LINKS ===== */
 
 .links{
-margin-top:40px;
+margin-top:50px;
 font-size:14px;
+text-align: center;
 }
 
 .links a{
@@ -124,6 +160,7 @@ margin-top:80px;
 font-size:11px;
 opacity:.45;
 line-height:1.7;
+text-align: center;
 }
 
 /* ===== ANIMATION ===== */
@@ -154,11 +191,7 @@ animation:breathe 6s ease-in-out infinite;
 
 <div class="wrapper">
 
-<!-- Φ glyph with singularities -->
-
-<svg viewBox="0 0 100 100" width="180" height="180">
-
-<!-- orbit -->
+<svg viewBox="0 0 100 100" width="180" height="180" style="margin: 0 auto; display: block;">
 
 <circle
 class="orbit"
@@ -171,8 +204,6 @@ stroke-dasharray="3 12"
 fill="none"
 opacity=".35"
 />
-
-<!-- Φ -->
 
 <circle
 class="coreglyph"
@@ -194,8 +225,6 @@ stroke="#eaeaea"
 stroke-width="6"
 />
 
-<!-- singularities -->
-
 <circle cx="50" cy="8" r="2.2" fill="#eaeaea"/>
 <circle cx="78" cy="20" r="2.2" fill="#eaeaea"/>
 <circle cx="92" cy="50" r="2.2" fill="#eaeaea"/>
@@ -212,6 +241,10 @@ stroke-width="6"
 <div class="subtitle">
 Epistemic Field Architecture
 </div>
+
+<p style="font-weight: bold; opacity: 1; margin-bottom: 30px;">
+Welcome to a new epistemic era
+</p>
 
 <p>
 Vectaetos describes knowledge as a <b>relational tension field</b>
@@ -233,11 +266,137 @@ It reveals the structure of epistemic space.
 
 <br><br>
 
-Σ — invariant epistemic singularities  
-R — antisymmetric relational tensions  
-K(Φ) — representability predicate  
+Σ — invariant epistemic singularities  <br>
+R — antisymmetric relational tensions  <br>
+K(Φ) — representability predicate  <br>
 κ — coherence threshold
 
+</div>
+
+<div class="definition-block">
+    <h2>What Vectaetos IS at the highest level:</h2>
+    <p>Yes — in one specific sense.</p>
+    <p>Vectaetos solves a problem that other safety architectures do not address — the question <strong>before behavior</strong>. Not "how to prevent bad behavior," but "how to create a space in which bad behavior has no ontological representation."</p>
+    <p>RLHF, Constitutional AI, red-teaming — these are all reactive mechanisms. They work on the behavior of a system that already exists. Vectaetos is structural prevention — not a lock on a door, but an architecture in which doors to dangerous spaces do not emerge.</p>
+    <p>In this sense: Yes, a highest-level Safety Architecture.</p>
+
+    <h2>What Vectaetos IS NOT:</h2>
+    <ul>
+        <li><strong>Not a deployable safety architecture in its current state.</strong></li>
+        <li><strong>Vectaetos assumes the system is Vectaetos from the ground up.</strong> It cannot be grafted onto an existing system. The safety promise only applies to systems built on this architecture from scratch.</li>
+        <li><strong>Empirical verification does not exist.</strong> The mathematics is sound. But "the math is sound" ≠ "it works in practice."</li>
+    </ul>
+</div>
+
+<div class="updates-block">
+    <h2>Φ Updates :</h2>
+    <p>The Vectaetos architecture is currently evolving in several foundational directions:</p>
+    
+    <ul>
+        <li><strong>Meta-Language (Structural Topology Language): "TetraGlyph"</strong> — Objective: definovať jazyk, ktorý reprezentuje transformácie relácií bez zavedenia sémantiky.
+
+Formálne:
+
+Nech:
+
+Φ = (Σ, R), R ∈ so(8)
+Δ = dR ∈ ℝ⁵⁶
+Definujeme:
+
+𝓛_Φ = jazyk operátorov nad R a Δ
+Základné operátory:
+
+τ_R : R → R′  (relational deformation)
+τ_Δ : Δ → Δ′  (induced cycle deformation)
+Podmienka zachovania ontológie:
+
+τ ∈ 𝓛_Φ ⇔ τ neindukuje sémantiku ∧ zachováva antisymetriu R
+t.j.:
+
+R′(i,j) = −R′(j,i)
+τ: Im(d) → Im(d).</li>
+        <li><strong>Formalization of Epistemic Cryptography 2.0</strong> — Objective: topologicky citlivý fingerprint epistemického poľa.
+
+Formálne:
+
+Nech:
+
+Δ ∈ ℝ⁵⁶
+μᵢ = lokálna epistemická neurčitosť
+Aᵢⱼ = antisymetrická relácia
+Definujeme hash:
+
+H(Φ) = H(Δ, μ, A)
+Rozšírenie:
+
+H_topo(Φ) = H(Δ | ∂𝒟, invariants)
+kde:
+
+𝒟 = {Δ | ∃ R ∈ so(8), Δ = dR}
+κ = ∂𝒟
+Požiadavky:
+
+H(Φ₁) = H(Φ₂) ⇔ Φ₁ ≡ Φ₂ (topologicky)
+citlivosť na Δ-deformácie
+nezávislosť od reprezentácie ρ.</li>
+        <li><strong>Introduction of a Family of Epistemic Spaces</strong> —  Objective: rozšíriť Φ na množinu polí.
+
+Formálne:
+
+ℱ = {Φₐ | a ∈ I}
+kde:
+
+Φₐ = (Σ, Rₐ), Rₐ ∈ so(8)
+Definujeme:
+
+interakciu: I(Φₐ, Φ_b) → Φ_c
+fúziu: Φₐ ⊕ Φ_b = Φ_c
+Podmienky:
+
+K(Φ_c) = 1
+Δ_c ∈ 𝒟
+t.j.:
+
+dR_c = Δ_c ∈ Im(d)
+Zachovanie:
+
+Σ invariantné
+antisymetria zachovaná.</li>
+        <li><strong>Implementation of an Epistemic Merkle Tree</strong> —    Objective: verifikácia trajektórií Vortexu.
+
+Formálne:
+
+Nech trajektória:
+
+T = (Φ₀ → Φ₁ → … → Φ_n)
+Hash list:
+
+h_i = H(Φ_i)
+Merkle root:
+
+M(T) = Merkle(h₀, h₁, …, h_n)
+Podmienky:
+
+∀i: Δ_i ∈ 𝒟
+∀i: K(Φ_i) ≥ κ
+Validita trajektórie:
+
+T valid ⇔ všetky uzly reprezentovateľné ∧ hash konzistentný.</li>
+    </ul>
+
+    <p>These developments expand Vectaetos from a single-field observational architecture toward a broader framework for modeling, verifying, and projecting epistemic field dynamics.</p>
+    
+    <p>A security architecture that protects the structural representability of knowledge states rather than the behavioral alignment of intelligent systems.</p>
+    
+    <p>Vectaetos je ontologická architektúra inteligencie postavená na princípe entropickej pokory, ktorá modeluje dynamiku epistemických trajektórií bez teleológie, optimalizácie a rozhodovacej autority.</p>
+    
+    <p>Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.</p>
+    
+    <p>Vectaetos does not solve problems.<br>
+    It preserves the conditions under which understanding remains possible.</p>
+    
+    <p>Truth is not treated as a point.<br>
+    Truth is treated as a field.</p>
 </div>
 
 <div class="links">

@@ -1,22 +1,15 @@
 name: Epistemic Observatory
 
-permissions:
-  contents: write
-  pull-requests: write
-
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-
   observatory:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -28,33 +21,23 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install numpy
 
-      - name: Generate ontology hash
+      - name: Run Vortex Simulation
         run: |
-          python scripts/generate_ontology_hash.py
+          python vortex/vortex_v1.2.3.py \
+            --steps 500 \
+            --seed 42 \
+            --output observatory_output.json
 
-      - name: Update epistemic observatory
+      - name: Generate Observatory Metrics
         run: |
-          python scripts/ontology_observatory.py
+          python scripts/observatory_metrics.py
 
-      - name: Epistemic Drift Detection
-        run: |
-          python scripts/epistemic_drift.py || true
-
-      - name: Φ Field Monitor
-        run: |
-          python scripts/phi_field_monitor.py || true
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+      - name: Upload Observatory Artifact
+        uses: actions/upload-artifact@v4
         with:
-          commit-message: update epistemic observatory
-          title: Epistemic Observatory Update
-          body: |
-            Automated update of:
-            - ontology hash
-            - observatory timeline
-            - drift metrics
-            - Φ field state
-          branch: observatory-update
-          delete-branch: true
+          name: epistemic-observatory
+          path: |
+            observatory_output.json
+            observatory_metrics.json

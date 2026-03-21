@@ -112,7 +112,7 @@ Existuje **kritická hranica koherencie κ**, pre ktorú platí:
 κ je:
 ➡️ **hranica ontologickej zachovateľnosti poľa**
 
-Ak K(Φ) < κ:
+AkΦ ∉ realizovateľnej oblasti (Δ ∉ 𝒟):
 - pole stráca schopnosť udržať význam
 - prechody sa stávajú nerealizovateľnými
 - vzniká QE alebo kolaps projekcie
@@ -163,5 +163,5 @@ Tento dokument:
 
 ---
 
-© VECTAETOS  
+© VECTAETOS™
 Formal Specification — Coherence as Ontological Predicate

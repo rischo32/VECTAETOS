@@ -1,0 +1,24 @@
+name: Φ Determinism Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  determinism:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install deps
+        run: pip install numpy scipy
+
+      - name: Run determinism check
+        run: python scripts/run/run_verified_vortex.py

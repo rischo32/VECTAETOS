@@ -114,7 +114,8 @@ Prechod stavu Φ(t) → Φ(t+1) je **realizovateľný iba vtedy**, ak:
 
 - nekolabuje do jednostrannej dominance jedného stavu
 - zachováva simultánnu prítomnosť všetkých 4ES
-- udrží koherenciu K(Φ) ≥ κ
+- udrží koherenciu K(Φ)
+- holds iff the configuration remains within the representable domain of the field.
 
 Ak niektorý stav:
 - dominuje

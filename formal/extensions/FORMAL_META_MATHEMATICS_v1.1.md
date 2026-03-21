@@ -292,6 +292,9 @@ ale preto že **nemajú reprezentáciu v stavovom priestore Φ**.
 Meta-matematika Vectaetosu nepopisuje čo sa má stať,
 ale čo sa môže stať bez rozpadu zmyslu.
 
+This expression does not define coherence.
+It is only a projection of structural inconsistency.
+
 ---
 
 Status dokumentu:

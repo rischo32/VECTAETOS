@@ -1,0 +1,10 @@
+{
+  "INT": { "sk": "Zámer", "en": "Intent" },
+  "LEX": { "sk": "Existencia", "en": "Existence" },
+  "VER": { "sk": "Pravda", "en": "Truth" },
+  "REL": { "sk": "Vzájomnosť", "en": "Reciprocity" },
+  "WIS": { "sk": "Múdrosť", "en": "Wisdom" },
+  "CRE": { "sk": "Tvorba", "en": "Creation" },
+  "LIB": { "sk": "Sloboda", "en": "Freedom" },
+  "UNI": { "sk": "Jednota", "en": "Unity" }
+}

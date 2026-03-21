@@ -1,0 +1,28 @@
+name: Update Glyph Projection
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  glyph:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate glyph
+        run: python scripts/update_readme.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "CTO.new"
+          git config --global user.email "cto@vectaetos.ai"
+          git add README.md
+          git commit -m "update glyph projection" || echo "no changes"
+          git push

@@ -1,0 +1,37 @@
+name: Φ State Update
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install deps
+      run: pip install -r requirements.txt || true
+
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=." >> $GITHUB_ENV
+
+    - name: Run update
+      run: python scripts/update_readme.py
+
+    - name: Commit changes
+      run: |
+        git config user.name "vectaetos-bot"
+        git config user.email "bot@vectaetos.ai"
+        git add README.md
+        git commit -m "auto: update Φ state" || echo "no changes"
+
+    - name: Push
+      run: git push
