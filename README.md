@@ -13,6 +13,7 @@
 [![Φ Determinism Check](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml)
 [![Update Glyph Projection](https://github.com/rischo32/Vectaetos/actions/workflows/glyph.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/glyph.yml)
 [![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
+[![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
 _________________________
