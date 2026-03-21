@@ -68,6 +68,7 @@ Logs
 
 *.log
 logs/
+*.jsonl
 
 -------------------------
 
@@ -144,3 +145,4 @@ Test artifacts
 .coverage
 .pytest_cache/
 htmlcov/
+artifacts/
