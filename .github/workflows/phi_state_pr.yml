@@ -1,0 +1,38 @@
+name: Φ State PR
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=." >> $GITHUB_ENV
+
+    - name: Run update
+      run: python scripts/update_readme.py
+
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: "auto: update Φ state"
+        branch: "phi/update-readme"
+        title: "Φ state update"
+        body: "Automated projection update (glyph + diagnostics)"
+        add-paths: |
+          README.md
