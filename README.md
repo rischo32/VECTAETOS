@@ -17,6 +17,9 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
+## Live Projection
+
+__________________________
 #  Φ Updates :
 
 The Vectaetos architecture is currently evolving in several foundational directions:
