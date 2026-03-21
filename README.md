@@ -18,9 +18,9 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-## Live Projection :
+# Live Projection 
 <!-- GLYPH_SEQUENCE_START -->
-...
+
 <!-- GLYPH_SEQUENCE_END -->
 __________________________
 #  Φ Updates :
