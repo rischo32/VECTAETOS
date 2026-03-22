@@ -20,46 +20,22 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-## 🔹 Φ Singularities (Live)
+## Φ Singularities (Live)
 
-<!-- Φ_SINGULARITIES_START -->
-
-| Σ | E | C | T | M | S |
-|--|--|--|--|--|--|
-| Σ1 | 0.601 | 0.161 | 0.988 | 0.016 | 1.000 |
-| Σ2 | 0.990 | 0.160 | 0.997 | 0.063 | 1.000 |
-| Σ3 | 0.643 | 0.100 | 0.995 | 0.020 | 1.000 |
-| Σ4 | 0.584 | 0.163 | 0.996 | 0.014 | 1.000 |
-| Σ5 | 1.117 | 0.195 | 0.942 | 0.205 | 1.000 |
-| Σ6 | 1.018 | 0.244 | 0.942 | 0.164 | 1.000 |
-| Σ7 | 0.573 | 0.176 | 0.958 | 0.121 | 1.000 |
-| Σ8 | 0.680 | 0.151 | 0.993 | 0.037 | 1.000 |
-
-<!-- Φ_SINGULARITIES_END -->
-__________________________
-<!-- Φ_STATE_START -->
-
-## 🧠 Live Epistemic State
+<!-- SINGULARITIES_START -->
+<!-- END -->
 
 
-| Metric | Value |
-|--------|-------|
-| QE | NO |
-| h (humility) | 0.0000 |
-| Asymmetry | 0.0000 |
-| Integrity | 0.0000 |
-| Triality | N/A |
+## Live Epistemic State
+
+<!-- METRICS_START -->
+<!-- END -->
 
 
-## 🔷 Φ Singularities (Live)
+## Δ Drift (Last Run)
 
-
-| Σ | E | C | T | M | S |
-|---|---|---|---|---|---|
-
-
-
-<!-- Φ_STATE_END -->
+<!-- DELTA_START -->
+<!-- END -->
 __________________________
 #  Φ Updates :
 
