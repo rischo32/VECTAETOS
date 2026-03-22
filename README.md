@@ -21,21 +21,16 @@ _________________________
 > "Welcome to a new epistemic era"
 __________________________
 ## Φ Singularities (Live)
-
-<!-- SINGULARITIES_START -->
-<!-- END -->
-
+<!-- SINGULARITIES:START -->
+<!-- SINGULARITIES:END -->
 
 ## Live Epistemic State
-
-<!-- METRICS_START -->
-<!-- END -->
-
+<!-- LIVE_STATE:START -->
+<!-- LIVE_STATE:END -->
 
 ## Δ Drift (Last Run)
-
-<!-- DELTA_START -->
-<!-- END -->
+<!-- DELTA:START -->
+<!-- DELTA:END -->
 __________________________
 #  Φ Updates :
 
