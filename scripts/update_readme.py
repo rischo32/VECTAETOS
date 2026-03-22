@@ -1,55 +1,33 @@
 import json
-import os
+from pathlib import Path
 
-README_PATH = "README.md"
-JSON_PATH = "artifacts/multi_run.json"
-JSONL_PATH = "artifacts/multi_run.jsonl"
-
-START_TAG = "<!-- Φ_STATE_START -->"
-END_TAG = "<!-- Φ_STATE_END -->"
+ARTIFACT = Path("artifacts/multi_run.json")
+README = Path("README.md")
 
 
-# ------------------------
-# LOAD STATE (SAFE)
-# ------------------------
+# ---------- LOAD ----------
+
 def load_state():
-    if os.path.exists(JSON_PATH):
-        with open(JSON_PATH) as f:
-            return json.load(f)
-
-    elif os.path.exists(JSONL_PATH):
-        with open(JSONL_PATH) as f:
-            lines = f.readlines()
-            if not lines:
-                return None
-            return json.loads(lines[-1])
-
-    else:
-        print("⚠ No artifacts found")
-        return None
+    if not ARTIFACT.exists():
+        return {}
+    with open(ARTIFACT, "r") as f:
+        return json.load(f)
 
 
-# ------------------------
-# FORMAT TABLES
-# ------------------------
-def format_main_metrics(state):
-    e = state.get("epistemic", {})
-
-    return f"""
-| Metric | Value |
-|--------|-------|
-| QE | {"YES" if e.get("qe") else "NO"} |
-| h (humility) | {e.get("h", 0.0):.4f} |
-| Asymmetry | {e.get("asymmetry", 0.0):.4f} |
-| Integrity | {e.get("integrity", 0.0):.4f} |
-| Triality | {e.get("triality", "N/A")} |
-"""
-
+# ---------- FORMATTERS ----------
 
 def format_singularities(state):
+    runs = state.get("runs", [])
+
+    if not runs:
+        return "_No data available_"
+
     rows = ""
-    for s in state.get("singularities", []):
-        rows += f"| Σ{s['Σ']} | {s['E']} | {s['C']} | {s['T']} | {s['M']} | {s['S']} |\n"
+    for i, r in enumerate(runs, start=1):
+        rows += (
+            f"| Σ{i} | {r['E']:.3f} | {r['C']:.3f} | "
+            f"{r['T']:.3f} | {r['M']:.3f} | {r['S']:.3f} |\n"
+        )
 
     return f"""
 | Σ | E | C | T | M | S |
@@ -58,58 +36,90 @@ def format_singularities(state):
 """
 
 
-def build_block(state):
-    main = format_main_metrics(state)
-    sigmas = format_singularities(state)
+def format_delta(state):
+    runs = state.get("runs", [])
+
+    if len(runs) < 2:
+        return "_Not enough data for Δ_"
+
+    prev = runs[-2]
+    curr = runs[-1]
+
+    def d(k):
+        return curr[k] - prev[k]
 
     return f"""
-## 🧠 Live Epistemic State
-
-{main}
-
-## 🔷 Φ Singularities (Live)
-
-{sigmas}
+| Δ Metric | Value |
+|----------|-------|
+| ΔE | {d('E'):.4f} |
+| ΔC | {d('C'):.4f} |
+| ΔT | {d('T'):.4f} |
+| ΔM | {d('M'):.4f} |
+| ΔS | {d('S'):.4f} |
 """
 
 
-# ------------------------
-# REPLACE BLOCK
-# ------------------------
-def replace_block(readme, new_block):
-    if START_TAG not in readme or END_TAG not in readme:
-        raise ValueError(f"Missing markers: {START_TAG} / {END_TAG}")
+def format_main_metrics(state):
+    agg = state.get("aggregated", {})
 
-    before = readme.split(START_TAG)[0]
-    after = readme.split(END_TAG)[1]
+    return f"""
+| Metric | Value |
+|--------|-------|
+| QE | N/A |
+| h (humility) | {agg.get("h", 0.0):.4f} |
+| Asymmetry | {agg.get("asymmetry", 0.0):.4f} |
+| Integrity | {agg.get("integrity", 0.0):.4f} |
+| Triality | N/A |
+"""
 
-    return f"{before}{START_TAG}\n{new_block}\n{END_TAG}{after}"
+
+# ---------- UPDATE README ----------
+
+def replace_section(content, marker, new_block):
+    start = content.find(marker)
+    if start == -1:
+        return content
+
+    end = content.find("<!-- END -->", start)
+    if end == -1:
+        return content
+
+    end += len("<!-- END -->")
+
+    return content[:start] + new_block + content[end:]
 
 
-# ------------------------
-# MAIN
-# ------------------------
-def update_readme():
+def main():
     state = load_state()
 
-    if state is None:
-        print("⚠ Skipping README update (no state)")
-        return
+    singularities = format_singularities(state)
+    metrics = format_main_metrics(state)
+    delta = format_delta(state)
 
-    if not os.path.exists(README_PATH):
-        raise FileNotFoundError("README.md not found")
+    with open(README, "r") as f:
+        content = f.read()
 
-    with open(README_PATH, "r", encoding="utf-8") as f:
-        readme = f.read()
+    content = replace_section(
+        content,
+        "<!-- SINGULARITIES_START -->",
+        f"<!-- SINGULARITIES_START -->\n{singularities}\n<!-- END -->",
+    )
 
-    new_block = build_block(state)
-    updated = replace_block(readme, new_block)
+    content = replace_section(
+        content,
+        "<!-- METRICS_START -->",
+        f"<!-- METRICS_START -->\n{metrics}\n<!-- END -->",
+    )
 
-    with open(README_PATH, "w", encoding="utf-8") as f:
-        f.write(updated)
+    content = replace_section(
+        content,
+        "<!-- DELTA_START -->",
+        f"<!-- DELTA_START -->\n{delta}\n<!-- END -->",
+    )
 
-    print("✔ README updated")
+    with open(README, "w") as f:
+        f.write(content)
 
 
 if __name__ == "__main__":
-    update_readme()
+    main()
