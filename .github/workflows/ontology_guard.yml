@@ -7,6 +7,7 @@ on:
       - 'VECTAETOS_MASTER_INDEX.md'
       - 'formal/**'
       - 'core/**'
+      - 'governance/**'
       - 'scripts/audit/**'
 
   pull_request:
@@ -15,6 +16,7 @@ on:
       - 'VECTAETOS_MASTER_INDEX.md'
       - 'formal/**'
       - 'core/**'
+      - 'governance/**'
       - 'scripts/audit/**'
 
   workflow_dispatch:
@@ -39,15 +41,15 @@ jobs:
           python-version: "3.11"
 
       # ============================================
-      # 3. Debug structure (anti-path drift)
+      # 3. Debug (anti path drift)
       # ============================================
       - name: Debug repository structure
         run: |
-          echo "=== REPO STRUCTURE ==="
+          echo "=== STRUCTURE ==="
           ls -R
 
       # ============================================
-      # 4. Ensure artifacts dir
+      # 4. Ensure artifacts
       # ============================================
       - name: Ensure artifacts directory
         run: mkdir -p artifacts
@@ -55,30 +57,41 @@ jobs:
       # ============================================
       # 5. Hard path guards
       # ============================================
-      - name: Check ontology hash script exists
+      - name: Check hash guard exists
         run: test -f scripts/audit/check_ontology_hash.py
 
       - name: Check language guard exists
         run: test -f scripts/audit/check_ontology_language.py
 
+      - name: Check governance guard exists
+        run: test -f scripts/audit/check_governance_rules.py
+
       # ============================================
-      # 6. Ontology Hash Guard (STRUCTURE)
+      # 6. STRUCTURE — Ontology Hash
       # ============================================
-      - name: Verify ontology hash
+      - name: Ontology hash guard
         run: |
-          echo "=== ONTOLOGY HASH GUARD ==="
+          echo "=== HASH GUARD ==="
           python scripts/audit/check_ontology_hash.py
 
       # ============================================
-      # 7. Ontology Language Guard (MEANING)
+      # 7. MEANING — Language Guard
       # ============================================
-      - name: Verify ontology language
+      - name: Ontology language guard
         run: |
-          echo "=== ONTOLOGY LANGUAGE GUARD ==="
+          echo "=== LANGUAGE GUARD ==="
           python scripts/audit/check_ontology_language.py
 
       # ============================================
-      # 8. Upload artifacts (always)
+      # 8. GOVERNANCE — Rule Enforcement
+      # ============================================
+      - name: Governance guard
+        run: |
+          echo "=== GOVERNANCE GUARD ==="
+          python scripts/audit/check_governance_rules.py
+
+      # ============================================
+      # 9. Upload artifacts
       # ============================================
       - name: Upload artifacts
         if: always()
