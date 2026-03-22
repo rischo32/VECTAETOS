@@ -1,60 +1,114 @@
-from pathlib import Path
 import json
+import os
 
-README_PATH = Path("README.md")
-JSON_PATH = Path("artifacts/multi_run.json")
+README_PATH = "README.md"
+JSON_PATH = "artifacts/multi_run.json"
+JSONL_PATH = "artifacts/multi_run.jsonl"
+
+START_TAG = "<!-- Φ_STATE_START -->"
+END_TAG = "<!-- Φ_STATE_END -->"
 
 
+# ------------------------
+# LOAD STATE (SAFE)
+# ------------------------
 def load_state():
-    if not JSON_PATH.exists():
-        raise FileNotFoundError(f"{JSON_PATH} not found")
+    if os.path.exists(JSON_PATH):
+        with open(JSON_PATH) as f:
+            return json.load(f)
 
-    with open(JSON_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    elif os.path.exists(JSONL_PATH):
+        with open(JSONL_PATH) as f:
+            lines = f.readlines()
+            if not lines:
+                return None
+            return json.loads(lines[-1])
+
+    else:
+        print("⚠ No artifacts found")
+        return None
 
 
-def format_singularities(samples):
-    rows = []
-    for i, p in enumerate(samples, start=1):
-        rows.append(
-            f"| Σ{i} | {p['E']:.3f} | {p['C']:.3f} | {p['T']:.3f} | {p['M']:.3f} | {p['S']:.3f} |"
-        )
+# ------------------------
+# FORMAT TABLES
+# ------------------------
+def format_main_metrics(state):
+    e = state.get("epistemic", {})
 
-    return f"""| Σ | E | C | T | M | S |
-|--|--|--|--|--|--|
-{chr(10).join(rows)}
+    return f"""
+| Metric | Value |
+|--------|-------|
+| QE | {"YES" if e.get("qe") else "NO"} |
+| h (humility) | {e.get("h", 0.0):.4f} |
+| Asymmetry | {e.get("asymmetry", 0.0):.4f} |
+| Integrity | {e.get("integrity", 0.0):.4f} |
+| Triality | {e.get("triality", "N/A")} |
 """
 
 
-def replace_block(content, start_tag, end_tag, new_block):
-    if start_tag not in content or end_tag not in content:
-        raise ValueError(f"Missing markers: {start_tag} / {end_tag}")
+def format_singularities(state):
+    rows = ""
+    for s in state.get("singularities", []):
+        rows += f"| Σ{s['Σ']} | {s['E']} | {s['C']} | {s['T']} | {s['M']} | {s['S']} |\n"
 
-    before = content.split(start_tag)[0]
-    after = content.split(end_tag)[1]
+    return f"""
+| Σ | E | C | T | M | S |
+|---|---|---|---|---|---|
+{rows}
+"""
 
-    return f"{before}{start_tag}\n\n{new_block}\n{end_tag}{after}"
+
+def build_block(state):
+    main = format_main_metrics(state)
+    sigmas = format_singularities(state)
+
+    return f"""
+## 🧠 Live Epistemic State
+
+{main}
+
+## 🔷 Φ Singularities (Live)
+
+{sigmas}
+"""
 
 
+# ------------------------
+# REPLACE BLOCK
+# ------------------------
+def replace_block(readme, new_block):
+    if START_TAG not in readme or END_TAG not in readme:
+        raise ValueError(f"Missing markers: {START_TAG} / {END_TAG}")
+
+    before = readme.split(START_TAG)[0]
+    after = readme.split(END_TAG)[1]
+
+    return f"{before}{START_TAG}\n{new_block}\n{END_TAG}{after}"
+
+
+# ------------------------
+# MAIN
+# ------------------------
 def update_readme():
     state = load_state()
 
-    samples = state.get("samples", [])
-    if not samples:
-        raise ValueError("No samples in multi_run.json")
+    if state is None:
+        print("⚠ Skipping README update (no state)")
+        return
 
-    readme = README_PATH.read_text(encoding="utf-8")
+    if not os.path.exists(README_PATH):
+        raise FileNotFoundError("README.md not found")
 
-    singularities_block = format_singularities(samples)
+    with open(README_PATH, "r", encoding="utf-8") as f:
+        readme = f.read()
 
-    readme = replace_block(
-        readme,
-        "<!-- Φ_SINGULARITIES_START -->",
-        "<!-- Φ_SINGULARITIES_END -->",
-        singularities_block
-    )
+    new_block = build_block(state)
+    updated = replace_block(readme, new_block)
 
-    README_PATH.write_text(readme, encoding="utf-8")
+    with open(README_PATH, "w", encoding="utf-8") as f:
+        f.write(updated)
+
+    print("✔ README updated")
 
 
 if __name__ == "__main__":
