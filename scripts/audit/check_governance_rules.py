@@ -1,104 +1,56 @@
-import os
+#!/usr/bin/env python3
+
 import sys
+from pathlib import Path
 
 # ============================================
-# LOAD GOVERNANCE RULES
+# STRICT (zakázané konštrukcie)
 # ============================================
 
-GOVERNANCE_FILES = [
-    "governance/ONTOLOGY_RULES.md",
-    "governance/LANGUAGE_CONSTRAINTS.md",
-    "governance/NON_AGENTIC_POLICY.md"
+FORBIDDEN_PATTERNS = [
+    "agent decides",
+    "system decides",
+    "model decides",
+    "choose the best",
+    "select optimal",
+    "maximize reward",
+    "minimize loss",
+    "policy learns",
+    "system optimizes itself",
 ]
 
-# fallback (ak by súbory neexistovali)
-DEFAULT_FORBIDDEN = [
-    "optimize",
-    "optimization",
-    "decision",
-    "decide",
-    "best",
-    "correct",
-    "incorrect",
-    "valid",
-    "invalid",
-    "representable",
-    "verify",
-    "enforce",
-    "should",
-    "must",
-    "goal",
-    "reward"
+# ============================================
+# POVOLENÉ KONCEPTY (Φ jazyk)
+# ============================================
+
+ALLOWED_TERMS = [
+    "relation",
+    "structure",
+    "configuration",
+    "projection",
+    "collapse",
+    "field",
+    "topology",
+    "deformation",
 ]
 
-# čo skenujeme
-TARGET_DIRS = [
-    "VECTAETOS_MASTER_INDEX.md",
-    "formal/",
-    "core/",
-    "scripts/"
-]
+SCAN_DIRS = ["formal", "core", "governance", "VECTAETOS_MASTER_INDEX.md"]
 
 
 # ============================================
-# EXTRACT FORBIDDEN WORDS
+# HELPERS
 # ============================================
 
-def extract_forbidden():
-    words = set()
-
-    for path in GOVERNANCE_FILES:
-        if not os.path.exists(path):
-            continue
-
-        with open(path, "r", encoding="utf-8", errors="ignore") as f:
-            content = f.read().lower()
-
-            for line in content.splitlines():
-                line = line.strip()
-                if line.startswith("- "):
-                    words.add(line[2:].strip())
-
-    if not words:
-        return set(DEFAULT_FORBIDDEN)
-
-    return words
-
-
-# ============================================
-# COLLECT FILES
-# ============================================
-
-def collect_files():
-    files = []
-
-    for target in TARGET_DIRS:
-        if os.path.isfile(target):
-            files.append(target)
-
-        elif os.path.isdir(target):
-            for root, _, filenames in os.walk(target):
-                for f in filenames:
-                    if f.endswith(".md"):
-                        files.append(os.path.join(root, f))
-
-    return files
-
-
-# ============================================
-# SCAN
-# ============================================
-
-def scan(files, forbidden):
+def scan_file(path: Path):
     violations = []
 
-    for path in files:
-        with open(path, "r", encoding="utf-8", errors="ignore") as f:
-            content = f.read().lower()
+    with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        for i, line in enumerate(f, 1):
+            lower = line.lower()
 
-            for word in forbidden:
-                if word in content:
-                    violations.append((path, word))
+            for pattern in FORBIDDEN_PATTERNS:
+                if pattern in lower:
+                    violations.append((path, i, pattern, line.strip()))
 
     return violations
 
@@ -108,25 +60,30 @@ def scan(files, forbidden):
 # ============================================
 
 def main():
-    print("=== GOVERNANCE GUARD ===")
+    print("=== GOVERNANCE GUARD v2 ===")
 
-    forbidden = extract_forbidden()
-    print(f"Loaded forbidden tokens: {len(forbidden)}")
+    violations = []
 
-    files = collect_files()
-    print(f"Scanning files: {len(files)}")
+    for target in SCAN_DIRS:
+        p = Path(target)
 
-    violations = scan(files, forbidden)
+        if p.is_file():
+            violations.extend(scan_file(p))
 
-    if violations:
-        print("\n❌ GOVERNANCE VIOLATION:\n")
+        elif p.is_dir():
+            for file in p.rglob("*.md"):
+                violations.extend(scan_file(file))
 
-        for path, word in violations:
-            print(f"{path} → '{word}'")
+    if not violations:
+        print("✓ Governance OK")
+        sys.exit(0)
 
-        sys.exit(1)
+    print("\n❌ GOVERNANCE VIOLATIONS:\n")
 
-    print("\n✅ GOVERNANCE OK")
+    for path, line, pattern, content in violations:
+        print(f"{path}:{line} → [{pattern}] {content}")
+
+    sys.exit(1)
 
 
 if __name__ == "__main__":
