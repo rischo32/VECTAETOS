@@ -38,9 +38,26 @@ __________________________
 <!-- Φ_SINGULARITIES_END -->
 __________________________
 <!-- Φ_STATE_START -->
+
 ## 🧠 Live Epistemic State
 
-*(auto-generated — do not edit manually)*
+
+| Metric | Value |
+|--------|-------|
+| QE | NO |
+| h (humility) | 0.0000 |
+| Asymmetry | 0.0000 |
+| Integrity | 0.0000 |
+| Triality | N/A |
+
+
+## 🔷 Φ Singularities (Live)
+
+
+| Σ | E | C | T | M | S |
+|---|---|---|---|---|---|
+
+
 
 <!-- Φ_STATE_END -->
 __________________________
