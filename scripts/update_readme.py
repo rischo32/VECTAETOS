@@ -2,25 +2,20 @@ from pathlib import Path
 import json
 
 README_PATH = Path("README.md")
-JSON_PATH = Path("artifacts/run_2.jsonl")
+JSON_PATH = Path("artifacts/multi_run.json")
 
 
-def load_latest_state():
+def load_state():
     if not JSON_PATH.exists():
         raise FileNotFoundError(f"{JSON_PATH} not found")
 
     with open(JSON_PATH, "r", encoding="utf-8") as f:
-        lines = [l.strip() for l in f.readlines() if l.strip()]
-
-    if not lines:
-        raise ValueError("JSONL is empty")
-
-    return json.loads(lines[-1])
+        return json.load(f)
 
 
-def format_singularities(poles):
+def format_singularities(samples):
     rows = []
-    for i, p in enumerate(poles, start=1):
+    for i, p in enumerate(samples, start=1):
         rows.append(
             f"| Σ{i} | {p['E']:.3f} | {p['C']:.3f} | {p['T']:.3f} | {p['M']:.3f} | {p['S']:.3f} |"
         )
@@ -42,12 +37,15 @@ def replace_block(content, start_tag, end_tag, new_block):
 
 
 def update_readme():
-    state = load_latest_state()
-    poles = state["poles"]
+    state = load_state()
+
+    samples = state.get("samples", [])
+    if not samples:
+        raise ValueError("No samples in multi_run.json")
 
     readme = README_PATH.read_text(encoding="utf-8")
 
-    singularities_block = format_singularities(poles)
+    singularities_block = format_singularities(samples)
 
     readme = replace_block(
         readme,
