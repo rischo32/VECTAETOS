@@ -5,18 +5,21 @@ on:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"  # každú hodinu
+    - cron: "0 * * * *"
 
 jobs:
   observatory:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # ⚠️ nutné pre push
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -31,12 +34,12 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
-      # 🔁 MULTI-RUN VORTEX
+      # 🔁 RUN VORTEX
       - name: Run Vortex (multi)
         run: |
           python vortex/vortex_runner.py
 
-      # 🔍 DEBUG (nech vieš čo existuje)
+      # 🔍 DEBUG
       - name: Debug artifacts
         run: |
           ls -la
@@ -47,17 +50,40 @@ jobs:
         run: |
           python scripts/update_readme.py
 
-      # 📝 COMMIT (LEN README!)
+      # 🌿 CREATE BRANCH
+      - name: Create branch
+        run: |
+          BRANCH=auto/observatory-${{ github.run_id }}
+          git checkout -b $BRANCH
+          echo "BRANCH_NAME=$BRANCH" >> $GITHUB_ENV
+
+      # 📝 COMMIT
       - name: Commit changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add README.md
 
-          git diff --cached --quiet || git commit -m "auto(Φ): update state"
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
 
-      # 🚀 PUSH (len ak je commit)
-      - name: Push changes
+          git commit -m "auto(Φ): observatory update"
+
+      # 🚀 PUSH BRANCH
+      - name: Push branch
         run: |
-          git push
+          git push origin $BRANCH_NAME
+
+      # 🔀 CREATE PR
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ env.BRANCH_NAME }}
+          base: main
+          title: "auto(Φ): observatory update"
+          body: |
+            Automated epistemic projection update.
+          commit-message: "auto(Φ): observatory update"
