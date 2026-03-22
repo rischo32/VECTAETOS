@@ -5,14 +5,14 @@ on:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *"  # každú hodinu
 
 jobs:
   observatory:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
+      contents: write  # ⚠️ nutné pre push
 
     steps:
       - name: Checkout repository
@@ -29,30 +29,35 @@ jobs:
           pip install numpy
 
       - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
-      # 1️⃣ vortex
+      # 🔁 MULTI-RUN VORTEX
       - name: Run Vortex (multi)
-        run: python vortex/vortex_runner.py
+        run: |
+          python vortex/vortex_runner.py
 
-      # DEBUG (doporučené teraz)
+      # 🔍 DEBUG (nech vieš čo existuje)
       - name: Debug artifacts
-        run: ls -R artifacts || echo "no artifacts"
+        run: |
+          ls -la
+          ls -la artifacts || true
 
-      # 2️⃣ readme
+      # 🧠 UPDATE README
       - name: Update README projection
-        run: python scripts/update_readme.py
+        run: |
+          python scripts/update_readme.py
 
-      # 3️⃣ commit
+      # 📝 COMMIT (LEN README!)
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          git add artifacts/ README.md
+          git add README.md
 
-          git diff --cached --quiet || git commit -m "auto(phi): update"
+          git diff --cached --quiet || git commit -m "auto(Φ): update state"
 
-      # 4️⃣ push (CHÝBAL!)
+      # 🚀 PUSH (len ak je commit)
       - name: Push changes
-        run: git push
+        run: |
+          git push
