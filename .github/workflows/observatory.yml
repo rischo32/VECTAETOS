@@ -16,74 +16,32 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
+      - run: |
           python -m pip install --upgrade pip
           pip install numpy
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      - run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
-      # 🔁 RUN VORTEX
-      - name: Run Vortex (multi)
-        run: |
-          python vortex/vortex_runner.py
+      - name: Run Vortex
+        run: python vortex/vortex_runner.py
 
-      # 🔍 DEBUG
-      - name: Debug artifacts
-        run: |
-          ls -la
-          ls -la artifacts || true
+      - name: Update README
+        run: python scripts/update_readme.py
 
-      # 🧠 UPDATE README
-      - name: Update README projection
-        run: |
-          python scripts/update_readme.py
-
-      # 🌿 CREATE BRANCH
-      - name: Create branch
-        run: |
-          BRANCH=auto/observatory-${{ github.run_id }}
-          git checkout -b $BRANCH
-          echo "BRANCH_NAME=$BRANCH" >> $GITHUB_ENV
-
-      # 📝 COMMIT
-      - name: Commit changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add README.md
-
-          if git diff --cached --quiet; then
-            echo "No changes"
-            exit 0
-          fi
-
-          git commit -m "auto(Φ): observatory update"
-
-      # 🚀 PUSH BRANCH
-      - name: Push branch
-        run: |
-          git push origin $BRANCH_NAME
-
-      # 🔀 CREATE PR
+      # 🟢 CREATE PR INSTEAD OF PUSH
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          branch: ${{ env.BRANCH_NAME }}
-          base: main
-          title: "auto(Φ): observatory update"
-          body: |
-            Automated epistemic projection update.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: auto/observatory-${{ github.run_id }}
           commit-message: "auto(Φ): observatory update"
+          title: "auto(Φ): observatory update"
+          body: "Automated epistemic projection update."
+          add-paths: |
+            README.md
