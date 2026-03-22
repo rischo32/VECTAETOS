@@ -16,6 +16,27 @@ def load_state():
 
 # ---------- FORMATTERS ----------
 
+def extract_metrics(r):
+    """
+    Robust extractor — podporuje viac schém
+    """
+
+    # direct
+    if "E" in r:
+        return r
+
+    # nested state
+    if "state" in r:
+        return r["state"]
+
+    # nested metrics
+    if "metrics" in r:
+        return r["metrics"]
+
+    # fallback
+    return {}
+
+
 def format_singularities(state):
     runs = state.get("runs", [])
 
@@ -23,11 +44,24 @@ def format_singularities(state):
         return "_No data available_"
 
     rows = ""
+
     for i, r in enumerate(runs, start=1):
+        m = extract_metrics(r)
+
+        if not m:
+            continue
+
         rows += (
-            f"| Σ{i} | {r['E']:.3f} | {r['C']:.3f} | "
-            f"{r['T']:.3f} | {r['M']:.3f} | {r['S']:.3f} |\n"
+            f"| Σ{i} | "
+            f"{m.get('E', 0):.3f} | "
+            f"{m.get('C', 0):.3f} | "
+            f"{m.get('T', 0):.3f} | "
+            f"{m.get('M', 0):.3f} | "
+            f"{m.get('S', 0):.3f} |\n"
         )
+
+    if not rows:
+        return "_No valid runs_"
 
     return f"""
 | Σ | E | C | T | M | S |
