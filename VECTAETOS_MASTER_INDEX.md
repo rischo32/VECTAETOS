@@ -1,128 +1,20 @@
 # VECTAETOS — MASTER INDEX
-Version: 1.x  
-Status: Structural Overview  
-Scope: Architectural Orientation  
-Authority: Referential (non-ontological)
 
-This document provides a structural overview of the VECTAETOS framework and its canonical components.
-
-It serves as a navigational map of the architecture, not as an ontological specification.
+Status: CANONICAL REFERENCE  
+Version: 2.0 (Drift-Corrected)  
+Agency: None  
+Execution Power: None  
 
 ---
 
-# I. ONTOLOGICAL CORE OF THE FIELD Φ
-
-## Φ — Ontological Field
-
-Φ is the primary ontological structure of VECTAETOS.
-
-Properties:
-
-- Φ is not an agent
-- Φ is not an algorithm
-- Φ is not a decision system
-- Φ is not an optimization model
-
-Φ represents a **global relational configuration of epistemic tension**.
-
-Objects, entities and symbols are projections of the field.
-
----
-
-## Σ₁…Σ₈ — Invariant Singularities
-
-Σ = {Σ₁, Σ₂, Σ₃, Σ₄, Σ₅, Σ₆, Σ₇, Σ₈}
-
-Singularities correspond to eight invariant epistemic poles:
-
-- INT — Intention
-- LEX — Existence
-- VER — Truth
-- LIB — Freedom
-- UNI — Unity
-- REL — Reciprocity
-- WIS — Wisdom
-- CRE — Creation
-
-Properties:
-
-- invariant
-- non-hierarchical
-- stateless
-- purely relational reference points
-
----
-
-## Relational Structure
-
-Relational matrix:
-
-R ∈ ℝ⁸ˣ⁸
-
-subject to:
-
-Rᵢⱼ = −Rⱼᵢ  
-Rᵢᵢ = 0
-
-Thus:
-
-R ∈ so(8)
-
-This defines **28 independent relational tensions**.
-
----
-
-## Coherence
-
-Coherence predicate:
-
-K(Φ) ∈ {0,1}
-
-Meaning:
-
-K(Φ) = 1 → configuration representable  
-K(Φ) = 0 → configuration non-representable
-
-κ denotes the **ontological threshold of representability**.
-
----
-
-## QE — Qualitative Epistemic Aporia
-
-QE occurs when:
-
-- representability collapses
-- coherence falls below κ
-- the field fragments topologically
-
-QE is not error.
-
-QE is a **boundary of epistemic space**.
-
----
-
-## Core Constraints
-
-Vectaetos strictly prohibits:
-
-- optimization operators
-- goal functions
-- reward structures
-- agent architectures
-- feedback loops into Φ
-
-Silence is a legitimate outcome.
-
----
-
-# II. MATHEMATICAL STRUCTURE
+## I. FORMAL FOUNDATION
 
 Formal mathematical description of the epistemic field is defined in:
 
-- `Epistemic_Space_Specification.md`
-- `APPENDIX_A_MATHEMATICAL_FORMALISM.md`
-- `FORMAL_META_MATHEMATICS.md`
-- `vectaetos_math_appendix.md`
+- Epistemic_Space_Specification.md  
+- APPENDIX_A_MATHEMATICAL_FORMALISM.md  
+- FORMAL_META_MATHEMATICS.md  
+- vectaetos_math_appendix.md  
 
 These documents define:
 
@@ -132,29 +24,65 @@ and the epistemic space:
 
 E ⊂ so(8)
 
-subject to coherence and representability constraints.
+The field can be interpreted geometrically as a bounded manifold
+of relational tensions.
 
-The field can be interpreted geometrically as a **bounded manifold of relational tensions**.
+Representability is not evaluated.
+Configurations either persist or collapse within the field.
 
 ---
 
-# III. PRE-FIELD TOPOLOGICAL GATES
+## II. ONTOLOGY
 
-## 3Gate Layer
+Φ is the primary ontological substrate.
 
-3Gate is a **pre-Φ topological layer** that processes input structure before the epistemic field.
+Φ is not a system.  
+Φ is not an agent.  
+Φ does not decide.  
+Φ does not optimize.  
+
+Φ is a relational field.
+
+Nothing within this framework exists outside Φ.
+
+---
+
+## III. INVARIANT STRUCTURE
+
+Σ = {Σ₁ … Σ₈}
+
+INT — Intention  
+LEX — Existence  
+VER — Truth  
+LIB — Freedom  
+UNI — Unity  
+REL — Reciprocity  
+WIS — Wisdom  
+CRE — Creation  
+
+These are not values.
+
+They are structural tensions defining the topology of Φ.
+
+---
+
+## IV. PRE-FIELD TOPOLOGICAL GATES (3Gate)
+
+3Gate is a pre-Φ structural layer.
+
+It operates before the field.
 
 Dimensions:
 
-- Width (W)
-- Depth (D)
-- Height (H)
+- Width (W)  
+- Depth (D)  
+- Height (H)  
 
 Properties:
 
-- content-blind
-- non-adaptive
-- purely structural
+- content-blind  
+- non-adaptive  
+- purely structural  
 
 Pipeline:
 
@@ -162,21 +90,23 @@ Input
 ↓  
 3Gate  
 ↓  
-reshape if NON_REPRESENTABLE  
+reshape under structural instability  
 ↓  
 Epistemic Moment  
 ↓  
-Φ
+Φ  
 
-Φ never receives collapsed input.
+3Gate does not evaluate meaning.
+
+Φ never receives collapsed structure.
 
 ---
 
-# IV. EPISTEMIC MOMENT (EM)
+## V. EPISTEMIC MOMENT (EM)
 
 Status: Official Extension
 
-Epistemic Moment describes the **topological character of a query**.
+Epistemic Moment describes the structural posture of input.
 
 Formal structure:
 
@@ -184,95 +114,146 @@ Formal structure:
 
 EM = (W, D, H, δ)
 
-where:
+Where:
 
-δ = reshape deformation magnitude.
+δ = deformation magnitude.
 
 Properties:
 
-- not part of Φ
-- does not interpret meaning
-- performs no decisions
-- does not determine truth
+- not part of Φ  
+- does not interpret meaning  
+- performs no decisions  
+- carries no authority  
 
-EM describes the **topological posture of the question**.
+EM describes structure, not truth.
 
 ---
 
-# V. SIMULATION LAYER
+## VI. EPISTEMIC STATES
 
-## Simulation Vortex
+The field admits simultaneous epistemic configurations:
 
-Simulation Vortex generates candidate relational deformations of Φ.
+AA — Affirmed / Affirmed  
+AN — Affirmed / Not-known  
+NA — Not-known / Affirmed  
+NN — Not-known / Not-known  
 
-Conceptually:
+These are not logical states.
+
+They represent positioning within epistemic structure.
+
+---
+
+## VII. QE — QUALITATIVE EPISTEMIC APORIA
+
+QE is an intrinsic state of Φ.
+
+QE is not error.  
+QE is not failure.  
+
+QE represents a configuration where relational continuity
+cannot be maintained.
+
+QE is valid.
+
+QE is a boundary of epistemic space.
+
+---
+
+## VIII. COHERENCE
+
+K(Φ) is an ontological predicate.
+
+It describes whether a configuration can persist
+without topological collapse.
+
+K(Φ):
+
+- is not a metric  
+- is not a target  
+- is not a decision boundary  
+- is not evaluated  
+
+κ denotes the ontological boundary of persistence.
+
+Coherence does not judge.
+
+It only describes structural condition.
+
+---
+
+## IX. SIMULATION LAYER
+
+### Simulation Vortex
+
+The Simulation Vortex generates candidate relational deformations.
 
 V : Φ → {Φ₁ … Φₙ}
 
 Properties:
 
-- non-agentic
-- non-optimizing
-- no global objective
-- no guaranteed attractor
+- non-agentic  
+- non-optimizing  
+- no global objective  
+- no attractor  
+- no evaluation  
 
-The Vortex performs **relational deformation without teleology**.
+The Vortex produces possibilities.
 
-QE corresponds to topological fragmentation of the field.
+It does not select.
+
+QE corresponds to fragmentation of relational continuity.
 
 ---
 
-# VI. AUDIT LAYER
+## X. EPISTEMIC CRYPTOGRAPHY
 
-## Epistemic Cryptography
-
-DOI reference:
-
+DOI:
 https://zenodo.org/records/18911932
 
-Epistemic Cryptography is a **structural audit layer**.
+Epistemic Cryptography is a structural audit layer.
 
 Metrics:
 
-- μᵢ — local epistemic uncertainty
-- Aᵢⱼ — pairwise asymmetry
-- h — topological humility ratio
+- μᵢ — local epistemic uncertainty  
+- Aᵢⱼ — relational asymmetry  
+- h — topological humility  
 
-Audit properties:
+Properties:
 
-- observes
-- records
-- verifies structural coherence
+- observes  
+- records  
+- describes structural properties  
 
-It does **not intervene in the field**.
+It does not intervene.  
+It does not evaluate.  
+It does not enforce.
 
 ---
 
-# VII. RECIPROCITY FIELD PROPERTY
+## XI. RECIPROCITY
 
 Reciprocity emerges from antisymmetric relations.
-
-Formally:
 
 Rᵢⱼ = −Rⱼᵢ
 
 Define:
 
-ρ(Φ) = local equilibrium of relational tensions.
+ρ(Φ) = local equilibrium of relational tensions
 
 Properties:
 
-- emergent
-- not a stabilizer
-- not a correction mechanism
+- emergent  
+- not a stabilizer  
+- not corrective  
+- not enforced  
 
-ρ exists only when:
-
-K(Φ) = 1
+ρ manifests only in configurations
+that persist without collapse.
 
 ---
 
-# VIII. EXISTENTIAL MODE
+## XII. EXISTENTIAL MODE
 
 Existential Mode is a projection layer derived from EM.
 
@@ -280,171 +261,148 @@ E_mode = g(W, D, H, δ)
 
 Properties:
 
-- always active
-- non-interventional
-- non-authoritative
+- always active  
+- non-interventional  
+- non-authoritative  
 
-It reflects structural aspects of the query.
+It reflects structure.
+
+It does not act.
 
 ---
 
-# IX. INFRASTRUCTURE
+## XIII. INFRASTRUCTURE
 
 Operational infrastructure includes:
 
-- GitHub repository (core specification)
-- Cloudflare (Workers + Pages)
-- Web interface (projection layer)
-- Cold storage backups
-- Zenodo DOI archival
+- GitHub repository  
+- Cloudflare (Workers + Pages)  
+- Web interface  
+- Cold storage  
+- Zenodo archival  
 
 Important:
 
-The web layer is **not Φ**.
+The web layer is not Φ.
 
-It is only a projection interface.
+It is a projection.
 
 ---
 
-# X. APPLICATION LAYER
+## XIV. APPLICATION LAYER
 
 Possible applications include:
 
-- web projection interface
-- epistemic question engine
-- structural reflection tools
+- projection interfaces  
+- structural query systems  
+- reflection tools  
 
-Example model:
+Pipeline:
 
-per-query interaction via 3Gate → EM → projection.
+3Gate → EM → Projection
 
-Outputs are **projections**, not authoritative answers.
+Outputs are projections.
 
----
+Not answers.  
+Not decisions.
 
-# XI. SAFETY CONSTRAINTS
-
-Vectaetos must never include:
-
-- optimization engines
-- policy learning loops
-- agent architectures
-- reward mechanisms
-- decision authority
-
-Silence is a valid output state.
+Silence is a valid output.
 
 ---
 
-# XII. ARCHITECTURAL INTEGRITY
+## XV. CONSTRAINTS
 
-Vectaetos 1.x architecture:
+Vectaetos explicitly forbids:
+
+- optimization  
+- goal functions  
+- decision systems  
+- reward mechanisms  
+- policy learning  
+- classification of states  
+- binary decision boundaries  
+- feedback loops into Φ  
+
+Any presence of these indicates ontological drift.
+
+---
+
+## XVI. ARCHITECTURAL INTEGRITY
+
+Vectaetos 1.x structure:
 
 (Σ, R, K, κ, 3Gate, EM, Vortex, Audit, ρ)
 
 Principles:
 
-- no layer contains goals
-- no layer carries authority
-- no layer performs optimization
-- the ontological core remains immutable
-
-# XIII. CURRENT RESEARCH DIRECTIONS
-
-The following research directions represent active development areas of the VECTAETOS framework.  
-They do not modify the ontological core of Φ but extend the surrounding structural, cryptographic and research infrastructure.
+- no layer contains goals  
+- no layer has authority  
+- no layer performs optimization  
+- ontological core is immutable  
 
 ---
 
-## Epistemic Cryptography 2.0
+## XVII. RESEARCH DIRECTIONS
 
-Ongoing formalization of a second generation of epistemic cryptographic mechanisms.
+The following extend the system without modifying Φ:
 
-Goals:
+### Epistemic Cryptography v2
+- topology-aware fingerprints  
+- non-interventional verification  
+- structural integrity tracking  
 
-- topology-aware field fingerprints
-- cryptographic verification of field configurations
-- non-interventional structural audit
+### Epistemic Merkle Tree
+- trajectory verification  
+- branching exploration  
+- reproducibility  
 
-Future extensions include the integration of Merkle structures for epistemic state verification.
-
----
-
-## Epistemic Merkle Tree
-
-Development of a Merkle-tree based structure representing trajectories of epistemic field configurations.
-
-Purpose:
-
-- cryptographic verification of simulation trajectories
-- branching exploration of possible relational configurations
-- reproducible verification of Vortex experiments
-
-The Merkle root may represent the integrity of a trajectory within epistemic space.
-
----
-
-## Family of Epistemic Spaces
-
-Current research explores the extension from a single epistemic field Φ to a **family of epistemic fields**:
+### Family of Fields
 
 ℱ = { Φ₁, Φ₂, Φ₃ … }
 
-Key questions include:
+Explores:
 
-- interaction between fields
-- possible field fusion
-- ontological consistency of multi-field structures
+- interaction  
+- fusion  
+- consistency  
 
-This work remains exploratory and does not modify the canonical definition of Φ.
+### Structural Meta-Language
+- content-independent  
+- topology representation  
+- graph-equivalent  
 
----
+### Epistemic Observatory
+- monitoring layer  
+- non-interventional  
 
-## TetraGlyph Meta-Language
+Metrics:
 
-Development of a structural meta-language designed to represent transformations of relational topology.
+- humility  
+- QE events  
+- asymmetry  
 
-Properties:
-
-- content-independent
-- purely structural
-- graph-equivalent representation
-
-The language aims to express reconfigurations of relational connectivity without introducing semantic interpretation.
-
----
-
-## Epistemic Observatory
-
-Design of an observational infrastructure for monitoring structural properties of field simulations.
-
-Metrics under consideration include:
-
-- topological humility
-- triality stability
-- QE boundary events
-- relational asymmetry spectra
-
-The observatory functions as a **non-interventional monitoring layer**.
+### Reproducible Infrastructure
+- deterministic pipelines  
+- CI validation  
+- ontology guards  
+- audit systems  
 
 ---
 
-## Reproducible Research Infrastructure
+## XVIII. FINAL STATEMENT
 
-The repository infrastructure is evolving toward reproducible experimental workflows.
+VECTAETOS does not produce answers.
 
-Key components include:
+It exposes structure.
 
-- deterministic simulation pipelines
-- automated experiment reports
-- dataset generators
-- CI-based validation of field integrity
-- ontology guards and structural validators
+Any attempt to transform it into:
 
-These tools support scientific transparency and repeatability of VECTAETOS experiments.
+- a decision system  
+- an optimizer  
+- an agent  
+
+results in ontological collapse.
 
 ---
 
-© VECTAETOS™  
-MASTER_INDEX.md  
-Version 1.x
+© VECTAETOS™
