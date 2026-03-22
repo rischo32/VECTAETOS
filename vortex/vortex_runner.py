@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 """
 VECTAETOS :: MULTI-TRAJECTORY VORTEX RUNNER
-
-- wrapper nad vortex_v1.2.3.py
-- generuje N trajektórií (seed sweep)
-- NEVYBERÁ, NEOPTIMALIZUJE
-- exportuje agregovanú projekciu
 """
 
 from pathlib import Path
 import json
-from copy import deepcopy
+import time
 from statistics import mean, variance
 
-# IMPORT CORE (explicitne, žiadne hádanie)
 from vortex.vortex_v1_2_3 import VectaetosSimulation, VortexConfig
 
 
@@ -29,25 +23,18 @@ def run_single(seed: int, steps: int = 1000):
         verbose=False
     )
     sim = VectaetosSimulation(cfg)
-    result = sim.run()
-    return result
+    return sim.run()
 
 
 def extract_metrics(result: dict):
     poles = result["final_state"]
 
-    E = mean(p["E"] for p in poles)
-    C = mean(p["C"] for p in poles)
-    T = mean(p["T"] for p in poles)
-    M = mean(p["M"] for p in poles)
-    S = mean(p["S"] for p in poles)
-
     return {
-        "E": E,
-        "C": C,
-        "T": T,
-        "M": M,
-        "S": S,
+        "E": mean(p["E"] for p in poles),
+        "C": mean(p["C"] for p in poles),
+        "T": mean(p["T"] for p in poles),
+        "M": mean(p["M"] for p in poles),
+        "S": mean(p["S"] for p in poles),
         "aporia_count": len(result.get("aporia_events", []))
     }
 
@@ -55,17 +42,13 @@ def extract_metrics(result: dict):
 def run_multi(n: int = 8, steps: int = 1000):
     seeds = list(range(1, n + 1))
 
-    trajectories = []
     metrics = []
 
     for s in seeds:
         res = run_single(seed=s, steps=steps)
         m = extract_metrics(res)
-
-        trajectories.append(res)
         metrics.append(m)
 
-    # agregácia (bez výberu)
     agg = {
         "trajectories": n,
         "E_mean": mean(m["E"] for m in metrics),
@@ -78,6 +61,7 @@ def run_multi(n: int = 8, steps: int = 1000):
     }
 
     return {
+        "timestamp": int(time.time()),
         "meta": {
             "trajectories": n,
             "steps": steps
@@ -87,17 +71,27 @@ def run_multi(n: int = 8, steps: int = 1000):
     }
 
 
-def save_output(data: dict):
+def save_snapshot(data: dict):
     path = ARTIFACTS / "multi_run.json"
     with open(path, "w") as f:
         json.dump(data, f, indent=2)
     return path
 
 
+def append_log(data: dict):
+    path = ARTIFACTS / "run_2.jsonl"
+    with open(path, "a") as f:
+        f.write(json.dumps(data) + "\n")
+
+
 def main():
     data = run_multi(n=8, steps=1000)
-    path = save_output(data)
-    print(f"[Φ multi] saved → {path}")
+
+    snapshot_path = save_snapshot(data)
+    append_log(data)
+
+    print(f"[Φ] snapshot → {snapshot_path}")
+    print(f"[Φ] log append → artifacts/run_2.jsonl")
 
 
 if __name__ == "__main__":
