@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-# IMPORT — MUSÍ sedieť s názvom súboru
+# MUSÍ sedieť s reálnym názvom súboru
 from vortex.vortex_v1_2_3 import VectaetosSimulation, VortexConfig
 
 
@@ -18,9 +18,7 @@ def ensure_output_dir():
 def run_single(seed: int, steps: int = 500):
     config = VortexConfig(
         steps=steps,
-        seed=seed,
-        epistemic_crypto=True,
-        qe_detection=True
+        seed=seed
     )
 
     sim = VectaetosSimulation(config)
@@ -30,9 +28,6 @@ def run_single(seed: int, steps: int = 500):
 
 
 def aggregate_runs(runs):
-    """
-    jednoduchý agregát — priemer posledného stavu
-    """
     n = len(runs)
 
     agg = {
@@ -42,7 +37,6 @@ def aggregate_runs(runs):
         "epistemic": {}
     }
 
-    # predpoklad: poles = list[8] dictov
     poles_matrix = [r["poles"] for r in runs]
 
     for i in range(8):
@@ -61,11 +55,13 @@ def aggregate_runs(runs):
             "S": round(S, 3),
         })
 
-    # epistemic agregácia (len z prvého runu pre stabilitu)
-    e = runs[-1].get("epistemic", {})
+    # epistemic fallback-safe
+    last = runs[-1]
+    e = last.get("epistemic", {})
+    qe = last.get("qe_aporia", {}).get("aporia", False)
 
     agg["epistemic"] = {
-        "qe": runs[-1].get("qe_aporia", {}).get("aporia", False),
+        "qe": qe,
         "h": round(e.get("topological_humidity", 0.0), 4),
         "asymmetry": round(e.get("total_asymmetry", 0.0), 4),
         "integrity": 1.0 if e.get("integrity", True) else 0.0,
@@ -78,18 +74,18 @@ def aggregate_runs(runs):
 def main():
     ensure_output_dir()
 
-    seeds = [42, 43, 44, 45]  # multi-trajectories
+    seeds = [42, 43, 44, 45]
     runs = []
 
     for seed in seeds:
         result = run_single(seed)
         runs.append(result)
 
-        # append do JSONL (história)
+        # JSONL (história)
         with open(JSONL_PATH, "a") as f:
             f.write(json.dumps(result) + "\n")
 
-    # agregácia → snapshot
+    # agregovaný snapshot
     aggregated = aggregate_runs(runs)
 
     with open(JSON_PATH, "w") as f:
