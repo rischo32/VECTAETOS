@@ -37,6 +37,13 @@ __________________________
 
 <!-- Φ_SINGULARITIES_END -->
 __________________________
+<!-- Φ_STATE_START -->
+## 🧠 Live Epistemic State
+
+*(auto-generated — do not edit manually)*
+
+<!-- Φ_STATE_END -->
+__________________________
 #  Φ Updates :
 
 The Vectaetos architecture is currently evolving in several foundational directions:
