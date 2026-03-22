@@ -1,29 +1,88 @@
-name: Ontology Guard
+name: Φ Ontology Guard
 
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'VECTAETOS_MASTER_INDEX.md'
+      - 'formal/**'
+      - 'core/**'
+      - 'scripts/audit/**'
+
   pull_request:
+    branches: [ main ]
+    paths:
+      - 'VECTAETOS_MASTER_INDEX.md'
+      - 'formal/**'
+      - 'core/**'
+      - 'scripts/audit/**'
+
+  workflow_dispatch:
 
 jobs:
-  ontology-check:
-
+  ontology-integrity:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout
+      # ============================================
+      # 1. Checkout
+      # ============================================
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ============================================
+      # 2. Setup Python
+      # ============================================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      # ============================================
+      # 3. Debug structure (anti-path drift)
+      # ============================================
+      - name: Debug repository structure
         run: |
-          python -m pip install --upgrade pip
+          echo "=== REPO STRUCTURE ==="
+          ls -R
 
+      # ============================================
+      # 4. Ensure artifacts dir
+      # ============================================
+      - name: Ensure artifacts directory
+        run: mkdir -p artifacts
+
+      # ============================================
+      # 5. Hard path guards
+      # ============================================
+      - name: Check ontology hash script exists
+        run: test -f scripts/audit/check_ontology_hash.py
+
+      - name: Check language guard exists
+        run: test -f scripts/audit/check_ontology_language.py
+
+      # ============================================
+      # 6. Ontology Hash Guard (STRUCTURE)
+      # ============================================
       - name: Verify ontology hash
         run: |
+          echo "=== ONTOLOGY HASH GUARD ==="
           python scripts/audit/check_ontology_hash.py
+
+      # ============================================
+      # 7. Ontology Language Guard (MEANING)
+      # ============================================
+      - name: Verify ontology language
+        run: |
+          echo "=== ONTOLOGY LANGUAGE GUARD ==="
+          python scripts/audit/check_ontology_language.py
+
+      # ============================================
+      # 8. Upload artifacts (always)
+      # ============================================
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ontology-artifacts
+          path: artifacts/
