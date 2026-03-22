@@ -1,67 +1,42 @@
 import json
 from pathlib import Path
 
-ARTIFACT = Path("artifacts/multi_run.json")
-README = Path("README.md")
+
+ARTIFACT_PATH = Path("artifacts/multi_run.json")
+README_PATH = Path("README.md")
 
 
-# ---------- LOAD ----------
-
-def load_state():
-    if not ARTIFACT.exists():
-        return {}
-    with open(ARTIFACT, "r") as f:
+def load_data():
+    if not ARTIFACT_PATH.exists():
+        return None
+    with open(ARTIFACT_PATH) as f:
         return json.load(f)
 
 
-# ---------- FORMATTERS ----------
-
-def extract_metrics(r):
-    """
-    Robust extractor — podporuje viac schém
-    """
-
-    # direct
-    if "E" in r:
-        return r
-
-    # nested state
-    if "state" in r:
-        return r["state"]
-
-    # nested metrics
-    if "metrics" in r:
-        return r["metrics"]
-
-    # fallback
-    return {}
-
-
-def format_singularities(state):
-    runs = state.get("runs", [])
-
+# =========================
+# Φ SINGULARITIES
+# =========================
+def format_singularities(data):
+    runs = data.get("runs", [])
     if not runs:
-        return "_No data available_"
+        return "_No data_"
+
+    last = runs[-1]
+    poles = last.get("poles", [])
+
+    if not poles:
+        return "_No poles_"
 
     rows = ""
-
-    for i, r in enumerate(runs, start=1):
-        m = extract_metrics(r)
-
-        if not m:
-            continue
-
+    for i, p in enumerate(poles, start=1):
         rows += (
             f"| Σ{i} | "
-            f"{m.get('E', 0):.3f} | "
-            f"{m.get('C', 0):.3f} | "
-            f"{m.get('T', 0):.3f} | "
-            f"{m.get('M', 0):.3f} | "
-            f"{m.get('S', 0):.3f} |\n"
+            f"{p.get('E',0):.3f} | "
+            f"{p.get('C',0):.3f} | "
+            f"{p.get('T',0):.3f} | "
+            f"{p.get('M',0):.3f} | "
+            f"{p.get('S',0):.3f} |\n"
         )
-
-    if not rows:
-        return "_No valid runs_"
 
     return f"""
 | Σ | E | C | T | M | S |
@@ -70,89 +45,114 @@ def format_singularities(state):
 """
 
 
-def format_delta(state):
-    runs = state.get("runs", [])
+# =========================
+# LIVE STATE (aggregated)
+# =========================
+def format_live_state(data):
+    agg = data.get("aggregated", {})
+
+    if not agg:
+        return "_No aggregated state_"
+
+    return f"""
+| Metric | Value |
+|--------|------|
+| E | {agg.get('E',0):.4f} |
+| C | {agg.get('C',0):.4f} |
+| T | {agg.get('T',0):.4f} |
+| M | {agg.get('M',0):.4f} |
+| S | {agg.get('S',0):.4f} |
+"""
+
+
+# =========================
+# Δ DRIFT (last 2 runs)
+# =========================
+def avg_poles(run):
+    poles = run.get("poles", [])
+    if not poles:
+        return {}
+
+    keys = ["E", "C", "T", "M", "S"]
+    avg = {}
+
+    for k in keys:
+        avg[k] = sum(p.get(k, 0) for p in poles) / len(poles)
+
+    return avg
+
+
+def format_delta(data):
+    runs = data.get("runs", [])
 
     if len(runs) < 2:
-        return "_Not enough data for Δ_"
+        return "_Not enough data_"
 
-    prev = runs[-2]
-    curr = runs[-1]
+    prev = avg_poles(runs[-2])
+    curr = avg_poles(runs[-1])
 
     def d(k):
-        return curr[k] - prev[k]
+        return curr.get(k, 0) - prev.get(k, 0)
 
     return f"""
 | Δ Metric | Value |
 |----------|-------|
-| ΔE | {d('E'):.4f} |
-| ΔC | {d('C'):.4f} |
-| ΔT | {d('T'):.4f} |
-| ΔM | {d('M'):.4f} |
-| ΔS | {d('S'):.4f} |
+| ΔE | {d('E'):.5f} |
+| ΔC | {d('C'):.5f} |
+| ΔT | {d('T'):.5f} |
+| ΔM | {d('M'):.5f} |
+| ΔS | {d('S'):.5f} |
 """
 
 
-def format_main_metrics(state):
-    agg = state.get("aggregated", {})
-
-    return f"""
-| Metric | Value |
-|--------|-------|
-| QE | N/A |
-| h (humility) | {agg.get("h", 0.0):.4f} |
-| Asymmetry | {agg.get("asymmetry", 0.0):.4f} |
-| Integrity | {agg.get("integrity", 0.0):.4f} |
-| Triality | N/A |
-"""
-
-
-# ---------- UPDATE README ----------
-
+# =========================
+# UPDATE README
+# =========================
 def replace_section(content, marker, new_block):
-    start = content.find(marker)
-    if start == -1:
+    start = f"<!-- {marker}:START -->"
+    end = f"<!-- {marker}:END -->"
+
+    if start not in content:
         return content
 
-    end = content.find("<!-- END -->", start)
-    if end == -1:
-        return content
+    before = content.split(start)[0]
+    after = content.split(end)[1]
 
-    end += len("<!-- END -->")
-
-    return content[:start] + new_block + content[end:]
+    return f"{before}{start}\n{new_block}\n{end}{after}"
 
 
 def main():
-    state = load_state()
+    data = load_data()
 
-    singularities = format_singularities(state)
-    metrics = format_main_metrics(state)
-    delta = format_delta(state)
+    if data is None:
+        print("No artifact found")
+        return
 
-    with open(README, "r") as f:
+    with open(README_PATH, "r", encoding="utf-8") as f:
         content = f.read()
 
     content = replace_section(
         content,
-        "<!-- SINGULARITIES_START -->",
-        f"<!-- SINGULARITIES_START -->\n{singularities}\n<!-- END -->",
+        "SINGULARITIES",
+        format_singularities(data)
     )
 
     content = replace_section(
         content,
-        "<!-- METRICS_START -->",
-        f"<!-- METRICS_START -->\n{metrics}\n<!-- END -->",
+        "LIVE_STATE",
+        format_live_state(data)
     )
 
     content = replace_section(
         content,
-        "<!-- DELTA_START -->",
-        f"<!-- DELTA_START -->\n{delta}\n<!-- END -->",
+        "DELTA",
+        format_delta(data)
     )
 
-    with open(README, "w") as f:
+    with open(README_PATH, "w", encoding="utf-8") as f:
         f.write(content)
+
+    print("README updated.")
 
 
 if __name__ == "__main__":
