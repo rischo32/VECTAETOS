@@ -1,97 +1,103 @@
-#!/usr/bin/env python3
-"""
-VECTAETOS :: MULTI-TRAJECTORY VORTEX RUNNER
-"""
-
-from pathlib import Path
 import json
-import time
-from statistics import mean, variance
+import os
+from datetime import datetime
 
+# IMPORT — MUSÍ sedieť s názvom súboru
 from vortex.vortex_v1_2_3 import VectaetosSimulation, VortexConfig
 
 
-ROOT = Path(__file__).resolve().parents[1]
-ARTIFACTS = ROOT / "artifacts"
-ARTIFACTS.mkdir(exist_ok=True)
+OUTPUT_DIR = "artifacts"
+JSONL_PATH = os.path.join(OUTPUT_DIR, "multi_run.jsonl")
+JSON_PATH = os.path.join(OUTPUT_DIR, "multi_run.json")
 
 
-def run_single(seed: int, steps: int = 1000):
-    cfg = VortexConfig(
+def ensure_output_dir():
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+
+def run_single(seed: int, steps: int = 500):
+    config = VortexConfig(
         steps=steps,
         seed=seed,
-        verbose=False
+        epistemic_crypto=True,
+        qe_detection=True
     )
-    sim = VectaetosSimulation(cfg)
-    return sim.run()
+
+    sim = VectaetosSimulation(config)
+    result = sim.run()
+
+    return result
 
 
-def extract_metrics(result: dict):
-    poles = result["final_state"]
-
-    return {
-        "E": mean(p["E"] for p in poles),
-        "C": mean(p["C"] for p in poles),
-        "T": mean(p["T"] for p in poles),
-        "M": mean(p["M"] for p in poles),
-        "S": mean(p["S"] for p in poles),
-        "aporia_count": len(result.get("aporia_events", []))
-    }
-
-
-def run_multi(n: int = 8, steps: int = 1000):
-    seeds = list(range(1, n + 1))
-
-    metrics = []
-
-    for s in seeds:
-        res = run_single(seed=s, steps=steps)
-        m = extract_metrics(res)
-        metrics.append(m)
+def aggregate_runs(runs):
+    """
+    jednoduchý agregát — priemer posledného stavu
+    """
+    n = len(runs)
 
     agg = {
-        "trajectories": n,
-        "E_mean": mean(m["E"] for m in metrics),
-        "C_mean": mean(m["C"] for m in metrics),
-        "T_mean": mean(m["T"] for m in metrics),
-        "M_mean": mean(m["M"] for m in metrics),
-        "S_mean": mean(m["S"] for m in metrics),
-        "T_var": variance(m["T"] for m in metrics) if n > 1 else 0.0,
-        "aporia_total": sum(m["aporia_count"] for m in metrics),
+        "timestamp": datetime.utcnow().isoformat(),
+        "runs": n,
+        "singularities": [],
+        "epistemic": {}
     }
 
-    return {
-        "timestamp": int(time.time()),
-        "meta": {
-            "trajectories": n,
-            "steps": steps
-        },
-        "aggregate": agg,
-        "samples": metrics
+    # predpoklad: poles = list[8] dictov
+    poles_matrix = [r["poles"] for r in runs]
+
+    for i in range(8):
+        E = sum(poles_matrix[j][i]["E"] for j in range(n)) / n
+        C = sum(poles_matrix[j][i]["C"] for j in range(n)) / n
+        T = sum(poles_matrix[j][i]["T"] for j in range(n)) / n
+        M = sum(poles_matrix[j][i]["M"] for j in range(n)) / n
+        S = sum(poles_matrix[j][i]["S"] for j in range(n)) / n
+
+        agg["singularities"].append({
+            "Σ": i + 1,
+            "E": round(E, 3),
+            "C": round(C, 3),
+            "T": round(T, 3),
+            "M": round(M, 3),
+            "S": round(S, 3),
+        })
+
+    # epistemic agregácia (len z prvého runu pre stabilitu)
+    e = runs[-1].get("epistemic", {})
+
+    agg["epistemic"] = {
+        "qe": runs[-1].get("qe_aporia", {}).get("aporia", False),
+        "h": round(e.get("topological_humidity", 0.0), 4),
+        "asymmetry": round(e.get("total_asymmetry", 0.0), 4),
+        "integrity": 1.0 if e.get("integrity", True) else 0.0,
+        "triality": "OK" if e.get("triality_preserved", True) else "FAIL"
     }
 
-
-def save_snapshot(data: dict):
-    path = ARTIFACTS / "multi_run.json"
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
-    return path
-
-
-def append_log(data: dict):
-    path = ARTIFACTS / "run_2.jsonl"
-    with open(path, "a") as f:
-        f.write(json.dumps(data) + "\n")
+    return agg
 
 
 def main():
-    data = run_multi(n=8, steps=1000)
+    ensure_output_dir()
 
-    snapshot_path = save_snapshot(data)
-    append_log(data)
+    seeds = [42, 43, 44, 45]  # multi-trajectories
+    runs = []
 
-    print(f"[Φ] snapshot → {snapshot_path}")
-    print(f"[Φ] log append → artifacts/run_2.jsonl")
+    for seed in seeds:
+        result = run_single(seed)
+        runs.append(result)
+
+        # append do JSONL (história)
+        with open(JSONL_PATH, "a") as f:
+            f.write(json.dumps(result) + "\n")
+
+    # agregácia → snapshot
+    aggregated = aggregate_runs(runs)
+
+    with open(JSON_PATH, "w") as f:
+        json.dump(aggregated, f, indent=2)
+
+    print("✔ multi-run complete")
+    print(f"→ {JSONL_PATH}")
+    print(f"→ {JSON_PATH}")
 
 
 if __name__ == "__main__":
