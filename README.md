@@ -19,55 +19,6 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
-## Φ Forensic Projection (Live)
-
-<!-- FORENSIC_REPORT_START -->
-<!-- AUTO-GENERATED -->
-<!-- FORENSIC_REPORT_END -->
-
-## Φ Singularities (Live)
-<!-- SINGULARITIES:START -->
-
-| Σ | E | C | T | M | S |
-|---|---|---|---|---|---|
-| Σ1 | 0.203 | 0.487 | 0.636 | 0.035 | 1.000 |
-| Σ2 | 0.566 | 0.276 | 1.000 | 0.092 | 1.000 |
-| Σ3 | 0.423 | 0.636 | 0.721 | 0.039 | 1.000 |
-| Σ4 | 0.902 | 0.634 | 0.971 | 0.040 | 1.000 |
-| Σ5 | 0.209 | 0.494 | 0.951 | 0.030 | 1.000 |
-| Σ6 | 0.570 | 0.309 | 0.768 | 0.048 | 1.000 |
-| Σ7 | 0.748 | 0.590 | 0.936 | 0.026 | 1.000 |
-| Σ8 | 0.962 | 0.495 | 0.588 | 0.080 | 1.000 |
-
-
-<!-- SINGULARITIES:END -->
-
-## Live Epistemic State
-<!-- LIVE_STATE:START -->
-
-| Metric | Value |
-|--------|------|
-| E | 0.5956 |
-| C | 0.5090 |
-| T | 0.7283 |
-| M | 0.1190 |
-| S | 0.9891 |
-
-<!-- LIVE_STATE:END -->
-
-## Δ Drift (Last Run)
-<!-- DELTA:START -->
-
-| Δ Metric | Value |
-|----------|-------|
-| ΔE | -0.05671 |
-| ΔC | 0.04110 |
-| ΔT | -0.01405 |
-| ΔM | -0.09043 |
-| ΔS | 0.00000 |
-
-<!-- DELTA:END -->
-__________________________
 #  Φ Updates :
 
 The Vectaetos architecture is currently evolving in several foundational directions:
