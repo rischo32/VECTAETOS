@@ -16,25 +16,46 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      # 📦 Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      # 🐍 Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - run: |
+      # 📦 Dependencies
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
-          pip install numpy
+          pip install numpy matplotlib
 
-      - run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      # 🧠 PYTHONPATH
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
+      # 🔁 Vortex
       - name: Run Vortex
         run: python vortex/vortex_runner.py
 
+      # 🔍 Debug (optional ale odporúčané)
+      - name: Debug artifacts
+        run: |
+          ls -la
+          ls -la artifacts || true
+          ls -la docs/observatory || true
+
+      # 🧠 Forensics → vizualizácia
+      - name: Generate visuals
+        run: python scripts/generate_visuals.py
+
+      # 📝 README update
       - name: Update README
         run: python scripts/update_readme.py
 
-      # 🟢 CREATE PR INSTEAD OF PUSH
+      # 🚀 PR (žiadny push na main)
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
@@ -45,3 +66,4 @@ jobs:
           body: "Automated epistemic projection update."
           add-paths: |
             README.md
+            docs/observatory/*.png
