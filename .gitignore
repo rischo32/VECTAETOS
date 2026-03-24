@@ -146,6 +146,3 @@ Test artifacts
 .pytest_cache/
 htmlcov/
 artifacts/
-!artifacts/
-artifacts/
-artifacts/
