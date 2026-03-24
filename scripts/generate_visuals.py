@@ -38,14 +38,35 @@ def fixed_layout(n: int = 8):
 # LOAD DATA
 # =========================
 
-def load_matrix(run: dict):
-    """
-    Očakáva:
-    run["A"] → antisymetrická matica (8x8)
-    """
-    A = np.array(run.get("A", []))
-    if A.size == 0:
-        raise ValueError("Missing matrix A in run")
+def load_matrix(run):
+    # 1. priama matica (ak existuje)
+    A = run.get("A")
+    if A is not None:
+        return A
+
+    # 2. fallback → syntetická matica z poles
+    poles = run.get("poles")
+    if not poles:
+        raise ValueError("Missing both A and poles in run")
+
+    n = len(poles)
+    A = [[0.0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+
+            # antisymetrická tenzia (Φ-safe, bez optimalizácie)
+            ti = poles[i].get("T", 0.0)
+            tj = poles[j].get("T", 0.0)
+
+            ci = poles[i].get("C", 0.0)
+            cj = poles[j].get("C", 0.0)
+
+            A[i][j] = (ti - tj) + (ci - cj)
+            A[j][i] = -A[i][j]
+
     return A
 
 
