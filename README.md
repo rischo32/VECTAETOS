@@ -19,6 +19,12 @@ _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
 __________________________
+## Φ Forensic Projection (Live)
+
+<!-- FORENSIC_REPORT_START -->
+<!-- AUTO-GENERATED -->
+<!-- FORENSIC_REPORT_END -->
+
 ## Φ Singularities (Live)
 <!-- SINGULARITIES:START -->
 
