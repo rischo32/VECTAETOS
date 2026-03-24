@@ -39,12 +39,14 @@ def fixed_layout(n: int = 8):
 # =========================
 
 def load_matrix(run):
-    # 1. priama matica (ak existuje)
+    import numpy as np
+
+    # 1. priama matica
     A = run.get("A")
     if A is not None:
-        return A
+        return np.array(A)
 
-    # 2. fallback → syntetická matica z poles
+    # 2. fallback
     poles = run.get("poles")
     if not poles:
         raise ValueError("Missing both A and poles in run")
@@ -57,7 +59,6 @@ def load_matrix(run):
             if i == j:
                 continue
 
-            # antisymetrická tenzia (Φ-safe, bez optimalizácie)
             ti = poles[i].get("T", 0.0)
             tj = poles[j].get("T", 0.0)
 
@@ -67,8 +68,7 @@ def load_matrix(run):
             A[i][j] = (ti - tj) + (ci - cj)
             A[j][i] = -A[i][j]
 
-    return A
-
+    return np.array(A)
 
 # =========================
 # MAIN VISUAL
