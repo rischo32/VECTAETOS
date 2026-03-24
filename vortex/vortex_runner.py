@@ -36,7 +36,12 @@ def run_single(seed: int, steps: int = 500):
 
 def aggregate(runs):
     def avg(key):
-        return mean(r["poles"][0][key] for r in runs)
+    values = []
+    for r in runs:
+        poles = r.get("poles", [])
+        for p in poles:
+            values.append(p.get(key, 0))
+    return mean(values) if values else 0.0
 
     return {
         "E": avg("E"),
