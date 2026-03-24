@@ -46,7 +46,7 @@ def format_singularities(data):
 
 
 # =========================
-# LIVE STATE (aggregated)
+# LIVE STATE
 # =========================
 def format_live_state(data):
     agg = data.get("aggregated", {})
@@ -66,7 +66,7 @@ def format_live_state(data):
 
 
 # =========================
-# Δ DRIFT (last 2 runs)
+# Δ DRIFT
 # =========================
 def avg_poles(run):
     poles = run.get("poles", [])
@@ -106,13 +106,25 @@ def format_delta(data):
 
 
 # =========================
-# UPDATE README
+# Φ FORENSIC PROJECTION
+# =========================
+def format_forensic_projection():
+    path = Path("docs/observatory/runic_graph_latest.png")
+
+    if not path.exists():
+        return "_No projection available_"
+
+    return f"![Φ Projection]({path})"
+
+
+# =========================
+# REPLACE SECTION
 # =========================
 def replace_section(content, marker, new_block):
     start = f"<!-- {marker}:START -->"
     end = f"<!-- {marker}:END -->"
 
-    if start not in content:
+    if start not in content or end not in content:
         return content
 
     before = content.split(start)[0]
@@ -121,6 +133,9 @@ def replace_section(content, marker, new_block):
     return f"{before}{start}\n{new_block}\n{end}{after}"
 
 
+# =========================
+# MAIN
+# =========================
 def main():
     data = load_data()
 
@@ -147,6 +162,12 @@ def main():
         content,
         "DELTA",
         format_delta(data)
+    )
+
+    content = replace_section(
+        content,
+        "FORENSIC",
+        format_forensic_projection()
     )
 
     with open(README_PATH, "w", encoding="utf-8") as f:
