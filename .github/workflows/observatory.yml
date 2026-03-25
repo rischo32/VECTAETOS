@@ -40,7 +40,7 @@ jobs:
       - name: Run Vortex
         run: python vortex/vortex_runner.py
 
-      # 🔍 Debug (optional ale odporúčané)
+      # 🔍 Debug (safe)
       - name: Debug artifacts
         run: |
           ls -la
@@ -50,10 +50,6 @@ jobs:
       # 🧠 Forensics → vizualizácia
       - name: Generate visuals
         run: python scripts/generate_visuals.py
-
-      # 📝 README update
-      - name: Update README
-        run: python scripts/update_readme.py
 
       # 🚀 PR (žiadny push na main)
       - name: Create Pull Request
@@ -65,5 +61,4 @@ jobs:
           title: "auto(Φ): observatory update"
           body: "Automated epistemic projection update."
           add-paths: |
-            README.md
             docs/observatory/*.png
