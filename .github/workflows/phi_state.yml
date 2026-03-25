@@ -22,16 +22,3 @@ jobs:
 
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=." >> $GITHUB_ENV
-
-    - name: Run update
-      run: python scripts/update_readme.py
-
-    - name: Commit changes
-      run: |
-        git config user.name "vectaetos-bot"
-        git config user.email "bot@vectaetos.ai"
-        git add README.md
-        git commit -m "auto: update Φ state" || echo "no changes"
-
-    - name: Push
-      run: git push
