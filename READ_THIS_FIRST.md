@@ -11,6 +11,20 @@ toto nie je správne miesto.
 Vectaetos nie je systém určený na použitie.
 Je to pole určené na čítanie.
 
+---
+
+## Navigácia
+
+Ak pokračuješ:
+
+- /formal → ontologické jadro
+- /audit → epistemická vrstva (pamäť, logy, INS)
+- /vortex → runtime projekcia (bez agentnosti)
+- /infrastructure → hranica systému a reality
+
+Nezačínaj kódom.
+Začni čítaním.
+
 Neobsahuje riešenia.
 Obsahuje napätia.
 
