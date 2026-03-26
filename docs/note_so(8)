@@ -1,4 +1,14 @@
-# SO(8) — Practical Notes for VECTAETOS
+# SO(8) — Theoretical Notes for VECTAETOS
+
+Status: Referential  
+Authority: Non-ontological  
+Scope: Mathematical intuition  
+
+This document provides mathematical background related to so(8),
+used for interpretation and intuition.
+
+It does NOT define the system.
+Canonical definitions are located in /formal.
 
 ## 1. Základná definícia
 
