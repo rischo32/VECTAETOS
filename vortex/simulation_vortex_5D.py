@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-# VECTAETOS — Φ Simulation Vortex (5D)
+# VECTAETOS — Φ Simulation Vortex (5D) — Deterministic Prototype
 # E, C, T, M, S
 # Outputs field_state.json for web projection
 
 import json
 import random
-import time
 
 STATE_FILE = "field_state.json"
-DT = 0.05
+DT_STEPS = 1  # deterministický krok (žiadny real-time sleep)
+
+# 🔒 determinism
+SEED = 42
+random.seed(SEED)
 
 # Inicializácia stavu poľa
 phi = {
@@ -23,6 +26,10 @@ def clamp(x, a=0.0, b=1.0):
     return max(a, min(b, x))
 
 def compute_rune(phi):
+    """
+    ⚠️ PROTOTYPE ONLY
+    Descriptive mapping — nie rozhodovací mechanizmus.
+    """
     if phi["C"] < 0.25:
         return "ᛁ"   # rozpad
     if phi["T"] > 0.7:
@@ -33,26 +40,42 @@ def compute_rune(phi):
         return "⊘"   # QE / apória
     return "ᚨ"       # otvorené pole
 
-while True:
-    # Dynamika poľa (jednoduchá, ale pravdivá)
+def step_phi(phi):
+    """
+    Deterministická evolúcia (pseudo-stochastická cez seed)
+    """
     phi["T"] += random.uniform(-0.02, 0.02)
     phi["C"] += (0.01 - phi["T"] * 0.015)
     phi["S"] += abs(phi["T"]) * 0.01
     phi["M"] += 0.005 * (1 - phi["M"])
 
-    # Clamp
     for k in phi:
         phi[k] = clamp(phi[k])
 
-    rune = compute_rune(phi)
+    return phi
 
-    out = {
-        "phi": phi,
-        "rune": rune,
-        "timestamp": time.time()
-    }
+def run(steps=100):
+    results = []
+
+    for step in range(steps):
+        step_phi(phi)
+        rune = compute_rune(phi)
+
+        out = {
+            "step": step,
+            "phi": dict(phi),
+            "rune": rune
+        }
+
+        results.append(out)
+
+    return results
+
+def main():
+    data = run(steps=100)
 
     with open(STATE_FILE, "w") as f:
-        json.dump(out, f, indent=2)
+        json.dump(data, f, indent=2)
 
-    time.sleep(DT)
+if __name__ == "__main__":
+    main()
