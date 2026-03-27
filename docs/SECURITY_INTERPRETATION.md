@@ -1,13 +1,15 @@
 # VECTAETOS_SECURITY_INTERPRETATION
 
-Status: System Interpretation Layer  
-Version: 1.0  
-Category: Safety Interpretation  
+Status: Referential  
+Authority: Non-ontological  
+Type: Interpretative Layer  
 
-Parent Systems:
+This document provides an interpretative explanation
+of the security properties of VECTAETOS.
 
-Epistemic Cryptography  
-Vectaetos Field Architecture  
+It does NOT define the system.
+
+Canonical definitions are located in /formal.
 
 ---
 
