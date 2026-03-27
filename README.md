@@ -648,10 +648,19 @@ See: `CANONICAL_ANCHORS.md`
 ---
 
 Zenodo DOIs:
-- Canonical Core v0.1.1  
-  [![DOI: Canonical Core v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048)
-- Supporting Epistemic Artefacts  
-[![DOI: Supporting Epistemic Artefacts](https://zenodo.org/badge/DOI/10.5281/zenodo.18076787.svg)](https://doi.org/10.5281/zenodo.18076787)
-- Epistemic crypthography
-[![DOI: Epistemic Cryptography](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110)
-[ "Auditná vrstva Φ je kryptografická integritná štruktúra, ktorá overuje konzistenciu prechodov bez akumulácie významu." ]
+
+## Core Lineage
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18076787.svg)](https://doi.org/10.5281/zenodo.18076787) Intrinsic Humility  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18138226.svg)](https://doi.org/10.5281/zenodo.18138226) Entropic Humility  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552) Vectaetos™ 1.1
+
+## Structural Layer
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110) Epistemic Cryptography  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18911932.svg)](https://doi.org/10.5281/zenodo.18911932) Epistemic Cryptography (Extended)
+
+## Representation
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
+
+## Governance
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) AEPL-1.2
