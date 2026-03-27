@@ -1,4 +1,4 @@
-# VERSIONING — VECTAETOS
+# VERSIONING — VECTAETOS™
 
 Status: Canonical  
 Scope: Version semantics and lifecycle rules  
