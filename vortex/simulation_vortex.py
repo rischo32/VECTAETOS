@@ -1,10 +1,10 @@
 # ============================================================
-# VECTAETOS :: Simulation Vortex Φ (v0.4 CANONICAL)
+# VECTAETOS :: Simulation Vortex Φ (v0.4 CANONICAL — FIXED)
 # ------------------------------------------------------------
-# - 8 invariant singularities
-# - antisymmetric relational tensions R_ij
-# - pairwise interaction field
-# - bounded dynamics (tanh stabilization)
+# - deterministic
+# - no noise
+# - no break (no implicit goal)
+# - antisymmetric relational field
 # - QE = topological fragmentation
 # - no optimization
 # - no objective
@@ -16,12 +16,17 @@ import math
 from typing import List, Tuple
 
 # ------------------------------------------------------------
+# DETERMINISM
+# ------------------------------------------------------------
+
+random.seed(42)
+
+# ------------------------------------------------------------
 # CONFIGURATION
 # ------------------------------------------------------------
 
 N = 8
 INTERACTION_STRENGTH = 0.03
-NOISE_LEVEL = 0.005
 QE_EDGE_THRESHOLD = 0.15
 
 
@@ -53,10 +58,7 @@ def pairwise_interaction(R: List[List[float]]) -> List[List[float]]:
 
             tension = R[i][j]
 
-            # blind micro-noise (non-agentic)
-            noise = random.uniform(-NOISE_LEVEL, NOISE_LEVEL)
-
-            # relational coupling
+            # deterministic interaction (no noise)
             coupling = 0.0
             for k in range(N):
                 if k != i and k != j:
@@ -64,7 +66,7 @@ def pairwise_interaction(R: List[List[float]]) -> List[List[float]]:
 
             coupling *= INTERACTION_STRENGTH
 
-            updated = tension + noise + coupling
+            updated = tension + coupling
 
             # bounded stabilization
             stabilized = math.tanh(updated)
@@ -99,7 +101,7 @@ def detect_qe(R: List[List[float]]) -> bool:
 
 
 # ------------------------------------------------------------
-# RUN SIMULATION
+# RUN SIMULATION (TRAJECTORY GENERATION)
 # ------------------------------------------------------------
 
 def run_simulation(steps: int = 2000) -> Tuple[List[List[float]], bool]:
@@ -111,15 +113,15 @@ def run_simulation(steps: int = 2000) -> Tuple[List[List[float]], bool]:
 
         R = pairwise_interaction(R)
 
+        # no break — no objective
         if detect_qe(R):
             qe_state = True
-            break
 
     return R, qe_state
 
 
 # ------------------------------------------------------------
-# LOCAL TEST
+# LOCAL TEST (NON-AUTHORITATIVE)
 # ------------------------------------------------------------
 
 if __name__ == "__main__":
