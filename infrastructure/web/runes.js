@@ -1,85 +1,92 @@
-/* =========================================
-   VECTAETOS — Rune Projection Module
-   Descriptive, Ephemeral, Non-Semantic
-   ========================================= */
+// =========================================
+// VECTAETOS — RUNIC PROJECTION (VISUAL)
+// -------------------------------------
+// - no input
+// - no meaning
+// - deterministic
+// - overlay over vortex
+// =========================================
 
-/*
-RUNES:
-- are NOT symbols with meaning
-- are NOT icons
-- are NOT readable language
+const RUNES = (() => {
 
-Runes are:
-- short-lived projections of relational stress
-- spatial traces near axiomatic centers
-- visual indicators of phase, not content
-*/
+  // -----------------------------
+  // CONFIG
+  // -----------------------------
+  const symbols = ["ᚨ","ᛚ","ᚱ","ᚦ","ᛜ","ᚷ","ᛟ","ᛞ"];
 
-/* ---------- Configuration ---------- */
-
-const MAX_RUNES = 32;
-
-/*
-Color palette is intentionally muted.
-No color encodes value, truth, or judgment.
-Only relational variance.
-*/
-
-const RUNE_COLORS = [
-  "rgba(120, 120, 150, 0.6)",
-  "rgba(100, 130, 140, 0.6)",
-  "rgba(140, 110, 130, 0.6)",
-  "rgba(110, 140, 120, 0.6)"
-];
-
-/* ---------- Helpers ---------- */
-
-function randomBetween(min, max) {
-  return let seed = 42;
-function rand() {
-  const x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
-} * (max - min) + min;
-}
-
-/* ---------- Rune Generation ---------- */
-
-/*
-Input:
-- tensionWeights: array[8] normalized
-- axioms: spatial positions of Σ₁…Σ₈
-
-Output:
-- array of ephemeral rune objects
-*/
-
-export function drawRunes(tensionWeights, axioms) {
-  const runes = [];
-
-  for (let i = 0; i < axioms.length; i++) {
-    const weight = tensionWeights[i];
-
-    // Only generate runes for meaningful tension
-    if (weight < 0.15) continue;
-
-    const runeCount = Math.floor(weight * 4);
-
-    for (let r = 0; r < runeCount; r++) {
-      if (runes.length >= MAX_RUNES) break;
-
-      const angle = randomBetween(0, Math.PI * 2);
-      const radius = randomBetween(8, 26);
-
-      runes.push({
-        x: axioms[i].x + Math.cos(angle) * radius,
-        y: axioms[i].y + Math.sin(angle) * radius,
-        size: randomBetween(1.2, 2.8),
-        alpha: randomBetween(0.2, 0.6),
-        color: RUNE_COLORS[i % RUNE_COLORS.length],
-        life: randomBetween(40, 90) // frames
-      });
-    }
+  let seed = 1337;
+  function rand() {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
   }
 
-  return runes;
-}
+  const canvas = document.createElement("canvas");
+  canvas.id = "runesCanvas";
+  canvas.style.position = "fixed";
+  canvas.style.inset = "0";
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = "2";
+
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+
+  // -----------------------------
+  // INIT RUNES
+  // -----------------------------
+  const runes = [];
+
+  for (let i = 0; i < 8; i++) {
+    runes.push({
+      symbol: symbols[i],
+      angle: (Math.PI * 2 * i) / 8,
+      radius: 140 + rand() * 20,
+      phase: rand() * Math.PI * 2
+    });
+  }
+
+  // -----------------------------
+  // DRAW
+  // -----------------------------
+  function draw(t) {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+
+    runes.forEach(r => {
+
+      const a = r.angle + t * 0.001 + Math.sin(r.phase + t * 0.0005) * 0.2;
+
+      const x = cx + Math.cos(a) * r.radius;
+      const y = cy + Math.sin(a) * r.radius;
+
+      ctx.font = "18px monospace";
+      ctx.fillStyle = "rgba(200, 220, 255, 0.6)";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.fillText(r.symbol, x, y);
+    });
+  }
+
+  // -----------------------------
+  // LOOP
+  // -----------------------------
+  function loop(t) {
+    draw(t);
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+
+})();
