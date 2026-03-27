@@ -1,6 +1,8 @@
-qVECTAETOS — Papers
+VECTAETOS — Papers
 
 #INFO: "...som si vedomí malých driftov, napríklad | >=deltathreshold | atď. postupne opravujem, ale avšak, celý výskumný, produkčný, IT oddelenie, a všetky ostatné sekcie dokopy činia až 1 zainteresovaneho pracovníka, no, nie je to lahké /poznámka/..."
+
+## "zrovnať názvy, odstraniť drifty, verziovať DOI na ZENODO (interna poznamka)"
 
 This directory contains published and publishable documents of the VECTAETOS framework.
 
