@@ -48,9 +48,23 @@ They are descriptive projections of the VECTAETOS field.
 
 ---
 
-Citation
+## Citation 
 
-Use DOI when available (Zenodo).
+## Core Lineage
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18076787.svg)](https://doi.org/10.5281/zenodo.18076787) Intrinsic Humility  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18138226.svg)](https://doi.org/10.5281/zenodo.18138226) Entropic Humility  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552) Vectaetos™ 1.1
+
+## Structural Layer
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110) Epistemic Cryptography  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18911932.svg)](https://doi.org/10.5281/zenodo.18911932) Epistemic Cryptography (Extended)
+
+## Representation
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
+
+## Governance
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) AEPL-1.2
 
 ---
 
