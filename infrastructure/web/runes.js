@@ -35,7 +35,11 @@ const RUNE_COLORS = [
 /* ---------- Helpers ---------- */
 
 function randomBetween(min, max) {
-  return Math.random() * (max - min) + min;
+  return let seed = 42;
+function rand() {
+  const x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+} * (max - min) + min;
 }
 
 /* ---------- Rune Generation ---------- */
