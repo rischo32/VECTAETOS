@@ -25,7 +25,7 @@
   "url": "https://vectaetos.eu",
 
   "programmingLanguage": [
-    { "@type": "ComputerLanguage", "name": "Python",     "version": "3.8+" },
+    { "@type": "ComputerLanguage", "name": "Python",     "version": "3.11" },
     { "@type": "ComputerLanguage", "name": "JavaScript", "version": "ES2020" }
   ],
 
