@@ -11,19 +11,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ------------------------------
+      # CHECKOUT
+      # ------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ------------------------------
+      # PYTHON SETUP
+      # ------------------------------
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      # ------------------------------
+      # INSTALL DEPENDENCIES
+      # ------------------------------
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest numpy
 
+      # ------------------------------
+      # SET PYTHONPATH (CRITICAL)
+      # ------------------------------
+      - name: Set PYTHONPATH
+        run: |
+          echo "PYTHONPATH=${PYTHONPATH}:." >> $GITHUB_ENV
+
+      # ------------------------------
+      # RUN TESTS (Φ GUARD)
+      # ------------------------------
       - name: Run Φ integrity tests
         run: |
           pytest tests/ -q
+
+      # ------------------------------
+      # HARD FAIL ON WARNING (OPTIONAL HARDENING)
+      # ------------------------------
+      # Uncomment if chceš ešte tvrdší režim
+      #
+      # - name: Fail on warnings
+      #   run: |
+      #     pytest tests/ -q -W error
