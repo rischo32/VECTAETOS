@@ -1,4 +1,4 @@
-from implementation import TRANSFORMS
+from EAI.implementation import TRANSFORMS
 
 def test_transform_immutability():
 
