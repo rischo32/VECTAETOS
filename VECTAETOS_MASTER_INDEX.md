@@ -67,8 +67,55 @@ Defined in /formal
 
 VI. COHERENCE
 
-- K(Φ)
-- κ
+* K(Φ)
+* κ
+
+---
+
+κ — Representability Boundary
+
+κ is defined as the loss of closure under transformation composition.
+
+κ is not a scalar value.
+
+κ is a structural condition on the system:
+
+A system remains within E if transformations compose consistently.
+
+Formal:
+
+κ(a) = { || τ₁(τ₂(a)) - τ₂(τ₁(a)) || }
+
+---
+
+Interpretation:
+
+κ ~ stable → Φ ∈ E
+κ unstable → Φ ∈ ∂E
+κ divergent → Φ ∉ E (QE)
+
+---
+
+Invariant:
+
+κ does not evaluate.
+
+κ reveals whether closure holds.
+
+---
+
+Constraint:
+
+κ must never be used for:
+
+* decision making
+* thresholding
+* optimization
+
+---
+
+κ is a boundary condition, not a metric.
+
 
 Ontological persistence boundary.
 
