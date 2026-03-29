@@ -67,8 +67,27 @@ Defined in /formal
 
 VI. COHERENCE
 
-* K(Φ)
-* κ
+κ — Representability Boundary
+
+κ is defined as loss of closure under transformation composition.
+
+κ(a) = { || τ₁(τ₂(a)) - τ₂(τ₁(a)) || }
+
+κ is NOT:
+
+- a metric
+- a score
+- a signal
+
+κ is a structural boundary condition.
+
+Constraint:
+
+κ must not be used for:
+
+- decision making
+- thresholding
+- classification
 
 ---
 
@@ -135,6 +154,21 @@ VIII. PROJECTION LAYER
 - /formal/PROJECTION_RUNES.md
 - /formal/PROJECTION_LIMITS.md
 
+  Input:
+
+Φ̂ (from EAI)
+
+Includes:
+
+- encodings
+- Δ
+- R
+- κ_signature
+
+Projection must preserve structure.
+
+Projection must not interpret or reduce.
+
 Projection is descriptive only.
 
 ---
@@ -166,6 +200,41 @@ Includes:
 - Epistemic Cryptography
 - Logs (non-interventional)
 - Epistemic Audit Interface (EAI)
+
+  XI. AUDIT LAYER
+
+Includes:
+
+- Epistemic Cryptography (EK)
+- EAI (Epistemic Audit Interface)
+
+---
+
+EAI
+
+EAI is a fixed transformation projection over system outputs.
+
+EAI applies predefined transformations.
+
+EAI does NOT:
+
+- control
+- interpret
+- optimize
+- adapt
+
+---
+
+Invariant:
+
+∂Φ / ∂EAI = 0
+
+---
+
+Violation:
+
+If any adaptive, selective, or feedback behavior appears,
+EAI becomes agent → INVALID.
 
 ---
 
