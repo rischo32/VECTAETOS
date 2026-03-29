@@ -2,27 +2,77 @@ import numpy as np
 from encode_v2 import encode_v2
 
 
-def encode_v3(a, transforms):
+# --------------------------------------------------
+# FIXED TRANSFORMATION SET (IMMUTABLE)
+# --------------------------------------------------
+# MUST match implementation.py
+
+TRANSFORMS = (
+    lambda x: x[::-1],
+    lambda x: x[:len(x)//2],
+    lambda x: x + x
+)
+
+
+# --------------------------------------------------
+# ENCODE V3 (TRANSFORMATION-BASED)
+# --------------------------------------------------
+
+def encode_v3(a):
+    """
+    Encode object via transformation response.
+
+    Returns:
+    (I, S, V, T) — structural invariants only
+    """
 
     base = encode_v2(a)
-    variants = [encode_v2(t(a)) for t in transforms]
 
-    # Identity stability
-    I = sum(abs(base[i] - variants[0][i]) for i in range(len(base)))
+    # Apply fixed transforms
+    variants = [encode_v2(t(a)) for t in TRANSFORMS]
 
-    # Variability
-    V = np.var(variants)
+    # --------------------------------------------------
+    # I — Identity Stability (mean distance)
+    # --------------------------------------------------
+    I = sum(
+        sum(abs(base[i] - v[i]) for i in range(len(base)))
+        for v in variants
+    ) / len(variants)
 
-    # Sensitivity
+    # --------------------------------------------------
+    # V — Variability (pairwise distance spread)
+    # --------------------------------------------------
+    pairwise = []
+
+    for i in range(len(variants)):
+        for j in range(i + 1, len(variants)):
+            d = sum(abs(variants[i][k] - variants[j][k]) for k in range(len(base)))
+            pairwise.append(d)
+
+    V = sum(pairwise) / (len(pairwise) + 1e-12)
+
+    # --------------------------------------------------
+    # S — Sensitivity (normalized variability)
+    # --------------------------------------------------
     S = V / (len(variants) + 1e-12)
 
-    # Closure
-    t1 = transforms[0](transforms[1](a))
-    t2 = transforms[1](transforms[0](a))
+    # --------------------------------------------------
+    # T — Closure inconsistency (average over all pairs)
+    # --------------------------------------------------
+    closure_errors = []
 
-    e1 = encode_v2(t1)
-    e2 = encode_v2(t2)
+    for t1 in TRANSFORMS:
+        for t2 in TRANSFORMS:
 
-    T = sum(abs(x - y) for x, y in zip(e1, e2))
+            x1 = t1(t2(a))
+            x2 = t2(t1(a))
+
+            e1 = encode_v2(x1)
+            e2 = encode_v2(x2)
+
+            e = sum(abs(e1[i] - e2[i]) for i in range(len(base)))
+            closure_errors.append(e)
+
+    T = sum(closure_errors) / (len(closure_errors) + 1e-12)
 
     return (I, S, V, T)
