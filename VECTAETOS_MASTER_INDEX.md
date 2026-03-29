@@ -118,7 +118,56 @@ Includes:
 
 - Epistemic Cryptography
 - Logs (non-interventional)
+- Epistemic Audit Interface (EAI)
 
+---
+
+EAI — Epistemic Audit Interface
+
+EAI is a non-interventional projection mechanism that reconstructs relational structure from system outputs under perturbations.
+
+EAI does not:
+
+- access internal states
+- interpret outputs
+- optimize behavior
+- introduce feedback
+
+EAI operates strictly as:
+
+outputs → relational encoding → Δ → R → κ → structural record
+
+EAI does not produce conclusions.
+
+It produces structural artifacts compatible with Φ.
+
+---
+
+Ontological Constraint:
+
+EAI ∉ Φ
+EAI does not modify Φ
+EAI does not act on Φ
+
+EAI is an external projection interface.
+
+---
+
+Invariant:
+
+∂Φ / ∂EAI = 0
+
+---
+
+Violation Condition:
+
+If EAI:
+
+- influences system outputs
+- introduces selection
+- optimizes probes
+
+→ EAI collapses into an agent → system invalid.
 ---
 
 XII. INFRASTRUCTURE
