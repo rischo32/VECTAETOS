@@ -1,4 +1,4 @@
-from implementation import run_eai
+from EAI.implementation import TRANSFORMS
 
 def test_determinism(system, inputs):
 
