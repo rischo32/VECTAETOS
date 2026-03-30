@@ -1,4 +1,4 @@
-from EAI.implementation import TRANSFORMS
+from EAI.implementation import run_eai
 
 def test_no_adaptivity(system, inputs):
 
@@ -10,4 +10,4 @@ def test_no_adaptivity(system, inputs):
 
     run_eai(wrapped, inputs)
 
-    assert calls == inputs, "Inputs were modified or reordered"
+    assert calls == inputs
