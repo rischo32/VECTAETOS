@@ -1,4 +1,4 @@
-from encode_v2 import encode_v2
+from .encode_v2 import encode_v2
 
 
 # --------------------------------------------------
