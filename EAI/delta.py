@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def distance(a, b):
     return sum(abs(x - y) for x, y in zip(a, b))
 
@@ -8,7 +9,7 @@ def compute_delta(encodings):
     """
     Compute curvature Δ over all triplets.
 
-    encodings: list of vectors (encode outputs)
+    encodings: list of vectors
 
     returns: np.array of Δ values
     """
@@ -24,8 +25,12 @@ def compute_delta(encodings):
                 djk = distance(encodings[j], encodings[k])
                 dki = distance(encodings[k], encodings[i])
 
-                closure = abs((dij + djk + dki))
-                delta = dij + djk + dki - closure
+                # triangle inequality deviation (curvature)
+                delta = (
+                    abs(dij + djk - dki) +
+                    abs(djk + dki - dij) +
+                    abs(dki + dij - djk)
+                )
 
                 deltas.append(delta)
 
