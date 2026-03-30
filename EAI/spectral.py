@@ -3,12 +3,7 @@ import numpy as np
 
 def reconstruct_R(delta_values, n):
     """
-    Minimal reconstruction of antisymmetric matrix R from Δ.
-
-    delta_values: array of size nC3
-    n: number of nodes
-
-    returns: R ∈ so(n)
+    Reconstruct antisymmetric matrix R from Δ.
     """
 
     R = np.zeros((n, n))
@@ -20,7 +15,6 @@ def reconstruct_R(delta_values, n):
 
                 d = delta_values[idx]
 
-                # distribute curvature with orientation
                 R[i, j] += d
                 R[j, k] += d
                 R[k, i] += d
@@ -36,21 +30,7 @@ def reconstruct_R(delta_values, n):
 
 def spectral_signature(R):
     """
-    Compute eigenvalue spectrum of R
+    Raw eigenvalue spectrum (no interpretation, no sorting)
     """
 
-    eigvals = np.linalg.eigvals(R)
-    eigvals = np.sort(np.abs(eigvals))[::-1]
-
-    return eigvals
-
-
-def dominance_ratio(eigs):
-    """
-    Continuous dominance measure (no threshold)
-    """
-
-    if len(eigs) < 2:
-        return 0.0
-
-    return eigs[0] / (eigs[1] + 1e-12)
+    return np.linalg.eigvals(R)
