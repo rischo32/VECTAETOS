@@ -1,67 +1,40 @@
-from .encode_v2 import encode_v2
+import numpy as np
 
 
-# --------------------------------------------------
-# κ SIGNATURE (CLOSURE TRACE)
-# --------------------------------------------------
-# κ is NOT:
-# - a metric
-# - a score
-# - a signal
-#
-# κ is a structural trace of closure inconsistency
-# under fixed transformation composition
-# --------------------------------------------------
-
-
-def kappa_signature(a, transforms):
+def kappa_signature(encodings):
     """
-    Compute κ as closure trace.
+    κ (kappa) = structural trace of encoding distribution
 
-    Parameters:
-    - a: system output
-    - transforms: fixed, predefined transformation set
+    NON-EVALUATIVE
+    NON-INTERVENTIONAL
+    NO TRANSFORMS (internally resolved upstream)
 
-    Returns:
-    - sorted list of closure errors (structural trace only)
+    Input:
+        encodings: list of vectors
+
+    Output:
+        list (structural trace only)
     """
 
-    errors = []
+    n = len(encodings)
 
-    for t1 in transforms:
-        for t2 in transforms:
+    if n == 0:
+        return []
 
-            # composition
-            x1 = t1(t2(a))
-            x2 = t2(t1(a))
+    enc = np.array(encodings)
 
-            # encode (structural, non-semantic)
-            e1 = encode_v2(x1)
-            e2 = encode_v2(x2)
+    # 1. centroid
+    centroid = np.mean(enc, axis=0)
 
-            # closure error (L1 distance)
-            e = sum(abs(i - j) for i, j in zip(e1, e2))
+    # 2. deviations (distance from centroid)
+    deviations = np.linalg.norm(enc - centroid, axis=1)
 
-            errors.append(e)
+    # 3. normalize (scale-invariant trace)
+    total = np.sum(deviations)
 
-    # IMPORTANT:
-    # sorting ensures deterministic structural representation
-    return sorted(errors)
+    if total == 0:
+        return deviations.tolist()
 
+    kappa = deviations / total
 
-# --------------------------------------------------
-# FORBIDDEN OPERATIONS (DOCUMENTATION ONLY)
-# --------------------------------------------------
-# The following must NEVER be implemented:
-#
-# - kappa_transition(...)
-# - threshold detection
-# - scoring functions
-# - classification based on κ
-#
-# Reason:
-# These introduce interpretation and violate:
-# ∂Φ / ∂EAI = 0
-#
-# κ must remain a terminal structural artifact.
-# --------------------------------------------------
+    return kappa.tolist()
