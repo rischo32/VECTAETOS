@@ -1,7 +1,7 @@
-from encode_v3 import encode_v3
-from delta import compute_delta
-from spectral import reconstruct_R, spectral_signature
-from kappa import kappa_signature
+from .encode_v3 import encode_v3
+from .delta import compute_delta
+from .spectral import reconstruct_R, spectral_signature
+from .kappa import kappa_signature
 
 
 # --------------------------------------------------
