@@ -6,56 +6,66 @@ from .stabilization import stabilize_delta
 from .canonical import canonicalize
 from .hash import hash_phi
 from .merkle import merkle_root
+from .kappa import kappa_trace
 
 Index = int
 Triple = Tuple[Index, Index, Index]
 
 
-def ek_step(outputs) -> Tuple[Dict[Triple, float], str]:
+def ek_step(outputs) -> Dict:
     """
     Single EK 2.0 step.
 
-    Returns:
-    - canonical Delta
-    - hash
+    Returns full structural artifact.
     """
 
-    # reconstruct
+    # --- 1. reconstruct ---
     delta_hat = reconstruct_delta(outputs)
 
-    # validity (structural only)
+    # --- 2. representability (hard constraint) ---
     if not is_representable(delta_hat):
         raise ValueError("Invalid epistemic structure (Delta not in D)")
 
-    # stabilize
+    # --- 3. stabilization ---
     delta_stable = stabilize_delta(delta_hat)
 
-    # canonicalize
+    # --- 4. canonicalization ---
     delta_c = canonicalize(delta_stable)
 
-    # hash
+    # --- 5. hash ---
     h = hash_phi(delta_c)
 
-    return delta_c, h
+    # --- 6. kappa trace (NON-INTERPRETATIVE) ---
+    k_trace = kappa_trace(delta_stable)
+
+    return {
+        "delta": delta_c,
+        "hash": h,
+        "kappa_trace": k_trace,
+    }
 
 
 def ek_trajectory(stream: List[List]) -> Dict:
     """
-    Process a sequence of system outputs.
+    Process a sequence of outputs (trajectory).
 
-    Returns:
-    - hashes
-    - merkle root
+    NO:
+    - interpretation
+    - filtering based on meaning
+
+    YES:
+    - structural accumulation
     """
 
     hashes = []
-    deltas = []
+    artifacts = []
 
     for outputs in stream:
         try:
-            delta_c, h = ek_step(outputs)
-            hashes.append(h)
-            deltas.append(delta_c)
+            step = ek_step(outputs)
+
+            hashes.append(step["hash"])
+            artifacts.append(step)
 
         except ValueError:
             # invalid Φ → skip WITHOUT interpretation
@@ -64,7 +74,10 @@ def ek_trajectory(stream: List[List]) -> Dict:
     root = merkle_root(hashes)
 
     return {
-        "hashes": hashes,
-        "merkle_root": root,
-        "length": len(hashes),
+        "artifact": {
+            "steps": artifacts,
+            "hashes": hashes,
+            "merkle_root": root,
+            "length": len(hashes),
+        }
     }
