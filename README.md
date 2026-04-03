@@ -21,6 +21,8 @@
 _________________________
 "Cogito cohaerenter ergo sum possibile"
 > "Welcome to a new epistemic era"
+
+> Vectaetos™ models tension, paradox, coherence boundaries, and aporia as geometric phenomena — not as errors.
 __________________________
 #  Φ Updates :
 
