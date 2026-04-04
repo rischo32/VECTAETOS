@@ -1,6 +1,8 @@
 import hashlib
 from typing import Dict, Tuple
 
+from ek_core.canonical import canonicalize
+
 Index = int
 Triple = Tuple[Index, Index, Index]
 
@@ -9,13 +11,12 @@ def serialize_delta(delta: Dict[Triple, float]) -> bytes:
     """
     Canonical serialization of Delta.
 
-    Requirements:
+    Guarantees:
     - deterministic
     - order-invariant
-    - no interpretation
+    - float-stable
     """
 
-    # sort keys lexicographically
     items = sorted(delta.items())
 
     parts = []
@@ -28,34 +29,38 @@ def serialize_delta(delta: Dict[Triple, float]) -> bytes:
     return serialized.encode("utf-8")
 
 
+def structural_hash(delta: Dict[Triple, float]) -> str:
+    """
+    Structural identity hash.
+
+    Properties:
+    - invariant under representation
+    - deterministic
+    - no semantics
+    """
+
+    # 🔥 CRITICAL: enforce canonical form
+    delta_c = canonicalize(delta)
+
+    data = serialize_delta(delta_c)
+
+    return hashlib.sha256(data).hexdigest()
+
+
 def hash_delta(delta: Dict[Triple, float]) -> str:
     """
-    Compute structural hash.
+    Alias for structural_hash (backward compatibility).
+    """
+    return structural_hash(delta)
 
-    This is NOT:
-    - score
-    - metric
-    - classification
 
-    This IS:
-    - structural identity fingerprint
+def hash_phi(delta: Dict[Triple, float]) -> str:
+    """
+    EK 2.0 hash entrypoint.
+
+    Unlike previous version:
+    - DOES NOT trust caller
+    - ALWAYS canonicalizes internally
     """
 
-    data = serialize_delta(delta)
-
-    h = hashlib.sha256(data).hexdigest()
-
-    return h
-
-
-def hash_phi(delta_canonical: Dict[Triple, float]) -> str:
-    """
-    Final EK 2.0 hash.
-
-    Input MUST be canonicalized Delta.
-
-    No internal canonicalization allowed
-    (to avoid hidden transformations).
-    """
-
-    return hash_delta(delta_canonical)
+    return structural_hash(delta)
