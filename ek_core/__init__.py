@@ -1,10 +1,9 @@
-# --- Canonical ---
-from epistemic_cryptography.ek_core.canonical import (
-    canonicalize,
-    apply_permutation,
-)
+# Re-export submodules for clean API
 
-# --- Representability ---
-from epistemic_cryptography.ek_core.representability import (
-    is_representable,
-)
+from epistemic_cryptography.ek_core import canonical
+from epistemic_cryptography.ek_core import representability
+
+__all__ = [
+    "canonical",
+    "representability",
+]
