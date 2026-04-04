@@ -1,5 +1,3 @@
-# ek_core/__init__.py
-
 # --- Representability ---
 from epistemic_cryptography.ek_core.representability import (
     is_representable,
@@ -9,11 +7,6 @@ from epistemic_cryptography.ek_core.representability import (
 from epistemic_cryptography.ek_core.canonical import (
     canonicalize,
     apply_permutation,
-)
-
-# --- Kappa ---
-from epistemic_cryptography.ek_core.kappa import (
-    kappa_signature,
 )
 
 # --- Hash ---
