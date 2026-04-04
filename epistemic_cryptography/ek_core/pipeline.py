@@ -1,60 +1,65 @@
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Union
 
 from .reconstruct import reconstruct_delta
 from .representability import is_representable
 from .stabilization import stabilize_delta
 from .canonical import canonicalize
-from .hash import hash_phi
+from .hash import structural_hash
 from .merkle import merkle_root
-from .kappa import kappa_trace
+from .kappa import kappa_signature
 
 Index = int
 Triple = Tuple[Index, Index, Index]
 
 
+# =========================
+# CORE STEP
+# =========================
+
 def ek_step(outputs) -> Dict:
     """
     Single EK 2.0 step.
 
-    Returns full structural artifact.
+    Input:
+        outputs → raw system outputs
+
+    Output:
+        structural artifact
     """
 
-    # --- 1. reconstruct ---
+    # 1. reconstruct
     delta_hat = reconstruct_delta(outputs)
 
-    # --- 2. representability (hard constraint) ---
+    # 2. representability constraint
     if not is_representable(delta_hat):
         raise ValueError("Invalid epistemic structure (Delta not in D)")
 
-    # --- 3. stabilization ---
+    # 3. stabilization
     delta_stable = stabilize_delta(delta_hat)
 
-    # --- 4. canonicalization ---
+    # 4. canonical
     delta_c = canonicalize(delta_stable)
 
-    # --- 5. hash ---
-    h = hash_phi(delta_c)
+    # 5. hash (STRUCTURAL)
+    h = structural_hash(delta_c)
 
-    # --- 6. kappa trace (NON-INTERPRETATIVE) ---
-    k_trace = kappa_trace(delta_stable)
+    # 6. κ (structure only)
+    kappa = kappa_signature(delta_c)
 
     return {
         "delta": delta_c,
         "hash": h,
-        "kappa_trace": k_trace,
+        "kappa": kappa,
     }
 
 
+# =========================
+# TRAJECTORY
+# =========================
+
 def ek_trajectory(stream: List[List]) -> Dict:
     """
-    Process a sequence of outputs (trajectory).
-
-    NO:
-    - interpretation
-    - filtering based on meaning
-
-    YES:
-    - structural accumulation
+    Process sequence of outputs.
     """
 
     hashes = []
@@ -68,7 +73,6 @@ def ek_trajectory(stream: List[List]) -> Dict:
             artifacts.append(step)
 
         except ValueError:
-            # invalid Φ → skip WITHOUT interpretation
             continue
 
     root = merkle_root(hashes)
@@ -81,3 +85,39 @@ def ek_trajectory(stream: List[List]) -> Dict:
             "length": len(hashes),
         }
     }
+
+
+# =========================
+# 🔥 PUBLIC API (CRITICAL)
+# =========================
+
+def run_pipeline(delta: Union[Dict[Triple, float], List[List]]) -> Dict:
+    """
+    Unified EK entrypoint.
+
+    Accepts:
+    - Δ directly (dict)
+    - or stream (list of outputs)
+
+    Guarantees:
+    - no feedback
+    - no mutation
+    - deterministic
+    """
+
+    # CASE 1: already Δ
+    if isinstance(delta, dict):
+        delta_c = canonicalize(delta)
+
+        return {
+            "delta": delta_c,
+            "hash": structural_hash(delta_c),
+            "kappa": kappa_signature(delta_c),
+        }
+
+    # CASE 2: trajectory
+    elif isinstance(delta, list):
+        return ek_trajectory(delta)
+
+    else:
+        raise TypeError("Unsupported input type for run_pipeline")
