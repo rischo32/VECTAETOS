@@ -1,6 +1,8 @@
 import copy
 from typing import Dict, Tuple, List
 
+import numpy as np
+
 from .stabilization import stabilize_delta
 from .canonical import canonicalize
 from .hash import hash_phi
@@ -32,34 +34,49 @@ def kappa_trace(
 ) -> List[str]:
     """
     κ trace = sequence of hashes under controlled perturbations.
-
-    NO:
-    - threshold
-    - classification
-    - decision
-
-    YES:
-    - structural sensitivity trace
     """
 
     traces = []
-
     current = copy.deepcopy(delta)
 
     for _ in range(steps):
-
-        # perturb
         current = perturb_delta(current)
-
-        # stabilization
         stable = stabilize_delta(current)
-
-        # canonical
         canon = canonicalize(stable)
-
-        # hash
         h = hash_phi(canon)
-
         traces.append(h)
 
     return traces
+
+
+def kappa_signature(
+    delta: Dict[Triple, float]
+) -> np.ndarray:
+    """
+    κ signature = deterministic numeric embedding of structure.
+
+    Requirements:
+    - no NaN
+    - deterministic
+    - non-trivial variance
+    - no interpretation
+    """
+
+    if not delta:
+        return np.zeros(1)
+
+    # stabilizácia → canonical
+    stable = stabilize_delta(delta)
+    canon = canonicalize(stable)
+
+    # extrahuj hodnoty deterministicky
+    items = sorted(canon.items())  # order invariant
+    values = np.array([v for _, v in items], dtype=float)
+
+    # ochrana proti nulovej norme
+    norm = np.linalg.norm(values)
+
+    if norm == 0:
+        return np.zeros_like(values)
+
+    return values / norm
