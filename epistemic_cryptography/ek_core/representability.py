@@ -1,16 +1,45 @@
-from itertools import combinations
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union
+import numpy as np
 
 Index = int
 Triple = Tuple[Index, Index, Index]
 
 
-def is_representable(delta: Dict[Triple, float], tol: float = 1e-9) -> bool:
+def _vector_to_dict(delta: np.ndarray) -> Dict[Triple, float]:
     """
-    Check if Delta_hat ∈ D (i.e. Delta_hat is representable as dR).
+    Convert ℝ^56 vector → Dict[(i,j,k) → value]
+    using lexicographic ordering of triples.
+    """
+    if delta.shape[0] != 56:
+        raise ValueError("Delta vector must have dimension 56.")
 
-    This is equivalent to the closure condition:
-        dDelta = 0
+    triples = []
+    for i in range(8):
+        for j in range(i + 1, 8):
+            for k in range(j + 1, 8):
+                triples.append((i, j, k))
+
+    return {triples[t]: float(delta[t]) for t in range(56)}
+
+
+def _collect_indices(delta: Dict[Triple, float]):
+    indices = set()
+    for (i, j, k) in delta.keys():
+        indices.add(i)
+        indices.add(j)
+        indices.add(k)
+    return sorted(indices)
+
+
+def is_representable(
+    delta: Union[Dict[Triple, float], np.ndarray],
+    tol: float = 1e-9,
+) -> bool:
+    """
+    Check if Δ ∈ 𝒟 (i.e. Δ = dR for some R ∈ so(8)).
+
+    Equivalent condition:
+        dΔ = 0   (closure condition)
 
     For every quadruple (i, j, k, l):
 
@@ -25,56 +54,35 @@ def is_representable(delta: Dict[Triple, float], tol: float = 1e-9) -> bool:
     Pure structural invariant.
     """
 
-    indices = set()
-    for (i, j, k) in delta.keys():
-        indices.update([i, j, k])
-
-    indices = sorted(indices)
-
-    for (i, j, k, l) in combinations(indices, 4):
-
-        val = (
-            delta.get((j, k, l), 0.0)
-            - delta.get((i, k, l), 0.0)
-            + delta.get((i, j, l), 0.0)
-            - delta.get((i, j, k), 0.0)
-        )
-
-        if abs(val) > tol:
+    # --- Normalize input ---
+    if isinstance(delta, np.ndarray):
+        try:
+            delta = _vector_to_dict(delta)
+        except Exception:
             return False
 
+    if not isinstance(delta, dict):
+        return False
+
+    # --- Collect indices ---
+    indices = _collect_indices(delta)
+
+    # --- Check closure condition ---
+    for i in indices:
+        for j in indices:
+            for k in indices:
+                for l in indices:
+                    if len({i, j, k, l}) < 4:
+                        continue
+
+                    val = (
+                        delta.get((j, k, l), 0.0)
+                        - delta.get((i, k, l), 0.0)
+                        + delta.get((i, j, l), 0.0)
+                        - delta.get((i, j, k), 0.0)
+                    )
+
+                    if abs(val) > tol:
+                        return False
+
     return True
-
-
-def representability_residual(delta: Dict[Triple, float]) -> float:
-    """
-    Diagnostic ONLY (not for decision logic).
-
-    Returns maximum violation of closure condition.
-
-    NOTE:
-    - NOT for thresholding
-    - NOT for classification
-    - NOT for decision use
-    """
-
-    indices = set()
-    for (i, j, k) in delta.keys():
-        indices.update([i, j, k])
-
-    indices = sorted(indices)
-
-    max_violation = 0.0
-
-    for (i, j, k, l) in combinations(indices, 4):
-
-        val = (
-            delta.get((j, k, l), 0.0)
-            - delta.get((i, k, l), 0.0)
-            + delta.get((i, j, l), 0.0)
-            - delta.get((i, j, k), 0.0)
-        )
-
-        max_violation = max(max_violation, abs(val))
-
-    return max_violation
