@@ -1,4 +1,4 @@
-# VECTAETOS — MAPARCH
+# VECTAETOS™ — MAPARCH
 Epistemic Architecture Map
 
 Status: Canonical  
@@ -305,9 +305,129 @@ Vectaetos does NOT contain:
 
 Any appearance of these invalidates the system.
 
+## 12. Epistemic Structural Layer (Δ, EK 2.0)
+
+This layer describes the **structural representability of Φ** without introducing semantics.
+
+### Δ — Relational Differential Structure
+
+Δ is defined as:
+
+    Δ = dR
+
+where:
+
+    R ∈ so(8)
+    Δ ∈ ℝ⁵⁶
+
+Δ encodes **pure relational deformation**.
+
+Δ:
+- does not contain meaning
+- does not contain interpretation
+- does not encode decisions
+- is fully antisymmetric
+
 ---
 
-## 12. Canonical Closure
+### Representability Domain 𝒟
+
+𝒟 is defined as:
+
+    𝒟 = { Δ | ∃ R ∈ so(8), Δ = dR }
+
+Constraint:
+
+    Δ ∈ 𝒟 ⇔ dΔ = 0
+
+Non-representable structures:
+- do not enter Φ
+- do not produce errors
+- are ontologically unrealizable
+
+---
+
+### Canonical Structure
+
+Each Δ has an equivalence class under:
+
+    G = S₈ (index permutations)
+
+Canonicalization selects a **deterministic representative**:
+
+    Δ_c ∈ Orbit(Δ)
+
+No optimization is used.
+No semantic preference is introduced.
+
+---
+
+### Structural Hash H(Φ)
+
+H(Φ) is defined as:
+
+    H(Φ) = H(Δ_c)
+
+Properties:
+
+- invariant under representation
+- invariant under permutation
+- deterministic
+- non-semantic
+
+H does not:
+- classify
+- rank
+- evaluate
+
+It only preserves identity.
+
+---
+
+### κ — Structural Sensitivity Signature
+
+κ is a **non-interpretative structural response**.
+
+It is derived from Δ under controlled perturbations.
+
+κ:
+- does not decide
+- does not threshold
+- does not classify
+- preserves variation
+
+κ reflects **structural stability**, not meaning.
+
+---
+
+### Epistemic Pipeline Constraint
+
+Any observable structure must satisfy:
+
+    Δ → canonical → H → κ
+
+This pipeline:
+- does not modify Φ
+- does not introduce semantics
+- does not create feedback
+
+It is purely **descriptive**.
+
+---
+
+### Ontological Status
+
+The structural layer:
+
+- does not extend Φ
+- does not replace Φ
+- does not control Φ
+
+It is a **projection of representability**, not an operational system.
+
+---
+
+## 13. Canonical Closure
 
 Vectaetos is not powerful because it can act.
 
@@ -317,5 +437,5 @@ Vectaetos is powerful because:
 
 This map is final.
 
-© VECTAETOS  
+© VECTAETOS™ 
 MAPARCH — Canonical Epistemic Architecture
