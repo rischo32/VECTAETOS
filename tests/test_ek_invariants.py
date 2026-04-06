@@ -1,3 +1,4 @@
+import numpy as np
 from epistemic_cryptography.ek_core.pipeline import ek_step
 
 
@@ -38,4 +39,7 @@ def test_no_hidden_state():
     a = ek_step(["same"])
     b = ek_step(["same"])
 
-    assert a == b
+    assert a["delta"] == b["delta"]
+    assert a["hash"] == b["hash"]
+    assert np.allclose(a["kappa"], b["kappa"])
+    assert a["kappa_trace"] == b["kappa_trace"]
