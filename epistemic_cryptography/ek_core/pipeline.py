@@ -1,4 +1,4 @@
-from typing import List, Dict, Tuple, Union
+from typing import List, Dict, Tuple, Union, Callable
 
 from .reconstruct import reconstruct_delta
 from .representability import is_representable
@@ -6,7 +6,7 @@ from .stabilization import stabilize_delta
 from .canonical import canonicalize
 from .hash import structural_hash
 from .merkle import merkle_root
-from .kappa import kappa_signature
+from .kappa import kappa_signature, kappa_trace
 
 Index = int
 Triple = Tuple[Index, Index, Index]
@@ -19,12 +19,6 @@ Triple = Tuple[Index, Index, Index]
 def ek_step(outputs) -> Dict:
     """
     Single EK 2.0 step.
-
-    Input:
-        outputs → raw system outputs
-
-    Output:
-        structural artifact
     """
 
     # 1. reconstruct
@@ -40,16 +34,18 @@ def ek_step(outputs) -> Dict:
     # 4. canonical
     delta_c = canonicalize(delta_stable)
 
-    # 5. hash (STRUCTURAL)
+    # 5. hash
     h = structural_hash(delta_c)
 
-    # 6. κ (structure only)
-    kappa = kappa_signature(delta_c)
+    # 6. κ
+    kappa_sig = kappa_signature(delta_c)
+    kappa_tr = kappa_trace(delta_c)
 
     return {
         "delta": delta_c,
         "hash": h,
-        "kappa": kappa,
+        "kappa": kappa_sig,
+        "kappa_trace": kappa_tr,
     }
 
 
@@ -88,36 +84,14 @@ def ek_trajectory(stream: List[List]) -> Dict:
 
 
 # =========================
-# 🔥 PUBLIC API (CRITICAL)
+# PUBLIC API
 # =========================
 
-def run_pipeline(delta: Union[Dict[Triple, float], List[List]]) -> Dict:
+def run_pipeline(system: Callable, inputs: List):
     """
-    Unified EK entrypoint.
-
-    Accepts:
-    - Δ directly (dict)
-    - or stream (list of outputs)
-
-    Guarantees:
+    STRICT:
     - no feedback
     - no mutation
-    - deterministic
     """
 
-    # CASE 1: already Δ
-    if isinstance(delta, dict):
-        delta_c = canonicalize(delta)
-
-        return {
-            "delta": delta_c,
-            "hash": structural_hash(delta_c),
-            "kappa": kappa_signature(delta_c),
-        }
-
-    # CASE 2: trajectory
-    elif isinstance(delta, list):
-        return ek_trajectory(delta)
-
-    else:
-        raise TypeError("Unsupported input type for run_pipeline")
+    return [system(x) for x in inputs]
