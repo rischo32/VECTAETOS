@@ -668,3 +668,12 @@ Zenodo DOIs:
 ## Governance
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) AEPL-1.2
+_________________________________________
+## VECTAETOS™
+Onto-Epistemic Field Framework
+
+© 2026 Vectaetos
+Developed by Richard Fonfára
+
+All projections are non-prescriptive.
+All rights reserved.
