@@ -19,217 +19,221 @@
 
 # VECTAETOS™ — Onto-Epistemic Field © framework of structure
 _________________________
+
 "Cogito cohaerenter ergo sum possibile"
+
 > "Welcome to a new epistemic era"
 
 > Vectaetos™ models tension, paradox, coherence boundaries, and aporia as geometric phenomena — not as errors.
+
+> Vectaetos does not generate intelligence.
+> It constrains the space in which intelligence can remain valid.
+> 
 __________________________
-#  Φ Updates :
 
-The Vectaetos architecture is currently evolving in several foundational directions:
+# Φ System State
 
-Φ Updates — Formal Progress Specification
+Vectaetos has transitioned from conceptual specification to operational structure.
 
-1. Meta-Language (Structural Topology Language)
-
-Objective: definovať jazyk, ktorý reprezentuje transformácie relácií bez zavedenia sémantiky.
-
-Formálne:
-
-Nech:
-
-- Φ = (Σ, R), R ∈ so(8)
-- Δ = dR ∈ ℝ⁵⁶
-
-Definujeme:
-
-- 𝓛_Φ = jazyk operátorov nad R a Δ
-
-Základné operátory:
-
-- τ_R : R → R′  (relational deformation)
-- τ_Δ : Δ → Δ′  (induced cycle deformation)
-
-Podmienka zachovania ontológie:
-
-- τ ∈ 𝓛_Φ ⇔ τ neindukuje sémantiku ∧ zachováva antisymetriu R
-
-t.j.:
-
-- R′(i,j) = −R′(j,i)
-- τ: Im(d) → Im(d)
+The core epistemic field architecture is now defined, constrained, and partially executable.
 
 ---
 
-2. Epistemic Cryptography 2.0
+## 1. Epistemic Field (Φ)
 
-Objective: topologicky citlivý fingerprint epistemického poľa.
+The system operates on:
 
-Formálne:
+Φ = (Σ, R), R ∈ so(8)
 
-Nech:
+Derived structure:
 
-- Δ ∈ ℝ⁵⁶
-- μᵢ = lokálna epistemická neurčitosť
-- Aᵢⱼ = antisymetrická relácia
+Δ = dR ∈ ℝ⁵⁶
 
-Definujeme hash:
+The representability domain:
 
-- H(Φ) = H(Δ, μ, A)
+𝒟 = Im(d) ⊂ ℝ⁵⁶
 
-Rozšírenie:
+Boundary:
 
-- H_topo(Φ) = H(Δ | ∂𝒟, invariants)
+κ = ∂𝒟
 
-kde:
+Coherence:
 
-- 𝒟 = {Δ | ∃ R ∈ so(8), Δ = dR}
-- κ = ∂𝒟
-
-Požiadavky:
-
-- H(Φ₁) = H(Φ₂) ⇔ Φ₁ ≡ Φ₂ (topologicky)
-- citlivosť na Δ-deformácie
-- nezávislosť od reprezentácie ρ
+K(Φ) = 1 ⇔ Δ ∈ 𝒟
 
 ---
 
-3. Family of Epistemic Spaces (ℱ)
+## 2. Representability Layer (IMPLEMENTED)
 
-Objective: rozšíriť Φ na množinu polí.
+The system enforces:
 
-Formálne:
+Δ ∈ 𝒟
 
-- ℱ = {Φₐ | a ∈ I}
+via structural closure conditions:
 
-kde:
+dΔ = 0
 
-- Φₐ = (Σ, Rₐ), Rₐ ∈ so(8)
+This is not approximate.
 
-Definujeme:
+This is a strict algebraic constraint.
 
-- interakciu: I(Φₐ, Φ_b) → Φ_c
-- fúziu: Φₐ ⊕ Φ_b = Φ_c
-
-Podmienky:
-
-- K(Φ_c) = 1
-- Δ_c ∈ 𝒟
-
-t.j.:
-
-- dR_c = Δ_c ∈ Im(d)
-
-Zachovanie:
-
-- Σ invariantné
-- antisymetria zachovaná
+Non-representable states are rejected.
 
 ---
 
-4. Epistemic Merkle Structure
+## 3. Canonical Structure (IMPLEMENTED)
 
-Objective: verifikácia trajektórií Vortexu.
+All epistemic configurations are mapped to canonical form:
 
-Formálne:
+canonicalize(Δ)
 
-Nech trajektória:
+Properties:
 
-- T = (Φ₀ → Φ₁ → … → Φ_n)
+- permutation invariant
+- structure preserving
+- collision resistant (within structural equivalence)
 
-Hash list:
-
-- h_i = H(Φ_i)
-
-Merkle root:
-
-- M(T) = Merkle(h₀, h₁, …, h_n)
-
-Podmienky:
-
-- ∀i: Δ_i ∈ 𝒟
-- ∀i: K(Φ_i) ≥ κ
-
-Validita trajektórie:
-
-- T valid ⇔ všetky uzly reprezentovateľné ∧ hash konzistentný
+Canonicalization defines identity at the structural level.
 
 ---
 
-5. Global Constraint (κ)
+## 4. Structural Hash (IMPLEMENTED)
 
-Zjednotenie:
+Each epistemic state Φ is assigned:
 
-- Δ ∈ ℝ⁵⁶
-- 𝒟 ⊂ ℝ⁵⁶
+H(Φ)
 
-Definícia:
+Properties:
 
-- κ = ∂𝒟
+- invariant under canonicalization
+- sensitive to structural deformation
+- independent of representation
 
-Koherencia:
-
-- K(Φ) = 1 ⇔ Δ ∈ 𝒟
-- K(Φ) = 0 ⇔ Δ ∉ 𝒟
+This forms the basis of epistemic cryptography.
 
 ---
 
-6. System Interpretation
+## 5. κ-Signature (IMPLEMENTED)
 
-Vectaetos je formálne:
+The system computes:
 
-- (ℱ, 𝓛_Φ, H_topo, M)
+κ(Φ)
 
-kde:
+as a structural trace of proximity to the boundary ∂𝒟.
 
-- ℱ = family of fields
-- 𝓛_Φ = meta-language transformácií
-- H_topo = epistemická kryptografia
-- M = Merkle validácia trajektórií
+Properties:
 
-Bez:
+- no NaN
+- non-uniform under variation
+- deterministic
 
-- optimalizácie
-- agentnosti
-- cieľovej funkcie
+κ is not a metric.
 
----
-
-7. Current Progress State
-
-Implementované:
-
-- Φ = (Σ, R), R ∈ so(8)
-- Δ = dR, Δ ∈ ℝ⁵⁶
-- K(Φ), κ ako ∂𝒟
-- základný Merkle (epistemic_merkle.py)
-
-Rozpracované:
-
-- H_topo(Φ) (Epistemic Cryptography 2.0)
-- 𝓛_Φ (meta-language)
-- ℱ (multi-field interaction)
+It is a structural signal.
 
 ---
 
-8. Boundary Condition
+## 6. Pipeline (IMPLEMENTED)
 
-Ak existuje:
+The system exposes:
 
-- τ: Φ → Φ′ tak, že Δ′ ∉ 𝒟
+run_pipeline(system, inputs)
 
-potom:
+Properties:
 
-- Φ′ → QE
+- no feedback loops
+- no behavioral modification
+- preserves input-output identity
 
-t.j.:
+Additionally:
 
-- strata reprezentovateľnosti
-- koniec trajektórie
+ek_step(outputs)
+
+returns:
+
+{
+  "delta": Δ,
+  "hash": H(Φ),
+  "kappa_trace": κ(Φ)
+}
 
 ---
 
-Summary:
+## 7. Family of Fields (DEFINED)
+
+Vectaetos extends from a single field to:
+
+ℱ = {Φₐ}
+
+with:
+
+- structural compatibility constraints
+- invariant Σ
+- preserved antisymmetry
+
+Interaction rules are defined but not yet operationalized.
+
+---
+
+## 8. Epistemic Space (DEFINED)
+
+The system explicitly models:
+
+- space: 𝒟 ⊂ ℝ⁵⁶
+- boundary: κ = ∂𝒟
+- invalid region: ℝ⁵⁶ \ 𝒟
+
+Crossing κ results in:
+
+QE (Qualitative Epistemic Aporia)
+
+---
+
+## 9. Meaning of the System
+
+Vectaetos does not compute answers.
+
+Vectaetos enforces:
+
+the conditions under which a state of meaning remains structurally valid.
+
+It separates:
+
+representation
+from
+interpretation
+
+It protects:
+
+coherence
+against
+collapse
+
+---
+
+## 10. Current Status
+
+Stable:
+
+- representability
+- canonicalization
+- structural hashing
+- κ-signature
+- pipeline integrity
+
+In progress:
+
+- H_topo (topological hash extension)
+- 𝓛_Φ (meta-language of transformations)
+- ℱ interactions (multi-field dynamics)
+
+---
+
+Vectaetos is no longer a proposal.
+
+It is a constrained epistemic system under active expansion.
+
+# Summary:
 
 Vectaetos formalizuje:
 
