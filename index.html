@@ -289,100 +289,88 @@ K(Φ) — representability predicate  <br>
 </div>
 
 <div class="updates-block">
-    <h2>Φ Updates :</h2>
-    <p>The Vectaetos architecture is currently evolving in several foundational directions:</p>
-    
+    <h2>Φ System State</h2>
+
+    <p>
+    Vectaetos has transitioned from conceptual specification to an operational epistemic structure.
+    </p>
+
     <ul>
-        <li><strong>Meta-Language (Structural Topology Language): "TetraGlyph"</strong> — Objective: definovať jazyk, ktorý reprezentuje transformácie relácií bez zavedenia sémantiky.
+        <li>
+        <strong>Epistemic Field:</strong><br>
+        Φ = (Σ, R), R ∈ so(8)<br>
+        Δ = dR ∈ ℝ⁵⁶<br>
+        𝒟 = Im(d), κ = ∂𝒟<br>
+        K(Φ) = 1 ⇔ Δ ∈ 𝒟
+        </li>
 
-Formálne:
+        <li>
+        <strong>Representability Layer (Implemented):</strong><br>
+        Enforces strict structural constraint:<br>
+        dΔ = 0<br>
+        Non-representable states are rejected.
+        </li>
 
-Nech:
+        <li>
+        <strong>Canonical Structure (Implemented):</strong><br>
+        canonicalize(Δ)<br>
+        — permutation invariant<br>
+        — structure preserving<br>
+        — defines structural identity
+        </li>
 
-Φ = (Σ, R), R ∈ so(8)
-Δ = dR ∈ ℝ⁵⁶
-Definujeme:
+        <li>
+        <strong>Structural Hash (Implemented):</strong><br>
+        H(Φ)<br>
+        — invariant under canonicalization<br>
+        — sensitive to structural deformation<br>
+        — representation independent
+        </li>
 
-𝓛_Φ = jazyk operátorov nad R a Δ
-Základné operátory:
+        <li>
+        <strong>κ-Signature (Implemented):</strong><br>
+        κ(Φ)<br>
+        — deterministic<br>
+        — no NaN<br>
+        — non-uniform structural trace
+        </li>
 
-τ_R : R → R′  (relational deformation)
-τ_Δ : Δ → Δ′  (induced cycle deformation)
-Podmienka zachovania ontológie:
+        <li>
+        <strong>Pipeline (Implemented):</strong><br>
+        run_pipeline(system, inputs)<br>
+        ek_step(outputs) → {delta, hash, kappa_trace}<br>
+        — no feedback loops<br>
+        — no behavioral modification
+        </li>
 
-τ ∈ 𝓛_Φ ⇔ τ neindukuje sémantiku ∧ zachováva antisymetriu R
-t.j.:
+        <li>
+        <strong>Family of Fields (Defined):</strong><br>
+        ℱ = {Φₐ}<br>
+        Interaction rules defined, not yet operationalized.
+        </li>
 
-R′(i,j) = −R′(j,i)
-τ: Im(d) → Im(d).</li>
-        <li><strong>Formalization of Epistemic Cryptography 2.0</strong> — Objective: topologicky citlivý fingerprint epistemického poľa.
-
-Formálne:
-
-Nech:
-
-Δ ∈ ℝ⁵⁶
-μᵢ = lokálna epistemická neurčitosť
-Aᵢⱼ = antisymetrická relácia
-Definujeme hash:
-
-H(Φ) = H(Δ, μ, A)
-Rozšírenie:
-
-H_topo(Φ) = H(Δ | ∂𝒟, invariants)
-kde:
-
-𝒟 = {Δ | ∃ R ∈ so(8), Δ = dR}
-κ = ∂𝒟
-Požiadavky:
-
-H(Φ₁) = H(Φ₂) ⇔ Φ₁ ≡ Φ₂ (topologicky)
-citlivosť na Δ-deformácie
-nezávislosť od reprezentácie ρ.</li>
-        <li><strong>Introduction of a Family of Epistemic Spaces</strong> —  Objective: rozšíriť Φ na množinu polí.
-
-Formálne:
-
-ℱ = {Φₐ | a ∈ I}
-kde:
-
-Φₐ = (Σ, Rₐ), Rₐ ∈ so(8)
-Definujeme:
-
-interakciu: I(Φₐ, Φ_b) → Φ_c
-fúziu: Φₐ ⊕ Φ_b = Φ_c
-Podmienky:
-
-K(Φ_c) = 1
-Δ_c ∈ 𝒟
-t.j.:
-
-dR_c = Δ_c ∈ Im(d)
-Zachovanie:
-
-Σ invariantné
-antisymetria zachovaná.</li>
-        <li><strong>Implementation of an Epistemic Merkle Tree</strong> —    Objective: verifikácia trajektórií Vortexu.
-
-Formálne:
-
-Nech trajektória:
-
-T = (Φ₀ → Φ₁ → … → Φ_n)
-Hash list:
-
-h_i = H(Φ_i)
-Merkle root:
-
-M(T) = Merkle(h₀, h₁, …, h_n)
-Podmienky:
-
-∀i: Δ_i ∈ 𝒟
-∀i: K(Φ_i) ≥ κ
-Validita trajektórie:
-
-T valid ⇔ všetky uzly reprezentovateľné ∧ hash konzistentný.</li>
+        <li>
+        <strong>Epistemic Space:</strong><br>
+        𝒟 ⊂ ℝ⁵⁶, κ = ∂𝒟<br>
+        Crossing boundary → QE (aporia)
+        </li>
     </ul>
+
+    <p>
+    Vectaetos does not compute answers.<br>
+    It enforces the conditions under which meaning remains structurally valid.
+    </p>
+
+    <p>
+    It separates representation from interpretation<br>
+    and protects coherence against collapse.
+    </p>
+
+    <p>
+    Vectaetos does not generate intelligence.<br>
+    It constrains the space in which intelligence can remain valid.
+    </p>
+</div>
 
     <p>These developments expand Vectaetos from a single-field observational architecture toward a broader framework for modeling, verifying, and projecting epistemic field dynamics.</p>
     
