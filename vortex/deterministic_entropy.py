@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # =========================================
-# VECTAETOS :: DETERMINISTIC ENTROPY MACHINE (no engine)
-# VORTEX v2 (Φ-CLEAN)
+# VECTAETOS :: DETERMINISTIC ENTROPY ENGINE
+# VORTEX v2 + EK PIPELINE (Φ-CLEAN)
 # =========================================
 
 import math
 import json
 import hashlib
 from dataclasses import dataclass
-from typing import List, Dict, Tuple
-from copy import deepcopy
+from typing import List, Dict
+from itertools import permutations
 
 
 # =========================================
@@ -45,13 +45,8 @@ class Sigma:
 
 def init_poles(n: int) -> List[Sigma]:
     return [
-        Sigma(
-            E=0.5 + i * 0.01,
-            C=0.6,
-            T=0.2,
-            M=0.0,
-            S=0.05
-        ) for i in range(n)
+        Sigma(E=0.5 + i * 0.01, C=0.6, T=0.2, M=0.0, S=0.05)
+        for i in range(n)
     ]
 
 
@@ -76,7 +71,6 @@ class Vortex:
     def step_dynamics(self):
         n = len(self.poles)
 
-        # energy redistribution
         for i in range(n):
             for j in range(i+1, n):
                 si, sj = self.poles[i], self.poles[j]
@@ -96,7 +90,6 @@ class Vortex:
                 si.M += abs(flow) * 0.01
                 sj.M += abs(flow) * 0.01
 
-        # tension / coherence
         for s in self.poles:
             s.T += (1.0 - s.C) * 0.04 * self.config.dt
             s.C -= s.T * 0.015 * self.config.dt
@@ -110,7 +103,7 @@ class Vortex:
 
 
 # =========================================
-# EPISTEMIC CRYPTOGRAPHY
+# EK CORE
 # =========================================
 
 def build_A(poles: List[Sigma]) -> List[List[float]]:
@@ -129,18 +122,59 @@ def build_A(poles: List[Sigma]) -> List[List[float]]:
 def compute_mu(poles: List[Sigma]) -> List[float]:
     n = len(poles)
     mean_T = sum(p.T for p in poles)/n
-    return [
-        abs(p.T - mean_T) + 0.5*(1.0 - p.C)
-        for p in poles
-    ]
+    return [abs(p.T - mean_T) + 0.5*(1.0 - p.C) for p in poles]
 
+
+# =========================================
+# CANONICAL Δ̂ (S₈ INVARIANT)
+# =========================================
+
+def apply_permutation(A, perm):
+    n = len(A)
+    B = [[0.0]*n for _ in range(n)]
+
+    inv = {perm[i]: i for i in range(n)}
+
+    for i in range(n):
+        for j in range(n):
+            B[i][j] = A[inv[i]][inv[j]]
+
+    return B
+
+
+def canonical_key(A):
+    return tuple(tuple(round(v, 6) for v in row) for row in A)
+
+
+def canonicalize(A):
+    n = len(A)
+    best = None
+    best_key = None
+
+    for perm in permutations(range(n)):
+        candidate = apply_permutation(A, perm)
+        key = canonical_key(candidate)
+
+        if best_key is None or key < best_key:
+            best = candidate
+            best_key = key
+
+    return best
+
+
+# =========================================
+# FINGERPRINT
+# =========================================
 
 def fingerprint(mu: List[float], A: List[List[float]], step: int) -> str:
+    A_canon = canonicalize(A)
+
     payload = {
         "step": step,
         "mu": [round(x, 6) for x in mu],
-        "A": [[round(v, 6) for v in row] for row in A]
+        "A": [[round(v, 6) for v in row] for row in A_canon]
     }
+
     s = json.dumps(payload, sort_keys=True)
     return hashlib.sha256(s.encode()).hexdigest()
 
@@ -161,14 +195,11 @@ def run_single(config: Config) -> Dict:
         mu = compute_mu(vortex.poles)
         fp = fingerprint(mu, A, vortex.step)
 
-        trajectory.append({
-            "step": vortex.step,
-            "fingerprint": fp
-        })
+        trajectory.append(fp)
 
     return {
         "trajectory_length": len(trajectory),
-        "final_fingerprint": trajectory[-1]["fingerprint"]
+        "final_fingerprint": trajectory[-1]
     }
 
 
@@ -176,11 +207,12 @@ def run_single(config: Config) -> Dict:
 # ENSEMBLE
 # =========================================
 
-def run_ensemble(config: Config, runs: int = 16) -> List[Dict]:
+def run_ensemble(config: Config, runs: int = 8) -> List[Dict]:
     results = []
 
     for i in range(runs):
         res = run_single(config)
+
         results.append({
             "id": i,
             "fingerprint": res["final_fingerprint"]
@@ -195,7 +227,5 @@ def run_ensemble(config: Config, runs: int = 16) -> List[Dict]:
 
 if __name__ == "__main__":
     cfg = Config()
-
-    results = run_ensemble(cfg, runs=8)
-
-    print(json.dumps(results, indent=2))
+    out = run_ensemble(cfg, runs=8)
+    print(json.dumps(out, indent=2))
