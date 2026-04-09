@@ -701,10 +701,11 @@ It is governed by a separate license (VNAL-1.0).
 _________________________________________
 
 ## VECTAETOS™
-# Onto-Epistemic Field Framework
 
-# © 2026 Vectaetos
-# Developed by Richard Fonfára
+ Onto-Epistemic Field Framework
 
-# All projections are descriptive and non-prescriptive.
-# Usage is governed by the applicable license layer.
+© 2026 Vectaetos
+Developed by Richard Fonfára
+
+ All projections are descriptive and non-prescriptive.
+ Usage is governed by the applicable license layer.
