@@ -604,12 +604,15 @@ See `CITATION.cff` for full metadata.
 
 ------------------------------------------------------------
 
-LICENSE
+## Licensing
 
-Vectaetos™ Custom License (VCL-1.0)
+Vectaetos Core:
+- VCL-1.0 (non-authoritative ontology)
 
-All projections are descriptive and non-prescriptive.  
-Use of this framework does not transfer decision authority.
+Implementations (Vortex / Asimulator):
+- VNAL-1.0 (behavioral restrictions)
+
+These layers are strictly separated.
 
 See LICENSE.md
 
