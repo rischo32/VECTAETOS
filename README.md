@@ -6,7 +6,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 [![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
 
 [![Ontology Guard](https://github.com/rischo32/Vectaetos/actions/workflows/ontology_guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/ontology_guard.yml)
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
@@ -609,8 +611,15 @@ See `CITATION.cff` for full metadata.
 Vectaetos Core:
 - VCL-1.0 (non-authoritative ontology)
 
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0
+  
 Implementations (Vortex / Asimulator):
 - VNAL-1.0 (behavioral restrictions)
+
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
+
+- AEPL-1.2
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) 
 
 These layers are strictly separated.
 
@@ -672,9 +681,6 @@ Zenodo DOIs:
 ## Representation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
 
-## Governance
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0  
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) AEPL-1.2
 _________________________________________
 ## VECTAETOS™
 Onto-Epistemic Field Framework
