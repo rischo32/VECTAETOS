@@ -681,12 +681,30 @@ Zenodo DOIs:
 ## Representation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
 
+____________________________________________
+### External Systems
+
+ASIMULATOR is an experimental system developed in relation to Vectaetos.
+
+IMPORTANT:
+ASIMULATOR is NOT a valid implementation of VECTAETOS.
+
+It introduces:
+
+- memory influence
+- adaptive behavior
+- learning mechanisms
+
+These violate the ontological constraints of VECTAETOS.
+
+It is governed by a separate license (VNAL-1.0).
 _________________________________________
+
 ## VECTAETOS™
-Onto-Epistemic Field Framework
+# Onto-Epistemic Field Framework
 
-© 2026 Vectaetos
-Developed by Richard Fonfára
+# © 2026 Vectaetos
+# Developed by Richard Fonfára
 
-All projections are non-prescriptive.
-All rights reserved.
+# All projections are descriptive and non-prescriptive.
+# Usage is governed by the applicable license layer.
