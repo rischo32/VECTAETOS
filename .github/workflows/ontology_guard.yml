@@ -6,7 +6,7 @@ on:
     paths:
       - 'VECTAETOS_MASTER_INDEX.md'
       - 'formal/**'
-      - 'core/**'
+      - 'Core/**'
       - 'governance/**'
       - 'scripts/audit/**'
 
@@ -15,7 +15,7 @@ on:
     paths:
       - 'VECTAETOS_MASTER_INDEX.md'
       - 'formal/**'
-      - 'core/**'
+      - 'Core/**'
       - 'governance/**'
       - 'scripts/audit/**'
 
