@@ -1,0 +1,23 @@
+# config/default.yaml
+
+simulation:
+  poles: 8
+  steps: 1000
+  dt: 0.05
+  seed: 42
+
+output:
+  file: outputs/vortex_state.jsonl
+  verbose: true
+
+registry:
+  path: outputs/registry.jsonl
+
+sync:
+  nodes:
+    - http://localhost:8001/append
+    - http://localhost:8002/append
+
+security:
+  dual_hash: true
+  ontology_binding: true
