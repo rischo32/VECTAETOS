@@ -6,6 +6,12 @@ import requests
 # CORE
 from core.vortex import VectaetosSimulation, VortexConfig
 from core.identity import VectaetosIdentity
+from core.ontology_binding import OntologyBinding
+
+binder = OntologyBinding("ontology_hash.json")
+binding = binder.bind(output["proof"])
+
+output["ontology_binding"] = binding
 
 # SECURITY
 from core.signature import VectaetosSignature
