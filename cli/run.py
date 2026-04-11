@@ -7,6 +7,7 @@ import requests
 from core.vortex import VectaetosSimulation, VortexConfig
 from core.identity import VectaetosIdentity
 from core.ontology_binding import OntologyBinding
+from core.epistemic import EpistemicCryptography
 
 binder = OntologyBinding("ontology_hash.json")
 binding = binder.bind(output["proof"])
