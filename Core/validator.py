@@ -4,6 +4,7 @@ import json
 
 from core.proof import CanonicalIdentityProof
 from core.identity import VectaetosIdentity
+from core.signature import VectaetosSignature
 
 
 class ValidationResult:
@@ -22,21 +23,12 @@ class ValidationResult:
 
 class VectaetosValidator:
 
-    # =========================
-    # MAIN VALIDATION
-    # =========================
     @classmethod
     def validate(cls, output: dict) -> ValidationResult:
-        """
-        Validate full Vectaetos output
-        """
 
         try:
-            # -------------------------
-            # BASIC STRUCTURE
-            # -------------------------
             if "data" not in output:
-                return ValidationResult(False, "missing data field")
+                return ValidationResult(False, "missing data")
 
             if "proof" not in output:
                 return ValidationResult(False, "missing proof")
@@ -49,75 +41,56 @@ class VectaetosValidator:
             identity_given = output["identity"]
 
             # -------------------------
-            # EXTRACT STATE
+            # STATE
             # -------------------------
-            epistemic = data.get("epistemic_cryptography", {})
-
-            if "last_state" in data:
-                state = data["last_state"]
-            else:
-                state = data.get("final_state", [])
-
+            state = data.get("final_state", [])
             if not state:
                 return ValidationResult(False, "missing state")
 
             # -------------------------
-            # REBUILD MATRIX A
+            # REBUILD A
             # -------------------------
-            try:
-                A = cls._rebuild_A(state)
-            except Exception as e:
-                return ValidationResult(False, f"A reconstruction failed: {str(e)}")
+            A = cls._rebuild_A(state)
 
             # -------------------------
-            # REBUILD EPISTEMIC
+            # EPISTEMIC
             # -------------------------
-            ep = cls._rebuild_epistemic(epistemic)
+            ep = {
+                "topological_humility": data.get("epistemic_cryptography", {}).get("topological_humility", 0.0),
+                "integrity": 1,
+                "dominant_mode": False
+            }
 
             # -------------------------
-            # RECOMPUTE PROOF
+            # PROOF CHECK
             # -------------------------
             proof_expected = CanonicalIdentityProof.compute_proof(A, ep)
 
             if proof_expected != proof_given:
-                return ValidationResult(False, "proof mismatch", {
-                    "expected": proof_expected,
-                    "given": proof_given
-                })
+                return ValidationResult(False, "proof mismatch")
 
             # -------------------------
-            # VALIDATE IDENTITY
+            # IDENTITY CHECK
             # -------------------------
             identity_expected = VectaetosIdentity.validate(ep)
 
-            if isinstance(identity_given, dict):
-                identity_given_status = identity_given.get("status", identity_given)
-            else:
-                identity_given_status = identity_given
-
-            if identity_expected != identity_given_status:
-                return ValidationResult(False, "identity mismatch", {
-                    "expected": identity_expected,
-                    "given": identity_given_status
-                })
+            if identity_expected != identity_given:
+                return ValidationResult(False, "identity mismatch")
 
             # -------------------------
-            # SUCCESS
+            # SIGNATURE CHECK
             # -------------------------
-            return ValidationResult(True, "valid vectaetos output")
+            if "signature" in output:
+                if not VectaetosSignature.verify_output(output, output["signature"]):
+                    return ValidationResult(False, "invalid hash signature")
+
+            return ValidationResult(True, "valid")
 
         except Exception as e:
-            return ValidationResult(False, f"validation error: {str(e)}")
-
-    # =========================
-    # HELPERS
-    # =========================
+            return ValidationResult(False, str(e))
 
     @staticmethod
     def _rebuild_A(poles):
-        """
-        Reconstruct relational matrix A from poles
-        """
         n = len(poles)
         A = [[0.0] * n for _ in range(n)]
 
@@ -135,28 +108,12 @@ class VectaetosValidator:
 
         return A
 
-    @staticmethod
-    def _rebuild_epistemic(ep):
-        """
-        Extract minimal epistemic identity
-        """
-        return {
-            "topological_humility": ep.get("topological_humility", 0.0),
-            "integrity": ep.get("integrity", 1),
-            "dominant_mode": ep.get("dominant_mode", False)
-        }
-
-
-# =========================
-# CLI HELPER
-# =========================
 
 def validate_file(path: str):
     with open(path, "r") as f:
         data = json.load(f)
 
     result = VectaetosValidator.validate(data)
-
     print(json.dumps(result.to_dict(), indent=2))
 
 
@@ -164,7 +121,7 @@ if __name__ == "__main__":
     import sys
 
     if len(sys.argv) < 2:
-        print("Usage: python core/validator.py <file.json>")
-        sys.exit(1)
+        print("Usage: python core/validator.py file.json")
+        exit(1)
 
     validate_file(sys.argv[1])
