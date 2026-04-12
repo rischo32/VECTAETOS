@@ -41,6 +41,8 @@ Vectaetos has transitioned from conceptual specification to operational structur
 
 The core epistemic field architecture is now defined, constrained, and partially executable.
 
+### Work is currently underway on the Relational Mesh Kernel (RMK); more details can be found in research/relational_mesh_kernel/.
+
 ---
 
 ## 1. Epistemic Field (Φ)
