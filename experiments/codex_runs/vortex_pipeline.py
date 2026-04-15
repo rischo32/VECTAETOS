@@ -148,8 +148,10 @@ def K_phi(sigma: dict[str, PoleState]) -> bool:
 
 
 def detect_QE(phi: Phi, sigma: dict[str, PoleState], trials: int = 50) -> bool:
-    for i in range(trials):
-        candidate = evolve_sigma(phi, perturb_sigma(sigma, i))
+    rng = random.Random()
+    for _ in range(trials):
+        seed = rng.randint(0, 2**32 - 1)
+        candidate = evolve_sigma(phi, perturb_sigma(sigma, seed))
         if K_phi(candidate):
             return False
     return True
@@ -159,7 +161,6 @@ def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, 
     states = []
     current = sigma
     topo = topology_hash(phi.R)
-    coherence = RMK.coherence(phi.R)
     for t in range(steps):
         candidate = evolve_sigma(phi, perturb_sigma(current, t))
         if detect_QE(phi, current):
@@ -172,7 +173,6 @@ def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, 
                 "label": label,
                 "sigma": _sigma_payload(candidate),
                 "topology_hash": topo,
-                "coherence": coherence,
             }
         )
         current = candidate
