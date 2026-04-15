@@ -244,8 +244,10 @@ def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, 
     states = []
     current = sigma
     topo = topology_hash(phi.R)
+    rng = random.Random()
     for t in range(steps):
-        candidate = evolve_sigma(phi, perturb_sigma(current, t))
+        seed = rng.randint(0, 2**32 - 1)
+        candidate = evolve_sigma(phi, perturb_sigma(current, seed))
         if detect_QE(phi, current):
             label = "QE"
         else:
