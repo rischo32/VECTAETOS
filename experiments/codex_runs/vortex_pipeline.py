@@ -147,6 +147,89 @@ def K_phi(sigma: dict[str, PoleState]) -> bool:
     return True
 
 
+def _canonicalize_matrix(matrix: list[list[float]]) -> list[list[float]]:
+    return [[_round_float(value) for value in row] for row in matrix]
+
+
+def _delta_from_matrix(matrix: list[list[float]]) -> list[float]:
+    deltas = []
+    size = len(matrix)
+    for i in range(size):
+        for j in range(i + 1, size):
+            for k in range(j + 1, size):
+                deltas.append(_round_float(matrix[i][j] + matrix[j][k] + matrix[k][i]))
+    return deltas
+
+
+def _triality_variance(delta: list[float]) -> float:
+    if not delta:
+        return 0.0
+    mean_delta = sum(delta) / len(delta)
+    return _round_float(sum((value - mean_delta) ** 2 for value in delta) / len(delta))
+
+
+def _relational_matrix_from_sigma(sigma: dict[str, dict[str, float]]) -> list[list[float]]:
+    size = len(SIGMA)
+    matrix = [[0.0 for _ in range(size)] for _ in range(size)]
+    for i in range(size):
+        for j in range(i + 1, size):
+            t_i = sigma[SIGMA[i]]["T"]
+            t_j = sigma[SIGMA[j]]["T"]
+            c_i = sigma[SIGMA[i]]["C"]
+            c_j = sigma[SIGMA[j]]["C"]
+            value = _round_float(abs(t_i - t_j) * ((c_i + c_j) / 2.0))
+            matrix[i][j] = value
+            matrix[j][i] = _round_float(-value)
+    return matrix
+
+
+def compute_epistemic(sigma_sequence: list[dict[str, Any]], R: list[list[float]]) -> dict[str, Any]:
+    mu_sequence = []
+    total_asymmetry = 0.0
+    proof_states = []
+    for entry in sigma_sequence:
+        sigma = entry["sigma"] if "sigma" in entry else entry
+        t_values = [sigma[pole]["T"] for pole in SIGMA]
+        mean_t = sum(t_values) / len(t_values)
+        mu = [_round_float(abs(sigma[pole]["T"] - mean_t) + (1.0 - sigma[pole]["C"])) for pole in SIGMA]
+        matrix = _relational_matrix_from_sigma(sigma)
+        canonical_A = _canonicalize_matrix(matrix)
+        delta = _delta_from_matrix(canonical_A)
+        triality_variance = _triality_variance(delta)
+        asymmetry = _round_float(sum(abs(canonical_A[i][j]) for i in range(len(SIGMA)) for j in range(i + 1, len(SIGMA))))
+        total_asymmetry = _round_float(total_asymmetry + asymmetry)
+        proof_states.append(
+            {
+                "canonical_A": canonical_A,
+                "delta": delta,
+                "triality_variance": triality_variance,
+            }
+        )
+        mu_sequence.append(mu)
+    total_mu = _round_float(sum(sum(mu) for mu in mu_sequence))
+    denominator = total_mu + total_asymmetry
+    topological_humility = 0.0 if denominator == 0.0 else _round_float(total_mu / denominator)
+    proof = {
+        "canonical_A": [state["canonical_A"] for state in proof_states],
+        "delta": [state["delta"] for state in proof_states],
+        "triality_variance": [state["triality_variance"] for state in proof_states],
+        "hash": _hash_payload(
+            {
+                "R": _canonicalize_matrix(R),
+                "canonical_A": [state["canonical_A"] for state in proof_states],
+                "delta": [state["delta"] for state in proof_states],
+                "triality_variance": [state["triality_variance"] for state in proof_states],
+            }
+        ),
+    }
+    return {
+        "mu": mu_sequence,
+        "total_asymmetry": total_asymmetry,
+        "topological_humility": topological_humility,
+        "proof": proof,
+    }
+
+
 def detect_QE(phi: Phi, sigma: dict[str, PoleState], trials: int = 50) -> bool:
     rng = random.Random()
     for _ in range(trials):
@@ -182,12 +265,14 @@ def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, 
 def run(seed: int | None = 42, steps: int = 50) -> dict[str, Any]:
     phi = construct_phi(seed=seed)
     sigma = sample_sigma(seed=seed)
+    states = vortex(phi, sigma, steps)
     return {
         "phi": {
             "Sigma": phi.Sigma,
             "R": phi.R,
         },
-        "states": vortex(phi, sigma, steps),
+        "states": states,
+        "epistemic": compute_epistemic(states, phi.R),
         "topology_hash": topology_hash(phi.R),
     }
 
