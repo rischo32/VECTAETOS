@@ -14,30 +14,35 @@ def _sha256(value):
 
 def extract_replay_config(run_output: dict) -> dict:
     """
-    Extract minimal deterministic config
+    Deterministic config extraction
     """
 
     return {
-        "seed": run_output.get("seed"),
-        "steps": len(run_output.get("states", [])),
-        "phi": run_output.get("phi")
+        "seed": run_output["seed"],
+        "steps": len(run_output["states"]),
+        "phi": run_output["phi"]
     }
 
 
 def replay_run(config: dict) -> dict:
     """
-    Deterministic replay
+    Deterministic replay using core logic
     """
 
     seed = config["seed"]
     steps = config["steps"]
     phi_data = config["phi"]
 
-    # reconstruct Phi exactly
+    # reconstruct Phi
     phi = construct_phi(seed=seed)
-    phi.R = phi_data["R"]  # enforce identical structure
 
+    # enforce exact R
+    phi.R = phi_data["R"]
+
+    # initial state
     sigma = sample_sigma(seed=seed)
+
+    # run vortex (NO custom logic!)
     states = vortex(phi, sigma, steps)
 
     return {
@@ -51,7 +56,7 @@ def replay_run(config: dict) -> dict:
 
 def verify_replay(original: dict, replayed: dict) -> bool:
     """
-    Verify exact match
+    Exact hash match
     """
 
     return _sha256(original["states"]) == _sha256(replayed["states"])
