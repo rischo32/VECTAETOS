@@ -1,8 +1,7 @@
 import hashlib
 import json
 
-from core.vortex_pipeline import Phi, compute_epistemic, sample_sigma, topology_hash, vortex
-
+from Core.vortex_pipeline import Phi, compute_epistemic, sample_sigma, topology_hash, vortex
 
 def _serialize(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
