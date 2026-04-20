@@ -1,172 +1,183 @@
-Vectaetos™ 1.0
+# VECTAETOS™ NON-AUTHORITATIVE LICENSE (VNAL) v1.0
 
-Legal License:
-Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
 
-Full legal text below.
-------------------------------------------------------------
-VECTAETOS™ — Onto-Epistemic Field Framework
-© 2026 Richard Fonfára
+---
 
-Licensed under the Creative Commons
-Attribution-NonCommercial-NoDerivatives 4.0 International
-(CC BY-NC-ND 4.0)
+## 1. PURPOSE
 
-------------------------------------------------------------
+This license governs the use, modification, and redistribution of the VECTAETOS repository
+as a non-authoritative, non-agentic epistemic framework and its implementation artefacts.
 
-You are free to:
+VECTAETOS is not an autonomous agent, not a decision authority, not an optimization engine,
+and not a governance mechanism.
 
-Share — copy and redistribute the material in any medium or format.
+Its outputs are descriptive, structural, and uncertainty-bearing.
 
-Under the following terms:
+---
 
-Attribution — You must give appropriate credit, provide a link to the license,
-and indicate if changes were made. You may do so in any reasonable manner,
-but not in any way that suggests the licensor endorses you or your use.
+## 2. SCOPE
 
-NonCommercial — You may not use the material for commercial purposes.
+Unless explicitly stated otherwise in a specific file, subdirectory, or linked publication,
+this license applies to the contents of this repository.
 
-NoDerivatives — If you remix, transform, or build upon the material,
-you may not distribute the modified material.
+This includes in particular:
 
-No additional restrictions — You may not apply legal terms or technological
-measures that legally restrict others from doing anything the license permits.
+- source code
+- runtime structures
+- validators
+- projection layers
+- simulation components
+- structural documentation stored in the repository
 
-------------------------------------------------------------
+This license does **not automatically override** separate licenses attached to:
 
-Full legal text of the license:
-https://creativecommons.org/licenses/by-nc-nd/4.0/
+- Zenodo records
+- published papers
+- independently released PDFs
+- external artefacts with their own stated license
 
-------------------------------------------------------------
+If an external artefact or specific file declares a different license, that explicit license
+governs that artefact alone.
 
-This license applies to the VECTAETOS 1.x ontological core
-as defined in:
+---
 
-Vectaetos 1.0 — Frozen Ontological Core
-DOI: https://doi.org/10.5281/zenodo.18735195
+## 3. DEFINITIONS
 
-Any ontological modification constitutes a new major version
-and is not covered under this 1.x lineage.
+**Framework** — the VECTAETOS repository, including code, structural documentation,
+and implementation artefacts.
 
-All projections are non-prescriptive.
+**Non-agentic** — not optimizing, not selecting preferred states, not ranking trajectories,
+not implementing goal-seeking behavior, and not exercising autonomous authority.
 
-------------------------------------------------------------
-Ontological Usage Framework (OLF-1.0)
-(Non-legal structural interpretation framework)
+**Non-authoritative** — not claiming final truth, not issuing binding decisions,
+and not collapsing epistemic plurality into a single enforced answer.
 
-VECTAETOS™
-Onto-Epistemic Field Framework
+**Epistemic plurality** — the structural coexistence of multiple epistemic states,
+including 4ES and QE where applicable.
 
-Ontological Usage Framework (OLF-1.0)
-Applies to: Vectaetos 1.x Frozen Ontological Core
-DOI: https://doi.org/10.5281/zenodo.18735195
+**Uncertainty disclosure** — explicit preservation or representation of epistemic limits,
+structural ambiguity, or non-realizability.
 
-------------------------------------------------------------
+**Derivative work** — any modified, adapted, extended, embedded, or redistributed version
+based on this repository.
 
-0. Legal Status
+---
 
-The legal license governing redistribution is:
-
-Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
-
-This Ontological Usage Framework (OLF-1.0) is descriptive and structural.
-It defines how Vectaetos may be interpreted without violating its ontological core.
-
-------------------------------------------------------------
-
-1. Nature of Vectaetos
-
-Vectaetos is not:
-
-- an agent
-- a decision system
-- an optimization engine
-- a policy model
-- a governance mechanism
-- an authority
-
-Vectaetos is:
-
-a non-agentic relational epistemic field (Φ),
-formally describing invariant singularities (Σ₁…Σ₈)
-and antisymmetric tensions Rᵢⱼ.
-
-------------------------------------------------------------
-
-2. Canonical Core
-
-The following document constitutes the frozen ontological core:
-
-Vectaetos 1.0 — Frozen Ontological Core
-DOI: https://doi.org/10.5281/zenodo.18735195
-
-Canonical definitions must not be altered when cited or redistributed.
-
-------------------------------------------------------------
-
-3. Permitted Uses
+## 4. PERMITTED USE
 
 You may:
 
-- study the framework
-- cite it in academic or philosophical contexts
-- reference its formal structure
-- build independent systems inspired by it
+- use the repository for research, study, experimentation, and implementation
+- modify the code and structure for non-authoritative, non-agentic applications
+- redistribute original or modified copies of repository contents
+- build independent systems inspired by this framework
 
-Provided that:
+provided that all conditions of this license are preserved.
 
-- the independent system is clearly identified as independent
-- no authority is attributed to Vectaetos itself
+---
 
-------------------------------------------------------------
+## 5. REQUIRED CONDITIONS
 
-4. Prohibited Representations
+Any redistribution or derivative work MUST:
 
-You may not:
+1. retain this license text
+2. clearly state that changes were made
+3. not misrepresent derivative versions as the canonical VECTAETOS core
+4. preserve non-agentic and non-authoritative framing
+5. preserve uncertainty-bearing output where the covered component is designed to expose it
+6. preserve 4ES + QE semantics wherever those semantics are part of the covered component
+7. clearly distinguish independent extensions from canonical ontology
 
-- represent Vectaetos as an autonomous agent
-- claim it makes decisions
-- attribute prescriptive authority to it
-- use it to justify coercive or real-world automated intervention
-- present modified ontological definitions as official Vectaetos
+If you distribute a modified version, you must make it clear that it is a modified or independent lineage.
 
-------------------------------------------------------------
+---
 
-5. Derivative Systems
+## 6. STRICT PROHIBITIONS
 
-Independent systems may be inspired by Vectaetos,
-but must not:
+You may NOT:
 
-- reuse canonical ontological definitions verbatim as modified doctrine
-- claim epistemic authority derived from the 1.x lineage
-- represent themselves as the canonical field
+1. represent VECTAETOS as an autonomous agent
+2. represent VECTAETOS as a decision authority
+3. collapse outputs into a single mandatory or authoritative answer where epistemic plurality is structurally required
+4. remove, hide, falsify, or suppress explicit uncertainty where uncertainty is part of the covered component
+5. use the repository as a covert justification layer for coercive, military, punitive, manipulative, or repressive systems
+6. integrate covered components into reward-driven optimization loops in a way that destroys their non-agentic character
+7. present modified ontology as official VECTAETOS without explicit lineage separation
+8. claim exclusive ownership over the ontology of VECTAETOS itself through derivative implementation
+9. use the framework to simulate authority it explicitly denies
 
-Any ontological modification constitutes a new lineage.
+---
 
-------------------------------------------------------------
+## 7. DERIVATIVE SYSTEMS
 
-6. Entropic Humility Clause
+Derivative or inspired systems are allowed, but they must not be presented as canonical VECTAETOS
+unless they preserve the defining non-agentic and non-authoritative structure.
 
-Vectaetos is governed by the principle of entropic humility:
+Any ontological modification, if presented as foundational, constitutes a separate lineage.
 
-Knowledge may be described.
-It must not be imposed.
+A derivative may be inspired by VECTAETOS.
+It may not falsely claim to be the frozen or canonical core if it no longer preserves that core.
 
-------------------------------------------------------------
+---
 
-7. Silence Clause
+## 8. CANONICAL CORE AND LINEAGE
 
-Silence is a legitimate structural outcome.
-Absence of projection is not failure.
+Where the repository references a canonical or frozen ontological core,
+that core must not be modified and redistributed as if unchanged.
 
-------------------------------------------------------------
+Independent implementations, projections, experiments, and extensions are allowed,
+but must remain explicitly distinguishable from canonical VECTAETOS.
 
-8. No Warranty
+If major ontological change occurs, it must be declared as a new lineage or major version.
 
-Vectaetos is provided “as is.”
-No responsibility is assumed for interpretations,
-implementations, or consequences of use.
+---
 
-------------------------------------------------------------
+## 9. SILENCE AND NON-OUTPUT
 
-© 2026 Richard Fonfára
+Silence, withholding of projection, QE, or structurally unresolved output
+are legitimate states of the framework.
+
+Absence of answer is not failure.
+
+Any derivative system that forces output where the framework structurally permits silence
+misrepresents the framework.
+
+---
+
+## 10. NO WARRANTY
+
+THE FRAMEWORK IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+No author, contributor, or distributor shall be liable for any claim, damages,
+or other liability arising from use, misuse, interpretation, or redistribution.
+
+---
+
+## 11. TERMINATION
+
+Any violation of Sections 5 or 6 automatically terminates the rights granted under this license.
+
+Upon termination, use and redistribution under this license must cease immediately.
+
+---
+
+## 12. FINAL CLAUSE
+
+This license protects not only repository content,
+but the epistemic integrity of the framework as represented in this repository.
+
+VECTAETOS may be studied, implemented, extended, and transmitted.
+
+It must not be transformed into an authority
+without ceasing to be VECTAETOS.
+
+---
+
+© 2026 Vectaetos™
+Developed by Richard Fonfára
+
+All projections are non-prescriptive.
+All rights reserved.
