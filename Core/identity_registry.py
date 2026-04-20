@@ -1,98 +1,68 @@
-You are implementing a PASSIVE IDENTITY REGISTRY.
+import json
+import hashlib
 
-CRITICAL:
 
-- DO NOT modify vortex
-- DO NOT modify epistemic layer
-- DO NOT introduce feedback
-- DO NOT introduce control logic
-- DO NOT optimize anything
+def _serialize(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
-This layer is READ-ONLY.
 
---------------------------------------------------
+def _sha256(value):
+    return hashlib.sha256(_serialize(value).encode("utf-8")).hexdigest()
 
-GOAL
 
-Create identity layer for simulations.
+def compute_phi_id(phi: dict) -> str:
+    """
+    Identity of Φ (structure only).
+    Note: current version is order-sensitive.
+    S₈ canonicalization can be added later.
+    """
+    return _sha256({
+        "Sigma": phi["Sigma"],
+        "R": phi["R"],
+    })
 
---------------------------------------------------
 
-REQUIREMENTS
+def compute_run_id(phi_id: str, states: list) -> str:
+    """
+    Identity of a simulation run.
+    """
+    return _sha256({
+        "phi_id": phi_id,
+        "states": states,
+    })
 
-1. CREATE:
 
-compute_phi_id(phi)
+def compute_epistemic_hash(epistemic: dict) -> str:
+    """
+    Hash of epistemic proof.
+    """
+    return _sha256(epistemic.get("proof", {}))
 
-Returns:
-SHA256 hash of:
 
-- Sigma
-- R matrix
+def create_identity_record(run_output: dict) -> dict:
+    """
+    Pure identity extraction (no side effects).
+    """
+    phi = run_output["phi"]
+    states = run_output["states"]
+    epistemic = run_output.get("epistemic", {})
 
---------------------------------------------------
+    phi_id = compute_phi_id(phi)
+    run_id = compute_run_id(phi_id, states)
+    epistemic_hash = compute_epistemic_hash(epistemic)
 
-2. CREATE:
+    return {
+        "phi_id": phi_id,
+        "run_id": run_id,
+        "topology_hash": run_output["topology_hash"],
+        "epistemic_hash": epistemic_hash,
+        "steps": len(states),
+    }
 
-compute_run_id(phi_id, states)
 
-Returns:
-SHA256 hash of:
-
-- phi_id
-- trajectory states
-
---------------------------------------------------
-
-3. CREATE:
-
-create_registry_entry(run_output)
-
-Input = output of run()
-
-Returns:
-
-{
-  "phi_id": str,
-  "run_id": str,
-  "topology_hash": str,
-  "epistemic_hash": str,
-  "steps": int
-}
-
---------------------------------------------------
-
-4. EPISTEMIC HASH
-
-epistemic_hash = SHA256(epistemic.proof)
-
---------------------------------------------------
-
-5. STRICT RULES
-
-- NO mutation of inputs
-- NO filtering
-- NO validation
-- NO decisions
-
---------------------------------------------------
-
-6. OUTPUT
-
-Return ONLY:
-
-registry.py
-
---------------------------------------------------
-
-7. DO NOT:
-
-- import external libs
-- introduce classes unless necessary
-- add persistence
-- add databases
-
---------------------------------------------------
-
-If unsure:
-leave TODO
+__all__ = [
+    "compute_phi_id",
+    "compute_run_id",
+    "compute_epistemic_hash",
+    "create_identity_record",
+]
