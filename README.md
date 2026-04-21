@@ -37,6 +37,13 @@ _________________________
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
 
+## "Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných."
+
+To nie je slovná hračka. To je fundamentálne iná ontológia.
+
+Obmedzenie predpokladá, že sloboda je primárna a nebezpečenstvo je jej vedľajší produkt — ktorý treba rezať.
+
+Bezpečný priestor predpokladá, že sloboda bez podmienok kolapsu nie je sloboda — je to chaos bez zodpovednosti za vlastnú existenciu.
 __________________________
 
 ## VECTAETOS™ zakladá ontológiu, ASIMULATOR™ skúma procedurálne možnosti a ASI_MOD™ artikuluje dialóg; tri repozitáre tvoria jednu koherentnú architektúru len dovtedy, kým sa žiadne z nich nezrúti do ontologickej úlohy iného.
@@ -46,8 +53,6 @@ __________________________
 Vectaetos has transitioned from conceptual specification to operational structure.
 
 The core epistemic field architecture is now defined, constrained, and partially executable.
-
-### Work is currently underway on the Relational Mesh Kernel (RMK); more details can be found in research/relational_mesh_kernel/.
 
 ---
 
