@@ -1,0 +1,38 @@
+name: canonical-anchor
+
+on:
+  push:
+    paths:
+      - "anchors/CANONICAL_ANCHOR.md"
+      - "anchors/CANONICAL_ANCHOR.sha256"
+      - "scripts/hash_anchor.py"
+      - ".github/workflows/canonical-anchor.yml"
+  pull_request:
+    paths:
+      - "anchors/CANONICAL_ANCHOR.md"
+      - "anchors/CANONICAL_ANCHOR.sha256"
+      - "scripts/hash_anchor.py"
+      - ".github/workflows/canonical-anchor.yml"
+
+jobs:
+  verify-canonical-anchor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Recompute anchor hash
+        run: |
+          python scripts/hash_anchor.py \
+            --input anchors/CANONICAL_ANCHOR.md \
+            --output /tmp/CANONICAL_ANCHOR.sha256
+
+      - name: Compare committed hash
+        run: |
+          diff -u anchors/CANONICAL_ANCHOR.sha256 /tmp/CANONICAL_ANCHOR.sha256
