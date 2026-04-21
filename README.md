@@ -23,6 +23,8 @@
 [![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
 [![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
 [![Φ Integrity Check](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml)
+[![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
+
 [![Release + EK Notarization](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml)
 
 
