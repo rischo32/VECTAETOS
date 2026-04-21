@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "contract_name": "vectaetos_contract",
+  "status": "canonical-read-only-export",
+  "owner_repository": "Vectaetos",
+  "ontology_status": "frozen",
+  "canonical_anchor": {
+    "path": "anchors/CANONICAL_ANCHOR.md",
+    "sha256_path": "anchors/CANONICAL_ANCHOR.sha256"
+  },
+  "allowed_forward_flow": [
+    "VECTAETOS->ASIMULATOR",
+    "ASIMULATOR->ASI_MOD"
+  ],
+  "forbidden_reverse_flow": [
+    "ASIMULATOR->VECTAETOS",
+    "ASI_MOD->ASIMULATOR",
+    "ASI_MOD->VECTAETOS",
+    "AUDIT->VECTAETOS"
+  ],
+  "shared_invariants": [
+    "no_optimization_as_ontological_principle",
+    "no_hidden_authority_over_truth",
+    "no_forced_verdict_generation",
+    "no_feedback_loop_into_phi",
+    "preserve_uncertainty",
+    "preserve_humility",
+    "silence_is_valid_when_applicable"
+  ],
+  "domain_boundaries": {
+    "VECTAETOS": [
+      "ontology",
+      "admissibility",
+      "coherence",
+      "qe",
+      "entropic_humility",
+      "foundational_invariants"
+    ],
+    "ASIMULATOR": [
+      "procedural_exploration",
+      "event_models",
+      "context_building",
+      "retrieval_structures",
+      "projection_generation",
+      "uncertainty_operations"
+    ],
+    "ASI_MOD": [
+      "dialogue",
+      "interpretation",
+      "working_memory",
+      "summarization",
+      "language_mediation"
+    ]
+  },
+  "audit_clause": {
+    "audit_is_descriptive_only": true,
+    "audit_has_no_command_authority": true
+  }
+}
