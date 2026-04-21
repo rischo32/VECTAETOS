@@ -1,4 +1,8 @@
+# STATUS: research-only
+# LINEAGE: non-canonical
+# NOT PART OF VECTAETOS 1.x CORE
 #!/usr/bin/env python3
+
 """
 PHI_e rescue simulation
 Cieľ: znížiť frekvenciu predčasných hibernácií zavedením:
