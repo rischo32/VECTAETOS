@@ -8,7 +8,7 @@ import hashlib
 
 ONTOLOGY_PATHS = [
     "formal/",
-    "core/",
+    "Core/",
     "vortex/"
 ]
 
