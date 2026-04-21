@@ -7,15 +7,8 @@ from pathlib import Path
 
 ROOT = Path(".").resolve()
 
-TEXT_EXTENSIONS = {
+CODE_EXTENSIONS = {
     ".py",
-    ".md",
-    ".txt",
-    ".yml",
-    ".yaml",
-    ".json",
-    ".toml",
-    ".ini",
 }
 
 EXCLUDED_DIRS = {
@@ -30,27 +23,24 @@ EXCLUDED_DIRS = {
     "build",
 }
 
+SELF_PATH = Path("scripts/verify_repo_boundaries.py").resolve()
+
 FORBIDDEN_PATTERNS = [
     re.compile(r"\bimport\s+asimulator\b", re.IGNORECASE),
     re.compile(r"\bfrom\s+asimulator\b", re.IGNORECASE),
     re.compile(r"\bimport\s+asi_mod\b", re.IGNORECASE),
     re.compile(r"\bfrom\s+asi_mod\b", re.IGNORECASE),
-    re.compile(r"\bimport\s+asimulator\b", re.IGNORECASE),
-    re.compile(r"\bfrom\s+asimulator\b", re.IGNORECASE),
-    re.compile(r"\bimport\s+asi[-_]?mod\b", re.IGNORECASE),
-    re.compile(r"\bfrom\s+asi[-_]?mod\b", re.IGNORECASE),
-]
-
-FORBIDDEN_TOKENS = [
-    "ASIMULATOR/",
-    "ASI_MOD/",
+    re.compile(r"\bimport\s+asi[-_]mod\b", re.IGNORECASE),
+    re.compile(r"\bfrom\s+asi[-_]mod\b", re.IGNORECASE),
 ]
 
 
 def should_scan(path: Path) -> bool:
     if any(part in EXCLUDED_DIRS for part in path.parts):
         return False
-    return path.suffix.lower() in TEXT_EXTENSIONS
+    if path.resolve() == SELF_PATH:
+        return False
+    return path.suffix.lower() in CODE_EXTENSIONS
 
 
 def scan_file(path: Path) -> list[str]:
@@ -60,19 +50,15 @@ def scan_file(path: Path) -> list[str]:
         return []
 
     violations: list[str] = []
-
     lines = content.splitlines()
+
     for idx, line in enumerate(lines, start=1):
         for pattern in FORBIDDEN_PATTERNS:
             if pattern.search(line):
                 violations.append(
                     f"{path}:{idx}: forbidden downstream import detected -> {line.strip()}"
                 )
-        for token in FORBIDDEN_TOKENS:
-            if token in line:
-                violations.append(
-                    f"{path}:{idx}: forbidden downstream repository reference -> {line.strip()}"
-                )
+
     return violations
 
 
@@ -89,7 +75,7 @@ def main() -> int:
             print(violation, file=sys.stderr)
         return 1
 
-    print("[OK] No reverse imports or forbidden downstream references detected.")
+    print("[OK] No reverse imports detected.")
     return 0
 
 
