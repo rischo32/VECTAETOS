@@ -36,8 +36,10 @@ _________________________
 
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
-> 
+
 __________________________
+
+## VECTAETOS™ zakladá ontológiu, ASIMULATOR™ skúma procedurálne možnosti a ASI_MOD™ artikuluje dialóg; tri repozitáre tvoria jednu koherentnú architektúru len dovtedy, kým sa žiadne z nich nezrúti do ontologickej úlohy iného.
 
 # Φ System State
 
