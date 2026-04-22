@@ -1,3 +1,4 @@
+#### ! ASIMULATOR a ani ASI_MOD sa nebude rozvíjať ako medzivrstva ani ako operačný most, kým nebude VECTAETOS empiricky overený ako bezpečný priestor pre niečo viac než ontologický a auditný rámec. !
 
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
