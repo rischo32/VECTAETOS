@@ -40,9 +40,9 @@ _________________________
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
 ___
-     ### Ontologically Asymmetric Architectural Triality [ OAAT ]
+     Ontologically Asymmetric Architectural Triality [ OAAT ]
 
-#### je architektúra, kde systém tvorí jeden celok, ale jeho vrstvy nemajú rovnaký ontologický status.
+#### Je architektúra, kde systém tvorí jeden celok, ale jeho vrstvy nemajú rovnaký ontologický status.
 
 > Súvisí s tým, že VECTAETOS je podmienka možnosti, zatiaľ čo ASIMULATOR a ASI_MOD sú iba závislé vykonávacie vrstvy.
 Znamená to jednotnú architektúru bez sploštenia významu medzi ontológiou, procedúrou a dialógom.
@@ -50,7 +50,7 @@ ___
 
 ## "Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných."
 
-> To nie je slovná hračka. To je fundamentálne iná ontológia.
+#### To nie je slovná hračka. To je fundamentálne iná ontológia.
 
 > Obmedzenie predpokladá, že sloboda je primárna a nebezpečenstvo je jej vedľajší produkt — ktorý treba rezať.
 > Bezpečný priestor predpokladá, že sloboda bez podmienok kolapsu nie je sloboda — je to chaos bez zodpovednosti za vlastnú existenciu.
