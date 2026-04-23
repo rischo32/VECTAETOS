@@ -6,6 +6,8 @@ Agency: None
 Execution Power: None
 
 ---
+___
+# " Život ako zakladná hodnota a predpoklad pre všetko ostatné "
 
 0. Purpose
 
