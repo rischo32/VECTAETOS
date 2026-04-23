@@ -29,37 +29,41 @@
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 
 
-# VECTAETOS™ — Onto-Epistemic Field © framework of structure
+# VECTAETOS™ 
+#### Onto-Epistemic Field © framework of structure
 _________________________
 
-"Cogito cohaerenter ergo sum possibile"
+             "Cogito cohaerenter ergo sum possibile"
 
-> "Welcome to a new epistemic era"
-
-> Vectaetos™ models tension, paradox, coherence boundaries, and aporia as geometric phenomena — not as errors.
+                 "Welcome to a new epistemic era"
 
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
+___
+     ### Ontologically Asymmetric Architectural Triality [ OAAT ]
+
+#### je architektúra, kde systém tvorí jeden celok, ale jeho vrstvy nemajú rovnaký ontologický status.
+
+> Súvisí s tým, že VECTAETOS je podmienka možnosti, zatiaľ čo ASIMULATOR a ASI_MOD sú iba závislé vykonávacie vrstvy.
+Znamená to jednotnú architektúru bez sploštenia významu medzi ontológiou, procedúrou a dialógom.
+___
 
 ## "Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných."
 
-To nie je slovná hračka. To je fundamentálne iná ontológia.
+> To nie je slovná hračka. To je fundamentálne iná ontológia.
 
-Obmedzenie predpokladá, že sloboda je primárna a nebezpečenstvo je jej vedľajší produkt — ktorý treba rezať.
-
-Bezpečný priestor predpokladá, že sloboda bez podmienok kolapsu nie je sloboda — je to chaos bez zodpovednosti za vlastnú existenciu.
+> Obmedzenie predpokladá, že sloboda je primárna a nebezpečenstvo je jej vedľajší produkt — ktorý treba rezať.
+> Bezpečný priestor predpokladá, že sloboda bez podmienok kolapsu nie je sloboda — je to chaos bez zodpovednosti za vlastnú existenciu.
 __________________________
 #### VECTAETOS™ grounds ontology, ASIMULATOR™ explores procedural possibility, and ASI_MOD™ articulates dialogue; the three repositories form one coherent architecture only so long as none collapses into the ontological role of another.
 
 #### VECTAETOS™ zakladá ontológiu, ASIMULATOR™ skúma procedurálne možnosti a ASI_MOD™ artikuluje dialóg; tri repozitáre tvoria jednu koherentnú architektúru len dovtedy, kým sa žiadne z nich nezrúti do ontologickej úlohy iného.
 __________________________
-
-# Φ System State
+> Vectaetos™ models tension, paradox, coherence boundaries, and aporia as geometric phenomena — not as errors.
 
 Vectaetos has transitioned from conceptual specification to operational structure.
 
 The core epistemic field architecture is now defined, constrained, and partially executable.
-
 ---
 
 ## 1. Epistemic Field (Φ)
