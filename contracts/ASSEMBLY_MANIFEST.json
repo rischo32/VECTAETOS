@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "assembly_name": "vectaetos_triadic_assembly",
+  "owner_repository": "Vectaetos",
+  "required_components": [
+    "Vectaetos",
+    "ASIMULATOR",
+    "ASI_MOD"
+  ],
+  "ontological_root": "Vectaetos",
+  "standalone_validity": {
+    "Vectaetos": true,
+    "ASIMULATOR": false,
+    "ASI_MOD": false
+  },
+  "structural_completeness_rule": "all_three_present",
+  "operative_admissibility_rule": "all_three_present_and_empirical_safety_verified",
+  "forbidden_states": [
+    "ASIMULATOR_without_Vectaetos",
+    "ASI_MOD_without_Vectaetos",
+    "ASIMULATOR_plus_ASI_MOD_without_Vectaetos",
+    "ASI_MOD_as_truth_authority",
+    "ASIMULATOR_as_ontological_root"
+  ]
+}
