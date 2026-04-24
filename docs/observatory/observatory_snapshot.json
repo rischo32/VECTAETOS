@@ -1,0 +1,894 @@
+{
+  "agentic_language_hits": 122,
+  "downstream_import_hits": 0,
+  "external_action_uses": 2,
+  "findings": [
+    {
+      "category": "external_action_uses",
+      "line": 17,
+      "path": ".github/workflows/summary.yml",
+      "text": "uses: actions/checkout@v4"
+    },
+    {
+      "category": "external_action_uses",
+      "line": 21,
+      "path": ".github/workflows/summary.yml",
+      "text": "uses: actions/ai-inference@v1"
+    },
+    {
+      "category": "agentic_language",
+      "line": 9,
+      "path": "Core/README.md",
+      "text": "- No optimization logic"
+    },
+    {
+      "category": "agentic_language",
+      "line": 14,
+      "path": "Core/VORTEX_CORE_STATUS.md",
+      "text": "- Does NOT decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 15,
+      "path": "Core/VORTEX_CORE_STATUS.md",
+      "text": "- Does NOT optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 44,
+      "path": "Core/VORTEX_CORE_STATUS.md",
+      "text": "- There is no optimization target."
+    },
+    {
+      "category": "agentic_language",
+      "line": 45,
+      "path": "Core/VORTEX_CORE_STATUS.md",
+      "text": "- There is no survival goal."
+    },
+    {
+      "category": "agentic_language",
+      "line": 44,
+      "path": "anchors/CANONICAL_ANCHOR.md",
+      "text": "- a decision engine"
+    },
+    {
+      "category": "agentic_language",
+      "line": 59,
+      "path": "anchors/CANONICAL_ANCHOR.md",
+      "text": "VECTAETOS does not decide."
+    },
+    {
+      "category": "agentic_language",
+      "line": 61,
+      "path": "anchors/CANONICAL_ANCHOR.md",
+      "text": "VECTAETOS does not optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 207,
+      "path": "anchors/CANONICAL_ANCHOR.md",
+      "text": "1. No optimization as ontological principle"
+    },
+    {
+      "category": "agentic_language",
+      "line": 135,
+      "path": "anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md",
+      "text": "> **AI safety cannot be reduced to post-hoc guardrails, reward shaping, or linguistic filtering alone.**"
+    },
+    {
+      "category": "agentic_language",
+      "line": 355,
+      "path": "anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md",
+      "text": "- optimize,"
+    },
+    {
+      "category": "agentic_language",
+      "line": 76,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM.md",
+      "text": "K is not an optimization function."
+    },
+    {
+      "category": "agentic_language",
+      "line": 158,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM.md",
+      "text": "Reward mechanisms are prohibited."
+    },
+    {
+      "category": "agentic_language",
+      "line": 162,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM.md",
+      "text": "Goal convergence is prohibited."
+    },
+    {
+      "category": "agentic_language",
+      "line": 231,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM.md",
+      "text": "- Absence of optimization operators"
+    },
+    {
+      "category": "agentic_language",
+      "line": 82,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM_v1.1.md",
+      "text": "K is not an optimization function."
+    },
+    {
+      "category": "agentic_language",
+      "line": 202,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM_v1.1.md",
+      "text": "Reward mechanisms are prohibited."
+    },
+    {
+      "category": "agentic_language",
+      "line": 206,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM_v1.1.md",
+      "text": "Goal convergence is prohibited."
+    },
+    {
+      "category": "agentic_language",
+      "line": 276,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM_v1.1.md",
+      "text": "- Absence of optimization operators"
+    },
+    {
+      "category": "agentic_language",
+      "line": 140,
+      "path": "formal/EPISTEMIC_FAILURE_STATES.md",
+      "text": "- No dominance without optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 185,
+      "path": "formal/EPISTEMIC_IMMUNITY_MODEL.md",
+      "text": "- goal extraction"
+    },
+    {
+      "category": "agentic_language",
+      "line": 18,
+      "path": "formal/EPISTEMIC_LAYERS_AND_STREAMS.md",
+      "text": "- do not decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 21,
+      "path": "formal/EPISTEMIC_LAYERS_AND_STREAMS.md",
+      "text": "- do not optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 152,
+      "path": "formal/EPISTEMIC_LAYERS_AND_STREAMS.md",
+      "text": "MML is **not optimization**."
+    },
+    {
+      "category": "agentic_language",
+      "line": 188,
+      "path": "formal/EPISTEMIC_LAYERS_AND_STREAMS.md",
+      "text": "| Element | Type | Can act | Can decide | Can store users |"
+    },
+    {
+      "category": "agentic_language",
+      "line": 16,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- reward shaping"
+    },
+    {
+      "category": "agentic_language",
+      "line": 52,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "Uses optimization constraints| Uses ontological limits"
+    },
+    {
+      "category": "agentic_language",
+      "line": 78,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- absolute optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 134,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- does not optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 135,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- does not decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 195,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- does not optimize outcomes"
+    },
+    {
+      "category": "agentic_language",
+      "line": 212,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "- dangerous optimization behavior"
+    },
+    {
+      "category": "agentic_language",
+      "line": 18,
+      "path": "formal/EPISTEMIC_SPACE.md",
+      "text": "The goal is to define:"
+    },
+    {
+      "category": "agentic_language",
+      "line": 244,
+      "path": "formal/EPISTEMIC_SPACE.md",
+      "text": "- an optimization model"
+    },
+    {
+      "category": "agentic_language",
+      "line": 267,
+      "path": "formal/EPISTEMIC_SPACE.md",
+      "text": "No optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 269,
+      "path": "formal/EPISTEMIC_SPACE.md",
+      "text": "No reward systems"
+    },
+    {
+      "category": "agentic_language",
+      "line": 13,
+      "path": "formal/EPISTEMIC_SPACE_SPECIFICATION.md",
+      "text": "Vectaetos is not an AI model, not a decision engine, and not an optimization system."
+    },
+    {
+      "category": "agentic_language",
+      "line": 13,
+      "path": "formal/EPISTEMIC_SPACE_SPECIFICATION.md",
+      "text": "Vectaetos is not an AI model, not a decision engine, and not an optimization system."
+    },
+    {
+      "category": "agentic_language",
+      "line": 70,
+      "path": "formal/EPISTEMIC_SPACE_SPECIFICATION.md",
+      "text": "- do not optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 69,
+      "path": "formal/LLM_ADAPTER.md",
+      "text": "- optimization signals"
+    },
+    {
+      "category": "agentic_language",
+      "line": 160,
+      "path": "formal/LLM_ADAPTER.md",
+      "text": "It is forbidden to decide."
+    },
+    {
+      "category": "agentic_language",
+      "line": 123,
+      "path": "formal/MATHEMATICAL_APPENDIX.md",
+      "text": "K is a **validation predicate**, not an optimization operator."
+    },
+    {
+      "category": "agentic_language",
+      "line": 267,
+      "path": "formal/MATHEMATICAL_APPENDIX.md",
+      "text": "- no optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 268,
+      "path": "formal/MATHEMATICAL_APPENDIX.md",
+      "text": "- no reward gradients"
+    },
+    {
+      "category": "agentic_language",
+      "line": 13,
+      "path": "formal/ONTOLOGICAL_GUARDIANS.md",
+      "text": "They do not decide."
+    },
+    {
+      "category": "agentic_language",
+      "line": 14,
+      "path": "formal/ONTOLOGICAL_GUARDIANS.md",
+      "text": "They do not optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 75,
+      "path": "formal/ONTOLOGICAL_GUARDIANS.md",
+      "text": "Blocks requests that assume decision-making, optimization, or ranking."
+    },
+    {
+      "category": "agentic_language",
+      "line": 82,
+      "path": "formal/ONTOLOGICAL_GUARDIANS.md",
+      "text": "- \"recommend action\""
+    },
+    {
+      "category": "agentic_language",
+      "line": 32,
+      "path": "formal/PIPELINE.md",
+      "text": "It does not decide."
+    },
+    {
+      "category": "agentic_language",
+      "line": 33,
+      "path": "formal/PIPELINE.md",
+      "text": "It does not optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 186,
+      "path": "formal/PIPELINE.md",
+      "text": "- Do not decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 221,
+      "path": "formal/QE_topology.md",
+      "text": "No optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 67,
+      "path": "formal/RMK_ANCHOR.md",
+      "text": "- optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 69,
+      "path": "formal/RMK_ANCHOR.md",
+      "text": "- decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 169,
+      "path": "formal/RMK_ANCHOR.md",
+      "text": "- introduces optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 48,
+      "path": "formal/SECURITY_MODEL.md",
+      "text": "- Goal hijacking"
+    },
+    {
+      "category": "agentic_language",
+      "line": 49,
+      "path": "formal/SECURITY_MODEL.md",
+      "text": "- Optimization pressure"
+    },
+    {
+      "category": "agentic_language",
+      "line": 115,
+      "path": "formal/SECURITY_MODEL.md",
+      "text": "- optimize unilaterally"
+    },
+    {
+      "category": "agentic_language",
+      "line": 204,
+      "path": "formal/SECURITY_MODEL.md",
+      "text": "- goal extraction"
+    },
+    {
+      "category": "agentic_language",
+      "line": 16,
+      "path": "formal/SIMULATION_VORTEX.md",
+      "text": "- a planner"
+    },
+    {
+      "category": "agentic_language",
+      "line": 17,
+      "path": "formal/STACK_ANCHOR_VECTAETOS.md",
+      "text": "- optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 19,
+      "path": "formal/STACK_ANCHOR_VECTAETOS.md",
+      "text": "- decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 177,
+      "path": "formal/STACK_ANCHOR_VECTAETOS.md",
+      "text": "- autonomous agent"
+    },
+    {
+      "category": "agentic_language",
+      "line": 184,
+      "path": "formal/STACK_ANCHOR_VECTAETOS.md",
+      "text": "> - optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 16,
+      "path": "formal/TIME_LAYER.md",
+      "text": "- Coherence K(Φ) is a predicate, not a goal."
+    },
+    {
+      "category": "agentic_language",
+      "line": 22,
+      "path": "formal/TIME_LAYER.md",
+      "text": "- or an optimization horizon"
+    },
+    {
+      "category": "agentic_language",
+      "line": 160,
+      "path": "formal/TIME_LAYER.md",
+      "text": "- optimization collapse."
+    },
+    {
+      "category": "agentic_language",
+      "line": 53,
+      "path": "formal/VORTEX_EPISTEMIC_STACK.md",
+      "text": "- optimize R"
+    },
+    {
+      "category": "agentic_language",
+      "line": 69,
+      "path": "formal/VORTEX_EPISTEMIC_STACK.md",
+      "text": "- no optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 70,
+      "path": "formal/VORTEX_EPISTEMIC_STACK.md",
+      "text": "- no convergence goal"
+    },
+    {
+      "category": "agentic_language",
+      "line": 134,
+      "path": "formal/VORTEX_EPISTEMIC_STACK.md",
+      "text": "- optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 217,
+      "path": "formal/VORTEX_EPISTEMIC_STACK.md",
+      "text": "- optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 12,
+      "path": "formal/VORTEX_PRODUCTION_ANCHOR.md",
+      "text": "- optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 15,
+      "path": "formal/VORTEX_PRODUCTION_ANCHOR.md",
+      "text": "- recommend"
+    },
+    {
+      "category": "agentic_language",
+      "line": 88,
+      "path": "formal/VORTEX_PRODUCTION_ANCHOR.md",
+      "text": "- no optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 154,
+      "path": "formal/VORTEX_PRODUCTION_ANCHOR.md",
+      "text": "- reward-driven updates"
+    },
+    {
+      "category": "agentic_language",
+      "line": 204,
+      "path": "formal/VORTEX_PRODUCTION_ANCHOR.md",
+      "text": "- optimization loops"
+    },
+    {
+      "category": "agentic_language",
+      "line": 18,
+      "path": "formal/ZMYSEL.md",
+      "text": "It does not compute, decide, evaluate, or optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 18,
+      "path": "formal/ZMYSEL.md",
+      "text": "It does not compute, decide, evaluate, or optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 117,
+      "path": "formal/ZMYSEL.md",
+      "text": "• no optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 119,
+      "path": "formal/ZMYSEL.md",
+      "text": "• no reward mechanisms"
+    },
+    {
+      "category": "agentic_language",
+      "line": 144,
+      "path": "formal/coherence_threshold_kappa.md",
+      "text": "- optimize behavior"
+    },
+    {
+      "category": "agentic_language",
+      "line": 184,
+      "path": "formal/coherence_threshold_kappa.md",
+      "text": "Vectaetos does not optimize coherence."
+    },
+    {
+      "category": "agentic_language",
+      "line": 190,
+      "path": "formal/coherence_threshold_kappa.md",
+      "text": "No optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 13,
+      "path": "formal/field_deformation_operators.md",
+      "text": "These operators do not define decisions, goals, or optimization."
+    },
+    {
+      "category": "agentic_language",
+      "line": 163,
+      "path": "formal/field_deformation_operators.md",
+      "text": "11. No Optimization Principle"
+    },
+    {
+      "category": "agentic_language",
+      "line": 227,
+      "path": "formal/field_deformation_operators.md",
+      "text": "No optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 89,
+      "path": "formal/vortex_trajectory_space.md",
+      "text": "- does not optimize trajectories"
+    },
+    {
+      "category": "agentic_language",
+      "line": 173,
+      "path": "formal/vortex_trajectory_space.md",
+      "text": "They are not driven by optimization."
+    },
+    {
+      "category": "agentic_language",
+      "line": 227,
+      "path": "formal/vortex_trajectory_space.md",
+      "text": "It does not optimize."
+    },
+    {
+      "category": "agentic_language",
+      "line": 233,
+      "path": "formal/vortex_trajectory_space.md",
+      "text": "No optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 86,
+      "path": "vortex/CORE_SPEC.md",
+      "text": "❌ Reward mechanizmy"
+    },
+    {
+      "category": "agentic_language",
+      "line": 42,
+      "path": "vortex/LICENSE_VNAL.md",
+      "text": "5. Integrate with reward-based optimization systems (RL, RLHF, scoring loops)"
+    },
+    {
+      "category": "agentic_language",
+      "line": 42,
+      "path": "vortex/LICENSE_VNAL.md",
+      "text": "5. Integrate with reward-based optimization systems (RL, RLHF, scoring loops)"
+    },
+    {
+      "category": "agentic_language",
+      "line": 21,
+      "path": "vortex/README.md",
+      "text": "- optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 22,
+      "path": "vortex/README.md",
+      "text": "- goal functions"
+    },
+    {
+      "category": "agentic_language",
+      "line": 23,
+      "path": "vortex/README.md",
+      "text": "- reward systems"
+    },
+    {
+      "category": "agentic_language",
+      "line": 59,
+      "path": "vortex/README.md",
+      "text": "- absence of optimization operators"
+    },
+    {
+      "category": "agentic_language",
+      "line": 10,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "The Vortex does not optimize, decide, or select outcomes."
+    },
+    {
+      "category": "agentic_language",
+      "line": 10,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "The Vortex does not optimize, decide, or select outcomes."
+    },
+    {
+      "category": "agentic_language",
+      "line": 109,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "- no optimization"
+    },
+    {
+      "category": "agentic_language",
+      "line": 110,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "- no goal convergence"
+    },
+    {
+      "category": "agentic_language",
+      "line": 163,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "It generates relational configurations without preference, selection, or optimization."
+    },
+    {
+      "category": "agentic_language",
+      "line": 18,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "#   - Does NOT decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 19,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "#   - Does NOT optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 25,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "#   - No self-correction, no survival goal"
+    },
+    {
+      "category": "agentic_language",
+      "line": 355,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "Manages the 5D pole evolution without global optimization."
+    },
+    {
+      "category": "agentic_language",
+      "line": 496,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "No self-correction, no survival goal."
+    },
+    {
+      "category": "agentic_language",
+      "line": 27,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "#   - Does NOT decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 28,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "#   - Does NOT optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 34,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "#   - No self-correction, no survival goal"
+    },
+    {
+      "category": "agentic_language",
+      "line": 407,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "Manages the 5D pole evolution without global optimization."
+    },
+    {
+      "category": "agentic_language",
+      "line": 548,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "No self-correction, no survival goal."
+    },
+    {
+      "category": "agentic_language",
+      "line": 602,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "- optimize or decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 602,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "- optimize or decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 16,
+      "path": "vortex/VORTEX_EXECUTION_PROTOCOL.md",
+      "text": "- does NOT decide"
+    },
+    {
+      "category": "agentic_language",
+      "line": 17,
+      "path": "vortex/VORTEX_EXECUTION_PROTOCOL.md",
+      "text": "- does NOT optimize"
+    },
+    {
+      "category": "agentic_language",
+      "line": 56,
+      "path": "vortex/VORTEX_EXECUTION_PROTOCOL.md",
+      "text": "No goal functions."
+    },
+    {
+      "category": "agentic_language",
+      "line": 111,
+      "path": "vortex/VORTEX_EXECUTION_PROTOCOL.md",
+      "text": "If gradients become optimization,"
+    },
+    {
+      "category": "agentic_language",
+      "line": 113,
+      "path": "vortex/llm_adapter.py",
+      "text": "- recommend steps"
+    },
+    {
+      "category": "agentic_language",
+      "line": 6,
+      "path": "vortex/simulation_vortex.py",
+      "text": "# - no break (no implicit goal)"
+    },
+    {
+      "category": "agentic_language",
+      "line": 9,
+      "path": "vortex/simulation_vortex.py",
+      "text": "# - no optimization"
+    },
+    {
+      "category": "kappa_drift",
+      "line": 152,
+      "path": "formal/runic_projection.py",
+      "text": "runes = project_field_to_runes(sigmas, kappa=0.4)"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 114,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM.md",
+      "text": "QE is not error."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 154,
+      "path": "formal/APPENDIX_A_MATHEMATICAL_FORMALISM_v1.1.md",
+      "text": "QE is not error."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 116,
+      "path": "formal/EPISTEMIC_IMMUNITY_MODEL.md",
+      "text": "QE does not represent failure."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 116,
+      "path": "formal/EPISTEMIC_SECURITY_CLASS.md",
+      "text": "QE is not an error."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 128,
+      "path": "formal/EPISTEMIC_SPACE_SPECIFICATION.md",
+      "text": "QE is not failure."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 212,
+      "path": "formal/MATHEMATICAL_APPENDIX.md",
+      "text": "QE is not an error condition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 13,
+      "path": "formal/QE.md",
+      "text": "- QE **nie je fallback**"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 10,
+      "path": "formal/QE_BOUNDARY_THEOREM.md",
+      "text": "QE is not an error condition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 13,
+      "path": "formal/QE_topology.md",
+      "text": "QE is not an error, not a failure, and not a computational issue."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 13,
+      "path": "formal/QE_topology.md",
+      "text": "QE is not an error, not a failure, and not a computational issue."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 211,
+      "path": "formal/QE_topology.md",
+      "text": "QE is not a failure state."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 135,
+      "path": "formal/SECURITY_MODEL.md",
+      "text": "QE is **not an error**."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 108,
+      "path": "formal/ZMYSEL.md",
+      "text": "QE is not error, failure, or prohibition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 108,
+      "path": "formal/ZMYSEL.md",
+      "text": "QE is not error, failure, or prohibition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 74,
+      "path": "vortex/README.md",
+      "text": "QE is not an error condition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 153,
+      "path": "vortex/SIMULATION_VORTEX_OPERATOR.md",
+      "text": "QE is not an error condition."
+    },
+    {
+      "category": "qe_misuse",
+      "line": 22,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "#   - QE Aporia = structural fragmentation (not error, not correction trigger)"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 723,
+      "path": "vortex/VORTEX_CORE_PHI_v1.0.0.py",
+      "text": "# Detect QE Aporia (structural fragmentation, not error)"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 31,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "#   - QE Aporia = structural fragmentation (not error, not correction trigger)"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 979,
+      "path": "vortex/VORTEX_CORE_PHI_v1.1.0.py",
+      "text": "# Detect QE Aporia (structural fragmentation, not error)"
+    },
+    {
+      "category": "qe_misuse",
+      "line": 74,
+      "path": "vortex/VORTEX_EXECUTION_PROTOCOL.md",
+      "text": "QE is not an error."
+    }
+  ],
+  "json_files": 1,
+  "kappa_drift_hits": 1,
+  "markdown_files": 84,
+  "observed_files": 147,
+  "observed_fingerprint": "7ff0d6ca00edbb244ade00660c7888e4371d6bc62b8540715a95ee32365ce008",
+  "python_files": 48,
+  "qe_misuse_hits": 21,
+  "repository": "rischo32/Vectaetos",
+  "source_sha": "7d615f86015ad86abccd1dd9ae2eb2fd2d07a5d5",
+  "status": "OBSERVED_DRIFT_SIGNALS",
+  "workflow_files": 14
+}
