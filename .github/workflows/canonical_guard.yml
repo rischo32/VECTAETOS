@@ -5,21 +5,49 @@ on:
     branches: [ main ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   canonical-check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "$GITHUB_BASE_REF:refs/remotes/origin/$GITHUB_BASE_REF"
+            git fetch --no-tags --depth=1 origin "$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF"
+            git checkout --force "refs/remotes/origin/$GITHUB_HEAD_REF"
+          else
+            git fetch --no-tags --depth=2 origin "$GITHUB_SHA"
+            git checkout --force FETCH_HEAD
+          fi
 
       - name: Detect canonical ontology modifications
         run: |
+          set -euo pipefail
+
           echo "Checking canonical ontology files..."
 
-          CHANGED=$(git diff --name-only HEAD^ HEAD | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            BASE_REF="refs/remotes/origin/$GITHUB_BASE_REF"
+            HEAD_REF="HEAD"
+            CHANGED=$(git diff --name-only "$BASE_REF" "$HEAD_REF" | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
+          else
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              CHANGED=$(git diff --name-only HEAD^ HEAD | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
+            else
+              CHANGED=$(git ls-files | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
+            fi
+          fi
 
-          if [ ! -z "$CHANGED" ]; then
+          if [ -n "$CHANGED" ]; then
             echo ""
             echo "🚨 Canonical ontology files modified:"
             echo "$CHANGED"
