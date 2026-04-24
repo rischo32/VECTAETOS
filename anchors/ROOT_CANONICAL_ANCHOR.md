@@ -544,19 +544,12 @@ do not continue as if valid
 
 Failure is preferable to ontological drift.
 
-# VECTAETOS — ROOT CANONICAL ANCHOR
-## Projection, Guard, Boundary, and Vortex Discipline
-
-### Status
-ROOT CANONICAL CONTINUATION
+    ROOT CANONICAL CONTINUATION
 
 ### Scope
 Projection layer, AJE, Attenuator, NIR, QE, epistemic failure states, observatory, guard layer, vortex constraints, and anti-drift enforcement.
 
-### Modification Policy
-FROZEN SEMANTIC CORE
-
-This document continues the root canonical anchor and must be read as part of the same semantic boundary.
+    This document continues the root canonical anchor and must be read as part of the same semantic boundary.
 
 ---
 
