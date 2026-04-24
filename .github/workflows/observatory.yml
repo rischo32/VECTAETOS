@@ -52,8 +52,11 @@ jobs:
           echo "=== OBSERVATORY ==="
           ls -la docs/observatory || true
           echo ""
+
           if [ -f docs/observatory/OBSERVATORY_STATUS.md ]; then
             cat docs/observatory/OBSERVATORY_STATUS.md
+          else
+            echo "[WARN] OBSERVATORY_STATUS.md was not generated."
           fi
 
       - name: Detect observatory changes
@@ -66,8 +69,9 @@ jobs:
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
       - name: Create observatory pull request
-        if: steps.changes.outputs.changed == 'true' 
+        if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: auto/observatory-${{ github.run_id }}
@@ -78,37 +82,26 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git checkout -b "$BRANCH_NAME"
-          git add docs/observatory/OBSERVATORY_STATUS.md docs/observatory/observatory_snapshot.json
+
+          git add docs/observatory/OBSERVATORY_STATUS.md
+          git add docs/observatory/observatory_snapshot.json
+
           git commit -m "auto(Φ): observatory status update"
 
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force-with-lease origin "$BRANCH_NAME"
 
-          gh pr create \
-            --base main \
-            --head "$BRANCH_NAME" \
-            --title "auto(Φ): observatory status update" \
-           --body "Automated non-blocking epistemic observatory status update."
-         if: steps.changes.outputs.changed == 'true'
-         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: auto/observatory-${{ github.run_id }}
-        run: |
-          set -euo pipefail
+          EXISTING_PR="$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number' || true)"
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git checkout -b "$BRANCH_NAME"
-          git add docs/observatory/OBSERVATORY_STATUS.md docs/observatory/observatory_snapshot.json
-          git commit -m "auto(Φ): observatory status update"
-          git push origin "$BRANCH_NAME"
-
-          gh pr create \
-            --base main \
-            --head "$BRANCH_NAME" \
-            --title "auto(Φ): observatory status update" \
-            --body "Automated non-blocking epistemic observatory status update."
+          if [ -n "$EXISTING_PR" ]; then
+            echo "[OK] Observatory PR already exists: #$EXISTING_PR"
+          else
+            gh pr create \
+              --base main \
+              --head "$BRANCH_NAME" \
+              --title "auto(Φ): observatory status update" \
+              --body "Automated non-blocking epistemic observatory status update."
+          fi
 
       - name: No observatory changes
         if: steps.changes.outputs.changed == 'false'
