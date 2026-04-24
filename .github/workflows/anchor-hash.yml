@@ -14,25 +14,39 @@ on:
       - "scripts/hash_anchor.py"
       - ".github/workflows/anchor-hash.yml"
 
+permissions:
+  contents: read
+
 jobs:
   verify-anchor-hash:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --depth=1 origin "$GITHUB_REF"
+          else
+            git fetch --depth=1 origin "$GITHUB_SHA"
+          fi
+
+          git checkout --force FETCH_HEAD
 
       - name: Recompute anchor hash
         run: |
-          python scripts/hash_anchor.py \
+          set -euo pipefail
+
+          python3 scripts/hash_anchor.py \
             --input anchors/CANONICAL_ANCHOR.md \
             --output /tmp/CANONICAL_ANCHOR.sha256
 
       - name: Compare committed hash with recomputed hash
         run: |
+          set -euo pipefail
+
           diff -u anchors/CANONICAL_ANCHOR.sha256 /tmp/CANONICAL_ANCHOR.sha256
