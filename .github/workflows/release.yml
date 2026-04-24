@@ -5,59 +5,95 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
+      - name: Manual checkout
         run: |
-          python -m pip install --upgrade pip
-          pip install numpy pytest
+          set -euo pipefail
 
-      # ------------------------------
-      # BUILD ARTIFACT
-      # ------------------------------
-      - name: Create artifact
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+          git checkout --force FETCH_HEAD
+
+      - name: Validate release inputs
         run: |
-          mkdir artifact
+          set -euo pipefail
+
+          test -f README.md
+          test -d EAI
+          command -v tar
+          command -v sha256sum
+          command -v gh
+
+      - name: Create deterministic artifact
+        run: |
+          set -euo pipefail
+
+          rm -rf artifact vectaetos_artifact.tar.gz artifact_hash.txt
+
+          mkdir -p artifact
           cp -r EAI artifact/
           cp README.md artifact/
-          tar -czf vectaetos_artifact.tar.gz artifact/
 
-      # ------------------------------
-      # HASH (EK CORE)
-      # ------------------------------
-      - name: Compute artifact hash
+          tar \
+            --sort=name \
+            --owner=0 \
+            --group=0 \
+            --numeric-owner \
+            --mtime='UTC 2026-01-01' \
+            -czf vectaetos_artifact.tar.gz \
+            artifact/
+
+      - name: Compute EK artifact hash
         id: hash
         run: |
-          HASH=$(sha256sum vectaetos_artifact.tar.gz | awk '{print $1}')
-          echo "hash=$HASH" >> $GITHUB_OUTPUT
+          set -euo pipefail
+
+          HASH="$(sha256sum vectaetos_artifact.tar.gz | awk '{print $1}')"
+          echo "hash=$HASH" >> "$GITHUB_OUTPUT"
+          echo "$HASH" > artifact_hash.txt
           echo "Artifact hash: $HASH"
 
-      # ------------------------------
-      # SAVE HASH FILE (EK TRACE)
-      # ------------------------------
-      - name: Save EK fingerprint
-        run: |
-          echo "${{ steps.hash.outputs.hash }}" > artifact_hash.txt
-
-      # ------------------------------
-      # CREATE GITHUB RELEASE
-      # ------------------------------
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            vectaetos_artifact.tar.gz
-            artifact_hash.txt
+      - name: Create or update GitHub release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.ref_name }}
+          ARTIFACT_HASH: ${{ steps.hash.outputs.hash }}
+        run: |
+          set -euo pipefail
+
+          RELEASE_NOTES="$(mktemp)"
+          {
+            echo "# VECTAETOS Release $TAG_NAME"
+            echo ""
+            echo "## EK Notarization"
+            echo ""
+            echo "\`\`\`text"
+            echo "artifact: vectaetos_artifact.tar.gz"
+            echo "sha256:  $ARTIFACT_HASH"
+            echo "\`\`\`"
+            echo ""
+            echo "This release artifact is notarized by SHA-256 fingerprint."
+          } > "$RELEASE_NOTES"
+
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            echo "[INFO] Release exists. Uploading artifacts with clobber."
+            gh release upload "$TAG_NAME" \
+              vectaetos_artifact.tar.gz \
+              artifact_hash.txt \
+              --clobber
+          else
+            echo "[INFO] Creating release."
+            gh release create "$TAG_NAME" \
+              vectaetos_artifact.tar.gz \
+              artifact_hash.txt \
+              --title "$TAG_NAME" \
+              --notes-file "$RELEASE_NOTES"
+          fi
