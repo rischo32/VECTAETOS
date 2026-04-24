@@ -64,6 +64,30 @@ __________________________
 Vectaetos has transitioned from conceptual specification to operational structure.
 
 The core epistemic field architecture is now defined, constrained, and partially executable.
+___
+### Master Cross-Section
+
+[![Unified Architecture](./unified_architecture/05-unified-cross-section.png)](./UNIFIED_ARCHITECTURE.md)
+
+### Ontologically Asymmetric Architectural Triality
+
+[![OAAT / Triadic Architecture](./unified_architecture/03-triadic-oaat.png)](./anchors/OAAT__ONTOLOGICALLY_ASYMMETRIC_ARCHITECTURAL_TRIALITY.md)
+
+### Field Geometry
+
+[![Sigma Geometry](./unified_architecture/02-sigma-geometry.png)](./UNIFIED_ARCHITECTURE.md)
+
+<details>
+<summary>See all architecture views</summary>
+
+- [Unified Architecture Document](./UNIFIED_ARCHITECTURE.md)
+- [01 — Depth Stack](./unified_architecture/01-depth-stack.png)
+- [02 — Sigma Geometry](./unified_architecture/02-sigma-geometry.png)
+- [03 — Triadic OAAT](./unified_architecture/03-triadic-oaat.png)
+- [04 — CI Guardrails](./unified_architecture/04-ci-guardrails.png)
+- [05 — Unified Cross-Section](./unified_architecture/05-unified-cross-section.png)
+
+</details>
 ---
 
 ## 1. Epistemic Field (Φ)
