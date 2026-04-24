@@ -4,39 +4,89 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'vortex/**'
-      - 'scripts/verify_determinism.py'
-      - 'requirements.txt'
+      - "vortex/**"
+      - "scripts/verify_determinism.py"
+      - "requirements.txt"
+      - ".github/workflows/vortex_determinism.yml"
   pull_request:
     branches: [ main ]
     paths:
-      - 'vortex/**'
-      - 'scripts/verify_determinism.py'
-      - 'requirements.txt'
+      - "vortex/**"
+      - "scripts/verify_determinism.py"
+      - "requirements.txt"
+      - ".github/workflows/vortex_determinism.yml"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   verify-determinism:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+    steps:
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "$GITHUB_REF"
+          else
+            git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Check Python runtime
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          if sys.version_info < (3, 11):
+              raise SystemExit("Python >= 3.11 required")
+          print("[OK] Python runtime is compatible")
+          PY
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          set -euo pipefail
+
+          python3 -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            python3 -m pip install -r requirements.txt
+          else
+            echo "[WARN] requirements.txt not found; continuing without dependency install."
+          fi
+
+      - name: Check determinism verifier exists
+        run: |
+          set -euo pipefail
+
+          test -f scripts/verify_determinism.py
 
       - name: Run determinism verification
-        run: python scripts/verify_determinism.py
+        run: |
+          set -euo pipefail
 
-      - name: Upload artifacts
+          python3 scripts/verify_determinism.py
+
+      - name: Inspect determinism artifacts
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: vortex-determinism-artifacts
-          path: artifacts/
+        run: |
+          echo "=== ARTIFACTS ==="
+          ls -la artifacts || true
+
+          if [ -d artifacts ]; then
+            tar -czf vortex-determinism-artifacts.tar.gz artifacts/
+            sha256sum vortex-determinism-artifacts.tar.gz > vortex-determinism-artifacts.sha256
+            echo "=== ARTIFACT HASH ==="
+            cat vortex-determinism-artifacts.sha256
+          else
+            echo "[INFO] No artifacts directory produced."
+          fi
