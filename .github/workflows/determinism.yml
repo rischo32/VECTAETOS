@@ -5,20 +5,44 @@ on:
     branches: [ main ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   determinism:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
 
-      - name: Install deps
-        run: pip install numpy scipy
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --depth=1 origin "$GITHUB_REF"
+          else
+            git fetch --depth=1 origin "$GITHUB_SHA"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy scipy
+
+      - name: Check determinism runner exists
+        run: |
+          set -euo pipefail
+
+          test -f scripts/run/run_verified_vortex.py
 
       - name: Run determinism check
-        run: python scripts/run/run_verified_vortex.py
+        run: |
+          set -euo pipefail
+
+          python3 scripts/run/run_verified_vortex.py
