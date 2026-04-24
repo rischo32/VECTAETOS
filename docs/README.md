@@ -77,6 +77,15 @@ Tento priečinok môže obsahovať napríklad:
 - diagramy poľa
 - observatórne výstupy
 
+### Jednotný architektonický diagram
+
+[`UNIFIED_ARCHITECTURE.md`](./UNIFIED_ARCHITECTURE.md) konsoliduje všetky existujúce mapy
+(`ARCHITECTURE.md`, `MAPARCH.md`, `VECTAETOS_SYSTEM_MAP.md`, `VECTAETOS_FIELD_DIAGRAM.md`,
+`arch_pipe.md`) do jedného pohľadu, ktorý zobrazuje nielen povrchový pipeline, ale aj
+**hĺbku vrstiev** (L0 → L10), **Δ / so(8) štrukturálny skelet**, **triadickú hranicu**
+s ASIMULATOR / ASI_MOD, a **CI ontology guards**. Predrenderované obrázky sú
+v [`unified_architecture/`](./unified_architecture/).
+
 Tieto súbory majú **deskriptívny alebo interpretačný charakter**.  
 Nie sú to exekutívne ani ontologicky nadradené dokumenty.
 
