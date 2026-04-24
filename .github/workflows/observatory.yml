@@ -25,38 +25,76 @@ jobs:
           git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
           git checkout --force FETCH_HEAD
 
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy matplotlib
+
       - name: Set PYTHONPATH
         run: |
           set -euo pipefail
+
           echo "PYTHONPATH=$GITHUB_WORKSPACE" >> "$GITHUB_ENV"
 
       - name: Prepare observatory directories
         run: |
           set -euo pipefail
+
+          mkdir -p artifacts
           mkdir -p docs/observatory
-          mkdir -p scripts/observatory
 
-      - name: Check observatory script exists
+      - name: Check observatory inputs
         run: |
           set -euo pipefail
-          test -f scripts/observatory/epistemic_observatory.py
 
-      - name: Run epistemic observatory
+          echo "=== CHECKING OBSERVATORY INPUTS ==="
+
+          if [ -f "vortex/vortex_runner.py" ]; then
+            echo "[OK] vortex/vortex_runner.py found"
+          else
+            echo "[WARN] Missing vortex/vortex_runner.py"
+            echo "[WARN] Vortex projection step will be skipped."
+          fi
+
+          if [ -f "scripts/generate_visuals.py" ]; then
+            echo "[OK] scripts/generate_visuals.py found"
+          else
+            echo "[WARN] Missing scripts/generate_visuals.py"
+            echo "[WARN] Visual generation step will be skipped."
+          fi
+
+      - name: Run Vortex projection
         run: |
           set -euo pipefail
-          python3 scripts/observatory/epistemic_observatory.py
 
-      - name: Show observatory output
+          if [ -f "vortex/vortex_runner.py" ]; then
+            python3 vortex/vortex_runner.py
+          else
+            echo "[SKIP] vortex/vortex_runner.py not present."
+          fi
+
+      - name: Debug artifacts
         if: always()
         run: |
-          echo "=== OBSERVATORY ==="
-          ls -la docs/observatory || true
-          echo ""
+          echo "=== ROOT ==="
+          ls -la
 
-          if [ -f docs/observatory/OBSERVATORY_STATUS.md ]; then
-            cat docs/observatory/OBSERVATORY_STATUS.md
+          echo "=== ARTIFACTS ==="
+          ls -la artifacts || true
+
+          echo "=== DOCS / OBSERVATORY ==="
+          ls -la docs/observatory || true
+
+      - name: Generate visuals
+        run: |
+          set -euo pipefail
+
+          if [ -f "scripts/generate_visuals.py" ]; then
+            python3 scripts/generate_visuals.py
           else
-            echo "[WARN] OBSERVATORY_STATUS.md was not generated."
+            echo "[SKIP] scripts/generate_visuals.py not present."
           fi
 
       - name: Detect observatory changes
@@ -83,25 +121,17 @@ jobs:
 
           git checkout -b "$BRANCH_NAME"
 
-          git add docs/observatory/OBSERVATORY_STATUS.md
-          git add docs/observatory/observatory_snapshot.json
-
-          git commit -m "auto(Φ): observatory status update"
+          git add docs/observatory
+          git commit -m "auto(Φ): observatory update"
 
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push --force-with-lease origin "$BRANCH_NAME"
+          git push --force origin "$BRANCH_NAME"
 
-          EXISTING_PR="$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number' || true)"
-
-          if [ -n "$EXISTING_PR" ]; then
-            echo "[OK] Observatory PR already exists: #$EXISTING_PR"
-          else
-            gh pr create \
-              --base main \
-              --head "$BRANCH_NAME" \
-              --title "auto(Φ): observatory status update" \
-              --body "Automated non-blocking epistemic observatory status update."
-          fi
+          gh pr create \
+            --base main \
+            --head "$BRANCH_NAME" \
+            --title "auto(Φ): observatory update" \
+            --body "Automated non-blocking epistemic projection update."
 
       - name: No observatory changes
         if: steps.changes.outputs.changed == 'false'
