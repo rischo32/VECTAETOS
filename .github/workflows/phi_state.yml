@@ -4,21 +4,55 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   update:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+          git checkout --force FETCH_HEAD
 
-    - name: Install deps
-      run: pip install -r requirements.txt || true
+      - name: Set PYTHONPATH
+        run: |
+          set -euo pipefail
 
-    - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=." >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE" >> "$GITHUB_ENV"
+
+      - name: Check repository state
+        run: |
+          set -euo pipefail
+
+          echo "=== Φ State Update ==="
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "SHA: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+
+          echo "=== ROOT ==="
+          ls -la
+
+      - name: Optional requirements visibility
+        run: |
+          set -euo pipefail
+
+          if [ -f requirements.txt ]; then
+            echo "[INFO] requirements.txt present."
+            echo "[INFO] Dependency installation intentionally skipped in Φ State Update."
+          else
+            echo "[INFO] No requirements.txt present."
+          fi
+
+      - name: No-op state
+        run: |
+          echo "[OK] Φ State Update is currently a guarded no-op."
+          echo "[OK] No files modified."
+          echo "[OK] No commit created."
+          echo "[OK] No push performed."
