@@ -22,79 +22,38 @@ jobs:
 
           git init .
           git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-          git fetch --depth=1 origin "$GITHUB_SHA"
+          git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
           git checkout --force FETCH_HEAD
-
-      - name: Install dependencies
-        run: |
-          set -euo pipefail
-
-          python3 -m pip install --upgrade pip
-          python3 -m pip install numpy matplotlib
 
       - name: Set PYTHONPATH
         run: |
           set -euo pipefail
-
           echo "PYTHONPATH=$GITHUB_WORKSPACE" >> "$GITHUB_ENV"
 
-      - name: Prepare artifact directories
+      - name: Prepare observatory directories
         run: |
           set -euo pipefail
-
-          mkdir -p artifacts
           mkdir -p docs/observatory
+          mkdir -p scripts/observatory
 
-      - name: Check observatory inputs
+      - name: Check observatory script exists
         run: |
           set -euo pipefail
+          test -f scripts/observatory/epistemic_observatory.py
 
-          echo "=== CHECKING OBSERVATORY INPUTS ==="
-
-          if [ ! -f "vortex/vortex_runner.py" ]; then
-            echo "[WARN] Missing vortex/vortex_runner.py"
-            echo "[WARN] Observatory Vortex step will be skipped."
-          else
-            echo "[OK] vortex/vortex_runner.py found"
-          fi
-
-          if [ ! -f "scripts/generate_visuals.py" ]; then
-            echo "[WARN] Missing scripts/generate_visuals.py"
-            echo "[WARN] Visual generation step will be skipped."
-          else
-            echo "[OK] scripts/generate_visuals.py found"
-          fi
-
-      - name: Run Vortex projection
+      - name: Run epistemic observatory
         run: |
           set -euo pipefail
+          python3 scripts/observatory/epistemic_observatory.py
 
-          if [ -f "vortex/vortex_runner.py" ]; then
-            python3 vortex/vortex_runner.py
-          else
-            echo "[SKIP] vortex/vortex_runner.py not present."
-          fi
-
-      - name: Debug artifacts
+      - name: Show observatory output
         if: always()
         run: |
-          echo "=== ROOT ==="
-          ls -la
-
-          echo "=== ARTIFACTS ==="
-          ls -la artifacts || true
-
-          echo "=== DOCS / OBSERVATORY ==="
+          echo "=== OBSERVATORY ==="
           ls -la docs/observatory || true
-
-      - name: Generate visuals
-        run: |
-          set -euo pipefail
-
-          if [ -f "scripts/generate_visuals.py" ]; then
-            python3 scripts/generate_visuals.py
-          else
-            echo "[SKIP] scripts/generate_visuals.py not present."
+          echo ""
+          if [ -f docs/observatory/OBSERVATORY_STATUS.md ]; then
+            cat docs/observatory/OBSERVATORY_STATUS.md
           fi
 
       - name: Detect observatory changes
@@ -120,15 +79,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git checkout -b "$BRANCH_NAME"
-          git add docs/observatory/*.png
-          git commit -m "auto(Φ): observatory update"
+          git add docs/observatory/OBSERVATORY_STATUS.md docs/observatory/observatory_snapshot.json
+          git commit -m "auto(Φ): observatory status update"
           git push origin "$BRANCH_NAME"
 
           gh pr create \
             --base main \
             --head "$BRANCH_NAME" \
-            --title "auto(Φ): observatory update" \
-            --body "Automated epistemic projection update."
+            --title "auto(Φ): observatory status update" \
+            --body "Automated non-blocking epistemic observatory status update."
 
       - name: No observatory changes
         if: steps.changes.outputs.changed == 'false'
