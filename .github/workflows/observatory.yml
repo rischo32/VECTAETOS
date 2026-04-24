@@ -68,8 +68,30 @@ jobs:
           fi
 
       - name: Create observatory pull request
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.changes.outputs.changed == 'true' 
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: auto/observatory-${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH_NAME"
+          git add docs/observatory/OBSERVATORY_STATUS.md docs/observatory/observatory_snapshot.json
+          git commit -m "auto(Φ): observatory status update"
+
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force-with-lease origin "$BRANCH_NAME"
+
+          gh pr create \
+            --base main \
+            --head "$BRANCH_NAME" \
+            --title "auto(Φ): observatory status update" \
+           --body "Automated non-blocking epistemic observatory status update."
+         if: steps.changes.outputs.changed == 'true'
+         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: auto/observatory-${{ github.run_id }}
         run: |
