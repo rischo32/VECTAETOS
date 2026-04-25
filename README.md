@@ -114,40 +114,37 @@ ___
 
 The system operates on:
 
-Φ = (Σ, R), R ∈ so(8)
+    Φ = (Σ, R), R ∈ so(8)
 
-Derived structure:
+Derived structure: 
 
-Δ = dR ∈ ℝ⁵⁶
+    Δ = dR ∈ ℝ⁵⁶
 
-The representability domain:
+The representability domain:  
 
-𝒟 = Im(d) ⊂ ℝ⁵⁶
+    𝒟 = Im(d) ⊂ ℝ⁵⁶
 
-Boundary:
+Boundary:   
 
-κ = ∂𝒟
+    κ = ∂𝒟
 
-Coherence:
+Coherence:   
 
-K(Φ) = 1 ⇔ Δ ∈ 𝒟
-
+    K(Φ) = 1 ⇔ Δ ∈ 𝒟
 ---
 
 ## 2. Representability Layer (IMPLEMENTED)
 
 The system enforces:
 
-Δ ∈ 𝒟
+    Δ ∈ 𝒟
 
 via structural closure conditions:
 
-dΔ = 0
+    dΔ = 0
 
 This is not approximate.
-
 This is a strict algebraic constraint.
-
 Non-representable states are rejected.
 
 ---
@@ -156,7 +153,7 @@ Non-representable states are rejected.
 
 All epistemic configurations are mapped to canonical form:
 
-canonicalize(Δ)
+    canonicalize(Δ)
 
 Properties:
 
@@ -172,7 +169,7 @@ Canonicalization defines identity at the structural level.
 
 Each epistemic state Φ is assigned:
 
-H(Φ)
+    H(Φ)
 
 Properties:
 
@@ -188,7 +185,7 @@ This forms the basis of epistemic cryptography.
 
 The system computes:
 
-κ(Φ)
+    κ(Φ)
 
 as a structural trace of proximity to the boundary ∂𝒟.
 
@@ -208,7 +205,7 @@ It is a structural signal.
 
 The system exposes:
 
-run_pipeline(system, inputs)
+    run_pipeline(system, inputs)
 
 Properties:
 
@@ -218,7 +215,7 @@ Properties:
 
 Additionally:
 
-ek_step(outputs)
+    ek_step(outputs)
 
 returns:
 
@@ -234,7 +231,7 @@ returns:
 
 Vectaetos extends from a single field to:
 
-ℱ = {Φₐ}
+    ℱ = {Φₐ}
 
 with:
 
@@ -243,7 +240,6 @@ with:
 - preserved antisymmetry
 
 Interaction rules are defined but not yet operationalized.
-
 ---
 
 ## 8. Epistemic Space (DEFINED)
@@ -256,7 +252,7 @@ The system explicitly models:
 
 Crossing κ results in:
 
-QE (Qualitative Epistemic Aporia)
+    QE (Qualitative Epistemic Aporia)
 
 ---
 
@@ -329,6 +325,7 @@ __________________________
  ktorá modeluje dynamiku epistemických trajektórií
  bez teleológie, optimalizácie a rozhodovacej autority.
  ___________________________________
+
 Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.
 
 Vectaetos does not solve problems.  
@@ -347,13 +344,13 @@ Operuje opatrne, z vedomej neistoty o nej."
 Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
 ____
+## Safety-Critical Transition Governance
 
-"Cesta osvietenia je dláždená temnotou."
-"Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
+VECTAETOS is published as a foundational, non-agentic, safety-oriented epistemic architecture.
 
-"The path of enlightenment is paved with darkness."
-"Intent is the spark that illuminates the present in the darkness of eternity."
+Any transition of this architecture beyond foundational research toward materially relevant ASI-like capability must not become the unilateral decision of its author, but requires explicit multi-party safety deliberation with all competent and materially affected stakeholders invited to a common round table.
 
+Until such conditions exist, no claim of deployment readiness, higher-layer legitimacy, or ASI-like operational admissibility is made.
 ------------------
 ## Vortex Root Core
 
