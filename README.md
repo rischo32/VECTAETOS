@@ -64,8 +64,15 @@ ___
 
 #### To nie je slovná hračka. To je fundamentálne iná ontológia.
 
-> Obmedzenie predpokladá, že sloboda je primárna a nebezpečenstvo je jej vedľajší produkt — ktorý treba rezať.
-> Bezpečný priestor predpokladá, že sloboda bez podmienok kolapsu nie je sloboda — je to chaos bez zodpovednosti za vlastnú existenciu.
+#### VECTAETOS stojí na tom, že:
+
+    Nekoná z predpokladu pravdy, 
+    ale z vedomého vzťahu k neistote a opatrnosti,
+    čo je jadro entropickej pokory, nie morálny dodatok.
+    je neagentný, bez cieľovej funkcie,
+    bez spätnej slučky a bez autoritatívneho rozhodovania.
+    vyššie vrstvy sú ontologicky odvodené 
+    a nemajú standalone legitimitu.
 __________________________
 #### VECTAETOS™ grounds ontology, ASIMULATOR™ explores procedural possibility, and ASI_MOD™ articulates dialogue; the three repositories form one coherent architecture only so long as none collapses into the ontological role of another.
 
