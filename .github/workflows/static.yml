@@ -2,87 +2,31 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - "index.html"
-      - "assets/**"
-      - "docs/**"
-      - "favicon.ico"
-      - "robots.txt"
-      - "CNAME"
-      - ".github/workflows/static.yml"
-
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  deploy-static:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ensure _site exists
         run: |
           set -euo pipefail
+          test -d _site
 
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-          git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
-          git checkout --force FETCH_HEAD
-
-      - name: Validate static entrypoint
-        run: |
-          set -euo pipefail
-
-          test -f index.html
-
-      - name: Build static site directory
-        run: |
-          set -euo pipefail
-
-          rm -rf _site
-          mkdir -p _site
-
-          cp index.html _site/
-
-          if [ -f favicon.ico ]; then
-            cp favicon.ico _site/
-          fi
-
-          if [ -f robots.txt ]; then
-            cp robots.txt _site/
-          fi
-
-          if [ -f CNAME ]; then
-            cp CNAME _site/
-          fi
-
-          if [ -d assets ]; then
-            cp -r assets _site/
-          fi
-
-          if [ -d docs ]; then
-            cp -r docs _site/
-          fi
-
-          touch _site/.nojekyll
-
-          echo "=== STATIC SITE CONTENT ==="
-          find _site -maxdepth 3 -type f | sort
-
-      - name: Deploy to gh-pages branch
+      - name: Deploy static pages
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           rm -rf /tmp/vectaetos-pages
           mkdir -p /tmp/vectaetos-pages
@@ -92,10 +36,12 @@ jobs:
           cd /tmp/vectaetos-pages
 
           git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
           git checkout --orphan gh-pages
 
-          git add .
-          git commit -m "deploy: static pages"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit --allow-empty -m "deploy: static pages"
 
           git push --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages:gh-pages
