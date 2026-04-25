@@ -343,14 +343,7 @@ Operuje opatrne, z vedomej neistoty o nej."
 
 Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
-____
-## Safety-Critical Transition Governance
 
-VECTAETOS is published as a foundational, non-agentic, safety-oriented epistemic architecture.
-
-Any transition of this architecture beyond foundational research toward materially relevant ASI-like capability must not become the unilateral decision of its author, but requires explicit multi-party safety deliberation with all competent and materially affected stakeholders invited to a common round table.
-
-Until such conditions exist, no claim of deployment readiness, higher-layer legitimacy, or ASI-like operational admissibility is made.
 ------------------
 ## Vortex Root Core
 
