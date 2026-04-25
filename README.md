@@ -1,8 +1,14 @@
-### "Pozastavujeme vývoj celého Vectaetosu (aj jeho častí)"
-## To je architektonicky vtip, tak snáď nám vyšiel, 
-# "Buduci vyvoj je obmedzený, kým nebudú dokončené všetky vrstvy"
-# "A neprebehne empiricky dôkaz všetkych vrstiev L0-L4 
-# + Adversarialne testy Φ
+## Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev, nie samotné fundamentálne jadro
+
+# Technológie nie sú hračky, a práve presne preto :
+
+     žiadna jednostranná legitimácia
+     žiadna predčasná operatívna expanzia
+     žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
+     rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
+
+## + Empiricky dôkaz všetkych vrstiev L0-L4 
+## + Adversarialne testy Φ
 
 ##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded.
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
