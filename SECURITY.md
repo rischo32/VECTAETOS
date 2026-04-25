@@ -1,10 +1,12 @@
-VECTAETOS — Security Model
+VECTAETOS™ — Security Model
 
 Status: CANONICAL
-Scope: Repository + Conceptual Framework
+Scope: Repository
 Authority: None
 
----
+____
+Any transition of this architecture beyond foundational research toward materially relevant ASI-like capability must not become the unilateral decision of its author, but requires explicit multi-party safety deliberation with all competent and materially affected stakeholders invited to a common round table.
+____
 
 Overview
 
