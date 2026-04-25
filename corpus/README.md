@@ -1,8 +1,9 @@
-## ZMYSEL Corpus
+## ZMYSEL CORPUS
 
-SK:
-ZMYSEL Corpus je verejná, neautoritatívna, read-only zbierka epistemických fragmentov, 
-ktorá môže podporovať interpretáciu vyšších vrstiev bez toho, aby niekedy redefinovala alebo prikazovala poľu VECTAETOS.
+### Verejný epistemický múdrostný korpus 
+### Public Epistemic Wisdom Corpus
 
 
-EN: The ZMYSEL Corpus is a public, non-authoritative, read-only collection of epistemic fragments that may support higher-layer interpretation without ever redefining or commanding the VECTAETOS field.
+SK: Verejný epistemický korpus · neautoritatívny · read-only podľa návrhu · append-only podľa disciplíny
+
+EN: Public epistemic corpus · non-authoritative · read-only by design · append-only by discipline
