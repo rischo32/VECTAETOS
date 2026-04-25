@@ -317,8 +317,6 @@ It preserves the conditions under which understanding remains possible.
 Truth is not treated as a point.  
 Truth is treated as a field.
 ________________________________
-"Vectaetos™ nepomáha riešiť problémy.
-Pomáha ich konečne vidieť celé."
 
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
@@ -326,24 +324,24 @@ Je to jeho architektonická cnosť."
 "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
 
-Vectaetos™ je spôsob, ako sa pozerať na otázky.
-
-Nie ako na problémy, ktoré treba vyriešiť, ale ako na štruktúry, ktoré treba pochopiť.
-
 Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
 Vectaetos nerozhoduje.
-
-Pomáha vidieť, kde sa rozhodnutie začína. 
+____
 
 "Cesta osvietenia je dláždená temnotou."
-
 "Zámer je iskra, čo rozsvieti prítomnosť v temnote večnosti."
 
 "The path of enlightenment is paved with darkness."
+"Intent is the spark that illuminates the present in the darkness of eternity."
 
- "Intent is the spark that illuminates the present in the darkness of eternity."
+------------------
+## Vortex Root Core
 
-----------------------------------------------------------
+The Simulation Vortex is defined by [`docs/VORTEX_ROOT_CORE_0.1.md`](docs/VORTEX_ROOT_CORE_0.1.md).
+
+It is a non-agentic trajectory generator within fixed Φ topology.  
+It does not optimize, rank, recommend, mutate R, compute K(Φ), estimate κ, or select trajectories.
+---------------------------------------
 CANONICAL STATUS
 
 Vectaetos is defined through canonical anchors contained in this repository.
