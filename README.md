@@ -9,7 +9,7 @@ a práve presne preto :
      rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
 
 + Empiricky dôkaz všetkych vrstiev L0-L4
-+ Adversarialne testy Φ
++ Adversarialne a penetračné testy Φ (+77 ruff, male semantické drifty, doriešiť dilemu 3Gate, nesedia poidpisové klúče...)
 
 ##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded.
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
