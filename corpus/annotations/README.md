@@ -4,8 +4,8 @@ Sidecar znamená: hlavný text sa nemení, ale vedľa neho existuje strojovo či
 
 Výhoda:
 
-ľudský text ostáva čistý
-strojová vrstva je auditovateľná
-vyššia vrstva vie čítať význam
-Φ sa nemení
-parser nerozhoduje
++ ľudský text ostáva čistý
++ strojová vrstva je auditovateľná
++ vyššia vrstva vie čítať význam
++ Φ sa nemení
++ parser nerozhoduje
