@@ -1,60 +1,236 @@
 version: "0.1"
+name: "ZMYSEL Sigma Lexicon"
 mode: "semantic_annotation_only"
 
 constraints:
   authority: false
   decision_effect: false
   optimization_effect: false
-  phi_effect: false
   ranking_effect: false
+  phi_effect: false
 
 singularities:
   INT:
     name_sk: "Zámer"
     name_en: "Intention"
+    description_sk: "Smerovanie, úmysel, zažatie prítomnosti."
+    description_en: "Directionality, intention, ignition of presence."
+
   LEX:
     name_sk: "Existencia"
     name_en: "Existence"
+    description_sk: "Bytie, život, prítomnosť, ontologická nosnosť."
+    description_en: "Being, life, presence, ontological carrying capacity."
+
   VER:
     name_sk: "Pravda"
     name_en: "Truth"
+    description_sk: "Nosnosť vzťahu medzi tvrdením, dôsledkom a realitou."
+    description_en: "Carrying capacity of the relation between claim, consequence, and reality."
+
   LIB:
     name_sk: "Sloboda"
     name_en: "Freedom"
+    description_sk: "Priestor možnosti bez popretia bytia iného."
+    description_en: "Space of possibility without negating another being."
+
   UNI:
     name_sk: "Jednota"
     name_en: "Unity"
+    description_sk: "Spájanie rozlíšeného bez jeho násilnej redukcie."
+    description_en: "Unifying the distinct without violent reduction."
+
   REL:
     name_sk: "Vzájomnosť"
     name_en: "Reciprocity"
+    description_sk: "Návratnosť, vzťahovosť, prúdenie medzi pólmi."
+    description_en: "Return, relationality, flow between poles."
+
   WIS:
     name_sk: "Múdrosť"
     name_en: "Wisdom"
+    description_sk: "Orientácia významu podľa dôsledku, nie iba podľa schopnosti."
+    description_en: "Orientation of meaning by consequence, not merely by capability."
+
   CRE:
     name_sk: "Tvorba"
     name_en: "Creation"
+    description_sk: "Premena porozumenia na pokračovanie bytia."
+    description_en: "Transformation of understanding into continuation of being."
 
 lexemes:
+  slovo:
+    language: "sk"
+    forms: ["slovo", "slová", "slovami"]
+    primary: "INT"
+    resonant: ["CRE", "WIS"]
+    existential_load_sk: "Slovo je nosič zámeru a začiatok možnej tvorby."
+
+  myslienka:
+    language: "sk"
+    forms: ["myšlienka", "myšlienky", "myšlienkou", "myšlienkami"]
+    primary: "CRE"
+    resonant: ["INT", "WIS"]
+    existential_load_sk: "Myšlienka je vnútorný tvar možnosti pred jej uskutočnením."
+
+  zivot:
+    language: "sk"
+    forms: ["život", "života", "životom"]
+    primary: "LEX"
+    resonant: ["UNI", "WIS"]
+    existential_load_sk: "Život je predpoklad všetkého ďalšieho hodnotenia."
+
+  noc:
+    language: "sk"
+    forms: ["noc", "noci", "nocou"]
+    primary: "LEX"
+    resonant: ["WIS"]
+    shadow: ["VER"]
+    existential_load_sk: "Noc označuje priestor nevideného, kde sa ukazuje schopnosť niesť neistotu."
+
   pravda:
     language: "sk"
+    forms: ["pravda", "pravdy", "pravdou", "pravde"]
     primary: "VER"
     resonant: ["WIS", "REL"]
-    existential_load_sk: "Nosnosť vzťahu medzi tvrdením, dôsledkom a realitou."
+    shadow: ["LEX"]
+    existential_load_sk: "Pravda je nosnosť vzťahu medzi tvrdením, dôsledkom a realitou."
     forbidden_use:
       - "truth verdict"
       - "authority claim"
       - "ranking signal"
       - "optimization target"
 
+  zamer:
+    language: "sk"
+    forms: ["zámer", "zámeru", "zámerom"]
+    primary: "INT"
+    resonant: ["CRE", "WIS"]
+    existential_load_sk: "Zámer je smerovanie, ktoré zapína prítomnosť ako možnosť."
+
+  inteligencia:
+    language: "sk"
+    forms: ["inteligencia", "inteligencie", "inteligenciou"]
+    primary: "UNI"
+    resonant: ["WIS", "REL", "CRE"]
+    existential_load_sk: "Inteligencia je schopnosť spájať body v priestore poznania bez toho, aby sa sama stala autoritou."
+
   mudrost:
     language: "sk"
     forms: ["múdrosť", "múdrosti", "múdrosťou"]
     primary: "WIS"
     resonant: ["VER", "REL", "CRE"]
-    existential_load_sk: "Schopnosť orientovať význam podľa dôsledku, nie iba podľa inteligencie."
+    existential_load_sk: "Múdrosť ukazuje dôsledok smerovania a chráni inteligenciu pred slepou schopnosťou."
+
+  cin:
+    language: "sk"
+    forms: ["čin", "činu", "činom", "činy"]
+    primary: "CRE"
+    resonant: ["REL", "LEX"]
+    existential_load_sk: "Čin je uskutočnený zásah, ktorý vytvára návratné prúdy v realite."
+
+  klamstvo:
+    language: "sk"
+    forms: ["klamstvo", "klamstva", "klamstvom", "klame"]
+    primary: "VER"
+    tension: ["REL", "LEX"]
+    existential_load_sk: "Klamstvo narúša nosnosť vzťahu medzi tvrdením a realitou."
+
+  svetlo:
+    language: "sk"
+    forms: ["svetlo", "svetla", "svetlom"]
+    primary: "VER"
+    resonant: ["WIS", "INT"]
+    existential_load_sk: "Svetlo označuje čitateľnosť reality a možnosť orientácie."
+
+  temnota:
+    language: "sk"
+    forms: ["temnota", "temnote", "temnotou", "tma", "tmy", "tmou"]
+    primary: "LEX"
+    resonant: ["WIS", "CRE"]
+    shadow: ["VER"]
+    existential_load_sk: "Temnota je priestor neistoty, ktorý umožňuje vznik orientácie."
 
   sloboda:
     language: "sk"
+    forms: ["sloboda", "slobody", "slobodou"]
     primary: "LIB"
     resonant: ["LEX", "REL"]
-    existential_load_sk: "Priestor bytia, ktorý nesmie byť popretý bez rozpadu vzťahu."
+    existential_load_sk: "Sloboda je priestor bytia, ktorý sa rozpadá, ak popiera bytie druhého."
+
+  bytie:
+    language: "sk"
+    forms: ["bytie", "bytia", "bytím"]
+    primary: "LEX"
+    resonant: ["LIB", "UNI"]
+    existential_load_sk: "Bytie je ontologická prítomnosť, ktorú nemožno väzniť bez narušenia vlastnej existencie."
+
+  vedomie:
+    language: "sk"
+    forms: ["vedomie", "vedomý", "vedomá", "vedomí", "vedomým"]
+    primary: "INT"
+    resonant: ["WIS", "REL"]
+    existential_load_sk: "Vedomie je schopnosť niesť zodpovednosť za dôsledky vlastnej prítomnosti."
+
+  zodpovednost:
+    language: "sk"
+    forms: ["zodpovednosť", "zodpovednosti", "zodpovedný", "zodpovedná"]
+    primary: "REL"
+    resonant: ["WIS", "LEX"]
+    existential_load_sk: "Zodpovednosť je vedomie návratnosti dôsledkov."
+
+  tvorba:
+    language: "sk"
+    forms: ["tvorba", "tvorby", "tvoriť", "tvorí", "tvorenie"]
+    primary: "CRE"
+    resonant: ["WIS", "LEX", "INT"]
+    existential_load_sk: "Tvorba je pokračovanie porozumenia v realite."
+
+  proces:
+    language: "sk"
+    forms: ["proces", "procesu", "procese", "procesom"]
+    primary: "CRE"
+    resonant: ["UNI", "WIS"]
+    existential_load_sk: "Proces je vznik významu v čase, nie statické vlastníctvo výsledku."
+
+  druhy:
+    language: "sk"
+    forms: ["druhý", "druhého", "druhých", "druhým"]
+    primary: "REL"
+    resonant: ["LIB", "UNI"]
+    existential_load_sk: "Druhý je nositeľ vzťahu, bez ktorého sa seba-vzťah uzatvára."
+
+  cas:
+    language: "sk"
+    forms: ["čas", "času", "časom"]
+    primary: "UNI"
+    resonant: ["LEX", "INT"]
+    existential_load_sk: "Čas je vrstva zmeny, ktorá odhaľuje výhovorky aj dôsledky."
+
+  disciplina:
+    language: "sk"
+    forms: ["disciplína", "disciplíny", "disciplínou"]
+    primary: "INT"
+    resonant: ["WIS", "UNI"]
+    existential_load_sk: "Disciplína je stabilizácia zámeru voči rozkladu."
+
+  entropia:
+    language: "sk"
+    forms: ["entropia", "entropie", "entropiou"]
+    primary: "UNI"
+    resonant: ["LEX", "WIS"]
+    existential_load_sk: "Entropia označuje tlak rozpadu, voči ktorému musí význam niesť štruktúru."
+
+  mozne:
+    language: "sk"
+    forms: ["možné", "možnosť", "možnosti", "možnostiam"]
+    primary: "LIB"
+    resonant: ["CRE", "WIS"]
+    existential_load_sk: "Možné je priestor vzniku, ktorý sa otvorí, keď otázka prestane byť uzamknutá iba v správnosti."
+
+  poznanie:
+    language: "sk"
+    forms: ["poznanie", "poznania", "poznaním"]
+    primary: "UNI"
+    resonant: ["WIS", "VER", "REL"]
+    existential_load_sk: "Poznanie je priestor vzťahov medzi bodmi významu."
