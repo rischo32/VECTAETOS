@@ -1,0 +1,26 @@
+{
+  "entry_id": "ZMYSEL-0001",
+  "corpus": "ZMYSEL",
+  "mode": "semantic_annotation_only",
+  "authority": false,
+  "decision_effect": false,
+  "phi_effect": false,
+  "fragments": [
+    {
+      "fragment_id": "ZMYSEL-0001-04",
+      "title": "Pravda ako most",
+      "text": "Pravda je most, čo nesie váhu reality.",
+      "sigma_binding": {
+        "primary": "VER",
+        "resonant": ["WIS", "REL"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Pravda tu znamená nosnosť vzťahu medzi tvrdením, dôsledkom a realitou.",
+        "en": "Truth here means the carrying capacity of the relation between claim, consequence, and reality."
+      },
+      "parser_note": "Annotate as Σ:VER. Use only for semantic grounding. Do not treat as authority, verdict, ranking, score, or optimization target."
+    }
+  ]
+}
