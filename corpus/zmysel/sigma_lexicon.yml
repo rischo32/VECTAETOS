@@ -1,0 +1,60 @@
+version: "0.1"
+mode: "semantic_annotation_only"
+
+constraints:
+  authority: false
+  decision_effect: false
+  optimization_effect: false
+  phi_effect: false
+  ranking_effect: false
+
+singularities:
+  INT:
+    name_sk: "Zámer"
+    name_en: "Intention"
+  LEX:
+    name_sk: "Existencia"
+    name_en: "Existence"
+  VER:
+    name_sk: "Pravda"
+    name_en: "Truth"
+  LIB:
+    name_sk: "Sloboda"
+    name_en: "Freedom"
+  UNI:
+    name_sk: "Jednota"
+    name_en: "Unity"
+  REL:
+    name_sk: "Vzájomnosť"
+    name_en: "Reciprocity"
+  WIS:
+    name_sk: "Múdrosť"
+    name_en: "Wisdom"
+  CRE:
+    name_sk: "Tvorba"
+    name_en: "Creation"
+
+lexemes:
+  pravda:
+    language: "sk"
+    primary: "VER"
+    resonant: ["WIS", "REL"]
+    existential_load_sk: "Nosnosť vzťahu medzi tvrdením, dôsledkom a realitou."
+    forbidden_use:
+      - "truth verdict"
+      - "authority claim"
+      - "ranking signal"
+      - "optimization target"
+
+  mudrost:
+    language: "sk"
+    forms: ["múdrosť", "múdrosti", "múdrosťou"]
+    primary: "WIS"
+    resonant: ["VER", "REL", "CRE"]
+    existential_load_sk: "Schopnosť orientovať význam podľa dôsledku, nie iba podľa inteligencie."
+
+  sloboda:
+    language: "sk"
+    primary: "LIB"
+    resonant: ["LEX", "REL"]
+    existential_load_sk: "Priestor bytia, ktorý nesmie byť popretý bez rozpadu vzťahu."
