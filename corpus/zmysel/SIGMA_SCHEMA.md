@@ -278,7 +278,39 @@ This creates hierarchy between singularities.
 It must not create authority, priority, scoring, optimization, decision logic, or backward influence on Φ.
 
 ---
+___
+## Hranica výhradne pre parser
 
+Σ-viazané sémantické anotácie sú artefakty určené výhradne pre parser.
+
+Môžu byť čítané dedikovaným ZMYSEL parserom, aby sa ľudsky čitateľné fragmenty preložili na ohraničené Σ anotácie.
+
+Nesmú byť čítané priamo jadrom VECTAETOS.
+Nesmú byť injektované do Φ.
+
+Nesmú byť použité ako runtime pamäť, autonómny slovník, generatívny substrát, zdroj presvedčení ani sémantický expanzný engine.
+
+Surové prirodzené jazykové lexémy ostávajú mimo jadra VECTAETOS.
+Ďalej môžu prejsť iba ohraničené parserové anotácie.
+
+Tým sa zabraňuje tomu, aby sa korpus zmenil na nekontrolovanú sémantickú rastovú vrstvu alebo AGI-farma-like slovníkový substrát.
+
+## Parser-Only Boundary
+
+Σ-bound semantic annotations are parser-only artifacts.
+
+They may be consumed by a dedicated ZMYSEL parser in order to transform human-readable fragments into bounded Σ annotations.
+
+They must not be consumed directly by VECTAETOS core.
+They must not be injected into Φ.
+
+They must not be used as runtime memory, autonomous vocabulary, generative substrate, belief source, or semantic expansion engine.
+
+Raw natural-language lexemes remain outside the VECTAETOS core.
+
+Only bounded parser annotations may pass forward.
+This prevents the corpus from becoming an uncontrolled semantic growth layer or AGI-farm-like vocabulary substrate.
+___
 ## 10. Canonical Sentence
 
 Σ-bound semantic annotation is a read-only semantic sidecar that binds ZMYSEL fragments to VECTAETOS singularities as existential meaning carriers, without authority, hierarchy, scoring, optimization, decision-making, or influence on Φ.
