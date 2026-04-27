@@ -1,9 +1,5 @@
-
 ---
-
-## 4. `corpus/zmysel/annotations/ZMYSEL-0001.sigma.json`
-
-```json
+json
 {
   "schema_version": "0.1",
   "entry_id": "ZMYSEL-0001",
