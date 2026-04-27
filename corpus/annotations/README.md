@@ -28,7 +28,12 @@ They are not authority layers.
 ---
 
 ## Rules
+___
+presná hranica:
 
+slovo nesmie vstúpiť do Φ
+do systému môže vstúpiť iba ohraničená Σ anotácia
+___
 Every annotation must preserve:
 
     json
