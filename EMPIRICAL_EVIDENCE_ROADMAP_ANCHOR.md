@@ -233,7 +233,7 @@ standalone ASI_MOD validity
 audit intervention
 memory-as-truth
 projection-as-root
-LLM-as-decision-maker
+language-adapter authority assignment
 simulation optimizing K(Φ)
 κ used as reward threshold
 7. L3 — SIMULATED ADVERSARIAL VISIBILITY

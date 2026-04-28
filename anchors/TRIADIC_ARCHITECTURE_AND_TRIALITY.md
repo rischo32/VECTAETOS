@@ -453,7 +453,7 @@ The triad collapses if:
 
 - VECTAETOS becomes dependent on its own downstream layers,
 - ASIMULATOR claims ontological authority,
-- ASI_MOD claims truth authority,
+- the dialogic layer is treated as the source of epistemic ground,
 - downstream modules are allowed to function as standalone systems,
 - architecture is unified by branding but split semantically,
 - empirical safety is replaced by rhetorical confidence,

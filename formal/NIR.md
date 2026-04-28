@@ -1,4 +1,7 @@
 # NIR — Non-Intervention Regime
+
+Canonical meaning in this context: NIR = Non-Intervention Regime.
+
 ## Imunitný režim epistemického poľa Φ
 
 **Stav:** kanonický  

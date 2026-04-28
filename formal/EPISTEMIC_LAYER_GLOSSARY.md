@@ -200,6 +200,9 @@ Možnosti:
 
 ## NIR — Non-Intervention Regime
 
+Canonical meaning in this context: NIR = Non-Intervention Regime.
+
+
 ### Typ
 Globálny imunitný režim
 
