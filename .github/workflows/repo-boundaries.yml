@@ -3,33 +3,15 @@ name: repo-boundaries
 on:
   push:
     paths:
-      - ".github/workflows/repo-boundaries.yml"
-      - "scripts/verify_repo_boundaries.py"
-      - "Core/**"
-      - "EAI/**"
-      - "VNAL/**"
-      - "audit/**"
-      - "cli/**"
-      - "config/**"
-      - "ek_core/**"
-      - "tests/**"
       - "**/*.py"
+      - "**/*.md"
       - "**/*.json"
       - "**/*.yml"
       - "**/*.yaml"
   pull_request:
     paths:
-      - ".github/workflows/repo-boundaries.yml"
-      - "scripts/verify_repo_boundaries.py"
-      - "Core/**"
-      - "EAI/**"
-      - "VNAL/**"
-      - "audit/**"
-      - "cli/**"
-      - "config/**"
-      - "ek_core/**"
-      - "tests/**"
       - "**/*.py"
+      - "**/*.md"
       - "**/*.json"
       - "**/*.yml"
       - "**/*.yaml"
@@ -48,15 +30,13 @@ jobs:
         run: |
           set -euo pipefail
 
-          git init .
-          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
-              fetch --depth=1 origin "${GITHUB_REF}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_REF}"
           else
-            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
-              fetch --depth=1 origin "${GITHUB_SHA}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
           fi
 
           git checkout --force FETCH_HEAD
