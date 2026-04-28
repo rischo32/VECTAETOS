@@ -5,13 +5,11 @@ on:
     paths:
       - "anchors/CANONICAL_ANCHOR.md"
       - "anchors/CANONICAL_ANCHOR.sha256"
-      - "scripts/hash_anchor.py"
       - ".github/workflows/canonical-anchor.yml"
   pull_request:
     paths:
       - "anchors/CANONICAL_ANCHOR.md"
       - "anchors/CANONICAL_ANCHOR.sha256"
-      - "scripts/hash_anchor.py"
       - ".github/workflows/canonical-anchor.yml"
 
 permissions:
@@ -28,34 +26,30 @@ jobs:
         run: |
           set -euo pipefail
 
-          git init .
-          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
-              fetch --depth=1 origin "${GITHUB_REF}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_REF}"
           else
-            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
-              fetch --depth=1 origin "${GITHUB_SHA}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
           fi
 
           git checkout --force FETCH_HEAD
 
-      - name: Verify Python
-        run: |
-          set -euo pipefail
-          python3 --version
-
-      - name: Recompute anchor hash
+      - name: Verify canonical anchor hash
         run: |
           set -euo pipefail
 
-          python3 scripts/hash_anchor.py \
-            --input anchors/CANONICAL_ANCHOR.md \
-            --output /tmp/CANONICAL_ANCHOR.sha256
+          computed="$(sha256sum anchors/CANONICAL_ANCHOR.md | awk '{print $1}')"
+          committed="$(tr -d '[:space:]' < anchors/CANONICAL_ANCHOR.sha256)"
 
-      - name: Compare committed hash
-        run: |
-          set -euo pipefail
+          echo "Computed : ${computed}"
+          echo "Committed: ${committed}"
 
-          diff -u anchors/CANONICAL_ANCHOR.sha256 /tmp/CANONICAL_ANCHOR.sha256
+          if [ "${computed}" != "${committed}" ]; then
+            echo "[ERROR] Canonical anchor hash mismatch."
+            exit 1
+          fi
+
+          echo "[OK] Canonical anchor hash verified."
