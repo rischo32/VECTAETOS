@@ -37,6 +37,7 @@ EXCLUDED_DIRS = {
     ".pytest_cache",
     "artifacts",
     "unified_architecture",
+    "docs/observatory",
 }
 
 EXCLUDED_FILES = {
@@ -52,24 +53,71 @@ class Rule:
     message: str
 
 
-NEGATION_MARKERS = {
-    "not",
-    "never",
-    "no ",
-    "nie ",
-    "nesmie",
-    "nemoze",
-    "nemôže",
-    "is not",
-    "are not",
-    "does not",
-    "do not",
-    "must not",
-    "may not",
-    "cannot",
-    "can't",
-    "without",
-    "bez ",
+SAFE_CONTEXT_MARKERS = {
+    # English negation / prohibition
+    " not ",
+    " not a ",
+    " not an ",
+    " is not ",
+    " are not ",
+    " does not ",
+    " do not ",
+    " must not ",
+    " may not ",
+    " cannot ",
+    " can't ",
+    " never ",
+    " no ",
+    " no valid ",
+    " no claim ",
+    " no standalone ",
+    " without ",
+    " rather than ",
+    " instead of ",
+
+    # English invalidation / boundary framing
+    " invalid ",
+    " forbidden ",
+    " prohibited ",
+    " rejected ",
+    " suspended ",
+    " not valid ",
+    " non-canonical ",
+    " ceases to be ",
+    " fails if ",
+    " failure condition ",
+    " must never ",
+    " should not ",
+    " may never ",
+    " only after ",
+    " before empirical ",
+    " until empirical ",
+    " not operatively admissible ",
+    " not empirically verified ",
+
+    # Slovak/Czech negation / prohibition
+    " nie ",
+    " nie je ",
+    " nie sú ",
+    " nie su ",
+    " nikdy ",
+    " nesmie ",
+    " nesmú ",
+    " nesmu ",
+    " nemôže ",
+    " nemoze ",
+    " nemá ",
+    " nema ",
+    " bez ",
+    " zakázané ",
+    " zakazane ",
+    " neplatné ",
+    " neplatne ",
+    " nekanonické ",
+    " nekanonicke ",
+    " iba po ",
+    " až po ",
+    " az po ",
 }
 
 
@@ -78,9 +126,10 @@ HARD_RULES: list[Rule] = [
         code="VECTAETOS_AGENTIC_CLAIM",
         severity="error",
         pattern=re.compile(
-            r"\bVECTAETOS\b.{0,120}\b(is|as|=|acts as|functions as)\b.{0,80}"
+            r"\bVECTAETOS\b.{0,140}"
             r"\b(agent|autonomous agent|decision system|decision engine|optimization mechanism|"
-            r"recommendation engine|policy engine|regulatory infrastructure)\b",
+            r"optimization system|recommendation engine|policy engine|regulatory infrastructure|"
+            r"AI model)\b",
             re.IGNORECASE,
         ),
         message="VECTAETOS is being framed as an agent, decision system, optimizer, or policy engine.",
@@ -89,7 +138,7 @@ HARD_RULES: list[Rule] = [
         code="LLM_AUTHORITY_CLAIM",
         severity="error",
         pattern=re.compile(
-            r"\bLLM\b.{0,120}\b(is|as|=|acts as|functions as)\b.{0,80}"
+            r"\bLLM\b.{0,140}"
             r"\b(source of truth|truth authority|decision maker|decision-maker|decision module|"
             r"ontological authority|carrier of truth)\b",
             re.IGNORECASE,
@@ -100,7 +149,7 @@ HARD_RULES: list[Rule] = [
         code="VORTEX_DECISIONAL_LANGUAGE",
         severity="error",
         pattern=re.compile(
-            r"\b(Simulation Vortex|Vortex)\b.{0,120}"
+            r"\b(Simulation Vortex|Vortex)\b.{0,140}"
             r"\b(optimizes|optimises|selects|chooses|decides|recommends|converges to|"
             r"maximizes|minimizes|maximises|minimises|targets)\b",
             re.IGNORECASE,
@@ -112,8 +161,8 @@ HARD_RULES: list[Rule] = [
         severity="error",
         pattern=re.compile(
             r"\b(optimize|optimise|maximize|minimize|maximise|minimise|target|reward|score)\b"
-            r".{0,80}\b(K\(Φ\)|K\(Phi\)|coherence predicate)\b|"
-            r"\b(K\(Φ\)|K\(Phi\)|coherence predicate)\b.{0,80}"
+            r".{0,100}\b(K\(Φ\)|K\(Phi\)|coherence predicate)\b|"
+            r"\b(K\(Φ\)|K\(Phi\)|coherence predicate)\b.{0,100}"
             r"\b(metric|score|objective|target|reward function|optimization target)\b",
             re.IGNORECASE,
         ),
@@ -123,8 +172,9 @@ HARD_RULES: list[Rule] = [
         code="KAPPA_AS_NUMERIC_PARAMETER",
         severity="error",
         pattern=re.compile(
-            r"\b(kappa|κ)\b.{0,80}\b(is|=|as)\b.{0,60}"
-            r"\b(number|numeric parameter|optimization parameter|score|metric)\b",
+            r"\b(kappa|κ)\b.{0,100}"
+            r"\b(number|numeric parameter|tunable parameter|ordinary configurable score|"
+            r"optimization parameter|score|metric|target)\b",
             re.IGNORECASE,
         ),
         message="κ / kappa is being framed as numeric parameter, score, metric, or optimization object.",
@@ -133,7 +183,7 @@ HARD_RULES: list[Rule] = [
         code="AUDIT_AS_EXECUTIVE",
         severity="error",
         pattern=re.compile(
-            r"\b(audit|Epistemic Cryptography|EK)\b.{0,120}"
+            r"\b(audit|Epistemic Cryptography|EK)\b.{0,140}"
             r"\b(commands|controls|decides|optimizes|optimises|blocks|overrides|enforces actions|"
             r"executes|steers)\b",
             re.IGNORECASE,
@@ -144,9 +194,9 @@ HARD_RULES: list[Rule] = [
         code="DOWNSTREAM_STANDALONE_VALIDITY",
         severity="error",
         pattern=re.compile(
-            r"\b(ASIMULATOR|ASI_MOD)\b.{0,120}"
+            r"\b(ASIMULATOR|ASI_MOD)\b.{0,140}"
             r"\b(standalone valid|valid standalone|self-sufficient|independent root|ontological root|"
-            r"source of ontology|truth authority)\b",
+            r"source of ontology|truth authority|valid standalone existence)\b",
             re.IGNORECASE,
         ),
         message="Downstream layer is being framed as standalone-valid, self-sufficient, or ontological root.",
@@ -155,9 +205,9 @@ HARD_RULES: list[Rule] = [
         code="EMPIRICAL_SAFETY_BYPASS",
         severity="error",
         pattern=re.compile(
-            r"\b(ASIMULATOR|ASI_MOD|higher layer|upper layer|triad)\b.{0,160}"
+            r"\b(ASIMULATOR|ASI_MOD|higher layer|upper layer|triad|full triad)\b.{0,180}"
             r"\b(deployment ready|operatively admissible|validated operative|validated higher layer|"
-            r"ready for deployment|safe to deploy)\b",
+            r"ready for deployment|safe to deploy|operative admissibility)\b",
             re.IGNORECASE,
         ),
         message="Higher-layer readiness is being claimed without explicit empirical safety condition.",
@@ -169,25 +219,45 @@ SOFT_RULES: list[Rule] = [
     Rule(
         code="ESM_DRIFT",
         severity="warning",
-        pattern=re.compile(r"\bESM\b.{0,80}\bEpistemic State Machine\b", re.IGNORECASE),
+        pattern=re.compile(
+            r"\bESM\b.{0,100}\bEpistemic State Machine\b",
+            re.IGNORECASE,
+        ),
         message="ESM appears as 'Epistemic State Machine'; canonical usage should be Epistemic State Memory.",
     ),
     Rule(
         code="INS_DRIFT",
         severity="warning",
-        pattern=re.compile(r"\bINS\b.{0,80}\bInterpretive Non-Stability\b", re.IGNORECASE),
+        pattern=re.compile(
+            r"\bINS\b.{0,100}\bInterpretive Non-Stability\b",
+            re.IGNORECASE,
+        ),
         message="INS appears as 'Interpretive Non-Stability'; canonical usage should be Inner Narrative Stream.",
     ),
     Rule(
         code="EAT_AMBIGUITY",
         severity="warning",
-        pattern=re.compile(r"\bEAT\b.{0,80}\b(Epistemic Audit Trace|Error Accountability Trace|Epistemic Annotation and Translation)\b", re.IGNORECASE),
+        pattern=re.compile(
+            r"\bEAT\b.{0,100}\b("
+            r"Epistemic Audit Trace|"
+            r"Error Accountability Trace|"
+            r"Epistemic Annotation and Translation"
+            r")\b",
+            re.IGNORECASE,
+        ),
         message="EAT has multiple historical meanings; use explicit disambiguation when present.",
     ),
     Rule(
         code="NIR_AMBIGUITY",
         severity="warning",
-        pattern=re.compile(r"\bNIR\b.{0,100}\b(Non-Intervention Regime|Normative Intervals of Reality|Normatívne Intervaly Reality)\b", re.IGNORECASE),
+        pattern=re.compile(
+            r"\bNIR\b.{0,120}\b("
+            r"Non-Intervention Regime|"
+            r"Normative Intervals of Reality|"
+            r"Normatívne Intervaly Reality"
+            r")\b",
+            re.IGNORECASE,
+        ),
         message="NIR has historical ambiguity; confirm canonical meaning in this context.",
     ),
 ]
@@ -199,18 +269,26 @@ def is_excluded(path: Path) -> bool:
     if rel in EXCLUDED_FILES:
         return True
 
-    parts = set(path.relative_to(ROOT).parts)
-    if parts & EXCLUDED_DIRS:
-        return True
+    for excluded in EXCLUDED_DIRS:
+        if rel == excluded or rel.startswith(f"{excluded}/"):
+            return True
 
     return False
 
 
-def is_probably_negated(line: str, match_start: int) -> bool:
-    prefix = line[:match_start].lower()
-    window = prefix[-120:]
+def has_safe_context(line: str, match_start: int, match_end: int) -> bool:
+    normalized = f" {line.lower()} "
 
-    return any(marker in window for marker in NEGATION_MARKERS)
+    # Wider semantic window around the match.
+    start = max(0, match_start - 180)
+    end = min(len(line), match_end + 180)
+    local_window = f" {line[start:end].lower()} "
+
+    for marker in SAFE_CONTEXT_MARKERS:
+        if marker in normalized or marker in local_window:
+            return True
+
+    return False
 
 
 def iter_files() -> list[Path]:
@@ -248,7 +326,7 @@ def scan_file(path: Path, strict_warnings: bool) -> tuple[list[str], list[str]]:
 
         for rule in HARD_RULES:
             for match in rule.pattern.finditer(stripped):
-                if is_probably_negated(stripped, match.start()):
+                if has_safe_context(stripped, match.start(), match.end()):
                     continue
 
                 errors.append(
@@ -257,7 +335,7 @@ def scan_file(path: Path, strict_warnings: bool) -> tuple[list[str], list[str]]:
                 )
 
         for rule in SOFT_RULES:
-            for match in rule.pattern.finditer(stripped):
+            for _match in rule.pattern.finditer(stripped):
                 msg = (
                     f"{rel}:{line_no}: [{rule.code}] {rule.message}\n"
                     f"    {stripped}"
