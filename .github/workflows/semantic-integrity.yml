@@ -1,0 +1,58 @@
+name: semantic-integrity
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.json"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "scripts/verify_semantic_integrity.py"
+      - ".github/workflows/semantic-integrity.yml"
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.json"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "scripts/verify_semantic_integrity.py"
+      - ".github/workflows/semantic-integrity.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-semantic-integrity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository without external actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "${GITHUB_REF}"
+          else
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Verify Python
+        run: |
+          set -euo pipefail
+          python3 --version
+
+      - name: Verify semantic integrity
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_semantic_integrity.py
