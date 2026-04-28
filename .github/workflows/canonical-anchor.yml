@@ -22,20 +22,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual checkout
+      - name: Checkout repository without external actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
           git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
 
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            git fetch --depth=1 origin "$GITHUB_REF"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
+              fetch --depth=1 origin "${GITHUB_REF}"
           else
-            git fetch --depth=1 origin "$GITHUB_SHA"
+            git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" \
+              fetch --depth=1 origin "${GITHUB_SHA}"
           fi
 
           git checkout --force FETCH_HEAD
+
+      - name: Verify Python
+        run: |
+          set -euo pipefail
+          python3 --version
 
       - name: Recompute anchor hash
         run: |
