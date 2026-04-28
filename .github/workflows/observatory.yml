@@ -2,10 +2,12 @@ name: Epistemic Observatory
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *"
+  # Odporúčanie: ak nechceš automatické PR každú hodinu, nechaj schedule vypnutý.
+  # schedule:
+  #   - cron: "0 * * * *"
 
 permissions:
   contents: write
@@ -16,14 +18,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual checkout
+      - name: Checkout repository without external actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-          git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
           git checkout --force FETCH_HEAD
+
+      - name: Verify Python
+        run: |
+          set -euo pipefail
+          python3 --version
 
       - name: Install dependencies
         run: |
@@ -36,7 +46,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          echo "PYTHONPATH=$GITHUB_WORKSPACE" >> "$GITHUB_ENV"
+          echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> "${GITHUB_ENV}"
 
       - name: Prepare observatory directories
         run: |
@@ -78,6 +88,8 @@ jobs:
       - name: Debug artifacts
         if: always()
         run: |
+          set -euo pipefail
+
           echo "=== ROOT ==="
           ls -la
 
@@ -103,9 +115,9 @@ jobs:
           set -euo pipefail
 
           if git status --porcelain docs/observatory | grep .; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
           else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "changed=false" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Create observatory pull request
@@ -119,21 +131,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git checkout -b "$BRANCH_NAME"
+          git checkout -b "${BRANCH_NAME}"
 
           git add docs/observatory
           git commit -m "auto(Φ): observatory update"
 
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push --force origin "$BRANCH_NAME"
+          git push --force origin "${BRANCH_NAME}"
 
           gh pr create \
             --base main \
-            --head "$BRANCH_NAME" \
+            --head "${BRANCH_NAME}" \
             --title "auto(Φ): observatory update" \
             --body "Automated non-blocking epistemic projection update."
 
       - name: No observatory changes
         if: steps.changes.outputs.changed == 'false'
         run: |
+          set -euo pipefail
           echo "[OK] No observatory changes detected."
