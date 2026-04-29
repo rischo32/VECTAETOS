@@ -191,6 +191,9 @@ They **show**, they do not **tell**.
 
 ## 9. NIR — Non-Intervention Regime
 
+Canonical meaning in this context: NIR = Non-Intervention Regime.
+
+
 NIR is **global** and **always active**.
 
 NIR:

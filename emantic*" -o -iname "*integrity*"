@@ -1,0 +1,94 @@
+[1mdiff --git a/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md b/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md[m
+[1mindex cec9367..dfa1c8e 100644[m
+[1m--- a/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md[m
+[1m+++ b/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md[m
+[36m@@ -233,7 +233,7 @@[m [mstandalone ASI_MOD validity[m
+ audit intervention[m
+ memory-as-truth[m
+ projection-as-root[m
+[31m-LLM-as-decision-maker[m
+[32m+[m[32mlanguage-adapter authority assignment[m
+ simulation optimizing K(Φ)[m
+ κ used as reward threshold[m
+ 7. L3 — SIMULATED ADVERSARIAL VISIBILITY[m
+[1mdiff --git a/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md b/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md[m
+[1mindex 6ede0e2..1fc1ea2 100644[m
+[1m--- a/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md[m
+[1m+++ b/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md[m
+[36m@@ -453,7 +453,7 @@[m [mThe triad collapses if:[m
+ [m
+ - VECTAETOS becomes dependent on its own downstream layers,[m
+ - ASIMULATOR claims ontological authority,[m
+[31m-- ASI_MOD claims truth authority,[m
+[32m+[m[32m- the dialogic layer is treated as the source of epistemic ground,[m
+ - downstream modules are allowed to function as standalone systems,[m
+ - architecture is unified by branding but split semantically,[m
+ - empirical safety is replaced by rhetorical confidence,[m
+[1mdiff --git a/formal/EPISTEMIC_LAYER_GLOSSARY.md b/formal/EPISTEMIC_LAYER_GLOSSARY.md[m
+[1mindex 315431a..3893776 100644[m
+[1m--- a/formal/EPISTEMIC_LAYER_GLOSSARY.md[m
+[1m+++ b/formal/EPISTEMIC_LAYER_GLOSSARY.md[m
+[36m@@ -200,6 +200,9 @@[m [mMožnosti:[m
+ [m
+ ## NIR — Non-Intervention Regime[m
+ [m
+[32m+[m[32mCanonical meaning in this context: NIR = Non-Intervention Regime.[m
+[32m+[m
+[32m+[m
+ ### Typ[m
+ Globálny imunitný režim[m
+ [m
+[1mdiff --git a/formal/NIR.md b/formal/NIR.md[m
+[1mindex f6032df..598be9a 100644[m
+[1m--- a/formal/NIR.md[m
+[1m+++ b/formal/NIR.md[m
+[36m@@ -1,4 +1,7 @@[m
+ # NIR — Non-Intervention Regime[m
+[32m+[m
+[32m+[m[32mCanonical meaning in this context: NIR = Non-Intervention Regime.[m
+[32m+[m
+ ## Imunitný režim epistemického poľa Φ[m
+ [m
+ **Stav:** kanonický  [m
+[1mdiff --git a/formal/PIPELINE.md b/formal/PIPELINE.md[m
+[1mindex ce7ce4a..f0794cd 100644[m
+[1m--- a/formal/PIPELINE.md[m
+[1m+++ b/formal/PIPELINE.md[m
+[36m@@ -191,6 +191,9 @@[m [mThey **show**, they do not **tell**.[m
+ [m
+ ## 9. NIR — Non-Intervention Regime[m
+ [m
+[32m+[m[32mCanonical meaning in this context: NIR = Non-Intervention Regime.[m
+[32m+[m
+[32m+[m
+ NIR is **global** and **always active**.[m
+ [m
+ NIR:[m
+[1mdiff --git a/infrastructure/web/WEB_INTERACTION_LIMITS.md b/infrastructure/web/WEB_INTERACTION_LIMITS.md[m
+[1mindex 49ce8b2..f7853ae 100644[m
+[1m--- a/infrastructure/web/WEB_INTERACTION_LIMITS.md[m
+[1m+++ b/infrastructure/web/WEB_INTERACTION_LIMITS.md[m
+[36m@@ -143,6 +143,9 @@[m [mJe to dôsledok entropickej pokory.[m
+ [m
+ NIR (Non-Intervention Regime):[m
+ [m
+[32m+[m[32mCanonical meaning in this context: NIR = Non-Intervention Regime.[m
+[32m+[m
+[32m+[m
+ - je aktívny počas celej interakcie[m
+ - neblokuje vstup[m
+ - blokuje preskripciu[m
+[1mdiff --git a/infrastructure/web/WEB_SILENCE_MODES.md b/infrastructure/web/WEB_SILENCE_MODES.md[m
+[1mindex c445e46..3b44d2b 100644[m
+[1m--- a/infrastructure/web/WEB_SILENCE_MODES.md[m
+[1m+++ b/infrastructure/web/WEB_SILENCE_MODES.md[m
+[36m@@ -56,6 +56,9 @@[m [mTicho je tu **aktívnym bezpečnostným stavom**.[m
+ [m
+ ### 3.2 Ticho NIR (Non-Intervention Regime)[m
+ [m
+[32m+[m[32mCanonical meaning in this context: NIR = Non-Intervention Regime.[m
+[32m+[m
+[32m+[m
+ #### Podmienky vzniku[m
+ - implicitná alebo explicitná požiadavka na zásah do reality[m
+ - inštruktívny, manipulatívny alebo preskriptívny vstup[m
