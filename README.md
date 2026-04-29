@@ -249,9 +249,9 @@ Interaction rules are defined but not yet operationalized.
 
 The system explicitly models:
 
-- space: 𝒟 ⊂ ℝ⁵⁶
-- boundary: κ = ∂𝒟
-- invalid region: ℝ⁵⁶ \ 𝒟
+    - space: 𝒟 ⊂ ℝ⁵⁶
+    - boundary: κ = ∂𝒟
+    - invalid region: ℝ⁵⁶ \ 𝒟
 
 Crossing κ results in:
 
@@ -262,43 +262,23 @@ Crossing κ results in:
 ## 9. Meaning of the System
 
 Vectaetos does not compute answers.
-
 Vectaetos enforces:
-
 the conditions under which a state of meaning remains structurally valid.
 
 It separates:
-
 representation
 from
 interpretation
 
 It protects:
-
 coherence
 against
 collapse
 
----
-
-## 10. Current Status
-
-Stable:
-
-- representability
-- canonicalization
-- structural hashing
-- κ-signature
-- pipeline integrity
-
-In progress:
-
-- H_topo (topological hash extension)
-- 𝓛_Φ (meta-language of transformations)
-- ℱ interactions (multi-field dynamics)
-
----
-
+____
+Nemáme algoritmus, lebo ho nepotrebujeme.
+Máme priestor, v ktorom algoritmy strácajú zmysel.
+____
 Vectaetos is no longer a proposal.
 
 It is a constrained epistemic system under active expansion.
@@ -318,18 +298,17 @@ Vectaetos formalizuje:
 Nie systém odpovedí.
 Ale systém reprezentovateľnosti.
 __________________________
-
- A security architecture that protects the structural
+A security architecture that protects the structural
  representability of knowledge states rather than
  the behavioral alignment of intelligent systems.
 
- Vectaetos je ontologická architektúra inteligencie
+Vectaetos je ontologická architektúra inteligencie
  postavená na princípe entropickej pokory,
  ktorá modeluje dynamiku epistemických trajektórií
  bez teleológie, optimalizácie a rozhodovacej autority.
  ___________________________________
-
-Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, coherence, and uncertainty interact within complex questions.
+Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, 
+coherence, and uncertainty interact within complex questions.
 
 Vectaetos does not solve problems.  
 It preserves the conditions under which understanding remains possible.
@@ -337,7 +316,6 @@ It preserves the conditions under which understanding remains possible.
 Truth is not treated as a point.  
 Truth is treated as a field.
 ________________________________
-
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
 
@@ -405,8 +383,6 @@ decisions    → boundaries
 Vectaetos does not produce solutions.
 
 It reveals the structural configuration that generates a question.
-
-
 ------------------------------------------------------------
 
 WHAT VECTAETOS IS NOT
@@ -424,8 +400,6 @@ Vectaetos cannot decide.
 Vectaetos cannot intervene.
 
 It only projects epistemic structure.
-
-
 ------------------------------------------------------------
 
 ONTOLOGICAL CORE
@@ -444,8 +418,6 @@ WIS — Wisdom
 CRE — Creation  
 
 These axioms form the topological geometry of meaning within the field.
-
-
 ------------------------------------------------------------
 
 EPISTEMIC STRUCTURE
@@ -482,8 +454,6 @@ Height
 These gates evaluate whether a question can exist coherently within the epistemic space.
 
 If representability fails, the field Φ is never accessed.
-
-
 ------------------------------------------------------------
 
 COHERENCE
@@ -495,8 +465,6 @@ K(Φ) evaluates whether a configuration within Φ remains structurally coherent.
 κ — Coherence Boundary
 
 A non-numerical boundary beyond which meaning collapses into contradiction.
-
-
 ------------------------------------------------------------
 
 NON-INTERVENTION REGIME
@@ -531,8 +499,6 @@ never modifies Φ
 The vortex exposes possible configurations of meaning.
 
 It never prescribes action.
-
-
 ------------------------------------------------------------
 
 RUNIC PROJECTION
@@ -544,8 +510,6 @@ They are descriptive glyphs representing structural coherence or fragmentation.
 Runes never prescribe decisions.
 
 They indicate epistemic configuration only.
-
-
 ------------------------------------------------------------
 
 LANGUAGE LAYER
@@ -561,8 +525,6 @@ do not control the system
 do not modify Φ  
 
 They render text.
-
-
 ------------------------------------------------------------
 
 CANONICAL DIALOGUE PIPELINE
@@ -583,49 +545,10 @@ There are no feedback loops.
 No component issues commands.
 
 The system remains descriptive.
-
 ------------------------------------------------------------
-
-SYSTEM MAP
-
-
-                          HUMAN
-                            │
-                            ▼
-                         3Gate
-                            │
-                         4ES + QE
-                            │
-                     Non-Intervention
-                           Regime
-                            │
-
-           INT           LEX           VER
-        (Intention)   (Existence)    (Truth)
-              ╲          │          ╱
-               ╲         │         ╱
-    LIB ─────────────── Φ ─────────────── UNI                       (Freedom)         Epistemic Field      (Unity)
-               ╱         │         ╲
-              ╱          │          ╲
-           REL           WIS           CRE
-      (Reciprocity)   (Wisdom)     (Creation)
-
-                            │
-                            ▼
-                           K(Φ)
-                            │
-                     Simulation Vortex
-                            │
-                       Runic Projection
-                            │
-                        LLM Adapter
-                            │
-                            ▼
-                          HUMAN
 
 
 ------------------------------------------------------------
-
 INTENDED USE
 
 Vectaetos is intended for:
@@ -637,18 +560,7 @@ structural analysis of complex questions
 
 Vectaetos is not intended for automation or decision delegation.
 
-
 ------------------------------------------------------------
-
-ACCESS
-
-Website
-
-https://vectaetos.eu
-
-Repository
-
-https://github.com/rischo32/Vectaetos
 
 ------------------------------------------------------------
 
@@ -744,7 +656,7 @@ Zenodo DOIs:
 ____________________________________________
 ### External Systems
 
-ASIMULATOR is an experimental system developed in relation to Vectaetos.
+ASIMULATOR a ASI_MOD is an experimental system developed in relation to Vectaetos.
 
 IMPORTANT:
 ASIMULATOR is NOT a valid implementation of VECTAETOS.
@@ -760,12 +672,12 @@ These violate the ontological constraints of VECTAETOS.
 It is governed by a separate license (VNAL-1.0).
 _________________________________________
 
-## VECTAETOS™
+    ## VECTAETOS™
 
- Onto-Epistemic Field Framework
+    Onto-Epistemic Field Framework
 
-© 2026 Vectaetos
-Developed by Richard Fonfára
+    © 2026 Vectaetos
+    Developed by Richard Fonfára
 
- All projections are descriptive and non-prescriptive.
- Usage is governed by the applicable license layer.
+    All projections are descriptive and non-prescriptive.
+    Usage is governed by the applicable license layer.
