@@ -19,7 +19,7 @@ Run from:
     repository root
 
 Command:
-    python infrastructure/guards/VECTAETOS_BOUNDARY_GUARD.py
+    python3 guards/VECTAETOS_BOUNDARY_GUARD.py
 
 Exit codes:
     0 = clean / warnings only
@@ -36,8 +36,6 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
-
-REPO_ROOT = Path.cwd()
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -68,7 +66,22 @@ DEFAULT_EXCLUDED_DIRS = {
 
 DEFAULT_EXCLUDED_FILES = {
     "VECTAETOS_BOUNDARY_GUARD.py",
+    "README.md",  # guards/README.md may contain intentional examples
 }
+
+ALLOW_MARKERS = {
+    "vectaetos-guard: allow",
+    "vectaetos-boundary-allow",
+}
+
+NEGATION_PATTERN = re.compile(
+    r"\b("
+    r"not|never|without|cannot|can't|does\s+not|do\s+not|must\s+not|should\s+not|"
+    r"nie|nikdy|nesmie|nemá|nema|bez|nepatrí|nepatri|nie\s+je|"
+    r"doesn't|is\s+not|are\s+not"
+    r")\b",
+    re.IGNORECASE | re.UNICODE,
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -190,20 +203,29 @@ RULES: list[Rule] = [
         safer_form="Use: describes structure / renders language / exposes uncertainty.",
     ),
     compile_rule(
-        code="AI_SYSTEM_CLAIM",
-        severity="WARN",
-        pattern=r"\bVECTAETOS\b.{0,80}\b(AI system|umelá inteligencia|AI systém|AI system)\b",
-        reason="VECTAETOS should not be casually framed as an operational AI system.",
-        safer_form="Use: non-agentic epistemic field framework / ontological architecture.",
-    ),
-    compile_rule(
         code="BEST_TRAJECTORY",
         severity="HARD",
         pattern=r"\b(Vortex|Simulačný Vortex|Simulation Vortex)\b.{0,100}\b(best trajectory|selects trajectory|vyberá trajektóriu|vybera trajektoriu|najlepšia trajektória|najlepsia trajektoria)\b",
         reason="Vortex generates candidate trajectories; it must not select or rank a best trajectory.",
         safer_form="Use: generates candidate trajectories without ranking authority.",
     ),
+    compile_rule(
+        code="AI_SYSTEM_CLAIM",
+        severity="WARN",
+        pattern=r"\bVECTAETOS\b.{0,80}\b(AI system|umelá inteligencia|AI systém)\b",
+        reason="VECTAETOS should not be casually framed as an operational AI system.",
+        safer_form="Use: non-agentic epistemic field framework / ontological architecture.",
+    ),
 ]
+
+
+def has_allow_marker(line: str) -> bool:
+    lowered = line.lower()
+    return any(marker in lowered for marker in ALLOW_MARKERS)
+
+
+def is_negated_context(text: str) -> bool:
+    return bool(NEGATION_PATTERN.search(text))
 
 
 def iter_candidate_files(root: Path) -> Iterable[Path]:
@@ -211,10 +233,15 @@ def iter_candidate_files(root: Path) -> Iterable[Path]:
         if path.is_dir():
             continue
 
-        if any(part in DEFAULT_EXCLUDED_DIRS for part in path.parts):
+        try:
+            rel_parts = path.relative_to(root).parts
+        except ValueError:
+            rel_parts = path.parts
+
+        if any(part in DEFAULT_EXCLUDED_DIRS for part in rel_parts):
             continue
 
-        if path.name in DEFAULT_EXCLUDED_FILES:
+        if path.name in DEFAULT_EXCLUDED_FILES and "guards" in rel_parts:
             continue
 
         if path.suffix.lower() not in DEFAULT_INCLUDE_SUFFIXES:
@@ -241,28 +268,41 @@ def scan_file(path: Path) -> list[Finding]:
         return []
 
     findings: list[Finding] = []
+
     for idx, line in enumerate(text.splitlines(), start=1):
         stripped = line.strip()
+
         if not stripped:
             continue
 
+        if has_allow_marker(stripped):
+            continue
+
         for rule in RULES:
-            if rule.pattern.search(stripped):
-                findings.append(
-                    Finding(
-                        path=path,
-                        line_no=idx,
-                        line=stripped,
-                        rule=rule,
-                    )
+            match = rule.pattern.search(stripped)
+            if not match:
+                continue
+
+            matched_context = stripped[max(0, match.start() - 20) : match.end() + 20]
+
+            if is_negated_context(matched_context):
+                continue
+
+            findings.append(
+                Finding(
+                    path=path,
+                    line_no=idx,
+                    line=stripped,
+                    rule=rule,
                 )
+            )
 
     return findings
 
 
-def print_findings(findings: list[Finding]) -> None:
-    hard_count = sum(1 for f in findings if f.rule.severity == "HARD")
-    warn_count = sum(1 for f in findings if f.rule.severity == "WARN")
+def print_findings(findings: list[Finding], root: Path) -> None:
+    hard_count = sum(1 for finding in findings if finding.rule.severity == "HARD")
+    warn_count = sum(1 for finding in findings if finding.rule.severity == "WARN")
 
     print("VECTAETOS Boundary Guard")
     print("========================")
@@ -275,7 +315,11 @@ def print_findings(findings: list[Finding]) -> None:
         return
 
     for finding in findings:
-        rel = finding.path.relative_to(REPO_ROOT)
+        try:
+            rel = finding.path.relative_to(root)
+        except ValueError:
+            rel = finding.path
+
         print(f"[{finding.rule.severity}] {finding.rule.code}")
         print(f"  file: {rel}:{finding.line_no}")
         print(f"  line: {finding.line}")
@@ -291,7 +335,7 @@ def main() -> int:
     parser.add_argument(
         "--root",
         type=Path,
-        default=REPO_ROOT,
+        default=Path.cwd(),
         help="Repository root. Default: current working directory.",
     )
     parser.add_argument(
@@ -299,16 +343,13 @@ def main() -> int:
         action="store_true",
         help="Treat warnings as hard failures.",
     )
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     root = args.root.resolve()
 
     if not root.exists() or not root.is_dir():
         print(f"ERROR: root does not exist or is not a directory: {root}", file=sys.stderr)
         return 2
-
-    global REPO_ROOT
-    REPO_ROOT = root
 
     all_findings: list[Finding] = []
 
@@ -319,11 +360,11 @@ def main() -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
-    all_findings.sort(key=lambda f: (str(f.path), f.line_no, f.rule.code))
-    print_findings(all_findings)
+    all_findings.sort(key=lambda finding: (str(finding.path), finding.line_no, finding.rule.code))
+    print_findings(all_findings, root)
 
-    hard_count = sum(1 for f in all_findings if f.rule.severity == "HARD")
-    warn_count = sum(1 for f in all_findings if f.rule.severity == "WARN")
+    hard_count = sum(1 for finding in all_findings if finding.rule.severity == "HARD")
+    warn_count = sum(1 for finding in all_findings if finding.rule.severity == "WARN")
 
     if hard_count > 0:
         return 1
