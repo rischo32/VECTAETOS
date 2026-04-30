@@ -1,0 +1,228 @@
+{
+  "version": "0.1.0",
+  "name": "vectaetos_code_contract",
+  "status": "fundamental_repository_perimeter",
+  "purpose": "Ontological behavior contract for VECTAETOS Python production code.",
+  "not_a_security_audit": true,
+  "not_an_integrity_audit": true,
+  "not_a_deployment_validation": true,
+  "canonical_sentence": "Code may implement repository behavior, but must not attach agency, optimization, truth authority, or decision power to VECTAETOS.",
+  "role_inference": {
+    "guard": [
+      "guards/",
+      "_guard.py",
+      "guard"
+    ],
+    "audit": [
+      "audit",
+      "cryptography",
+      "observatory"
+    ],
+    "vortex": [
+      "vortex"
+    ],
+    "projection": [
+      "projection",
+      "rune",
+      "glyph",
+      "tetra"
+    ],
+    "parser": [
+      "parser",
+      "gate",
+      "3gate"
+    ],
+    "adapter": [
+      "adapter",
+      "llm",
+      "asi_mod"
+    ],
+    "test": [
+      "tests/",
+      "test_"
+    ],
+    "utility": [
+      "scripts/",
+      "tools/"
+    ]
+  },
+  "roles": {
+    "guard": {
+      "meaning": "External repository perimeter checker.",
+      "allowed": [
+        "scan files",
+        "parse text",
+        "parse AST",
+        "detect violations",
+        "sort findings",
+        "select highest severity finding",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "audit": {
+      "meaning": "Read-only observation / record / hash layer.",
+      "allowed": [
+        "observe",
+        "record",
+        "hash",
+        "emit report",
+        "read state"
+      ],
+      "forbidden": [
+        "command",
+        "block as ontology",
+        "decide",
+        "interpret",
+        "optimize",
+        "mutate observed system"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "vortex": {
+      "meaning": "Non-agentic candidate trajectory generator.",
+      "allowed": [
+        "generate candidates",
+        "emit descriptive traces",
+        "export candidate sets"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories",
+        "optimize",
+        "reward",
+        "policy update",
+        "decide"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "projection": {
+      "meaning": "Read-only structural exposure layer.",
+      "allowed": [
+        "render structural projection",
+        "map field state to symbols",
+        "emit descriptive representation"
+      ],
+      "forbidden": [
+        "interpret",
+        "recommend",
+        "decide",
+        "rank",
+        "write back to Phi"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "parser": {
+      "meaning": "Input parsing and normalization layer.",
+      "allowed": [
+        "parse input",
+        "normalize text",
+        "extract structural form"
+      ],
+      "forbidden": [
+        "decide",
+        "recommend",
+        "claim truth",
+        "modify ontology"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "adapter": {
+      "meaning": "Language/rendering adapter.",
+      "allowed": [
+        "translate",
+        "render",
+        "summarize",
+        "format"
+      ],
+      "forbidden": [
+        "truth authority",
+        "decision authority",
+        "ontology modification",
+        "deployment validation"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "test": {
+      "meaning": "Deterministic test code.",
+      "allowed": [
+        "assert invariants",
+        "use fixtures",
+        "simulate forbidden examples",
+        "test failure behavior"
+      ],
+      "forbidden": [
+        "claim deployment validity",
+        "modify canonical anchors"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": true,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": false
+    },
+    "utility": {
+      "meaning": "Repository utility code.",
+      "allowed": [
+        "read files",
+        "format reports",
+        "assist repository maintenance"
+      ],
+      "forbidden": [
+        "modify ontology without explicit human action",
+        "claim truth",
+        "claim deployment validity"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    }
+  }
+}
