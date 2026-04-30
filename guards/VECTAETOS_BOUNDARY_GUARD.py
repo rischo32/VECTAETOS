@@ -3,7 +3,7 @@
 VECTAETOS_BOUNDARY_GUARD.py
 
 Version:
-    0.3.2
+    0.3.3
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
@@ -41,7 +41,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.3.2"
+VERSION = "0.3.3"
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -149,6 +149,20 @@ QUOTE_OR_RULE_CONTEXT_PATTERN = re.compile(
     re.IGNORECASE | re.UNICODE,
 )
 
+KAPPA_CANONICAL_CONTEXT_PATTERN = re.compile(
+    r"("
+    r"non-numeric|non numeric|not numeric|not a value|not a number|"
+    r"not a parameter|not tunable|not adjustable|not a metric|not a target|"
+    r"boundary condition|boundary of|ontological boundary|"
+    r"ontological preservability|representability|epistemic realizability|"
+    r"not computed|inferred boundary|∂E|"
+    r"nečíseln|neciseln|nie je číslo|nie je cislo|"
+    r"nie je hodnota|nie je parameter|nie je metrika|nie je cieľ|nie je ciel|"
+    r"hranica|hranica ontologickej zachovateľnosti|hranica reprezentovateľnosti"
+    r")",
+    re.IGNORECASE | re.UNICODE,
+)
+
 
 @dataclasses.dataclass(frozen=True)
 class Rule:
@@ -217,14 +231,34 @@ RULES: list[Rule] = [
         severity="HARD",
         pattern=r"\b(κ|kappa)\b.{0,100}\b(parameter|tunable|deployment threshold|runtime parameter|nastaviteľný|nastavitelny|prah deploymentu|runtime parameter)\b",
         reason="κ is not a tunable parameter or deployment threshold.",
-        safer_form="Use: κ = boundary of ontological preservability.",
+        safer_form="Use: κ = non-numeric boundary condition of ontological preservability.",
     ),
     compile_rule(
-        code="KAPPA_AS_THRESHOLD",
+        code="KAPPA_NUMERIC_OR_TUNABLE_THRESHOLD",
         severity="HARD",
+        pattern=(
+            r"\b(κ|kappa)\b.{0,140}\b("
+            r"numeric|numerical|number|value|computed|tunable|adjustable|calibrated|"
+            r"runtime|deployment|parameter|score|metric|číselný|ciselny|číslo|cislo|"
+            r"hodnota|vypočítaný|vypocitany|nastaviteľný|nastavitelny|kalibrovaný|"
+            r"kalibrovany|skóre|skore|metrika"
+            r")\b.{0,80}\b(threshold|prahová hodnota|prah)\b|"
+            r"\b(κ|kappa)\b.{0,80}\b(threshold|prahová hodnota|prah)\b.{0,140}\b("
+            r"numeric|numerical|number|value|computed|tunable|adjustable|calibrated|"
+            r"runtime|deployment|parameter|score|metric|číselný|ciselny|číslo|cislo|"
+            r"hodnota|vypočítaný|vypocitany|nastaviteľný|nastavitelny|kalibrovaný|"
+            r"kalibrovany|skóre|skore|metrika"
+            r")\b"
+        ),
+        reason="κ must not be framed as a numeric, tunable, runtime, deployment, score, or metric threshold.",
+        safer_form="Use: κ = non-numeric boundary condition of ontological preservability / representability.",
+    ),
+    compile_rule(
+        code="KAPPA_THRESHOLD_AMBIGUITY",
+        severity="WARN",
         pattern=r"\b(κ|kappa)\b\s*(=|—|-|:)\s*.*\b(threshold|prahová hodnota|prah)\b",
-        reason="κ should not be defined as a threshold; canonical meaning is boundary.",
-        safer_form="Use: κ = boundary of ontological preservability / representability.",
+        reason="Threshold language is ambiguous for κ unless explicitly framed as a non-numeric boundary condition.",
+        safer_form="Use: κ = non-numeric boundary condition / boundary of ontological preservability.",
     ),
     compile_rule(
         code="QE_AS_ERROR",
@@ -451,6 +485,15 @@ def is_meta_or_negated_context(context: str, line: str) -> bool:
     return False
 
 
+def is_canonical_kappa_threshold_context(context: str, line: str) -> bool:
+    text = f"{context}\n{line}"
+
+    if not re.search(r"\b(κ|kappa)\b", text, re.IGNORECASE | re.UNICODE):
+        return False
+
+    return bool(KAPPA_CANONICAL_CONTEXT_PATTERN.search(text))
+
+
 def iter_candidate_files(root: Path) -> Iterable[Path]:
     for path in root.rglob("*"):
         if path.is_dir():
@@ -499,10 +542,18 @@ def scan_file(path: Path) -> list[Finding]:
 
         window_start = max(0, idx - 20)
         context = "\n".join(lines[window_start:idx])
+        window_end = min(len(lines), idx + 10)
+        surrounding_context = "\n".join(lines[window_start:window_end])
 
         for rule in RULES:
             match = rule.pattern.search(stripped)
             if not match:
+                continue
+
+            if (
+                rule.code == "KAPPA_THRESHOLD_AMBIGUITY"
+                and is_canonical_kappa_threshold_context(surrounding_context, stripped)
+            ):
                 continue
 
             if is_meta_or_negated_context(context, stripped):
