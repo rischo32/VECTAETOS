@@ -3,7 +3,7 @@
 VECTAETOS_BOUNDARY_GUARD.py
 
 Version:
-    0.3.1
+    0.3.2
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
@@ -41,7 +41,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.3.1"
+VERSION = "0.3.2"
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -92,7 +92,7 @@ FILE_ALLOW_MARKERS = {
 }
 
 META_CONTEXT_PATTERN = re.compile(
-    r"\b("
+    r"("
     r"forbidden|prohibited|ban|banned|disallowed|failure condition|fails if|"
     r"must not|should not|do not|does not|is not|are not|cannot|can't|never|"
     r"no layer may|no mathematical appendix may|not automatically|without|"
@@ -108,13 +108,12 @@ META_CONTEXT_PATTERN = re.compile(
     r"invalid patterns|forbidden patterns|forbidden .* patterns|"
     r"detects drift|detect forbidden|detects forbidden|"
     r"not part of|external to|non-authoritative|non-interventional|"
-    r"nie je súčasťou|nie je sucastou|nesmie sa stať|nesmie sa stat"
-    r"forbidden vortex language"
-    r"forbidden vortex code patterns"
-    r"the vortex may not"
-    r"the attenuator may not"
-    r"no epistemic failure state may trigger"
-    r")\b",
+    r"nie je súčasťou|nie je sucastou|nesmie sa stať|nesmie sa stat|"
+    r"forbidden vortex language|forbidden vortex code patterns|"
+    r"the vortex may not|the attenuator may not|"
+    r"no epistemic failure state may trigger|"
+    r"may not:|must not:|forbidden:"
+    r")",
     re.IGNORECASE | re.UNICODE,
 )
 
@@ -142,6 +141,8 @@ QUOTE_OR_RULE_CONTEXT_PATTERN = re.compile(
     r"rule|guard|violation|finding|"
     r"canonical rule|compatibility|boundary|drift|"
     r"framed as|treated as|treat as|invalid patterns|forbidden patterns|"
+    r"forbidden vortex language|forbidden vortex code patterns|"
+    r"may not:|must not:|forbidden:|"
     r"must not|may not|does not|is not|"
     r"forbidden state|forbidden condition"
     r")",
@@ -496,7 +497,7 @@ def scan_file(path: Path) -> list[Finding]:
         if has_allow_marker(stripped):
             continue
 
-        window_start = max(0, idx - 10)
+        window_start = max(0, idx - 20)
         context = "\n".join(lines[window_start:idx])
 
         for rule in RULES:
