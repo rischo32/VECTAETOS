@@ -1,6 +1,8 @@
-# /contracts
+# VECTAETOS Contracts
 
-This directory contains repository-facing contracts exported by VECTAETOS.
+## Status
+
+Repository-level behavioral contracts for VECTAETOS production code.
 
 ## Purpose
 
@@ -10,15 +12,19 @@ They do **not** replace ontology.
 They do **not** redefine anchors.
 They do **not** create authority.
 
-## Files
+This directory defines machine-readable contracts used by guard scripts.
 
-- `LAYER_BOUNDARIES.md`  
-  Human-readable definition of repository layer boundaries.
+Contracts do not define ontology.  
+Contracts do not validate truth.  
+Contracts do not validate deployment.  
+Contracts only describe allowed and forbidden behavior for repository code roles.
 
-- `vectaetos_contract.json`  
-  Machine-readable export of repository boundaries, allowed flows, forbidden reverse flows,
-  and shared invariants.
+---
 
+## Current Contract
+
+```text
+contracts/vectaetos_code_contract.json
 ## Rules
 
 1. Contracts are downstream-facing.
