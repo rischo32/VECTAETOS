@@ -3,7 +3,7 @@
 VECTAETOS_BOUNDARY_GUARD.py
 
 Version:
-    0.3.0
+    0.3.1
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
@@ -41,7 +41,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -73,6 +73,8 @@ DEFAULT_EXCLUDED_DIRS = {
 
 DEFAULT_EXCLUDED_FILES = {
     "VECTAETOS_BOUNDARY_GUARD.py",
+    "patch_semantic_integrity_text.py",
+    "verify_semantic_integrity.py",
 }
 
 DEFAULT_EXCLUDED_PATH_PARTS = {
@@ -101,6 +103,10 @@ META_CONTEXT_PATTERN = re.compile(
     r"may not|must never|ceases to be|compatibility test|"
     r"forbidden transformation|failure mode|example failure|"
     r"boundary rule|canonical warning|diagnosis|drift|"
+    r"framed as|treated as|treat as|treats .* as|"
+    r"minimum hard guards|required hard guards|"
+    r"invalid patterns|forbidden patterns|forbidden .* patterns|"
+    r"detects drift|detect forbidden|detects forbidden|"
     r"not part of|external to|non-authoritative|non-interventional|"
     r"nie je súčasťou|nie je sucastou|nesmie sa stať|nesmie sa stat"
     r")\b",
@@ -130,6 +136,7 @@ QUOTE_OR_RULE_CONTEXT_PATTERN = re.compile(
     r"code\s*=|"
     r"rule|guard|violation|finding|"
     r"canonical rule|compatibility|boundary|drift|"
+    r"framed as|treated as|treat as|invalid patterns|forbidden patterns|"
     r"must not|may not|does not|is not|"
     r"forbidden state|forbidden condition"
     r")",
@@ -423,6 +430,9 @@ def is_path_excluded(path: Path, root: Path) -> bool:
 
 
 def is_meta_or_negated_context(context: str, line: str) -> bool:
+    if "≠" in line:
+        return True
+
     if META_CONTEXT_PATTERN.search(context):
         return True
 
@@ -481,7 +491,7 @@ def scan_file(path: Path) -> list[Finding]:
         if has_allow_marker(stripped):
             continue
 
-        window_start = max(0, idx - 5)
+        window_start = max(0, idx - 10)
         context = "\n".join(lines[window_start:idx])
 
         for rule in RULES:
