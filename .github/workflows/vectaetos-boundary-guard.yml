@@ -1,0 +1,49 @@
+name: vectaetos-boundary-guard
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.json"
+      - "**/*.toml"
+      - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "**/*.ts"
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.json"
+      - "**/*.toml"
+      - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "**/*.ts"
+
+permissions:
+  contents: read
+
+jobs:
+  boundary-guard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run VECTAETOS boundary guard
+        run: |
+          python infrastructure/guards/VECTAETOS_BOUNDARY_GUARD.py
