@@ -30,20 +30,45 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   boundary-guard:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Manual checkout without external actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
 
-      - name: Setup Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "Checking out pull request ${PR_NUMBER}"
+
+            if git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/merge:refs/remotes/origin/pr-merge"; then
+              git checkout --force refs/remotes/origin/pr-merge
+            else
+              echo "Merge ref unavailable; falling back to PR head ref"
+              git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr-head"
+              git checkout --force refs/remotes/origin/pr-head
+            fi
+          else
+            echo "Checking out commit ${GITHUB_SHA}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+            git checkout --force FETCH_HEAD
+          fi
+
+      - name: Show Python version
+        run: |
+          set -euo pipefail
+          python3 --version
 
       - name: Run VECTAETOS boundary guard
         run: |
-          python infrastructure/guards/VECTAETOS_BOUNDARY_GUARD.py
+          set -euo pipefail
+          python3 guards/VECTAETOS_BOUNDARY_GUARD.py
