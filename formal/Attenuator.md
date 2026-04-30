@@ -123,7 +123,7 @@ NIR nikdy nevyžaduje vypnutie Attenuatora.
 
 ## 9. Vzťah k AJE
 
-AJE určuje **či** projekcia môže vzniknúť.  
+AJE rozhoduje **či** projekcia môže vzniknúť.  
 Attenuator určuje **ako silná** projekcia bude.
 
 AJE = binárna hranica  
