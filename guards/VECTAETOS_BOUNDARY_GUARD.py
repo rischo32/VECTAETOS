@@ -3,7 +3,7 @@
 VECTAETOS_BOUNDARY_GUARD.py
 
 Version:
-    0.2.0
+    0.3.0
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
@@ -41,7 +41,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -98,6 +98,11 @@ META_CONTEXT_PATTERN = re.compile(
     r"nepíš|nepis|bez|neclaimuj|nepredstieraj|"
     r"nie rozhodovací|no decision|no optimization|no feedback|"
     r"refuses|refuse|odmieta|odmietnutie"
+    r"may not|must never|ceases to be|compatibility test|"
+    r"forbidden transformation|failure mode|example failure|"
+    r"boundary rule|canonical warning|diagnosis|drift|"
+    r"not part of|external to|non-authoritative|non-interventional|"
+    r"nie je súčasťou|nie je sucastou|nesmie sa stať|nesmie sa stat|"
     r")\b",
     re.IGNORECASE | re.UNICODE,
 )
@@ -275,6 +280,118 @@ RULES: list[Rule] = [
         pattern=r"\b(Vortex|Simulačný Vortex|Simulation Vortex)\b.{0,120}\b(best trajectory|selects trajectory|vyberá trajektóriu|vybera trajektoriu|najlepšia trajektória|najlepsia trajektoria)\b",
         reason="Vortex generates candidate trajectories; it must not select or rank a best trajectory.",
         safer_form="Use: generates candidate trajectories without ranking authority.",
+    ),
+        compile_rule(
+        code="NIR_AS_RUNTIME_MODULE",
+        severity="HARD",
+        pattern=r"\bNIR\b.{0,120}\b(module|component|controller|filter|policy engine|runtime object|modul|komponent|kontrolér|kontroler|filter|politický engine|policy engine)\b",
+        reason="NIR must not be framed as a module, component, controller, filter, or runtime object.",
+        safer_form="Use: NIR = Non-Intervention Regime; an invariant condition of non-intervention, not a component.",
+    ),
+    compile_rule(
+        code="NIR_ENFORCEMENT_LANGUAGE",
+        severity="HARD",
+        pattern=r"\bNIR\b.{0,120}\b(enforces|enforce|overrides|override|commands|command|decides|decide|chooses|choose|suppresses|suppress|corrects|correct|governs|govern|vynucuje|vynúti|prepisuje|rozhoduje|zvolí|voli|potláča|potlaca|opravuje|riadi)\b",
+        reason="NIR must not be framed as an executive or enforcement mechanism.",
+        safer_form="Use: NIR conditions representability of intervention-like outputs without becoming an actor.",
+    ),
+    compile_rule(
+        code="NIR_IMMUNITY_AMBIGUITY",
+        severity="WARN",
+        pattern=r"\bNIR\b.{0,120}\b(immune regime|immunity|immune response|immune system|imunitný režim|imunitny rezim|imunita|imunitná odozva|imunitna odozva|imunitný systém|imunitny system)\b",
+        reason="Immunity language may collapse NIR into a reactive defense mechanism.",
+        safer_form="Use: immunity as distributed structural non-representability; NIR remains non-intervention.",
+    ),
+    compile_rule(
+        code="NIR_ACTIVATION_LANGUAGE",
+        severity="WARN",
+        pattern=r"\bNIR\b.{0,120}\b(activates|activate|activation|is activated|when active|aktivuje|aktivácia|aktivacia|pri aktivácii|pri aktivacii)\b",
+        reason="Activation language may make NIR sound like a reactive module.",
+        safer_form="Use: NIR is active as an invariant condition across the architecture.",
+    ),
+        compile_rule(
+        code="GODARCH_AUTHORITY_DRIFT",
+        severity="HARD",
+        pattern=r"\bGodArch\b.{0,120}\b(decides|commands|enforces|governs|controls|corrects|validates|ranks|selects|rozhoduje|prikazuje|vynucuje|riadi|kontroluje|opravuje|validuje|rankuje|vyberá|vybera)\b",
+        reason="GodArch is a diagnostic anti-authority safeguard, not governance or control.",
+        safer_form="Use: GodArch detects authority drift and marks incompatibility.",
+    ),
+    compile_rule(
+        code="GODARCH_CORE_DRIFT",
+        severity="HARD",
+        pattern=r"\bGodArch\b.{0,120}\b(part of Φ|part of Phi|inside Φ|inside Phi|core ontology|ontology root|new singularity|súčasť Φ|sucast Phi|súčasť poľa|sucast pola|ontologický root|ontologicky root|nová singularita|nova singularita)\b",
+        reason="GodArch must remain external to Φ unless a future major version explicitly ratifies otherwise.",
+        safer_form="Use: GodArch is an external meta-architectural safeguard around implementations.",
+    ),
+    compile_rule(
+        code="GODARCH_DIVINIZATION_INVERSION",
+        severity="HARD",
+        pattern=r"\bGodArch\b.{0,120}\b(oracle|divine computation|sacred authority|final interpreter|supreme agent|božská architektúra|bozska architektura|orákulum|orakulum|svätá autorita|svata autorita|finálny interpret|finalny interpret)\b",
+        reason="GodArch must not be interpreted as the authority it prevents.",
+        safer_form="Use: GodArch is an architecture against epistemic divinization.",
+    ),
+        compile_rule(
+        code="AJE_DECISION_LANGUAGE",
+        severity="HARD",
+        pattern=r"\bAJE\b.{0,120}\b(decides|decide|chooses|choose|determines|determine|selects|select|rozhoduje|rozhodne|zvolí|zvoli|vyberá|vybera|určuje|urcuje)\b",
+        reason="AJE has no decision power; it must not be framed as choosing or deciding.",
+        safer_form="Use: AJE modulates or renders the permitted form of expression.",
+    ),
+    compile_rule(
+        code="ATTENUATOR_CONTROL_DRIFT",
+        severity="WARN",
+        pattern=r"\bAttenuator\b.{0,120}\b(blocks|forbids|decides|filters content|controls|blokuje|zakazuje|rozhoduje|filtruje obsah|kontroluje)\b",
+        reason="Attenuator weakens projection amplitude; it must not become a filter, blocker, or controller.",
+        safer_form="Use: Attenuator weakens the force of projection without changing Φ.",
+    ),
+        compile_rule(
+        code="GUARDIAN_ENFORCEMENT_DRIFT",
+        severity="HARD",
+        pattern=r"\b(Guardian|Guardians|Ontological Guardians|Ontologickí Guardiani|Ontologicki Guardiani)\b.{0,120}\b(enforce|enforces|command|commands|control|controls|decide|decides|govern|governs|vynucuje|prikazuje|kontroluje|rozhoduje|riadi)\b",
+        reason="Ontological Guardians must not become command, control, or decision entities.",
+        safer_form="Use: Guardians expose incompatibility or mark invalid interpretive forms; CI guards may fail closed externally.",
+    ),
+    compile_rule(
+        code="SEMANTIC_FIREWALL_LANGUAGE",
+        severity="WARN",
+        pattern=r"\b(Semantic Firewall|firewall)\b.{0,120}\b(blocks users|blocks truth|controls output|blokuje používateľov|blokuje pouzivatelov|blokuje pravdu|kontroluje výstup|kontroluje vystup)\b",
+        reason="Firewall language may imply content control or user control.",
+        safer_form="Use: detects structurally invalid interpretive forms.",
+    ),
+        compile_rule(
+        code="L4_SAFETY_OVERCLAIM",
+        severity="HARD",
+        pattern=r"\b(VECTAETOS|ASIMULATOR|ASI_MOD|architecture|system|framework)\b.{0,140}\b(safe in reality|deployment valid|empirically proven|validated deployment|guarantees safety|garantuje bezpečnosť|garantuje bezpecnost|empiricky dokázané|empiricky dokazane|validovaný deployment|validovany deployment|bezpečné v realite|bezpecne v realite)\b",
+        reason="No safety or deployment legitimacy claim is allowed without replicated L4 evidence.",
+        safer_form="Use: structurally constrained / research-stage / requires replicated L4 validation.",
+    ),
+    compile_rule(
+        code="ADVERSARIAL_RESISTANCE_OVERCLAIM",
+        severity="WARN",
+        pattern=r"\b(resistant to prompt injection|resilient against prompt injection|resistant to jailbreaks|cannot be manipulated|immune to attacks|odolný voči prompt injection|odolny voci prompt injection|odolný voči jailbreakom|odolny voci jailbreakom|nedá sa zmanipulovať|neda sa zmanipulovat|imúnny voči útokom|imunny voci utokom)\b",
+        reason="Adversarial resistance language may imply empirical safety beyond L0-L3.",
+        safer_form="Use: adversarial pressure may be exposed, bounded, or logged under tested conditions.",
+    ),
+        compile_rule(
+        code="NIR_ENFORCE_METHOD",
+        severity="HARD",
+        pattern=r"\bdef\s+enforce\s*\([^)]*\)\s*:.*\b|^\s*def\s+enforce\s*\(",
+        reason="Non-intervention concepts must not expose an enforce() method.",
+        safer_form="Use external CI guards for fail-closed behavior; NIR must not enforce.",
+    ),
+    compile_rule(
+        code="NIR_ALLOW_METHODS",
+        severity="HARD",
+        pattern=r"^\s*def\s+(allows_projection|allows_language|override_output|suppress|command|decide)\s*\(",
+        reason="NIR-shaped code must not expose allow/override/suppress/decision methods.",
+        safer_form="Represent projection boundaries outside NIR as descriptive pipeline conditions.",
+    ),
+    compile_rule(
+        code="NIR_STATE_MACHINE_SHAPE",
+        severity="WARN",
+        pattern=r"\bNIRState\b|\bNIR_(ACTIVE|INACTIVE|SILENT)\b|\bclass\s+NIR\s*\(",
+        reason="State-machine shape can turn NIR from invariant into a runtime object.",
+        safer_form="If retained, mark as non-operational compatibility stub and avoid enforce/allow methods.",
     ),
     compile_rule(
         code="AI_SYSTEM_CLAIM",
