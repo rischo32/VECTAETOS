@@ -1,17 +1,17 @@
-### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev, nie samotné fundamentálne jadro
+### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
+#### Nie samotné fundamentálne jadro Φ
 
-## Technológie nie sú hračky...
-a práve presne preto :
+#### Technológie nie sú hračky... a práve presne preto :
 
      žiadna jednostranná legitimácia
      žiadna predčasná operatívna expanzia
      žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
      rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
-
+___
+##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
 + Empiricky dôkaz všetkych vrstiev L0-L4
-+ Adversarialne a penetračné testy Φ (+77 ruff, male semantické drifty, doriešiť dilemu 3Gate, nesedia poidpisové klúče...)
-
-##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded.
++ Adversarialne a penetračné testy Φ
+___
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
@@ -41,9 +41,11 @@ a práve presne preto :
 [![Release + EK Notarization](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 
-FUNDAMENTAL GUARDIANS :
+    “Work is currently underway on the fundamental security layers of the perimeter.”
+
 [![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
 [![Φ Integrity Check](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml)
+[![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
 
 # VECTAETOS™ 
 #### Onto-Epistemic Field © framework of structure
