@@ -109,6 +109,11 @@ META_CONTEXT_PATTERN = re.compile(
     r"detects drift|detect forbidden|detects forbidden|"
     r"not part of|external to|non-authoritative|non-interventional|"
     r"nie je súčasťou|nie je sucastou|nesmie sa stať|nesmie sa stat"
+    r"forbidden vortex language"
+    r"forbidden vortex code patterns"
+    r"the vortex may not"
+    r"the attenuator may not"
+    r"no epistemic failure state may trigger"
     r")\b",
     re.IGNORECASE | re.UNICODE,
 )
