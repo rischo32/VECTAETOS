@@ -1,60 +1,46 @@
-name: Canonical Ontology Guard
+name: Kanonická ontologická stráž
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
 
 jobs:
-  canonical-check:
+  canonical-ontology-guard:
+    name: Guard 01 / Canonical Ontology Boundary
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Resolve diff range
+        id: diff
+        shell: bash
         run: |
           set -euo pipefail
 
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            git fetch --no-tags --depth=1 origin "$GITHUB_BASE_REF:refs/remotes/origin/$GITHUB_BASE_REF"
-            git fetch --no-tags --depth=1 origin "$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF"
-            git checkout --force "refs/remotes/origin/$GITHUB_HEAD_REF"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "${GITHUB_OUTPUT}"
+            echo "head=${GITHUB_SHA}" >> "${GITHUB_OUTPUT}"
           else
-            git fetch --no-tags --depth=2 origin "$GITHUB_SHA"
-            git checkout --force FETCH_HEAD
+            echo "base=${{ github.event.before }}" >> "${GITHUB_OUTPUT}"
+            echo "head=${{ github.event.after }}" >> "${GITHUB_OUTPUT}"
           fi
 
-      - name: Detect canonical ontology modifications
+      - name: Run canonical ontology guard
+        shell: bash
         run: |
           set -euo pipefail
 
-          echo "Checking canonical ontology files..."
-
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            BASE_REF="refs/remotes/origin/$GITHUB_BASE_REF"
-            HEAD_REF="HEAD"
-            CHANGED=$(git diff --name-only "$BASE_REF" "$HEAD_REF" | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
-          else
-            if git rev-parse HEAD^ >/dev/null 2>&1; then
-              CHANGED=$(git diff --name-only HEAD^ HEAD | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
-            else
-              CHANGED=$(git ls-files | grep -E "FORMAL_|CANONICAL_ANCHORS\.md|MECHANIZATION_OF_|ZMYSEL\.md|epistemic_space\.md" || true)
-            fi
-          fi
-
-          if [ -n "$CHANGED" ]; then
-            echo ""
-            echo "🚨 Canonical ontology files modified:"
-            echo "$CHANGED"
-            echo ""
-            echo "ERROR: Ontological layer modification detected."
-            echo "Canonical files must not change without explicit ontology protocol."
-            exit 1
-          fi
-
-          echo "Canonical ontology integrity preserved."
+          python3 guards/canonical_ontology_guard.py \
+            --base "${{ steps.diff.outputs.base }}" \
+            --head "${{ steps.diff.outputs.head }}" \
+            --mode strict
