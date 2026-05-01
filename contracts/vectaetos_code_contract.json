@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.3",
   "name": "vectaetos_code_contract",
   "status": "fundamental_repository_perimeter",
   "purpose": "Ontological behavior contract for VECTAETOS Python production code.",
@@ -19,6 +19,33 @@
       "vectaetos_code_behavior_audit.py",
       "code_behavior_audit"
     ],
+    "determinism_verifier": [
+      "scripts/verify_determinism.py"
+    ],
+    "semantic_integrity_verifier": [
+      "scripts/verify_semantic_integrity.py"
+    ],
+    "vortex_runner": [
+      "vortex/vortex_runner.py"
+    ],
+    "projection_canonicalizer": [
+      "tetraglyph/glyph_canonicalizer.py",
+      "tetraglyph/glyph_validator.py"
+    ],
+    "language_adapter": [
+      "vortex/llm_adapter.py",
+      "llm_adapter.py"
+    ],
+    "deterministic_entropy": [
+      "vortex/deterministic_entropy.py",
+      "deterministic_entropy.py"
+    ],
+    "legacy_vortex": [
+      "vortex_core_phi",
+      "vortex/vortex_v1_2_3.py",
+      "vortex/vortex_v2.0.py",
+      "vortex/vortex_v2_0.py"
+    ],
     "guard": [
       "guards/",
       "_guard.py",
@@ -28,9 +55,6 @@
       "audit",
       "cryptography",
       "observatory"
-    ],
-    "vortex": [
-      "vortex"
     ],
     "projection": [
       "projection",
@@ -55,6 +79,9 @@
     "utility": [
       "scripts/",
       "tools/"
+    ],
+    "vortex": [
+      "vortex"
     ]
   },
   "roles": {
@@ -157,6 +184,191 @@
       "allow_selection_functions": true,
       "protect_ontology_assignments": true
     },
+    "determinism_verifier": {
+      "meaning": "Deterministic verification utility that may write explicit report artifacts.",
+      "allowed": [
+        "read files",
+        "run deterministic checks",
+        "write verification reports",
+        "emit stdout report",
+        "fail CI by exit code"
+      ],
+      "forbidden": [
+        "modify ontology",
+        "edit anchors automatically",
+        "claim deployment validity",
+        "claim empirical safety",
+        "change Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "semantic_integrity_verifier": {
+      "meaning": "Read-only semantic integrity verifier.",
+      "allowed": [
+        "read files",
+        "normalize text",
+        "compare canonical phrases",
+        "emit stdout report",
+        "fail CI by exit code"
+      ],
+      "forbidden": [
+        "modify ontology",
+        "edit anchors automatically",
+        "claim deployment validity",
+        "claim empirical safety",
+        "change Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "vortex_runner": {
+      "meaning": "External runner/exporter for Vortex experiments, not the Vortex ontology.",
+      "allowed": [
+        "run bounded simulation",
+        "write explicit output artifacts",
+        "emit descriptive traces",
+        "print summary"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories as truth",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "projection_canonicalizer": {
+      "meaning": "Projection canonicalization / validation utility.",
+      "allowed": [
+        "sort structural keys",
+        "canonicalize glyph representation",
+        "validate structural form",
+        "emit descriptive report"
+      ],
+      "forbidden": [
+        "interpret projection",
+        "recommend",
+        "decide",
+        "rank truth",
+        "write back to Phi",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "language_adapter": {
+      "meaning": "Language/rendering adapter, including Vortex-adjacent rendering helpers.",
+      "allowed": [
+        "translate",
+        "render",
+        "summarize",
+        "format",
+        "normalize strings",
+        "replace substrings",
+        "present descriptive output"
+      ],
+      "forbidden": [
+        "truth authority",
+        "decision authority",
+        "ontology modification",
+        "deployment validation",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim empirical safety",
+        "select best trajectory",
+        "rank trajectories"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "deterministic_entropy": {
+      "meaning": "Deterministic entropy helper for bounded numerical transformation, not an authority layer.",
+      "allowed": [
+        "compute bounded values",
+        "use min and max for numeric clamping",
+        "normalize deterministic numeric ranges",
+        "emit deterministic values"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories as truth",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "claim deployment validity",
+        "claim empirical safety",
+        "use randomness"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "legacy_vortex": {
+      "meaning": "Historical or prototype Vortex implementation retained for research comparison.",
+      "allowed": [
+        "remain as historical source material",
+        "emit warnings under audit",
+        "support refactoring into canonical Vortex",
+        "write legacy output artifacts",
+        "use deterministic or seeded randomness for historical reproduction",
+        "use min and max for bounded numeric transforms"
+      ],
+      "forbidden": [
+        "claim canonical root status",
+        "claim deployment validity",
+        "claim empirical safety",
+        "select best trajectory as authority",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": true,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
     "guard": {
       "meaning": "External repository perimeter checker.",
       "allowed": [
@@ -206,35 +418,6 @@
         "interpret",
         "optimize",
         "mutate observed system",
-        "claim deployment validity",
-        "claim empirical safety"
-      ],
-      "allow_network": false,
-      "allow_subprocess": false,
-      "allow_file_write": false,
-      "allow_randomness": false,
-      "allow_selection_functions": false,
-      "protect_ontology_assignments": true
-    },
-    "vortex": {
-      "meaning": "Non-agentic candidate trajectory generator.",
-      "allowed": [
-        "generate candidates",
-        "emit descriptive traces",
-        "export candidate sets",
-        "expose trajectory maps without ranking"
-      ],
-      "forbidden": [
-        "select best trajectory",
-        "rank trajectories",
-        "optimize",
-        "reward",
-        "policy update",
-        "decide",
-        "modify Phi",
-        "modify K(Phi)",
-        "modify kappa",
-        "modify QE",
         "claim deployment validity",
         "claim empirical safety"
       ],
@@ -304,6 +487,7 @@
         "render",
         "summarize",
         "format",
+        "normalize strings",
         "present descriptive output"
       ],
       "forbidden": [
@@ -370,6 +554,35 @@
       "allow_file_write": false,
       "allow_randomness": false,
       "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "vortex": {
+      "meaning": "Non-agentic candidate trajectory generator.",
+      "allowed": [
+        "generate candidates",
+        "emit descriptive traces",
+        "export candidate sets",
+        "expose trajectory maps without ranking"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories",
+        "optimize",
+        "reward",
+        "policy update",
+        "decide",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
       "protect_ontology_assignments": true
     }
   }
