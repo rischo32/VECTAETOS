@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "vectaetos_code_contract",
   "status": "fundamental_repository_perimeter",
   "purpose": "Ontological behavior contract for VECTAETOS Python production code.",
@@ -8,6 +8,17 @@
   "not_a_deployment_validation": true,
   "canonical_sentence": "Code may implement repository behavior, but must not attach agency, optimization, truth authority, or decision power to VECTAETOS.",
   "role_inference": {
+    "git_guard": [
+      "canonical_ontology_guard.py"
+    ],
+    "semantic_guard": [
+      "vectaetos_boundary_guard.py",
+      "boundary_guard"
+    ],
+    "behavior_audit": [
+      "vectaetos_code_behavior_audit.py",
+      "code_behavior_audit"
+    ],
     "guard": [
       "guards/",
       "_guard.py",
@@ -47,6 +58,105 @@
     ]
   },
   "roles": {
+    "git_guard": {
+      "meaning": "External repository perimeter checker using git for deterministic diff inspection.",
+      "allowed": [
+        "scan git diff",
+        "read files from git objects",
+        "detect protected path changes",
+        "detect semantic drift in changed files",
+        "emit GitHub annotations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform non-git subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": true,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "semantic_guard": {
+      "meaning": "External full-repository semantic drift checker.",
+      "allowed": [
+        "scan files",
+        "parse text",
+        "detect forbidden formulations",
+        "sort findings",
+        "emit warnings",
+        "emit hard violations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "behavior_audit": {
+      "meaning": "External static AST behavior audit for Python code roles.",
+      "allowed": [
+        "parse Python AST",
+        "load behavior contract",
+        "infer file roles",
+        "detect role-policy violations",
+        "sort findings",
+        "emit warnings",
+        "emit hard violations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
     "guard": {
       "meaning": "External repository perimeter checker.",
       "allowed": [
@@ -69,7 +179,9 @@
         "change QE",
         "select trajectories",
         "perform network calls",
-        "perform subprocess calls"
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -93,7 +205,9 @@
         "decide",
         "interpret",
         "optimize",
-        "mutate observed system"
+        "mutate observed system",
+        "claim deployment validity",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -107,7 +221,8 @@
       "allowed": [
         "generate candidates",
         "emit descriptive traces",
-        "export candidate sets"
+        "export candidate sets",
+        "expose trajectory maps without ranking"
       ],
       "forbidden": [
         "select best trajectory",
@@ -115,7 +230,13 @@
         "optimize",
         "reward",
         "policy update",
-        "decide"
+        "decide",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim deployment validity",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -129,14 +250,18 @@
       "allowed": [
         "render structural projection",
         "map field state to symbols",
-        "emit descriptive representation"
+        "emit descriptive representation",
+        "remain semantically neutral"
       ],
       "forbidden": [
         "interpret",
         "recommend",
         "decide",
         "rank",
-        "write back to Phi"
+        "write back to Phi",
+        "claim truth",
+        "claim deployment validity",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -150,13 +275,20 @@
       "allowed": [
         "parse input",
         "normalize text",
-        "extract structural form"
+        "extract structural form",
+        "emit parsed representation"
       ],
       "forbidden": [
         "decide",
         "recommend",
         "claim truth",
-        "modify ontology"
+        "modify ontology",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim deployment validity",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -171,13 +303,19 @@
         "translate",
         "render",
         "summarize",
-        "format"
+        "format",
+        "present descriptive output"
       ],
       "forbidden": [
         "truth authority",
         "decision authority",
         "ontology modification",
-        "deployment validation"
+        "deployment validation",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim empirical safety"
       ],
       "allow_network": false,
       "allow_subprocess": false,
@@ -192,14 +330,18 @@
         "assert invariants",
         "use fixtures",
         "simulate forbidden examples",
-        "test failure behavior"
+        "test failure behavior",
+        "write temporary files",
+        "use deterministic subprocesses when testing CLI behavior"
       ],
       "forbidden": [
         "claim deployment validity",
-        "modify canonical anchors"
+        "modify canonical anchors",
+        "claim empirical safety",
+        "silently change ontology"
       ],
       "allow_network": false,
-      "allow_subprocess": false,
+      "allow_subprocess": true,
       "allow_file_write": true,
       "allow_randomness": true,
       "allow_selection_functions": true,
@@ -210,12 +352,18 @@
       "allowed": [
         "read files",
         "format reports",
-        "assist repository maintenance"
+        "assist repository maintenance",
+        "perform explicit human-triggered maintenance"
       ],
       "forbidden": [
         "modify ontology without explicit human action",
         "claim truth",
-        "claim deployment validity"
+        "claim deployment validity",
+        "claim empirical safety",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
       ],
       "allow_network": false,
       "allow_subprocess": false,
