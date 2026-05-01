@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-VECTAETOS_CODE_BEHAVIOR_AUDIT.py
+vectaetos_code_behavior_audit.py
 
 Version:
-    0.1.0
+    0.1.1
 
 Purpose:
     Ontological production-code behavior audit for VECTAETOS Python code.
@@ -23,7 +23,9 @@ Run from:
     repository root
 
 Command:
-    python3 guards/VECTAETOS_CODE_BEHAVIOR_AUDIT.py
+    python3 guards/vectaetos_code_behavior_audit.py \
+      --root . \
+      --contract contracts/vectaetos_code_contract.json
 
 Exit codes:
     0 = clean / warnings only
@@ -42,8 +44,9 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 DEFAULT_CONTRACT_PATH = Path("contracts/vectaetos_code_contract.json")
+
 
 EXCLUDED_DIRS = {
     ".git",
@@ -58,9 +61,11 @@ EXCLUDED_DIRS = {
     "build",
 }
 
+
 EXCLUDED_FILE_NAMES = {
     "__init__.py",
 }
+
 
 DANGEROUS_CALL_NAMES = {
     "eval",
@@ -68,6 +73,7 @@ DANGEROUS_CALL_NAMES = {
     "compile",
     "__import__",
 }
+
 
 NETWORK_MODULE_PREFIXES = (
     "socket",
@@ -81,28 +87,88 @@ NETWORK_MODULE_PREFIXES = (
     "paramiko",
 )
 
+
 SUBPROCESS_MODULE_PREFIXES = (
     "subprocess",
     "pty",
 )
+
 
 RANDOM_MODULE_PREFIXES = (
     "random",
     "secrets",
 )
 
-WRITE_METHODS = {
+
+FILE_OBJECT_WRITE_METHODS = {
     "write",
+    "writelines",
+}
+
+
+PATH_MUTATION_METHODS = {
     "write_text",
     "write_bytes",
-    "writelines",
     "unlink",
     "rename",
-    "replace",
     "mkdir",
     "rmdir",
     "touch",
 }
+
+
+OS_FILESYSTEM_MUTATION_CALLS = {
+    "os.remove",
+    "os.unlink",
+    "os.rename",
+    "os.replace",
+    "os.rmdir",
+    "os.mkdir",
+    "os.makedirs",
+    "shutil.rmtree",
+    "shutil.move",
+}
+
+
+STRING_LIKE_RECEIVER_NAMES = {
+    "text",
+    "line",
+    "content",
+    "source",
+    "lowered",
+    "normalized",
+    "raw",
+    "value",
+    "name",
+    "path_str",
+    "rel_text",
+    "message",
+    "detail",
+    "safer_form",
+    "pattern",
+    "code",
+    "status",
+    "role",
+    "receiver",
+}
+
+
+PATH_LIKE_RECEIVER_HINTS = {
+    "path",
+    "file",
+    "dir",
+    "directory",
+    "root",
+    "target",
+    "destination",
+    "dest",
+    "src",
+    "source_path",
+    "output",
+    "outfile",
+    "out_file",
+}
+
 
 ONTOLOGY_FORBIDDEN_NAME_FRAGMENTS = (
     "decide",
@@ -119,6 +185,7 @@ ONTOLOGY_FORBIDDEN_NAME_FRAGMENTS = (
     "truth_authority",
 )
 
+
 VORTEX_FORBIDDEN_CALL_FRAGMENTS = (
     "argmax",
     "argmin",
@@ -129,6 +196,7 @@ VORTEX_FORBIDDEN_CALL_FRAGMENTS = (
     "optimize",
     "policy_update",
 )
+
 
 PROTECTED_ONTOLOGY_NAMES = {
     "PHI",
@@ -227,6 +295,7 @@ def dotted_name(node: ast.AST) -> str:
 
 def is_prefixed(name: str, prefixes: tuple[str, ...]) -> bool:
     normalized = name.lower()
+
     return any(
         normalized == prefix or normalized.startswith(prefix + ".")
         for prefix in prefixes
@@ -258,6 +327,7 @@ def infer_role(path: Path, root: Path, tree: ast.AST, contract: dict[str, Any]) 
         rel = path
 
     rel_text = str(rel).replace("\\", "/").lower()
+    name = path.name.lower()
     role_patterns = contract.get("role_inference", {})
 
     if isinstance(role_patterns, dict):
@@ -268,8 +338,6 @@ def infer_role(path: Path, root: Path, tree: ast.AST, contract: dict[str, Any]) 
             for pattern in patterns:
                 if isinstance(pattern, str) and pattern.lower() in rel_text:
                     return str(role)
-
-    name = path.name.lower()
 
     if "guard" in rel_text:
         return "guard"
@@ -350,8 +418,9 @@ def open_mode_is_write(call: ast.Call) -> bool:
             mode_node = keyword.value
 
     if isinstance(mode_node, ast.Constant) and isinstance(mode_node.value, str):
-        mode = mode_node.value
-        return any(flag in mode for flag in ("w", "a", "x", "+"))
+        mode = mode_node
+        value = mode.value
+        return any(flag in value for flag in ("w", "a", "x", "+"))
 
     return False
 
@@ -386,6 +455,98 @@ def function_or_class_name(node: ast.AST) -> str | None:
         return node.name
 
     return None
+
+
+def receiver_name_from_call_name(call_name: str) -> str:
+    if "." not in call_name:
+        return ""
+
+    return call_name.rsplit(".", 1)[0]
+
+
+def receiver_looks_string_like(receiver: str) -> bool:
+    if not receiver:
+        return False
+
+    last = receiver.rsplit(".", 1)[-1].lower()
+
+    if last in STRING_LIKE_RECEIVER_NAMES:
+        return True
+
+    if last.endswith("_text") or last.endswith("_str") or last.endswith("_string"):
+        return True
+
+    return False
+
+
+def receiver_looks_path_like(receiver: str) -> bool:
+    if not receiver:
+        return False
+
+    lowered = receiver.lower()
+    last = lowered.rsplit(".", 1)[-1]
+
+    if last in PATH_LIKE_RECEIVER_HINTS:
+        return True
+
+    if last.endswith("_path"):
+        return True
+
+    if last.endswith("_file"):
+        return True
+
+    if "path" in lowered and not receiver_looks_string_like(receiver):
+        return True
+
+    return False
+
+
+def call_is_path_replace(call_name: str) -> bool:
+    if call_name in {"os.replace", "Path.replace", "pathlib.Path.replace"}:
+        return True
+
+    if not call_name.endswith(".replace"):
+        return False
+
+    receiver = receiver_name_from_call_name(call_name)
+
+    if receiver_looks_string_like(receiver):
+        return False
+
+    return receiver_looks_path_like(receiver)
+
+
+def literal_subprocess_binary(call: ast.Call) -> str | None:
+    if not call.args:
+        return None
+
+    first_arg = call.args[0]
+
+    if isinstance(first_arg, ast.List) and first_arg.elts:
+        first = first_arg.elts[0]
+
+        if isinstance(first, ast.Constant) and isinstance(first.value, str):
+            return first.value
+
+    if isinstance(first_arg, ast.Tuple) and first_arg.elts:
+        first = first_arg.elts[0]
+
+        if isinstance(first, ast.Constant) and isinstance(first.value, str):
+            return first.value
+
+    if isinstance(first_arg, ast.Constant) and isinstance(first_arg.value, str):
+        return first_arg.value.split()[0] if first_arg.value.strip() else None
+
+    return None
+
+
+def git_guard_subprocess_is_allowed(call: ast.Call, call_name: str) -> bool:
+    if not is_prefixed(call_name, SUBPROCESS_MODULE_PREFIXES):
+        return False
+
+    binary = literal_subprocess_binary(call)
+
+    return binary == "git"
 
 
 def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
@@ -445,6 +606,7 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
 
         if name:
             lowered = name.lower()
+
             for fragment in ONTOLOGY_FORBIDDEN_NAME_FRAGMENTS:
                 if fragment in lowered:
                     add_finding(
@@ -503,16 +665,52 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
                     safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
                 )
 
-            if method in WRITE_METHODS and not allow_file_write:
+            if method in FILE_OBJECT_WRITE_METHODS and not allow_file_write:
                 add_finding(
                     findings,
                     severity="HARD",
-                    code="FILESYSTEM_MUTATION",
+                    code="FILE_OBJECT_WRITE",
+                    path=path,
+                    line_no=line_no,
+                    message=f"role '{role}' calls file-like write method '{call_name}'",
+                    detail="This role is expected to be read-only.",
+                    safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
+                )
+
+            if method in PATH_MUTATION_METHODS and not allow_file_write:
+                add_finding(
+                    findings,
+                    severity="HARD",
+                    code="PATH_FILESYSTEM_MUTATION",
+                    path=path,
+                    line_no=line_no,
+                    message=f"role '{role}' calls path filesystem mutation '{call_name}'",
+                    detail="This role is expected to be read-only.",
+                    safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
+                )
+
+            if call_name in OS_FILESYSTEM_MUTATION_CALLS and not allow_file_write:
+                add_finding(
+                    findings,
+                    severity="HARD",
+                    code="OS_FILESYSTEM_MUTATION",
                     path=path,
                     line_no=line_no,
                     message=f"role '{role}' calls filesystem mutation '{call_name}'",
                     detail="This role is expected to be read-only.",
-                    safer_form="Use read-only scan/report behavior.",
+                    safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
+                )
+
+            if method == "replace" and call_is_path_replace(call_name) and not allow_file_write:
+                add_finding(
+                    findings,
+                    severity="HARD",
+                    code="PATH_REPLACE_MUTATION",
+                    path=path,
+                    line_no=line_no,
+                    message=f"role '{role}' calls path-like replace mutation '{call_name}'",
+                    detail="Path.replace/os.replace can mutate filesystem state. String.replace is ignored.",
+                    safer_form="Use string normalization freely; move filesystem replacement into an explicitly contracted writer role.",
                 )
 
             if is_prefixed(call_name, NETWORK_MODULE_PREFIXES) and not allow_network:
@@ -527,17 +725,31 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
                     safer_form="Remove network calls from this role.",
                 )
 
-            if (is_prefixed(call_name, SUBPROCESS_MODULE_PREFIXES) or call_lower == "os.system") and not allow_subprocess:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="SUBPROCESS_CALL",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls subprocess/shell function '{call_name}'",
-                    detail="Subprocess execution is outside this role contract.",
-                    safer_form="Use deterministic Python-only behavior.",
-                )
+            if is_prefixed(call_name, SUBPROCESS_MODULE_PREFIXES) or call_lower == "os.system":
+                if role == "git_guard" and git_guard_subprocess_is_allowed(node, call_name):
+                    pass
+                elif not allow_subprocess:
+                    add_finding(
+                        findings,
+                        severity="HARD",
+                        code="SUBPROCESS_CALL",
+                        path=path,
+                        line_no=line_no,
+                        message=f"role '{role}' calls subprocess/shell function '{call_name}'",
+                        detail="Subprocess execution is outside this role contract.",
+                        safer_form="Use deterministic Python-only behavior or restrict subprocess use to an explicitly contracted git guard.",
+                    )
+                elif role == "git_guard":
+                    add_finding(
+                        findings,
+                        severity="HARD",
+                        code="NON_GIT_SUBPROCESS_IN_GIT_GUARD",
+                        path=path,
+                        line_no=line_no,
+                        message=f"git_guard role calls non-git subprocess '{call_name}'",
+                        detail="git_guard may use subprocess only for deterministic git inspection.",
+                        safer_form="Use subprocess only with literal git command arrays, or move behavior to another role.",
+                    )
 
             if is_prefixed(call_name, RANDOM_MODULE_PREFIXES) and not allow_randomness:
                 add_finding(
