@@ -10,7 +10,10 @@
 ## 0. Účel / Purpose
 
 **SK:**  
-ZMYSEL Corpus je verejná zbierka epistemických fragmentov, axiomatických reflexií, symbolických formulácií a orientačných textov súvisiacich s rámcom VECTAETOS.
+
+    ZMYSEL Corpus je verejná zbierka epistemických fragmentov, 
+    axiomatických reflexií, symbolických formulácií a orientačných textov 
+    súvisiacich s rámcom VECTAETOS.
 
 Jeho účelom je poskytnúť vyšším vrstvám stabilný zdroj jazyka, významových fragmentov a interpretačného kontextu.
 
@@ -20,7 +23,10 @@ Nie je autoritatívna vrstva.
 Nie je náhrada za Φ.
 
 **EN:**  
-The ZMYSEL Corpus is a public collection of epistemic fragments, axiomatic reflections, symbolic formulations, and orientation texts related to the VECTAETOS framework.
+
+    The ZMYSEL Corpus is a public collection of epistemic fragments, 
+    axiomatic reflections, symbolic formulations, and orientation texts 
+    related to the VECTAETOS framework.
 
 Its purpose is to provide higher layers with a stable source of language, meaning-fragments, and interpretive context.
 
@@ -210,14 +216,3 @@ Higher layers may read the corpus.
 They may not obey it as authority.
 
 ---
-
-## 5. Štruktúra zápisu / Entry Structure
-
-**SK:**  
-Každý zápis by mal byť uložený v:
-
-**EN:**  
-Each entry should be stored in:
-
-```
-corpus/zmysel/entries/
