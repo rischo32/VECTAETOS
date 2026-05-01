@@ -1,0 +1,46 @@
+name: Kanonická ontologická stráž
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  canonical-ontology-guard:
+    name: Guard 01 / Canonical Ontology Boundary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Resolve diff range
+        id: diff
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "${GITHUB_OUTPUT}"
+            echo "head=${GITHUB_SHA}" >> "${GITHUB_OUTPUT}"
+          else
+            echo "base=${{ github.event.before }}" >> "${GITHUB_OUTPUT}"
+            echo "head=${{ github.event.after }}" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Run canonical ontology guard
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 guards/canonical_ontology_guard.py \
+            --base "${{ steps.diff.outputs.base }}" \
+            --head "${{ steps.diff.outputs.head }}" \
+            --mode strict
