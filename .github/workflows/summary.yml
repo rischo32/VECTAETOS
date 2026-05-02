@@ -1,34 +1,89 @@
-name: Summarize new issues
+name: Repository Summary
 
 on:
-  issues:
-    types: [opened]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
-  summary:
+  repository-summary:
+    name: Deterministic repository summary
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      models: read
-      contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run AI inference
-        id: inference
-        uses: actions/ai-inference@v1
-        with:
-          prompt: |
-            Summarize the following GitHub issue in one paragraph:
-            Title: ${{ github.event.issue.title }}
-            Body: ${{ github.event.issue.body }}
-
-      - name: Comment with AI summary
-        run: |
-          gh issue comment $ISSUE_NUMBER --body '${{ steps.inference.outputs.response }}'
+      - name: Manual checkout
+        shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          RESPONSE: ${{ steps.inference.outputs.response }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          git init .
+          git config --global --add safe.directory "$PWD"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "${{ github.event.pull_request.head.sha }}"
+            git checkout --force FETCH_HEAD
+          else
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+            git checkout --force FETCH_HEAD
+          fi
+
+      - name: Generate deterministic summary
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          {
+            echo "# VECTAETOS Repository Summary"
+            echo ""
+            echo "This summary is deterministic and non-AI-generated."
+            echo ""
+            echo "## Current commit"
+            echo ""
+            echo '```text'
+            git rev-parse HEAD
+            echo '```'
+            echo ""
+            echo "## Branch context"
+            echo ""
+            echo '```text'
+            echo "event=${GITHUB_EVENT_NAME}"
+            echo "repository=${GITHUB_REPOSITORY}"
+            echo '```'
+            echo ""
+            echo "## Top-level structure"
+            echo ""
+            echo '```text'
+            find . -maxdepth 2 -type d \
+              | sed 's#^\./##' \
+              | sort \
+              | head -n 120
+            echo '```'
+            echo ""
+            echo "## Changed files"
+            echo ""
+            echo '```text'
+
+            if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+              git fetch --no-tags --depth=1 origin "${{ github.event.pull_request.base.sha }}" || true
+              git diff --name-status "${{ github.event.pull_request.base.sha }}" HEAD || true
+            else
+              git show --name-status --oneline --no-renames HEAD || true
+            fi
+
+            echo '```'
+            echo ""
+            echo "## Guard-relevant files"
+            echo ""
+            echo '```text'
+            find .github/workflows guards contracts scripts tests -maxdepth 3 -type f 2>/dev/null \
+              | sort \
+              | sed 's#^\./##' || true
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
