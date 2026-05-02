@@ -2,6 +2,7 @@ name: vectaetos-boundary-guard
 
 on:
   push:
+    branches: [main]
     paths:
       - "**/*.md"
       - "**/*.txt"
@@ -15,6 +16,7 @@ on:
       - "**/*.js"
       - "**/*.ts"
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "**/*.md"
       - "**/*.txt"
@@ -27,6 +29,7 @@ on:
       - "**/*.css"
       - "**/*.js"
       - "**/*.ts"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,41 +37,61 @@ permissions:
 
 jobs:
   boundary-guard:
+    name: GUARD-02 / VECTAETOS Boundary Guard / Report Only
     runs-on: ubuntu-latest
 
     steps:
       - name: Manual checkout without external actions
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
           git init --initial-branch=main .
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global --add safe.directory "$PWD"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            echo "Checking out pull request ${PR_NUMBER}"
-
-            if git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/merge:refs/remotes/origin/pr-merge"; then
-              git checkout --force refs/remotes/origin/pr-merge
-            else
-              echo "Merge ref unavailable; falling back to PR head ref"
-              git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr-head"
-              git checkout --force refs/remotes/origin/pr-head
-            fi
+            echo "Checking out pull request head ${PR_HEAD_SHA}"
+            git fetch --no-tags --depth=1 origin "${PR_HEAD_SHA}"
+            git checkout --force FETCH_HEAD
           else
-            echo "Checking out commit ${GITHUB_SHA}"
-            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+            echo "Checking out commit ${PUSH_SHA}"
+            git fetch --no-tags --depth=1 origin "${PUSH_SHA}"
             git checkout --force FETCH_HEAD
           fi
 
       - name: Show Python version
+        shell: bash
         run: |
           set -euo pipefail
           python3 --version
 
-      - name: Run VECTAETOS boundary guard
+      - name: Compile VECTAETOS boundary guard
+        shell: bash
         run: |
           set -euo pipefail
-          python3 guards/VECTAETOS_BOUNDARY_GUARD.py
+          python3 -m py_compile guards/vectaetos_boundary_guard.py
+
+      - name: Run VECTAETOS boundary guard in report-only mode
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 guards/vectaetos_boundary_guard.py \
+            --root . \
+            --mode report \
+            | tee /tmp/vectaetos_boundary_guard.log
+
+          {
+            echo "# GUARD-02 / VECTAETOS Boundary Guard"
+            echo ""
+            echo "Mode: \`report-only\`"
+            echo ""
+            echo '```text'
+            cat /tmp/vectaetos_boundary_guard.log
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
