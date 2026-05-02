@@ -44,14 +44,13 @@ It checks for forbidden transformations such as:
 These guards protect the root boundary of the repository.
 
 Planned examples:
-
-- `VECTAETOS_BOUNDARY_GUARD.py`
-- `REPO_LAYER_BOUNDARY_GUARD.py`
-- `CANONICAL_ANCHOR_GUARD.py`
-- `NO_FEEDBACK_LOOP_GUARD.py`
-- `EMPIRICAL_CLAIM_GUARD.py`
-- `LEGAL_POSITION_GUARD.py`
-- `VORTEX_NON_AGENTIC_GUARD.py`
+- GUARD-01 canonical_ontology_guard.py
+- GUARD-02 vectaetos_boundary_guard.py
+- GUARD-03 vectaetos_code_behavior_audit.py
+- GUARD-04 empirical_claim_guard.py
+- GUARD-05 repo_layer_boundary_guard.py
+- GUARD-06 no_feedback_loop_guard.py
+- GUARD-07 vortex_non_agentic_guard.py
 
 ## Level 1 — Specialized Ontological Guards
 
@@ -93,11 +92,79 @@ Planned examples:
 
 ---
 
-## Execution Rule
+## Active Guards
 
-All guards are run from the repository root.
+### GUARD-01 — Canonical Ontology Guard
 
-Example:
+File:
 
-```bash
-python guards/VECTAETOS_BOUNDARY_GUARD.py
+`canonical_ontology_guard.py`
+
+Status:
+
+`ACTIVE / STRICT / REQUIRED`
+
+Role:
+
+Detects modification of canonical ontology, formal anchors, protected repository boundary files, and high-risk semantic drift in changed files.
+
+This guard is diff-based.
+
+---
+
+### GUARD-02 — VECTAETOS Boundary Guard
+
+File:
+
+`vectaetos_boundary_guard.py`
+
+Status:
+
+`REPORT-ONLY / CALIBRATION`
+
+Role:
+
+Scans active repository files for forbidden semantic formulations such as agency, optimization, decision authority, truth authority, audit command authority, projection prescription, or L4 overclaim.
+
+This guard excludes `archive/` by default.
+
+---
+
+### GUARD-03 — Code Behavior Audit
+
+File:
+
+`vectaetos_code_behavior_audit.py`
+
+Contract:
+
+`contracts/vectaetos_code_contract.json`
+
+Status:
+
+`REPORT-ONLY / CALIBRATION`
+
+Role:
+
+Performs static AST audit of Python code behavior against role contracts.
+
+It does not validate deployment.
+It does not perform security audit.
+It does not prove empirical safety.
+
+## Semantic Errata
+
+File:
+
+`SEMANTIC_ERRATA.md`
+
+Role:
+
+Registers known historical semantic drift in immutable, frozen, or archived documents without rewriting those documents.
+
+Semantic errata do not define ontology.
+They do not replace anchors.
+They do not authorize new drift in active files.
+
+Registered errata may guide guard behavior only for historical or explicitly frozen contexts.
+Active files should be corrected directly.
