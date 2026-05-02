@@ -79,13 +79,13 @@ Len vyjasňujú, ako sa staršie formulácie majú čítať podľa aktuálneho k
 Ak historická fráza koliduje s aktuálnym kanonickým významom, platí toto poradie:
 
 kanonický význam immutable anchoru
-> sémantické errata
-> master index
-> súbor v repozitári
-> explicitne uložené projektové rozhodnutie
+canonical anchor meaning
+> semantic errata for known historical wording
+> master index router
+> active repository file
 > README
-> implementačná poznámka
-> neformálne vysvetlenie
+> implementation note
+> informal explanation
 
 Sémantické errata nenahrádzajú anchor.
 
