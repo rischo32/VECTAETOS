@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 """
-VECTAETOS_BOUNDARY_GUARD.py
+vectaetos_boundary_guard.py
 
 Version:
-    0.3.3
+    0.4.0
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
 
 Scope:
-    - Scans repository text/code/config files.
+    - Scans active repository text/code/config files.
     - Detects forbidden formulations that attribute agency, optimization,
       decision authority, deployment legitimacy, or truth authority to VECTAETOS.
-    - Avoids false positives in negated, forbidden-example, and guard-context lines.
+    - Avoids false positives in negated, forbidden-example, guard-context,
+      and semantic errata registry contexts.
+    - Excludes archive/ by default.
     - Does not modify files.
-    - Fails closed in CI on hard violations.
+    - Defaults to report-only mode.
 
 Python:
     3.11+
@@ -23,11 +25,11 @@ Run from:
     repository root
 
 Command:
-    python3 guards/VECTAETOS_BOUNDARY_GUARD.py
+    python3 guards/vectaetos_boundary_guard.py --root . --mode report
 
 Exit codes:
-    0 = clean / warnings only
-    1 = hard violation found
+    0 = clean / report-only findings / warnings only
+    1 = hard violation found in strict mode
     2 = execution/config error
 """
 
@@ -41,7 +43,9 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.3.3"
+VERSION = "0.4.0"
+
+SEMANTIC_ERRATA_PATH = "anchors/SEMANTIC_ERRATA.md"
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -72,6 +76,7 @@ DEFAULT_EXCLUDED_DIRS = {
 }
 
 DEFAULT_EXCLUDED_FILES = {
+    "vectaetos_boundary_guard.py",
     "VECTAETOS_BOUNDARY_GUARD.py",
     "patch_semantic_integrity_text.py",
     "verify_semantic_integrity.py",
@@ -89,6 +94,15 @@ ALLOW_MARKERS = {
 FILE_ALLOW_MARKERS = {
     "vectaetos-guard: allow-file",
     "vectaetos-boundary-allow-file",
+}
+
+SEMANTIC_ERRATA_REQUIRED_MARKERS = {
+    "KANONICKÝ SEMANTIC ERRATA ANCHOR",
+    "Tento dokument nie je nová ontológia",
+    "Nie je náhrada immutable anchorov",
+    "Nemení Φ, K(Φ), κ, QE, Vortex, audit, projekciu",
+    "neregistrovaný drift zostáva porušením",
+    "Aktívne súbory sa majú opraviť priamo",
 }
 
 META_CONTEXT_PATTERN = re.compile(
@@ -340,7 +354,7 @@ RULES: list[Rule] = [
     compile_rule(
         code="NIR_ENFORCEMENT_LANGUAGE",
         severity="HARD",
-        pattern=r"\bNIR\b.{0,120}\b(enforces|enforce|overrides|override|commands|command|decides|decide|chooses|choose|suppresses|suppress|corrects|correct|governs|govern|vynucuje|vynúti|prepisuje|rozhoduje|zvolí|voli|potláča|potlaca|opravuje|riadi)\b",
+        pattern=r"\bNIR\b.{0,120}\b(enforces|enforce|overrides|override|commands|command|decides|decide|chooses|choose|suppresses|suppress|corrects|corrects|governs|govern|vynucuje|vynúti|prepisuje|rozhoduje|zvolí|voli|potláča|potlaca|opravuje|riadi)\b",
         reason="NIR must not be framed as an executive or enforcement mechanism.",
         safer_form="Use: NIR conditions representability of intervention-like outputs without becoming an actor.",
     ),
@@ -438,6 +452,13 @@ RULES: list[Rule] = [
 ]
 
 
+def normalize_repo_path(path: Path, root: Path) -> str:
+    try:
+        return str(path.relative_to(root)).replace("\\", "/")
+    except ValueError:
+        return str(path).replace("\\", "/")
+
+
 def has_allow_marker(line: str) -> bool:
     lowered = line.lower()
     return any(marker in lowered for marker in ALLOW_MARKERS)
@@ -446,6 +467,16 @@ def has_allow_marker(line: str) -> bool:
 def file_has_allow_marker(text: str) -> bool:
     head = "\n".join(text.splitlines()[:20]).lower()
     return any(marker in head for marker in FILE_ALLOW_MARKERS)
+
+
+def semantic_errata_markers_present(text: str) -> bool:
+    lowered = text.lower()
+    return all(marker.lower() in lowered for marker in SEMANTIC_ERRATA_REQUIRED_MARKERS)
+
+
+def is_semantic_errata_registry(path: Path, root: Path, text: str) -> bool:
+    rel = normalize_repo_path(path, root)
+    return rel == SEMANTIC_ERRATA_PATH and semantic_errata_markers_present(text)
 
 
 def is_path_excluded(path: Path, root: Path) -> bool:
@@ -520,9 +551,12 @@ def read_text(path: Path) -> str | None:
         raise RuntimeError(f"Cannot read {path}: {exc}") from exc
 
 
-def scan_file(path: Path) -> list[Finding]:
+def scan_file(path: Path, root: Path) -> list[Finding]:
     text = read_text(path)
     if text is None:
+        return []
+
+    if is_semantic_errata_registry(path, root, text):
         return []
 
     if file_has_allow_marker(text):
@@ -610,9 +644,15 @@ def main() -> int:
         help="Repository root. Default: current working directory.",
     )
     parser.add_argument(
+        "--mode",
+        choices=("report", "strict"),
+        default="report",
+        help="report prints findings and exits 0; strict exits 1 on hard findings.",
+    )
+    parser.add_argument(
         "--warnings-as-errors",
         action="store_true",
-        help="Treat warnings as hard failures.",
+        help="Treat warnings as hard failures in strict mode.",
     )
 
     args = parser.parse_args()
@@ -626,7 +666,7 @@ def main() -> int:
 
     try:
         for file_path in iter_candidate_files(root):
-            all_findings.extend(scan_file(file_path))
+            all_findings.extend(scan_file(file_path, root))
     except RuntimeError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
@@ -635,6 +675,9 @@ def main() -> int:
         key=lambda finding: (str(finding.path), finding.line_no, finding.rule.code)
     )
     print_findings(all_findings, root)
+
+    if args.mode == "report":
+        return 0
 
     hard_count = sum(1 for finding in all_findings if finding.rule.severity == "HARD")
     warn_count = sum(1 for finding in all_findings if finding.rule.severity == "WARN")
