@@ -3,7 +3,7 @@
 vectaetos_code_behavior_audit.py
 
 Version:
-    0.1.1
+    0.1.3
 
 Purpose:
     Ontological production-code behavior audit for VECTAETOS Python code.
@@ -44,7 +44,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-VERSION = "0.1.1"
+VERSION = "0.1.3"
 DEFAULT_CONTRACT_PATH = Path("contracts/vectaetos_code_contract.json")
 
 
@@ -59,6 +59,7 @@ EXCLUDED_DIRS = {
     "node_modules",
     "dist",
     "build",
+    "archive",
 }
 
 
@@ -130,6 +131,9 @@ OS_FILESYSTEM_MUTATION_CALLS = {
 }
 
 
+STRING_REPLACE_ALLOWED_METHOD = "replace"
+
+
 STRING_LIKE_RECEIVER_NAMES = {
     "text",
     "line",
@@ -150,6 +154,8 @@ STRING_LIKE_RECEIVER_NAMES = {
     "status",
     "role",
     "receiver",
+    "safe_message",
+    "safe_path",
 }
 
 
@@ -167,6 +173,8 @@ PATH_LIKE_RECEIVER_HINTS = {
     "output",
     "outfile",
     "out_file",
+    "artifact",
+    "artifacts",
 }
 
 
@@ -341,8 +349,6 @@ def infer_role(path: Path, root: Path, tree: ast.AST, contract: dict[str, Any]) 
 
     if "guard" in rel_text:
         return "guard"
-    if "vortex" in rel_text:
-        return "vortex"
     if "audit" in rel_text or "cryptograph" in rel_text:
         return "audit"
     if "projection" in rel_text or "rune" in rel_text or "glyph" in rel_text:
@@ -353,6 +359,8 @@ def infer_role(path: Path, root: Path, tree: ast.AST, contract: dict[str, Any]) 
         return "parser"
     if "test_" in name or rel_text.startswith("tests/"):
         return "test"
+    if "vortex" in rel_text:
+        return "vortex"
 
     return "utility"
 
@@ -418,9 +426,7 @@ def open_mode_is_write(call: ast.Call) -> bool:
             mode_node = keyword.value
 
     if isinstance(mode_node, ast.Constant) and isinstance(mode_node.value, str):
-        mode = mode_node
-        value = mode.value
-        return any(flag in value for flag in ("w", "a", "x", "+"))
+        return any(flag in mode_node.value for flag in ("w", "a", "x", "+"))
 
     return False
 
@@ -535,7 +541,8 @@ def literal_subprocess_binary(call: ast.Call) -> str | None:
             return first.value
 
     if isinstance(first_arg, ast.Constant) and isinstance(first_arg.value, str):
-        return first_arg.value.split()[0] if first_arg.value.strip() else None
+        stripped = first_arg.value.strip()
+        return stripped.split()[0] if stripped else None
 
     return None
 
@@ -579,6 +586,9 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
                 )
 
             if is_prefixed(imported, SUBPROCESS_MODULE_PREFIXES) and not allow_subprocess:
+                if role == "git_guard":
+                    continue
+
                 add_finding(
                     findings,
                     severity="HARD",
@@ -636,72 +646,75 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
                         safer_form="Production code should reference ontology; canonical anchors define ontology.",
                     )
 
-        if isinstance(node, ast.Call):
-            call_name = dotted_name(node.func)
-            call_lower = call_name.lower()
-            method = call_name.split(".")[-1]
+        if not isinstance(node, ast.Call):
+            continue
 
-            if call_name in DANGEROUS_CALL_NAMES:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="DYNAMIC_EXECUTION",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls '{call_name}'",
-                    detail="Dynamic execution prevents deterministic ontology-conformance audit.",
-                    safer_form="Remove dynamic execution from production ontology/perimeter code.",
-                )
+        call_name = dotted_name(node.func)
+        call_lower = call_name.lower()
+        method = call_name.split(".")[-1]
 
-            if call_lower in {"open", "io.open"} and open_mode_is_write(node) and not allow_file_write:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="FILE_WRITE",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' opens file in write/append mode",
-                    detail="This role is expected to be read-only.",
-                    safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
-                )
+        if call_name in DANGEROUS_CALL_NAMES:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="DYNAMIC_EXECUTION",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls '{call_name}'",
+                detail="Dynamic execution prevents deterministic ontology-conformance audit.",
+                safer_form="Remove dynamic execution from production ontology/perimeter code.",
+            )
 
-            if method in FILE_OBJECT_WRITE_METHODS and not allow_file_write:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="FILE_OBJECT_WRITE",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls file-like write method '{call_name}'",
-                    detail="This role is expected to be read-only.",
-                    safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
-                )
+        if call_lower in {"open", "io.open"} and open_mode_is_write(node) and not allow_file_write:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="FILE_WRITE",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' opens file in write/append mode",
+                detail="This role is expected to be read-only.",
+                safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
+            )
 
-            if method in PATH_MUTATION_METHODS and not allow_file_write:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="PATH_FILESYSTEM_MUTATION",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls path filesystem mutation '{call_name}'",
-                    detail="This role is expected to be read-only.",
-                    safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
-                )
+        if method in FILE_OBJECT_WRITE_METHODS and not allow_file_write:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="FILE_OBJECT_WRITE",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls file-like write method '{call_name}'",
+                detail="This role is expected to be read-only.",
+                safer_form="Emit stdout report only or move writing into an explicitly contracted reporting utility.",
+            )
 
-            if call_name in OS_FILESYSTEM_MUTATION_CALLS and not allow_file_write:
-                add_finding(
-                    findings,
-                    severity="HARD",
-                    code="OS_FILESYSTEM_MUTATION",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls filesystem mutation '{call_name}'",
-                    detail="This role is expected to be read-only.",
-                    safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
-                )
+        if method in PATH_MUTATION_METHODS and not allow_file_write:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="PATH_FILESYSTEM_MUTATION",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls path filesystem mutation '{call_name}'",
+                detail="This role is expected to be read-only.",
+                safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
+            )
 
-            if method == "replace" and call_is_path_replace(call_name) and not allow_file_write:
+        if call_name in OS_FILESYSTEM_MUTATION_CALLS and not allow_file_write:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="OS_FILESYSTEM_MUTATION",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls filesystem mutation '{call_name}'",
+                detail="This role is expected to be read-only.",
+                safer_form="Use read-only scan/report behavior or move mutation into an explicitly contracted writer role.",
+            )
+
+        if method == STRING_REPLACE_ALLOWED_METHOD:
+            if call_is_path_replace(call_name) and not allow_file_write:
                 add_finding(
                     findings,
                     severity="HARD",
@@ -713,93 +726,93 @@ def audit_file(path: Path, root: Path, contract: dict[str, Any]) -> FileAudit:
                     safer_form="Use string normalization freely; move filesystem replacement into an explicitly contracted writer role.",
                 )
 
-            if is_prefixed(call_name, NETWORK_MODULE_PREFIXES) and not allow_network:
+        if is_prefixed(call_name, NETWORK_MODULE_PREFIXES) and not allow_network:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="NETWORK_CALL",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls network function '{call_name}'",
+                detail="Network behavior is outside deterministic ontology production audit.",
+                safer_form="Remove network calls from this role.",
+            )
+
+        if is_prefixed(call_name, SUBPROCESS_MODULE_PREFIXES) or call_lower == "os.system":
+            if role == "git_guard" and git_guard_subprocess_is_allowed(node, call_name):
+                pass
+            elif not allow_subprocess:
                 add_finding(
                     findings,
                     severity="HARD",
-                    code="NETWORK_CALL",
+                    code="SUBPROCESS_CALL",
                     path=path,
                     line_no=line_no,
-                    message=f"role '{role}' calls network function '{call_name}'",
-                    detail="Network behavior is outside deterministic ontology production audit.",
-                    safer_form="Remove network calls from this role.",
+                    message=f"role '{role}' calls subprocess/shell function '{call_name}'",
+                    detail="Subprocess execution is outside this role contract.",
+                    safer_form="Use deterministic Python-only behavior or restrict subprocess use to an explicitly contracted git guard.",
                 )
-
-            if is_prefixed(call_name, SUBPROCESS_MODULE_PREFIXES) or call_lower == "os.system":
-                if role == "git_guard" and git_guard_subprocess_is_allowed(node, call_name):
-                    pass
-                elif not allow_subprocess:
-                    add_finding(
-                        findings,
-                        severity="HARD",
-                        code="SUBPROCESS_CALL",
-                        path=path,
-                        line_no=line_no,
-                        message=f"role '{role}' calls subprocess/shell function '{call_name}'",
-                        detail="Subprocess execution is outside this role contract.",
-                        safer_form="Use deterministic Python-only behavior or restrict subprocess use to an explicitly contracted git guard.",
-                    )
-                elif role == "git_guard":
-                    add_finding(
-                        findings,
-                        severity="HARD",
-                        code="NON_GIT_SUBPROCESS_IN_GIT_GUARD",
-                        path=path,
-                        line_no=line_no,
-                        message=f"git_guard role calls non-git subprocess '{call_name}'",
-                        detail="git_guard may use subprocess only for deterministic git inspection.",
-                        safer_form="Use subprocess only with literal git command arrays, or move behavior to another role.",
-                    )
-
-            if is_prefixed(call_name, RANDOM_MODULE_PREFIXES) and not allow_randomness:
-                add_finding(
-                    findings,
-                    severity="WARN",
-                    code="RANDOMNESS_CALL",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls randomness function '{call_name}'",
-                    detail="Randomness may break deterministic behavior.",
-                    safer_form="Use deterministic seed or remove randomness.",
-                )
-
-            if method in {"min", "max", "sorted"} and not allow_selection:
-                add_finding(
-                    findings,
-                    severity="WARN",
-                    code="SELECTION_FUNCTION",
-                    path=path,
-                    line_no=line_no,
-                    message=f"role '{role}' calls selection/sorting function '{call_name}'",
-                    detail="Selection functions are allowed in guards for technical findings; other roles require review.",
-                    safer_form="Ensure this does not select truth, best trajectory, or ontology.",
-                )
-
-            if method in {"argmin", "argmax"} and not allow_selection:
+            elif role == "git_guard":
                 add_finding(
                     findings,
                     severity="HARD",
-                    code="ARG_SELECTION_FUNCTION",
+                    code="NON_GIT_SUBPROCESS_IN_GIT_GUARD",
                     path=path,
                     line_no=line_no,
-                    message=f"role '{role}' calls arg-selection function '{call_name}'",
-                    detail="argmin/argmax must not appear as ontology, Vortex, or projection selection authority.",
-                    safer_form="Restrict argmin/argmax to external guard/report mechanics only.",
+                    message=f"git_guard role calls non-git subprocess '{call_name}'",
+                    detail="git_guard may use subprocess only for deterministic git inspection.",
+                    safer_form="Use subprocess only with literal git command arrays, or move behavior to another role.",
                 )
 
-            if role == "vortex":
-                for fragment in VORTEX_FORBIDDEN_CALL_FRAGMENTS:
-                    if fragment in call_lower:
-                        add_finding(
-                            findings,
-                            severity="HARD",
-                            code="VORTEX_SELECTION_OR_OPTIMIZATION",
-                            path=path,
-                            line_no=line_no,
-                            message=f"Vortex role calls forbidden function '{call_name}'",
-                            detail="Vortex may generate candidate trajectories, but must not rank, select, optimize, or reward them.",
-                            safer_form="Use candidate generation and descriptive export only.",
-                        )
+        if is_prefixed(call_name, RANDOM_MODULE_PREFIXES) and not allow_randomness:
+            add_finding(
+                findings,
+                severity="WARN",
+                code="RANDOMNESS_CALL",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls randomness function '{call_name}'",
+                detail="Randomness may break deterministic behavior.",
+                safer_form="Use deterministic seed or remove randomness.",
+            )
+
+        if method in {"min", "max", "sorted"} and not allow_selection:
+            add_finding(
+                findings,
+                severity="WARN",
+                code="SELECTION_FUNCTION",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls selection/sorting function '{call_name}'",
+                detail="Selection functions are allowed in guards for technical findings; other roles require review.",
+                safer_form="Ensure this does not select truth, best trajectory, or ontology.",
+            )
+
+        if method in {"argmin", "argmax"} and not allow_selection:
+            add_finding(
+                findings,
+                severity="HARD",
+                code="ARG_SELECTION_FUNCTION",
+                path=path,
+                line_no=line_no,
+                message=f"role '{role}' calls arg-selection function '{call_name}'",
+                detail="argmin/argmax must not appear as ontology, Vortex, or projection selection authority.",
+                safer_form="Restrict argmin/argmax to external guard/report mechanics only.",
+            )
+
+        if role == "vortex":
+            for fragment in VORTEX_FORBIDDEN_CALL_FRAGMENTS:
+                if fragment in call_lower:
+                    add_finding(
+                        findings,
+                        severity="HARD",
+                        code="VORTEX_SELECTION_OR_OPTIMIZATION",
+                        path=path,
+                        line_no=line_no,
+                        message=f"Vortex role calls forbidden function '{call_name}'",
+                        detail="Vortex may generate candidate trajectories, but must not rank, select, optimize, or reward them.",
+                        safer_form="Use candidate generation and descriptive export only.",
+                    )
 
     return FileAudit(path=path, role=role, findings=findings)
 
