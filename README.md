@@ -199,7 +199,7 @@ Properties:
 - non-uniform under variation
 - deterministic
 
-κ is not a metric.
+κ je nečíselná hranica ontologickej zachovateľnosti / reprezentovateľnosti, nie parameter, skóre, metrika ani deployment threshold.
 
 It is a structural signal.
 
@@ -435,7 +435,7 @@ QE — Qualitative Epistemic Aporia
 
 QE represents a legitimate epistemic state where coherence cannot be maintained without distortion.
 
-QE is not failure.
+QE je Qualitative Epistemic Aporia: aktívna epistemická apória / stav nerealizovateľnosti, nie chyba, bug, výnimka, fallback ani zlyhanie.
 
 Silence is therefore a valid outcome.
 
@@ -508,7 +508,7 @@ Runes are symbolic projections of the state of Φ.
 
 They are descriptive glyphs representing structural coherence or fragmentation.
 
-Runes never prescribe decisions.
+Projekcie, runy a glyphy vystavujú deskriptívne štrukturálne stavy; neinterpretujú, nepredpisujú, nerozhodujú, neodporúčajú ani nepíšu späť do Φ.
 
 They indicate epistemic configuration only.
 ------------------------------------------------------------
