@@ -3,7 +3,7 @@
 vectaetos_boundary_guard.py
 
 Version:
-    0.4.0
+    0.4.1
 
 Purpose:
     Static repository perimeter guard for VECTAETOS semantic drift.
@@ -43,9 +43,23 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.4.0"
+VERSION = "0.4.1"
 
 SEMANTIC_ERRATA_PATH = "anchors/SEMANTIC_ERRATA.md"
+
+# These paths intentionally contain forbidden phrases as registry entries,
+# scanner rules, or historical fixtures. They are not live semantic claims.
+SEMANTIC_SCAN_EXCLUDED_FILES = {
+    "anchors/SEMANTIC_ERRATA.md",
+    "guards/vectaetos_boundary_guard.py",
+    "guards/VECTAETOS_BOUNDARY_GUARD.py",
+    "scripts/patch_semantic_integrity_text.py",
+    "scripts/verify_semantic_integrity.py",
+}
+
+SEMANTIC_SCAN_EXCLUDED_PREFIXES = (
+    "archive/",
+)
 
 DEFAULT_INCLUDE_SUFFIXES = {
     ".md",
@@ -479,11 +493,23 @@ def is_semantic_errata_registry(path: Path, root: Path, text: str) -> bool:
     return rel == SEMANTIC_ERRATA_PATH and semantic_errata_markers_present(text)
 
 
+def is_semantic_scan_excluded(path: Path, root: Path) -> bool:
+    rel = normalize_repo_path(path, root)
+
+    if rel in SEMANTIC_SCAN_EXCLUDED_FILES:
+        return True
+
+    return any(rel.startswith(prefix) for prefix in SEMANTIC_SCAN_EXCLUDED_PREFIXES)
+
+
 def is_path_excluded(path: Path, root: Path) -> bool:
     try:
         rel_parts = path.relative_to(root).parts
     except ValueError:
         rel_parts = path.parts
+
+    if is_semantic_scan_excluded(path, root):
+        return True
 
     if any(part in DEFAULT_EXCLUDED_DIRS for part in rel_parts):
         return True
@@ -554,6 +580,9 @@ def read_text(path: Path) -> str | None:
 def scan_file(path: Path, root: Path) -> list[Finding]:
     text = read_text(path)
     if text is None:
+        return []
+
+    if is_semantic_scan_excluded(path, root):
         return []
 
     if is_semantic_errata_registry(path, root, text):
