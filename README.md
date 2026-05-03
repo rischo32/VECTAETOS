@@ -185,24 +185,27 @@ This forms the basis of epistemic cryptography.
 
 ---
 
-## 5. κ-Signature (IMPLEMENTED)
+## ## 5. Boundary Trace Signature (IMPLEMENTED)
 
 The system computes:
 
-    κ(Φ)
+    boundary_trace(Φ)
 
-as a structural trace of proximity to the boundary ∂𝒟.
+as an implementation-side diagnostic trace related to proximity to the descriptive boundary ∂𝒟.
 
-Properties:
+This trace does not define, compute, approximate, parameterize, tune, measure, or replace κ.
 
-- no NaN
-- non-uniform under variation
+κ remains a non-numeric boundary of ontological preservability / representability.
+
+It is not a parameter, score, metric, optimization threshold, tuning value, structural signal, or deployment threshold.
+
+Properties of `boundary_trace(Φ)`:
+
 - deterministic
-
-κ je nečíselná hranica ontologickej zachovateľnosti / reprezentovateľnosti, nie parameter, skóre, metrika ani deployment threshold.
-
-It is a structural signal.
-
+- finite
+- non-uniform under variation
+- descriptive only
+- no authority over Φ, K(Φ), κ, QE, Vortex, audit, or projection
 ---
 
 ## 6. Pipeline (IMPLEMENTED)
@@ -421,24 +424,15 @@ CRE — Creation
 These axioms form the topological geometry of meaning within the field.
 ------------------------------------------------------------
 
-EPISTEMIC STRUCTURE
-
-4ES — Four Epistemic States
-
-AA — Affirmative–Affirmative  
-AN — Affirmative–Negative  
-NA — Negative–Affirmative  
-NN — Negative–Negative  
-
-
 QE — Qualitative Epistemic Aporia
 
-QE represents a legitimate epistemic state where coherence cannot be maintained without distortion.
+QE represents a legitimate epistemic state in which representability reaches an aporetic boundary.
 
-QE je Qualitative Epistemic Aporia: aktívna epistemická apória / stav nerealizovateľnosti, nie chyba, bug, výnimka, fallback ani zlyhanie.
+It marks non-realizability of a coherent projection under the current field configuration.
 
-Silence is therefore a valid outcome.
+QE does not force substitution, recovery, completion, or artificial continuation.
 
+Silence is therefore a valid descriptive outcome.
 
 ------------------------------------------------------------
 
