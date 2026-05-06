@@ -4,75 +4,80 @@ on:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/observatory.yml"
+      - "vortex/**"
+      - "scripts/generate_visuals.py"
+      - "forensics/**"
+      - "requirements.txt"
+
   workflow_dispatch:
-  # Odporúčanie: ak nechceš automatické PR každú hodinu, nechaj schedule vypnutý.
-  # schedule:
-  #   - cron: "0 * * * *"
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   observatory:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository without external actions
+      - name: Manual trusted checkout
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
         run: |
           set -euo pipefail
 
           git init --initial-branch=main .
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-          git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
           git checkout --force FETCH_HEAD
 
       - name: Verify Python
         run: |
           set -euo pipefail
-          python3 --version
 
-      - name: Install dependencies
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          if sys.version_info < (3, 11):
+              raise SystemExit("Python >= 3.11 required")
+          print("[OK] Python runtime is compatible")
+          PY
+
+      - name: Install runtime dependencies
         run: |
           set -euo pipefail
 
           python3 -m pip install --upgrade pip
-          python3 -m pip install numpy matplotlib
+
+          if [ -f requirements.txt ]; then
+            python3 -m pip install -r requirements.txt
+          else
+            python3 -m pip install numpy matplotlib
+          fi
 
       - name: Set PYTHONPATH
         run: |
           set -euo pipefail
-
           echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> "${GITHUB_ENV}"
 
-      - name: Prepare observatory directories
+      - name: Prepare runtime observatory directory
         run: |
           set -euo pipefail
+          mkdir -p .runtime/observatory
 
-          mkdir -p artifacts
-          mkdir -p docs/observatory
-
-      - name: Check observatory inputs
+      - name: Compile observatory scripts
         run: |
           set -euo pipefail
-
-          echo "=== CHECKING OBSERVATORY INPUTS ==="
 
           if [ -f "vortex/vortex_runner.py" ]; then
-            echo "[OK] vortex/vortex_runner.py found"
-          else
-            echo "[WARN] Missing vortex/vortex_runner.py"
-            echo "[WARN] Vortex projection step will be skipped."
+            python3 -m py_compile vortex/vortex_runner.py
           fi
 
           if [ -f "scripts/generate_visuals.py" ]; then
-            echo "[OK] scripts/generate_visuals.py found"
-          else
-            echo "[WARN] Missing scripts/generate_visuals.py"
-            echo "[WARN] Visual generation step will be skipped."
+            python3 -m py_compile scripts/generate_visuals.py
           fi
 
       - name: Run Vortex projection
@@ -85,21 +90,7 @@ jobs:
             echo "[SKIP] vortex/vortex_runner.py not present."
           fi
 
-      - name: Debug artifacts
-        if: always()
-        run: |
-          set -euo pipefail
-
-          echo "=== ROOT ==="
-          ls -la
-
-          echo "=== ARTIFACTS ==="
-          ls -la artifacts || true
-
-          echo "=== DOCS / OBSERVATORY ==="
-          ls -la docs/observatory || true
-
-      - name: Generate visuals
+      - name: Generate runtime visual projection
         run: |
           set -euo pipefail
 
@@ -109,44 +100,24 @@ jobs:
             echo "[SKIP] scripts/generate_visuals.py not present."
           fi
 
-      - name: Detect observatory changes
-        id: changes
+      - name: Show runtime observatory outputs
+        if: always()
         run: |
           set -euo pipefail
 
-          if git status --porcelain docs/observatory | grep .; then
-            echo "changed=true" >> "${GITHUB_OUTPUT}"
-          else
-            echo "changed=false" >> "${GITHUB_OUTPUT}"
-          fi
+          echo "=== RUNTIME OBSERVATORY ==="
+          ls -la .runtime/observatory || true
 
-      - name: Create observatory pull request
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: auto/observatory-${{ github.run_id }}
+          echo "=== DOCS / OBSERVATORY working-tree state, not committed ==="
+          ls -la docs/observatory || true
+
+          echo "=== GIT STATUS, informational only ==="
+          git status --porcelain || true
+
+      - name: Confirm non-persistent observatory mode
         run: |
           set -euo pipefail
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git checkout -b "${BRANCH_NAME}"
-
-          git add docs/observatory
-          git commit -m "auto(Φ): observatory update"
-
-          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push --force origin "${BRANCH_NAME}"
-
-          gh pr create \
-            --base main \
-            --head "${BRANCH_NAME}" \
-            --title "auto(Φ): observatory update" \
-            --body "Automated non-blocking epistemic projection update."
-
-      - name: No observatory changes
-        if: steps.changes.outputs.changed == 'false'
-        run: |
-          set -euo pipefail
-          echo "[OK] No observatory changes detected."
+          echo "[OK] Observatory completed in runtime-only mode."
+          echo "[OK] No branch creation."
+          echo "[OK] No pull request creation."
+          echo "[OK] No repository write-back."

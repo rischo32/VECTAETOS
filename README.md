@@ -29,6 +29,7 @@ ___
 
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
+[![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
@@ -41,15 +42,14 @@ ___
 [![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
 [![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
 
-[![Release + EK Notarization](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml)
-[![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
-
     “Work is currently underway on the fundamental security layers of the perimeter.”
 [![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
 [![vectaetos-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml)
 [![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
 [![Φ Integrity Check](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml)
 [![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
+[![empirical-claim-guard](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml)
+[![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
 
 # VECTAETOS™ 
 #### Onto-Epistemic Field © framework of structure

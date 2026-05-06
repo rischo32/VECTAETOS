@@ -9,13 +9,10 @@ Role:
 - no trajectory selection
 - no optimization
 - no automatic repository update
+- no persistent docs write
 
-Default output:
+Output:
 - .runtime/observatory/runic_graph_latest.png
-
-Optional persistent output:
-- docs/observatory/runic_graph_latest.png
-  only when called with --persist-docs
 
 Python:
 - 3.11+
@@ -23,9 +20,12 @@ Python:
 
 from __future__ import annotations
 
-import argparse
 from pathlib import Path
 from typing import Any
+
+import matplotlib
+
+matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -35,9 +35,7 @@ from forensics.forensic_reader import load_latest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-
 RUNTIME_OUT_DIR = ROOT / ".runtime" / "observatory"
-DOCS_OUT_DIR = ROOT / "docs" / "observatory"
 
 
 def fixed_layout(n: int = 8) -> tuple[np.ndarray, np.ndarray]:
@@ -87,16 +85,7 @@ def load_matrix(run: dict[str, Any]) -> np.ndarray:
     return np.array(matrix_data)
 
 
-def resolve_output_dir(persist_docs: bool) -> Path:
-    """
-    Runtime output is default.
-
-    Persistent docs output must be explicit to avoid GitHub bot PR loops.
-    """
-    return DOCS_OUT_DIR if persist_docs else RUNTIME_OUT_DIR
-
-
-def generate_graph(persist_docs: bool = False) -> Path | None:
+def generate_graph() -> Path | None:
     run = load_latest()
     if not run:
         print("[VISUALS] No run data available")
@@ -106,7 +95,6 @@ def generate_graph(persist_docs: bool = False) -> Path | None:
     n = matrix.shape[0]
 
     x, y = fixed_layout(n)
-
     features = extract_features(run)
 
     highlight_nodes: set[int] = set()
@@ -157,38 +145,24 @@ def generate_graph(persist_docs: bool = False) -> Path | None:
         plt.scatter(x[i], y[i], s=size, c=color)
         plt.text(x[i] * 1.1, y[i] * 1.1, f"{i}", ha="center", va="center")
 
-    plt.title("Φ Relational Field — descriptive visual projection")
+    plt.title("Φ Relational Field — descriptive runtime visual projection")
     plt.axis("off")
 
-    out_dir = resolve_output_dir(persist_docs)
-    out_dir.mkdir(parents=True, exist_ok=True)
+    RUNTIME_OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    out_path = out_dir / "runic_graph_latest.png"
+    out_path = RUNTIME_OUT_DIR / "runic_graph_latest.png"
     plt.savefig(out_path, bbox_inches="tight")
     plt.close()
 
     print(f"[VISUALS] Saved: {out_path}")
-
-    if not persist_docs:
-        print("[VISUALS] Runtime-only output. No repository docs update requested.")
+    print("[VISUALS] Runtime-only output.")
+    print("[VISUALS] No repository docs update requested.")
 
     return out_path
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Generate non-authoritative VECTAETOS visual projection."
-    )
-    parser.add_argument(
-        "--persist-docs",
-        action="store_true",
-        help="Write to docs/observatory instead of .runtime/observatory.",
-    )
-
-    args = parser.parse_args()
-
-    generate_graph(persist_docs=args.persist_docs)
-
+    generate_graph()
     return 0
 
 
