@@ -159,7 +159,7 @@ d_2 d_1 &= 0
 \begin{aligned}
 \mathcal{D}_{\mathrm{alg}}
 &=
-\operatorname{Im}(d_1)
+\mathrm{Im}(d_1)
 \end{aligned}
 ```
 
@@ -171,7 +171,7 @@ d_2 d_1 &= 0
 &=
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T})
+\mathrm{Fix}(\mathcal{T})
 \end{aligned}
 ```
 
@@ -187,7 +187,7 @@ d_2 d_1 &= 0
 \Delta = d_1 R,\;
 d_2\Delta = 0,\;
 P_{\mathcal{T}}\Delta = \Delta,\;
-\operatorname{Rep}(\Delta)=1
+\mathrm{Rep}(\Delta)=1
 \right\}
 \end{aligned}
 ```
@@ -266,7 +266,7 @@ d_1R \notin \mathcal{D}
 \forall I:\quad
 K_{\mathcal{D}}(\Phi \to I)=0
 &\Rightarrow
-I \notin \operatorname{Transitions}_{\mathcal{D}}(\Phi)
+I \notin \mathrm{Transitions}_{\mathcal{D}}(\Phi)
 \end{aligned}
 ```
 
