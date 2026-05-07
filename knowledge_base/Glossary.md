@@ -20,7 +20,7 @@
 | **NN** | Incoherent for both |
 | **OAAT** | Ontologically Asymmetric Architectural Triality |
 | **3Gate** | Epistemic representability filter across Width, Depth, Height |
-| **Simulation Vortex** | Non-agentic generator of candidate deformations / trajectories; does not optimize, decide, or select |
+| **Simulation Vortex** | Simulation Vortex je neagentná procedurálna vrstva na generovanie kandidátnych trajektórií. Jeho výstupom je množina možných prechodových tvarov bez rankingovej alebo rozhodovacej autority. V knowledge base kontexte slúži ako opis exploračnej vrstvy downstream od ontológie. |
 | **Runic Projection (Π)** | Read-only, lossy structural projection of field states |
 | **Delta (Δ)** | Cyclic curvature structure across the relational field; commonly formalized over 56 coherence cycles |
 | **EK** | Epistemic Cryptography — structural coherence audit / integrity layer |
