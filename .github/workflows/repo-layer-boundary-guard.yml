@@ -77,4 +77,4 @@ jobs:
       - name: Run repo layer boundary guard
         run: |
           set -euo pipefail
-          python3 guards/repo_layer_boundary_guard.py --root . --mode report
+          python3 guards/repo_layer_boundary_guard.py --root . --mode strict --warnings-as-errors
