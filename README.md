@@ -10,13 +10,12 @@
 ___
 ##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
 
-#### L0 ✅  Formálna ontologická konzistencia
-#### L1 ✅  CI perimeter (workflow + audit + contract)
-#### L2 ⚠️  Deterministická verifikácia — čiastočná
-       (chýba: testy auditu, feedback loop check,
-        implicit selection v Vortex)
-#### L3 ❌  Adversarial testovanie
-#### L4 ❌  Empirický dôkaz
+##### L0 ✅  Formálna ontologická konzistencia
+##### L1 ✅  CI perimeter (workflow + audit + contract)
+##### L2 ⚠️  Deterministická verifikácia 
+    čiastočná (chýba: testy auditu, feedback loop check,  implicit selection v Vortex)
+##### L3 ❌  Adversarial testovanie
+##### L4 ❌  Empirický dôkaz
 ___
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
@@ -24,25 +23,19 @@ ___
 [![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
 [![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
+[![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
+[![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
 
 ![Vectaetos](badge.svg)
 
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
 
-[![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
-[![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
-[![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
-
-[![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
-[![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
-[![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
-
-    “Work is currently underway on the fundamental security layers of the perimeter.”
+___
+### Level 0 — Fundamental Repository Perimeter
 [![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
 [![vectaetos-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml)
 [![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
@@ -52,6 +45,14 @@ ___
 [![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
 [![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
 
+    These guards protect the root boundary of the repository.
+___
+[![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
+[![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
+[![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
+[![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
+
+___
 # VECTAETOS™ 
 #### Onto-Epistemic Field © framework of structure
 _________________________
