@@ -50,6 +50,7 @@ ___
 [![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
 [![empirical-claim-guard](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml)
 [![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
+[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
 
 # VECTAETOS™ 
 #### Onto-Epistemic Field © framework of structure
