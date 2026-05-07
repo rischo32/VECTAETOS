@@ -152,6 +152,7 @@ R_{ii} &= 0
 d_2 d_1 &= 0
 \end{aligned}
 ```
+
 ### Algebraic Curvature Domain
 
 ```math
@@ -161,6 +162,7 @@ d_2 d_1 &= 0
 \operatorname{Im}(d_1)
 \end{aligned}
 ```
+
 ### Triality-Compatible Curvature Domain
 
 ```math
@@ -172,6 +174,7 @@ d_2 d_1 &= 0
 \operatorname{Fix}(\mathcal{T})
 \end{aligned}
 ```
+
 ### Admissible Curvature Domain
 
 ```math
@@ -188,6 +191,7 @@ P_{\mathcal{T}}\Delta = \Delta,\;
 \right\}
 \end{aligned}
 ```
+
 ### Representable Field Space
 
 ```math
@@ -201,6 +205,7 @@ d_1R \in \mathcal{D}
 \right\}
 \end{aligned}
 ```
+
 ### ZMYSEL Carrier
 
 ```math
@@ -212,6 +217,7 @@ E
 d_1^{-1}(\mathcal{D})
 \end{aligned}
 ```
+
 ### Coherence Predicate — Positive Case
 
 ```math
@@ -221,6 +227,7 @@ K_{\mathcal{D}}(\Phi)=1
 d_1R \in \mathcal{D}
 \end{aligned}
 ```
+
 ### Coherence Predicate — Negative Case
 
 ```math
@@ -249,6 +256,7 @@ d_1R \notin \mathcal{D}
 d_1R \notin \mathcal{D}
 \end{aligned}
 ```
+
 ### Entropic Humility
 
 ```math
@@ -259,6 +267,7 @@ K_{\mathcal{D}}(\Phi \to I)=0
 I \notin \operatorname{Transitions}_{\mathcal{D}}(\Phi)
 \end{aligned}
 ```
+
 ### Simulation Vortex Boundary
 
 ```math
@@ -268,6 +277,7 @@ V_{\mathrm{ext}}
 \Phi \to \{\tau_i\}
 \end{aligned}
 ```
+
 ### Projection Boundary
 
 ```math
@@ -277,6 +287,7 @@ V_{\mathrm{ext}}
 \Phi \to \Gamma
 \end{aligned}
 ```
+
 ### LLM Adapter Boundary
 
 ```math
@@ -286,6 +297,7 @@ V_{\mathrm{ext}}
 \Gamma \to \mathrm{Language}
 \end{aligned}
 ```
+
 ### Audit Non-Intervention — Φ
 
 ```math
@@ -295,6 +307,7 @@ V_{\mathrm{ext}}
 0
 \end{aligned}
 ```
+
 ### Audit Non-Intervention — 𝒟
 
 ```math
@@ -304,10 +317,6 @@ V_{\mathrm{ext}}
 0
 \end{aligned}
 ```
-
-
-
-
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
