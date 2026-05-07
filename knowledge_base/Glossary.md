@@ -12,7 +12,7 @@
 | **so(8)** | Lie algebra context for the 28 independent relational tensions |
 | **K(Phi)** | Coherence / realizability predicate |
 | **Kappa (κ)** | Boundary of representability / ontological preservability |
-| **QE** | Qualitative Epistemic Aporia — active boundary state, not an error |
+| **QE** | QE je kvalitatívna epistemická apória: aktívny stav nereprezentovateľnosti alebo nerealizovateľnosti koherentného prechodu.QE nie je obyčajná chyba, fallback, exception ani runtime zlyhanie. V knowledge base kontexte slúži ako termín pre hranicu, kde dostupné štrukturálne vyjadrenie nedokáže zachovať koherenciu bez kolapsu významu. |
 | **4ES** | Four epistemic states: AA, AN, NA, NN |
 | **AA** | Coherent for human and field |
 | **AN** | Meaningful for human, incoherent for field |
