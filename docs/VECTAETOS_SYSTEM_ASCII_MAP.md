@@ -1,3 +1,4 @@
+odporučame prepnuť dokument do "code" view
 ┌───────────────────────────────────────────────────────────────────────────────┐
 │                              VECTAETOS SYSTEM                                 │
 │                    Non-Agentic Onto-Epistemic Field                           │
