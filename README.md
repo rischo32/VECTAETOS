@@ -119,173 +119,229 @@ ___
 - [05 — Unified Cross-Section](./unified_architecture/05-unified-cross-section.png)
 
 </details>
+___
 ---
 
-## 1. Epistemic Field (Φ)
+<div align="center">
 
-The system operates on:
+<h2>Final Meta-Mathematical Closure</h2>
 
-    Φ = (Σ, R), R ∈ so(8)
+<p>
+  <strong>VECTAETOS™</strong> is formally closed as a non-agentic curvature-domain structure.
+</p>
 
-Derived structure: 
+<p>
+  <em>
+    It does not describe what should happen.<br>
+    It describes what can remain representable without collapse of meaning.
+  </em>
+</p>
 
-    Δ = dR ∈ ℝ⁵⁶
-
-The representability domain:  
-
-    𝒟 = Im(d) ⊂ ℝ⁵⁶
-
-Boundary:   
-
-    κ = ∂𝒟
-
-Coherence:   
-
-    K(Φ) = 1 ⇔ Δ ∈ 𝒟
----
-
-## 2. Representability Layer (IMPLEMENTED)
-
-The system enforces:
-
-    Δ ∈ 𝒟
-
-via structural closure conditions:
-
-    dΔ = 0
-
-This is not approximate.
-This is a strict algebraic constraint.
-Non-representable states are rejected.
+</div>
 
 ---
 
-## 3. Canonical Structure (IMPLEMENTED)
+<details open>
+<summary><strong>Core Field Structure</strong></summary>
 
-All epistemic configurations are mapped to canonical form:
+<br>
 
-    canonicalize(Δ)
+$$
+\begin{aligned}
+\Phi &= (\Sigma, R) \\[6pt]
+\Sigma &=
+\{\mathrm{INT}, \mathrm{LEX}, \mathrm{VER}, \mathrm{LIB},
+\mathrm{UNI}, \mathrm{REL}, \mathrm{WIS}, \mathrm{CRE}\} \\[6pt]
+R &\in \mathfrak{so}(8) \\[6pt]
+R_{ij} &= -R_{ji}, \qquad R_{ii}=0
+\end{aligned}
+$$
 
-Properties:
-
-- permutation invariant
-- structure preserving
-- collision resistant (within structural equivalence)
-
-Canonicalization defines identity at the structural level.
-
----
-
-## 4. Structural Hash (IMPLEMENTED)
-
-Each epistemic state Φ is assigned:
-
-    H(Φ)
-
-Properties:
-
-- invariant under canonicalization
-- sensitive to structural deformation
-- independent of representation
-
-This forms the basis of epistemic cryptography.
+</details>
 
 ---
 
-## ## 5. Boundary Trace Signature (IMPLEMENTED)
+<details open>
+<summary><strong>Curvature and Boundary Consistency</strong></summary>
 
-The system computes:
+<br>
 
-    boundary_trace(Φ)
+$$
+\begin{aligned}
+\Delta &= d_1R \\[6pt]
+(d_1R)_{ijk}
+&=
+R_{ij}+R_{jk}+R_{ki} \\[6pt]
+d_2d_1 &= 0
+\end{aligned}
+$$
 
-as an implementation-side diagnostic trace related to proximity to the descriptive boundary ∂𝒟.
-
-This trace does not define, compute, approximate, parameterize, tune, measure, or replace κ.
-
-κ remains a non-numeric boundary of ontological preservability / representability.
-
-It is not a parameter, score, metric, optimization threshold, tuning value, structural signal, or deployment threshold.
-
-Properties of `boundary_trace(Φ)`:
-
-- deterministic
-- finite
-- non-uniform under variation
-- descriptive only
-- no authority over Φ, K(Φ), κ, QE, Vortex, audit, or projection
----
-
-## 6. Pipeline (IMPLEMENTED)
-
-The system exposes:
-
-    run_pipeline(system, inputs)
-
-Properties:
-
-- no feedback loops
-- no behavioral modification
-- preserves input-output identity
-
-Additionally:
-
-    ek_step(outputs)
-
-returns:
-
-{
-  "delta": Δ,
-  "hash": H(Φ),
-  "kappa_trace": κ(Φ)
-}
+</details>
 
 ---
 
-## 7. Family of Fields (DEFINED)
+<details open>
+<summary><strong>Admissible Curvature Domain</strong></summary>
 
-Vectaetos extends from a single field to:
+<br>
 
-    ℱ = {Φₐ}
+$$
+\begin{aligned}
+\mathcal{D}_{\mathrm{alg}}
+&=
+\operatorname{Im}(d_1) \\[6pt]
+\mathcal{D}_{\mathrm{tri}}
+&=
+\mathcal{D}_{\mathrm{alg}}
+\cap
+\operatorname{Fix}(\mathcal{T}) \\[8pt]
+\mathcal{D}
+&=
+\left\{
+\Delta \in C^2
+\;\middle|\;
+\Delta=d_1R,\;
+d_2\Delta=0,\;
+P_{\mathcal{T}}\Delta=\Delta,\;
+\operatorname{Rep}(\Delta)=1
+\right\}
+\end{aligned}
+$$
 
-with:
+</details>
 
-- structural compatibility constraints
-- invariant Σ
-- preserved antisymmetry
-
-Interaction rules are defined but not yet operationalized.
 ---
 
-## 8. Epistemic Space (DEFINED)
+<details open>
+<summary><strong>Representable Field Space and ZMYSEL Carrier</strong></summary>
 
-The system explicitly models:
+<br>
 
-    - space: 𝒟 ⊂ ℝ⁵⁶
-    - boundary: κ = ∂𝒟
-    - invalid region: ℝ⁵⁶ \ 𝒟
+$$
+\begin{aligned}
+E
+&=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+d_1R \in \mathcal{D}
+\right\} \\[8pt]
+\Xi
+&=
+E
+=
+d_1^{-1}(\mathcal{D})
+\end{aligned}
+$$
 
-Crossing κ results in:
-
-    QE (Qualitative Epistemic Aporia)
+</details>
 
 ---
 
-## 9. Meaning of the System
+<details open>
+<summary><strong>Coherence Predicate, κ Boundary, and QE</strong></summary>
 
-Vectaetos does not compute answers.
-Vectaetos enforces:
-the conditions under which a state of meaning remains structurally valid.
+<br>
 
-It separates:
-representation
-from
-interpretation
+$$
+\begin{aligned}
+K_{\mathcal{D}}(\Phi)=1
+&\iff
+d_1R \in \mathcal{D} \\[6pt]
+K_{\mathcal{D}}(\Phi)=0
+&\iff
+d_1R \notin \mathcal{D} \\[8pt]
+\kappa
+&=
+\partial_{\mathcal{D}_{\mathrm{tri}}}
+\mathcal{D} \\[8pt]
+\mathrm{QE}_{\mathcal{D}}
+&\iff
+d_1R \notin \mathcal{D}
+\end{aligned}
+$$
 
-It protects:
-coherence
-against
-collapse
+</details>
 
+---
+
+<details open>
+<summary><strong>Entropic Humility</strong></summary>
+
+<br>
+
+<p>
+Entropic Humility is expressed as the non-realizability of impulses that would collapse representability.
+</p>
+
+$$
+\begin{aligned}
+\forall I:\quad
+K_{\mathcal{D}}(\Phi \to I)=0
+&\Rightarrow
+I \notin \operatorname{Transitions}_{\mathcal{D}}(\Phi)
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<details open>
+<summary><strong>Vortex, Projection, and Audit Boundaries</strong></summary>
+
+<br>
+
+<p>
+The Simulation Vortex exposes only candidate trajectory forms:
+</p>
+
+$$
+\begin{aligned}
+V_{\mathrm{ext}} &: \Phi \to \{\tau_i\}
+\end{aligned}
+$$
+
+<p>
+It does not select, optimize, rank, or decide.
+</p>
+
+<p>
+Projection is read-only:
+</p>
+
+$$
+\begin{aligned}
+\Pi &: \Phi \to \Gamma \\[6pt]
+\mathrm{LLM}_{\mathrm{adapter}} &: \Gamma \to \mathrm{Language}
+\end{aligned}
+$$
+
+<p>
+Audit is non-interventional:
+</p>
+
+$$
+\begin{aligned}
+\frac{\partial \Phi}{\partial \mathrm{Audit}} &= 0 \\[8pt]
+\frac{\partial \mathcal{D}}{\partial \mathrm{Audit}} &= 0
+\end{aligned}
+$$
+
+</details>
+
+---
+
+<div align="center">
+
+<p>
+  <strong>Outside <code>𝒟</code> there is no prohibited state.</strong><br>
+  <strong>There is no representable state.</strong>
+</p>
+
+</div>
+
+---
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
