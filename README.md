@@ -319,6 +319,41 @@ V_{\mathrm{ext}}
 0
 \end{aligned}
 ```
+
+## Konečná definícia 
+
+```math
+\begin{aligned}
+\Phi &= (\Sigma, R) \\[6pt]
+
+\Delta &= d_1 R \\[6pt]
+
+\mathcal{D}
+&=
+\left\{
+\Delta
+\;\middle|\;
+\Delta = d_1 R,\;
+d_2\Delta = 0,\;
+P_{\mathcal{T}}\Delta = \Delta,\;
+\mathrm{Rep}(\Delta)=1
+\right\} \\[8pt]
+
+K_{\mathcal{D}}(\Phi)=1
+&\iff
+d_1R \in \mathcal{D} \\[8pt]
+
+\kappa
+&=
+\partial_{\mathcal{D}_{\mathrm{tri}}}
+\mathcal{D} \\[8pt]
+
+\mathrm{QE}_{\mathcal{D}}
+&\iff
+d_1R \notin \mathcal{D}
+\end{aligned}
+```
+
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
