@@ -120,104 +120,77 @@ ___
 
 </details>
 ___
----
-
 <div align="center">
-
 <h2>Final Meta-Mathematical Closure</h2>
 
-<p>
-  <strong>VECTAETOS™</strong> is formally closed as a non-agentic curvature-domain structure.
-</p>
+**VECTAETOS™** is formally closed as a non-agentic curvature-domain structure.
 
-<p>
-  <em>
-    It does not describe what should happen.<br>
-    It describes what can remain representable without collapse of meaning.
-  </em>
-</p>
-
-</div>
+> It does not describe what should happen.  
+> It describes what can remain representable without collapse of meaning.
 
 ---
 
-<details open>
-<summary><strong>Core Field Structure</strong></summary>
+### Core Field Structure
 
-<br>
-
-$$
+```math
 \begin{aligned}
-\Phi &= (\Sigma, R) \\[6pt]
-\Sigma &=
-\{\mathrm{INT}, \mathrm{LEX}, \mathrm{VER}, \mathrm{LIB},
-\mathrm{UNI}, \mathrm{REL}, \mathrm{WIS}, \mathrm{CRE}\} \\[6pt]
-R &\in \mathfrak{so}(8) \\[6pt]
-R_{ij} &= -R_{ji}, \qquad R_{ii}=0
+\Phi &= (\Sigma, R) \\
+\Sigma &= \{\mathrm{INT}, \mathrm{LEX}, \mathrm{VER}, \mathrm{LIB},
+\mathrm{UNI}, \mathrm{REL}, \mathrm{WIS}, \mathrm{CRE}\} \\
+R &\in \mathfrak{so}(8) \\
+R_{ij} &= -R_{ji} \\
+R_{ii} &= 0
 \end{aligned}
-$$
+```
 
-</details>
+### Curvature and Boundary Consistency
 
----
-
-<details open>
-<summary><strong>Curvature and Boundary Consistency</strong></summary>
-
-<br>
-
-$$
+```math
 \begin{aligned}
-\Delta &= d_1R \\[6pt]
-(d_1R)_{ijk}
-&=
-R_{ij}+R_{jk}+R_{ki} \\[6pt]
-d_2d_1 &= 0
+\Delta &= d_1 R \\[6pt]
+(d_1 R)_{ijk} &= R_{ij} + R_{jk} + R_{ki} \\[6pt]
+d_2 d_1 &= 0
 \end{aligned}
-$$
+```
+### Algebraic Curvature Domain
 
-</details>
-
----
-
-<details open>
-<summary><strong>Admissible Curvature Domain</strong></summary>
-
-<br>
-
-$$
+```math
 \begin{aligned}
 \mathcal{D}_{\mathrm{alg}}
 &=
-\operatorname{Im}(d_1) \\[6pt]
+\operatorname{Im}(d_1)
+\end{aligned}
+```
+### Triality-Compatible Curvature Domain
+
+```math
+\begin{aligned}
 \mathcal{D}_{\mathrm{tri}}
 &=
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T}) \\[8pt]
+\operatorname{Fix}(\mathcal{T})
+\end{aligned}
+```
+### Admissible Curvature Domain
+
+```math
+\begin{aligned}
 \mathcal{D}
 &=
 \left\{
 \Delta \in C^2
 \;\middle|\;
-\Delta=d_1R,\;
-d_2\Delta=0,\;
-P_{\mathcal{T}}\Delta=\Delta,\;
+\Delta = d_1 R,\;
+d_2\Delta = 0,\;
+P_{\mathcal{T}}\Delta = \Delta,\;
 \operatorname{Rep}(\Delta)=1
 \right\}
 \end{aligned}
-$$
+```
+### Representable Field Space
 
-</details>
-
----
-
-<details open>
-<summary><strong>Representable Field Space and ZMYSEL Carrier</strong></summary>
-
-<br>
-
-$$
+```math
 \begin{aligned}
 E
 &=
@@ -225,123 +198,116 @@ E
 \Phi=(\Sigma,R)
 \;\middle|\;
 d_1R \in \mathcal{D}
-\right\} \\[8pt]
+\right\}
+\end{aligned}
+```
+### ZMYSEL Carrier
+
+```math
+\begin{aligned}
 \Xi
 &=
 E
 =
 d_1^{-1}(\mathcal{D})
 \end{aligned}
-$$
+```
+### Coherence Predicate — Positive Case
 
-</details>
-
----
-
-<details open>
-<summary><strong>Coherence Predicate, κ Boundary, and QE</strong></summary>
-
-<br>
-
-$$
+```math
 \begin{aligned}
 K_{\mathcal{D}}(\Phi)=1
 &\iff
-d_1R \in \mathcal{D} \\[6pt]
+d_1R \in \mathcal{D}
+\end{aligned}
+```
+### Coherence Predicate — Negative Case
+
+```math
+\begin{aligned}
 K_{\mathcal{D}}(\Phi)=0
 &\iff
-d_1R \notin \mathcal{D} \\[8pt]
+d_1R \notin \mathcal{D}
+\end{aligned}
+```
+### κ Boundary
+
+```math
+\begin{aligned}
 \kappa
 &=
 \partial_{\mathcal{D}_{\mathrm{tri}}}
-\mathcal{D} \\[8pt]
+\mathcal{D}
+\end{aligned}
+```
+### QE Curvature-Domain Condition
+
+```math
+\begin{aligned}
 \mathrm{QE}_{\mathcal{D}}
 &\iff
 d_1R \notin \mathcal{D}
 \end{aligned}
-$$
+```
+### Entropic Humility
 
-</details>
-
----
-
-<details open>
-<summary><strong>Entropic Humility</strong></summary>
-
-<br>
-
-<p>
-Entropic Humility is expressed as the non-realizability of impulses that would collapse representability.
-</p>
-
-$$
+```math
 \begin{aligned}
 \forall I:\quad
 K_{\mathcal{D}}(\Phi \to I)=0
 &\Rightarrow
 I \notin \operatorname{Transitions}_{\mathcal{D}}(\Phi)
 \end{aligned}
-$$
+```
+### Simulation Vortex Boundary
 
-</details>
-
----
-
-<details open>
-<summary><strong>Vortex, Projection, and Audit Boundaries</strong></summary>
-
-<br>
-
-<p>
-The Simulation Vortex exposes only candidate trajectory forms:
-</p>
-
-$$
+```math
 \begin{aligned}
-V_{\mathrm{ext}} &: \Phi \to \{\tau_i\}
+V_{\mathrm{ext}}
+&:
+\Phi \to \{\tau_i\}
 \end{aligned}
-$$
+```
+### Projection Boundary
 
-<p>
-It does not select, optimize, rank, or decide.
-</p>
-
-<p>
-Projection is read-only:
-</p>
-
-$$
+```math
 \begin{aligned}
-\Pi &: \Phi \to \Gamma \\[6pt]
-\mathrm{LLM}_{\mathrm{adapter}} &: \Gamma \to \mathrm{Language}
+\Pi
+&:
+\Phi \to \Gamma
 \end{aligned}
-$$
+```
+### LLM Adapter Boundary
 
-<p>
-Audit is non-interventional:
-</p>
-
-$$
+```math
 \begin{aligned}
-\frac{\partial \Phi}{\partial \mathrm{Audit}} &= 0 \\[8pt]
-\frac{\partial \mathcal{D}}{\partial \mathrm{Audit}} &= 0
+\mathrm{LLM}_{\mathrm{adapter}}
+&:
+\Gamma \to \mathrm{Language}
 \end{aligned}
-$$
+```
+### Audit Non-Intervention — Φ
 
-</details>
+```math
+\begin{aligned}
+\frac{\partial \Phi}{\partial \mathrm{Audit}}
+&=
+0
+\end{aligned}
+```
+### Audit Non-Intervention — 𝒟
 
----
+```math
+\begin{aligned}
+\frac{\partial \mathcal{D}}{\partial \mathrm{Audit}}
+&=
+0
+\end{aligned}
+```
 
-<div align="center">
 
-<p>
-  <strong>Outside <code>𝒟</code> there is no prohibited state.</strong><br>
-  <strong>There is no representable state.</strong>
-</p>
 
-</div>
 
----
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
