@@ -237,6 +237,7 @@ K_{\mathcal{D}}(\Phi)=0
 d_1R \notin \mathcal{D}
 \end{aligned}
 ```
+
 ### κ Boundary
 
 ```math
@@ -247,6 +248,7 @@ d_1R \notin \mathcal{D}
 \mathcal{D}
 \end{aligned}
 ```
+
 ### QE Curvature-Domain Condition
 
 ```math
