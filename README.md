@@ -47,6 +47,10 @@ ___
 
     These guards protect the root boundary of the repository.
 ___
+### Level 1 — Specialized Ontological Guards
+[![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
+___
+
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
 [![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
 [![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
