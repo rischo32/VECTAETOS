@@ -1,0 +1,35 @@
+name: Repository Inventory
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "formal/**"
+      - "anchors/**"
+      - "VECTAETOS_MASTER_INDEX.md"
+      - "guards/master_index_router_guard.py"
+
+permissions:
+  contents: read
+
+jobs:
+  repository-inventory:
+    name: Generate /formal and /anchors inventory
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate inventory
+        run: |
+          python3 guards/master_index_router_guard.py \
+            --mode inventory \
+            --roots formal anchors \
+            --output VECTAETOS_REPOSITORY_INVENTORY.generated.md
+
+      - name: Upload inventory artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vectaetos-repository-inventory
+          path: VECTAETOS_REPOSITORY_INVENTORY.generated.md
