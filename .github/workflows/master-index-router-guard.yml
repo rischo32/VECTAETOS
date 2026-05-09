@@ -1,0 +1,28 @@
+name: Master Index Router Guard
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  master-index-router-guard:
+    name: Guard / Master Index Router Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile router guard
+        run: python3 -m py_compile guards/master_index_router_guard.py
+
+      - name: Check /formal references in master index
+        run: |
+          python3 guards/master_index_router_guard.py \
+            --mode check \
+            --index VECTAETOS_MASTER_INDEX.md
