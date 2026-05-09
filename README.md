@@ -1,4 +1,4 @@
-### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
+##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
 #### Nie samotné fundamentálne jadro Φ
 
 #### Technológie nie sú hračky... a práve presne preto :
@@ -7,27 +7,25 @@
      žiadna predčasná operatívna expanzia
      žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
      rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
-___
-##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
+___     
+###### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
 
-##### L0 ✅  Formálna ontologická konzistencia
-##### L1 ✅  CI perimeter (workflow + audit + contract)
-##### L2 ⚠️  Deterministická verifikácia 
-    čiastočná (chýba: testy auditu, feedback loop check,  implicit selection v Vortex)
-##### L3 ❌  Adversarial testovanie
-##### L4 ❌  Empirický dôkaz
++ L0 ✅  Formálna ontologická konzistencia
++ L1 ✅  CI perimeter (workflow + audit + contract)
++ L2 ⚠️  Deterministická verifikácia 
+  čiastočná (chýba: testy auditu, feedback loop check,  implicit selection v Vortex)
++ L3 ❌  Adversarial testovanie
++ L4 ❌  Empirický dôkaz
 ___
-    VECTAETOS™ Onto-Epistemic Field © framework of structure
-
+### VECTAETOS™ Onto-Epistemic Field © framework of structure
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
+  
+<a href="https://zread.ai/rischo32/Vectaetos/1-overview">
+<img alt="Zread overview" src="https://img.shields.io/badge/Zread-overview-111111?style=for-the-badge&logo=readthedocs&logoColor=white">
+       
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
-[![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
-
-  <a href="https://zread.ai/rischo32/Vectaetos/1-overview">
-    <img alt="Zread overview" src="https://img.shields.io/badge/Zread-overview-111111?style=for-the-badge&logo=readthedocs&logoColor=white">
-       
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 
 ![Vectaetos](badge.svg)
 
