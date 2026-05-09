@@ -11,6 +11,9 @@ on:
       - "**/*.yaml"
       - "**/*.toml"
       - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "**/*.ts"
       - "guards/qe_aporia_guard.py"
       - ".github/workflows/qe-aporia-guard.yml"
 
@@ -24,6 +27,9 @@ on:
       - "**/*.yaml"
       - "**/*.toml"
       - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "**/*.ts"
       - "guards/qe_aporia_guard.py"
       - ".github/workflows/qe-aporia-guard.yml"
 
@@ -37,25 +43,105 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual trusted checkout
+      - name: Manual trusted checkout and prepare guard
+        id: checkout
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EVENT_NAME: ${{ github.event_name }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          GITHUB_SHA_VALUE: ${{ github.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+          PUSH_AFTER_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
+          NULL_SHA="0000000000000000000000000000000000000000"
+          GUARD_PATH="guards/qe_aporia_guard.py"
+          TRUSTED_GUARD="/tmp/qe_aporia_guard.py"
+
           git init --initial-branch=main .
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global --add safe.directory "$PWD"
+
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           if [ "${EVENT_NAME}" = "pull_request" ]; then
-            git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head"
+            echo "Manual checkout for pull_request #${PR_NUMBER}"
+
+            if [ -z "${PR_BASE_SHA}" ] || [ -z "${PR_HEAD_SHA}" ]; then
+              echo "::error title=Missing PR SHA::Pull request base/head SHA is missing."
+              exit 2
+            fi
+
+            git fetch --no-tags --depth=1 origin "${PR_BASE_SHA}"
+
+            if git cat-file -e "${PR_BASE_SHA}:${GUARD_PATH}" 2>/dev/null; then
+              echo "Loading trusted QE aporia guard from PR base ref: ${PR_BASE_SHA}"
+              git show "${PR_BASE_SHA}:${GUARD_PATH}" > "${TRUSTED_GUARD}"
+            else
+              echo "::warning title=Trusted guard missing::${GUARD_PATH} does not exist in PR base ref."
+              echo "Using working-tree guard only because this may be the first introduction of the guard."
+            fi
+
+            if git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head:refs/remotes/origin/pr-head"; then
+              git checkout --force refs/remotes/origin/pr-head
+            else
+              echo "PR ref not found; falling back to PR_HEAD_SHA."
+              git fetch --no-tags --depth=1 origin "${PR_HEAD_SHA}"
+              git checkout --force FETCH_HEAD
+            fi
+
+            if [ ! -f "${TRUSTED_GUARD}" ]; then
+              if [ ! -f "${GUARD_PATH}" ]; then
+                echo "::error title=Guard missing::${GUARD_PATH} does not exist."
+                exit 2
+              fi
+              cp "${GUARD_PATH}" "${TRUSTED_GUARD}"
+            fi
+
+            RESOLVED_HEAD="$(git rev-parse HEAD)"
+
+            echo "base=${PR_BASE_SHA}" >> "${GITHUB_OUTPUT}"
+            echo "head=${RESOLVED_HEAD}" >> "${GITHUB_OUTPUT}"
+            echo "guard=${TRUSTED_GUARD}" >> "${GITHUB_OUTPUT}"
+
           else
-            git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
+            echo "Manual checkout for push"
+
+            BEFORE="${PUSH_BEFORE_SHA:-$NULL_SHA}"
+            AFTER="${PUSH_AFTER_SHA:-${GITHUB_SHA}}"
+
+            if [ -z "${AFTER}" ]; then
+              AFTER="${GITHUB_SHA}"
+            fi
+
+            git fetch --no-tags --depth=1 origin "${AFTER}"
+            git checkout --force FETCH_HEAD
+
+            if [ "${BEFORE}" != "${NULL_SHA}" ]; then
+              git fetch --no-tags --depth=1 origin "${BEFORE}" || true
+            fi
+
+            if [ "${BEFORE}" != "${NULL_SHA}" ] && git cat-file -e "${BEFORE}:${GUARD_PATH}" 2>/dev/null; then
+              echo "Loading trusted QE aporia guard from previous ref: ${BEFORE}"
+              git show "${BEFORE}:${GUARD_PATH}" > "${TRUSTED_GUARD}"
+            else
+              echo "Trusted previous guard not found; using working-tree guard."
+              if [ ! -f "${GUARD_PATH}" ]; then
+                echo "::error title=Guard missing::${GUARD_PATH} does not exist."
+                exit 2
+              fi
+              cp "${GUARD_PATH}" "${TRUSTED_GUARD}"
+            fi
+
+            RESOLVED_HEAD="$(git rev-parse HEAD)"
+
+            echo "base=${BEFORE}" >> "${GITHUB_OUTPUT}"
+            echo "head=${RESOLVED_HEAD}" >> "${GITHUB_OUTPUT}"
+            echo "guard=${TRUSTED_GUARD}" >> "${GITHUB_OUTPUT}"
           fi
 
-          git checkout --force FETCH_HEAD
+          python3 -m py_compile "${TRUSTED_GUARD}"
 
       - name: Verify Python runtime
         run: |
@@ -69,12 +155,8 @@ jobs:
           print("[OK] Python runtime is compatible")
           PY
 
-      - name: Compile QE aporia guard
-        run: |
-          set -euo pipefail
-          python3 -m py_compile guards/qe_aporia_guard.py
-
       - name: Run QE aporia guard
         run: |
           set -euo pipefail
-          python3 guards/qe_aporia_guard.py --root . --mode report
+
+          python3 "${{ steps.checkout.outputs.guard }}" --root . --mode report
