@@ -49,6 +49,7 @@ ___
 ### Level 1 — Specialized Ontological Guards
 [![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
 [![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
+[![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
 ___
 
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
