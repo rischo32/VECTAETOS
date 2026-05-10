@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 VECTAETOS Vector Drift Guard
-Version: 0.1.0
+Version: 0.1.1
 Python: 3.11+
 
 Purpose:
@@ -21,7 +21,11 @@ Usage examples:
     python3 guards/vector_drift_guard.py --root . --mode report
     python3 guards/vector_drift_guard.py --files README.md anchors/X.md --mode report
     python3 guards/vector_drift_guard.py --transcript chat.jsonl --window 3 --mode report
-    python3 guards/vector_drift_guard.py --root . --mode ci --fail-at 0.70
+    python3 guards/vector_drift_guard.py --root . --mode ci --fail_at 0.70
+
+Compatibility:
+    Underscore CLI flags are preferred.
+    Hyphen aliases are supported for backward compatibility.
 """
 
 from __future__ import annotations
@@ -30,12 +34,12 @@ import argparse
 import json
 import re
 import sys
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 DEFAULT_EXTENSIONS = {
     ".md",
@@ -52,7 +56,6 @@ DEFAULT_EXTENSIONS = {
 
 EXCLUDED_DIRS = {
     ".git",
-    ".github/cache",
     ".venv",
     "venv",
     "__pycache__",
@@ -336,21 +339,24 @@ def read_transcript_window(path: Path, window: int) -> list[tuple[str, str]]:
     Reads JSONL transcript with records like:
         {"role": "assistant", "content": "..."}
         {"role": "user", "content": "..."}
+
     Returns the last N assistant messages as virtual files.
     Falls back to plain text as one virtual document.
     """
     text = read_text(path)
     messages: list[str] = []
-
     parsed_any = False
+
     for line in text.splitlines():
         stripped = line.strip()
         if not stripped:
             continue
+
         try:
             obj = json.loads(stripped)
         except json.JSONDecodeError:
             continue
+
         parsed_any = True
         if obj.get("role") == "assistant":
             content = str(obj.get("content", ""))
@@ -359,17 +365,22 @@ def read_transcript_window(path: Path, window: int) -> list[tuple[str, str]]:
 
     if parsed_any:
         selected = messages[-window:] if window > 0 else messages
-        return [(f"{path.name}#assistant_{i+1}", content) for i, content in enumerate(selected)]
+        return [
+            (f"{path.name}#assistant_{index + 1}", content)
+            for index, content in enumerate(selected)
+        ]
 
     return [(str(path), text)]
 
 
 def scan_document(name: str, text: str) -> list[Finding]:
     findings: list[Finding] = []
-    for line_no, line in enumerate(text.splitlines(), start=1):
+
+    for line_number, line in enumerate(text.splitlines(), start=1):
         stripped = line.strip()
         if not stripped:
             continue
+
         for rule in RULES:
             if rule.pattern.search(stripped):
                 findings.append(
@@ -378,35 +389,42 @@ def scan_document(name: str, text: str) -> list[Finding]:
                         component=rule.component,
                         severity=rule.severity,
                         file=name,
-                        line=line_no,
+                        line=line_number,
                         snippet=stripped[:240],
                         why=rule.why,
                         use=rule.use,
                     )
                 )
+
     return findings
 
 
 def compute_scores(findings: Sequence[Finding]) -> dict[str, float]:
     raw = {component: 0.0 for component in COMPONENT_WEIGHTS}
+
     for finding in findings:
         raw[finding.component] += finding.severity
 
     scores: dict[str, float] = {}
+
     for component, value in raw.items():
         normalizer = NORMALIZATION.get(component, 1.0)
         scores[component] = round(min(1.0, value / normalizer), 4)
+
     return scores
 
 
 def compute_total(scores: dict[str, float]) -> float:
     numerator = 0.0
     denominator = 0.0
+
     for component, weight in COMPONENT_WEIGHTS.items():
         numerator += scores.get(component, 0.0) * weight
         denominator += weight
+
     if denominator == 0:
         return 0.0
+
     return round(numerator / denominator, 4)
 
 
@@ -423,6 +441,7 @@ def classify(total: float) -> str:
 def build_report(findings: Sequence[Finding], scanned: int) -> dict[str, object]:
     scores = compute_scores(findings)
     total = compute_total(scores)
+
     return {
         "tool": "VECTAETOS Vector Drift Guard",
         "version": VERSION,
@@ -435,12 +454,12 @@ def build_report(findings: Sequence[Finding], scanned: int) -> dict[str, object]
         "scores": scores,
         "vector_drift": total,
         "classification": classify(total),
-        "findings": [asdict(f) for f in findings],
+        "findings": [asdict(finding) for finding in findings],
     }
 
 
 def print_human_report(report: dict[str, object], max_findings: int) -> None:
-    print("VECTAETOS Vector Drift Guard v" + VERSION)
+    print(f"VECTAETOS Vector Drift Guard v{VERSION}")
     print("=" * 48)
     print(f"Scanned documents: {report['scanned_documents']}")
     print(f"Findings:          {report['finding_count']}")
@@ -448,13 +467,16 @@ def print_human_report(report: dict[str, object], max_findings: int) -> None:
     print(f"Classification:    {report['classification']}")
     print()
     print("Scores:")
+
     scores = report["scores"]
     if isinstance(scores, dict):
         for key, value in scores.items():
             print(f"  {key:24s} {value}")
+
     print()
 
     findings = report["findings"]
+
     if isinstance(findings, list) and findings:
         print("Findings:")
         for item in findings[:max_findings]:
@@ -466,8 +488,10 @@ def print_human_report(report: dict[str, object], max_findings: int) -> None:
             print(f"  why:  {item['why']}")
             print(f"  use:  {item['use']}")
             print()
-        if len(findings) > max_findings:
-            print(f"... {len(findings) - max_findings} more findings hidden by --max-findings")
+
+        hidden_count = len(findings) - max_findings
+        if hidden_count > 0:
+            print(f"... {hidden_count} more findings hidden by --max_findings")
     else:
         print("No drift findings.")
 
@@ -476,6 +500,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="External Vector_Drift audit guard for VECTAETOS visible traces."
     )
+
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--root", type=Path, help="Repository root to scan.")
     source.add_argument("--files", nargs="+", type=Path, help="Specific files to scan.")
@@ -496,55 +521,75 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
         "--mode",
         choices=("report", "json", "ci"),
         default="report",
-        help="Output mode. ci exits non-zero if vector drift >= --fail-at.",
+        help="Output mode. ci exits non-zero if vector drift >= --fail_at.",
     )
     parser.add_argument(
+        "--fail_at",
         "--fail-at",
+        dest="fail_at",
         type=float,
         default=0.70,
         help="CI failure threshold for Vector_Drift.",
     )
     parser.add_argument(
+        "--max_findings",
         "--max-findings",
+        dest="max_findings",
         type=int,
         default=50,
         help="Maximum findings printed in human report.",
     )
+
     return parser.parse_args(argv)
 
 
-def main(argv: Sequence[str]) -> int:
-    args = parse_args(argv)
-
+def collect_documents(args: argparse.Namespace) -> list[tuple[str, str]]:
     documents: list[tuple[str, str]] = []
 
     if args.root:
         root = args.root.resolve()
         if not root.exists():
-            print(f"ERROR: root path does not exist: {root}", file=sys.stderr)
-            return 2
+            raise FileNotFoundError(f"root path does not exist: {root}")
+
         extensions = {
             ext if ext.startswith(".") else "." + ext
             for ext in args.extensions.split(",")
             if ext.strip()
         }
+
         for path in iter_files(root, extensions):
             documents.append((str(path.relative_to(root)), read_text(path)))
 
-    elif args.files:
+        return documents
+
+    if args.files:
         for path in args.files:
             if not path.exists():
-                print(f"ERROR: file does not exist: {path}", file=sys.stderr)
-                return 2
+                raise FileNotFoundError(f"file does not exist: {path}")
             documents.append((str(path), read_text(path)))
 
-    elif args.transcript:
+        return documents
+
+    if args.transcript:
         if not args.transcript.exists():
-            print(f"ERROR: transcript does not exist: {args.transcript}", file=sys.stderr)
-            return 2
+            raise FileNotFoundError(f"transcript does not exist: {args.transcript}")
         documents.extend(read_transcript_window(args.transcript, args.window))
+        return documents
+
+    return documents
+
+
+def main(argv: Sequence[str]) -> int:
+    args = parse_args(argv)
+
+    try:
+        documents = collect_documents(args)
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
 
     findings: list[Finding] = []
+
     for name, text in documents:
         findings.extend(scan_document(name, text))
 
