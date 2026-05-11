@@ -12,3 +12,4 @@ antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti.
     χᵢ = lokálna krivostná záťaž pre EK audit
 
 TORZIU NEZAVADZAME !!! 
+### zaviedla by skrytu geometriu a rozbila TRIALITU algebry so(8)
