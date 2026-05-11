@@ -363,15 +363,13 @@ d_1R \in \mathcal{D} \\[8pt]
 d_1R \notin \mathcal{D}
 \end{aligned}
 ```
-    ešte nemáme úplne zjednotenú matematickú reprezentačnú vrstvu celého VECTAETOSU. Chýba most medzi:
-
-    jadrom poľa: Φ, R, Δ, 𝒟, K𝒟, κ, QE𝒟
-    Epistemickou kryptografiou: μ, A, h, hash, Λ, LTL
-    projekciou / TetraGlyph: Π, Γ, glyph, topology hash
-    Vortexom: V_ext : Φ → {τᵢ}
-    audit/projection non-intervention: ∂Φ/∂Audit = 0, ∂Φ/∂Π = 0
-    Reciprocity / layer consistency
-    triadickou architektúrou: VECTAETOS / ASIMULATOR / ASI_MOD
+___
+| Tᵢ | Cᵢ | μᵢ | Aᵢⱼ | h | sú auditné observables.
+Nie sú K(Φ).
+Nie sú κ.
+Nie sú rozhodnutie.
+Nie sú validácia deploymentu.
+Nezasahujú späť do Φ.
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
