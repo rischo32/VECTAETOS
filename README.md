@@ -1,5 +1,10 @@
-
-
+  <a href="https://openinventionnetwork.com/">
+    <img alt="OIN under review" src="https://img.shields.io/badge/OIN-not%20signed%20%2F%20under%20review-lightgrey">
+  </a>
+  <a href="https://opencollective.com/vectaetos">
+    <img alt="Open Collective" src="https://img.shields.io/badge/Open%20Collective-support%20VECTAETOS-7FADF2?logo=opencollective">
+  </a>
+</p>
 ##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
 #### Nie samotné fundamentálne jadro Φ
 
