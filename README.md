@@ -12,10 +12,6 @@
 ___     
 ###### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
 
-+ L0 ✅  Formálna ontologická konzistencia
-+ L1 ✅  CI perimeter (workflow + audit + contract)
-+ L2 ⚠️  Deterministická verifikácia 
-  čiastočná (chýba: testy auditu, feedback loop check,  implicit selection v Vortex)
 + L3 ❌  Adversarial testovanie
 + L4 ❌  Empirický dôkaz
 ___
