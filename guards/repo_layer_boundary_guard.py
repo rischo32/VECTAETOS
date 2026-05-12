@@ -125,7 +125,8 @@ META_CONTEXT_PATTERN = re.compile(
     r"nesmie|nesmú|nesmu|nie je|bez|zakázané|zakazane|zákaz|zakaz|"
     r"nie je root|nie je koreň|nie je koren|nie je samostatn|"
     r"neplatné bez|neplatne bez|downstream|hranica|strážca|strazca|"
-    r"forbidden pattern|example failure|compatibility test"
+    r"forbidden pattern|example failure|compatibility test|"
+    r"hard violation|hard violations|examples of hard violations|example of hard violation"
     r")",
     re.IGNORECASE | re.UNICODE,
 )

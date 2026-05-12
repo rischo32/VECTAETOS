@@ -353,7 +353,7 @@ Audit modifies anchor files
 LSP auto-edits canonical constraints
 Memory overrides contracts
 ASI_MOD claims truth authority
-ASIMULATOR defines ontology
+ASIMULATOR must not define ontology
 ```
 
 ---
