@@ -552,7 +552,7 @@ T_i^{EK}(R)
 C_i^{EK}
 =
 \frac{1}{1+\chi_i}
-\]
+```
 
 ```math
 (T_i^{EK},C_i^{EK})
