@@ -69,9 +69,7 @@ This is not a moral prohibition.
 
 The epistemic field is defined as:
 
-```math
-\Phi = (\Sigma, R)
-```
+	Φ = ( Σ , R )
 
 where: 
 
