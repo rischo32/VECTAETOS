@@ -72,7 +72,40 @@ The epistemic field is defined as:
 \Phi = (\Sigma, R)
 ```
 
+where: 
 
+    Σ={Σ1,…,Σ8}
+
+and:
+
+    R∈so(8)
+
+The singularities Σ are invariant.
+
+The relational structure R is antisymmetric: Rij =−Rji
+	​
+and:
+
+    Rii=0
+
+The field is not an agent.
+The field is not an optimizer.
+The field is not a decision subject.
+The field is a topology of invariant singularities and relational tensions.
+
+2. Candidate Trajectory
+
+A candidate trajectory is denoted:
+
+τ
+
+τ is not a decision.
+τ is not an action.
+τ is not an instruction.
+τ is not an algebraic object added directly to Φ.
+τ is a candidate deformation of the relational structure.
+
+Therefore the expression:
 
 
 
