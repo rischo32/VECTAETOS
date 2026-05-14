@@ -126,6 +126,56 @@ Therefore the expression:
 
 
 
+15. Canonical Chain
 
+The full canonical chain is:
+
+    1.  Φ = (Σ, R)
+
+    2.  τ is a candidate deformation,
+    not a decision,
+    not an action,
+    not algebraic field addition.
+
+    3.  τ induces:
+    δRτ ∈ so(8)
+
+    4.  R′ = R + δRτ
+
+    5.  Φ′ = (Σ, R′)
+
+	6.  Δ′ = d₁R′
+
+	7.  Candidate bifurcation:
+
+    7a. If Δ′ ∈ 𝒟:
+        K𝒟(Φ′)=1
+        Φ′ ∈ E
+        Ξ = E
+        Φ′ ∈ Ξ
+        Π may be applied.
+        The state is representable.
+        No selection follows.
+
+    7b. If Δ′ ∉ 𝒟:
+        K𝒟(Φ′)=0
+        Φ′ ∉ E
+        Ξ = E
+        Φ′ ∉ Ξ
+        QE occurs.
+
+	8.  In the QE branch:
+    Π : E → Γ has no valid input.
+
+	9.  Therefore:
+    there is no empty projection,
+    no denied projection,
+    no failed projection.
+
+	10. There is only:
+    non-existence of a projectable state.
+
+	11. This is ontological impossibility,
+    not prohibition.
 
 
