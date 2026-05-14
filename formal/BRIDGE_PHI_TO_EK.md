@@ -14,15 +14,15 @@
 
 This anchor defines the formal bridge between the VECTAETOS field structure:
 
-\[
+```math
 \Phi=(\Sigma,R)
-\]
+```
 
 and the audit observables used by Epistemic Cryptography:
 
-\[
+```math
 \mu_i,\; A_{ij},\; h,\; \Lambda,\; LTL
-\]
+```
 
 The purpose is to define how relational structure in \(R\) gives rise to audit-visible structural quantities.
 
@@ -42,21 +42,21 @@ This document only defines a read-only translation from field structure to audit
 
 The bridge is read-only.
 
-\[
+```math
 \frac{\partial \Phi}{\partial EK}=0
-\]
+```
 
-\[
+```math
 \frac{\partial R}{\partial EK}=0
-\]
+```
 
-\[
+```math
 \frac{\partial \mathcal{D}}{\partial EK}=0
-\]
+```
 
-\[
+```math
 \frac{\partial K(\Phi)}{\partial EK}=0
-\]
+```
 
 Epistemic Cryptography may observe, record, hash and compare structural traces.
 
@@ -79,43 +79,43 @@ It may not:
 
 Let:
 
-\[
+```math
 \Sigma=\{\Sigma_1,\ldots,\Sigma_8\}
-\]
+```
 
 and:
 
-\[
+```math
 R\in\mathfrak{so}(8)
-\]
+```
 
 with:
 
-\[
+```math
 R_{ij}=-R_{ji}
-\]
+```
 
-\[
+```math
 R_{ii}=0
-\]
+```
 
 The field is:
 
-\[
+```math
 \Phi=(\Sigma,R)
-\]
+```
 
 The induced curvature is:
 
-\[
+```math
 \Delta=d_1R
-\]
+```
 
 where:
 
-\[
+```math
 (d_1R)_{ijk}=R_{ij}+R_{jk}+R_{ki}
-\]
+```
 
 ---
 
@@ -123,11 +123,11 @@ where:
 
 For each singularity \(\Sigma_i\), define the raw relational tension:
 
-\[
+```math
 \widetilde{T}_i(R)
 =
 \sum_{j\neq i}|R_{ij}|
-\]
+```
 
 This is the total unsigned relational tension incident to singularity \(i\).
 
@@ -145,35 +145,35 @@ It is an audit-visible structural magnitude induced by \(R\).
 
 For \(n=8\), define:
 
-\[
+```math
 T_i^{EK}(R)
 =
 \frac{1}{n-1}
 \sum_{j\neq i}|R_{ij}|
-\]
+```
 
 Thus:
 
-\[
+```math
 T_i^{EK}(R)
 =
 \frac{1}{7}
 \sum_{j\neq i}|R_{ij}|
-\]
+```
 
 If \(R\) is externally normalized to \([-1,1]\), then:
 
-\[
+```math
 T_i^{EK}\in[0,1]
-\]
+```
 
 If \(R\) is not normalized, \(T_i^{EK}\) remains a relative audit observable and must not be interpreted as a bounded truth value.
 
 Canonical short form:
 
-\[
+```math
 T_i := T_i^{EK}(R)
-\]
+```
 
 inside EK only.
 
@@ -183,27 +183,27 @@ inside EK only.
 
 Let the set of triangles incident to \(i\) be:
 
-\[
+```math
 \mathcal{T}_i
 =
 \{(i,j,k)\mid j<k,\; j\neq i,\; k\neq i\}
-\]
+```
 
 For \(n=8\):
 
-\[
+```math
 |\mathcal{T}_i|=\binom{7}{2}=21
-\]
+```
 
 Define the local curvature load:
 
-\[
+```math
 \chi_i(\Delta)
 =
 \frac{1}{|\mathcal{T}_i|}
 \sum_{(i,j,k)\in\mathcal{T}_i}
 |\Delta_{ijk}|
-\]
+```
 
 \(\chi_i\) is the local amount of curvature incident to singularity \(i\).
 
@@ -221,31 +221,31 @@ It is only an audit-visible curvature load.
 
 Define the local EK coherence observable:
 
-\[
+```math
 C_i^{EK}
 =
 \frac{1}{1+\chi_i(\Delta)}
-\]
+```
 
 Thus:
 
-\[
+```math
 C_i^{EK}\in(0,1]
-\]
+```
 
 Canonical short form:
 
-\[
+```math
 C_i := C_i^{EK}
-\]
+```
 
 inside EK only.
 
 Important:
 
-\[
+```math
 C_i^{EK}\neq K(\Phi)
-\]
+```
 
 \(C_i^{EK}\) is numeric because it is an audit observable.
 
@@ -259,34 +259,34 @@ No numeric \(C_i^{EK}\) may be used as a substitute for \(K(\Phi)\), \(\kappa\),
 
 Define the mean pole tension excluding \(i\):
 
-\[
+```math
 \overline{T}_{\neg i}
 =
 \frac{1}{7}
 \sum_{j\neq i}T_j
-\]
+```
 
 Then define local epistemic uncertainty:
 
-\[
+```math
 \mu_i
 =
 |T_i-\overline{T}_{\neg i}|
 +
 (1-C_i)
-\]
+```
 
 where:
 
-\[
+```math
 T_i=T_i^{EK}(R)
-\]
+```
 
 and:
 
-\[
+```math
 C_i=C_i^{EK}(\Delta)
-\]
+```
 
 \(\mu_i\) is an audit observable.
 
@@ -304,11 +304,11 @@ It does not modify the field.
 
 Define:
 
-\[
+```math
 \mu_{\mathrm{total}}
 =
 \sum_{i=1}^{8}\mu_i
-\]
+```
 
 \(\mu_{\mathrm{total}}\) is the total audit-visible uncertainty.
 
@@ -324,23 +324,23 @@ It is not a safety score.
 
 For each unordered pair \(i<j\), define:
 
-\[
+```math
 A_{ij}
 =
 |T_i-T_j|
 \cdot
 \frac{C_i+C_j}{2}
-\]
+```
 
 Total structural asymmetry:
 
-\[
+```math
 A_{\mathrm{total}}
 =
-\sum_{i<j}A_{ij}
-\]
+\sum_{i<j}A_{ij}\(A_{ij}\)}
+```
 
-\(A_{ij}\) is symmetric in magnitude.
+is symmetric in magnitude.
 
 It carries no directional authority.
 
@@ -352,24 +352,24 @@ It is an audit-visible asymmetry marker.
 
 Define:
 
-\[
+```math
 h_{\mathrm{topo}}
 =
 \frac{\mu_{\mathrm{total}}}
 {\mu_{\mathrm{total}}+A_{\mathrm{total}}}
-\]
+```
 
 If:
 
-\[
+```math
 \mu_{\mathrm{total}}+A_{\mathrm{total}}=0
-\]
+```
 
 then:
 
-\[
+```math
 h_{\mathrm{topo}}=1
-\]
+```
 
 \(h_{\mathrm{topo}}\) is descriptive.
 
@@ -389,15 +389,15 @@ It is an audit marker of uncertainty geometry.
 
 For each singularity:
 
-\[
+```math
 e_i^{EK}
 =
 (T_i,\; C_i,\; \mu_i)
-\]
+```
 
 For the full field:
 
-\[
+```math
 E^{EK}(\Phi)
 =
 \left(
@@ -407,7 +407,7 @@ E^{EK}(\Phi)
 \{A_{ij}\}_{i<j},
 h_{\mathrm{topo}}
 \right)
-\]
+```
 
 This vector is read-only.
 
@@ -425,21 +425,21 @@ It may not be used to modify \(\Phi\).
 
 Let:
 
-\[
+```math
 \eta_{EK}(t)
 =
 H(E^{EK}(\Phi_t),\Delta_t,R_t,t)
-\]
+```
 
 where \(H\) may be SHA-256, SHA3-512, or a dual fingerprint construction.
 
 The EK ledger is:
 
-\[
+```math
 \Lambda_{EK}
 =
 \{\eta_{EK}(t_0),\eta_{EK}(t_1),\ldots,\eta_{EK}(t_n)\}
-\]
+```
 
 \(\Lambda_{EK}\) is append-only.
 
@@ -455,19 +455,19 @@ It only preserves time-bound structural fingerprints.
 
 Let the time layer be:
 
-\[
+```math
 L_k
 =
 (\mu_{\mathrm{total}}(k),A_{\mathrm{total}}(k),h_{\mathrm{topo}}(k),\eta_{EK}(k),t_k)
-\]
+```
 
 The LTL sequence is:
 
-\[
+```math
 LTL
 =
 \{L_0,L_1,\ldots,L_n\}
-\]
+```
 
 LTL is a structural trace.
 
@@ -483,9 +483,9 @@ It is not learning over \(\Phi\).
 
 QE remains defined by the curvature-domain condition:
 
-\[
+```math
 QE \iff d_1R\notin\mathcal{D}
-\]
+```
 
 EK may record a non-representability marker when this condition is encountered.
 
@@ -509,13 +509,13 @@ Projection may not interpret them.
 
 Projection may not write back to EK or \(\Phi\).
 
-\[
+```math
 \frac{\partial \Phi}{\partial \Pi}=0
-\]
+```
 
-\[
+```math
 \frac{\partial EK}{\partial \Pi}=0
-\]
+```
 
 Projection remains descriptive.
 
@@ -527,16 +527,16 @@ Interpretation remains outside the formal projection layer.
 
 The canonical bridge is:
 
-\[
+```math
 R
 \mapsto
 T_i^{EK}(R)
 =
 \frac{1}{7}
 \sum_{j\neq i}|R_{ij}|
-\]
+```
 
-\[
+```math
 \Delta=d_1R
 \mapsto
 \chi_i(\Delta)
@@ -544,9 +544,9 @@ T_i^{EK}(R)
 \frac{1}{21}
 \sum_{(i,j,k)\in\mathcal{T}_i}
 |\Delta_{ijk}|
-\]
+```
 
-\[
+```math
 \chi_i
 \mapsto
 C_i^{EK}
@@ -554,15 +554,15 @@ C_i^{EK}
 \frac{1}{1+\chi_i}
 \]
 
-\[
+```math
 (T_i^{EK},C_i^{EK})
 \mapsto
 \mu_i
 =
 |T_i-\overline{T}_{\neg i}|+(1-C_i)
-\]
+```
 
-\[
+```math
 (T_i,C_i)
 \mapsto
 A_{ij}
@@ -570,16 +570,16 @@ A_{ij}
 |T_i-T_j|
 \cdot
 \frac{C_i+C_j}{2}
-\]
+```
 
-\[
+```math
 (\mu_{\mathrm{total}},A_{\mathrm{total}})
 \mapsto
 h_{\mathrm{topo}}
 =
 \frac{\mu_{\mathrm{total}}}
 {\mu_{\mathrm{total}}+A_{\mathrm{total}}}
-\]
+```
 
 All arrows are read-only audit translations.
 
