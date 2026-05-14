@@ -1,26 +1,15 @@
-  <a href="https://openinventionnetwork.com/">
-    <img alt="OIN under review" src="https://img.shields.io/badge/OIN-not%20signed%20%2F%20under%20review-lightgrey">
-  </a>
-  <a href="https://opencollective.com/vectaetos">
-    <img alt="Open Collective" src="https://img.shields.io/badge/Open%20Collective-support%20VECTAETOS-7FADF2?logo=opencollective">
-  </a>
-</p>
+###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+___
 ##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
 #### Nie samotné fundamentálne jadro Φ
 
-#### Technológie nie sú hračky... a práve presne preto :
+### Technológie nie sú hračky... a práve presne preto : ASI_MOD bol dočasne odstranení ako 3 downstream vrstva, a ASIMULATOR pozastavení a odstránení z "public" 
 
-     žiadna jednostranná legitimácia
-     žiadna predčasná operatívna expanzia
-     žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
-     rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
-___     
-###### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
-
-+ L3 ❌  Adversarial testovanie
-+ L4 ❌  Empirický dôkaz
++ žiadna jednostranná legitimácia
++ žiadna predčasná operatívna expanzia
++ žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
++ rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
 ___
-### VECTAETOS™ Onto-Epistemic Field © framework of structure
 
 [![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=for-the-badge&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/rischo32/Vectaetos)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
@@ -28,6 +17,12 @@ ___
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
 ![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)
+
+  <a href="https://opencollective.com/vectaetos">
+    <img alt="Open Collective" src="https://img.shields.io/badge/Open%20Collective-support%20VECTAETOS-7FADF2?logo=opencollective">
+  </a>
+</p>
+
 ___
 ![Vectaetos](badge.svg)
 ___
