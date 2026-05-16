@@ -28,7 +28,8 @@ the canonical anchor takes precedence.
 ---
 
 ## 1. CORRECTED PIPELINE
-___
+
+```text
 ┌───────────────────────────────────────────────┐
 │                 HUMAN INPUT                  │
 └──────────────────────┬────────────────────────┘
@@ -81,7 +82,7 @@ ___
           ┌────────────┴────────────┐
           │                         │
           ▼                         ▼
-           ┌───────────────────────┐   ┌────────────────────────────────┐
+┌───────────────────────┐   ┌────────────────────────────────┐
 │ QE / SILENCE /        │   │       SIMULATION VORTEX         │
 │ NON-REPRESENTABILITY  │   │  - conditional downstream layer │
 │ - valid non-output    │   │  - candidate trajectories only │
@@ -117,15 +118,21 @@ ___
 │  - optional read-only audit reference         │
 │  - no command / no action mandate             │
 └───────────────────────────────────────────────┘
+```
 
-___
+---
 
-2. READ-ONLY AUDIT SIDE CHANNEL
+## 2. READ-ONLY AUDIT SIDE CHANNEL
+
 Audit is not inside Φ.
-Audit is not a command layer.
-Audit may observe and record structural traces, but it must not write back into Φ, Vortex, projection, memory, or output.
 
-                ┌────────────────────────────────────┐
+Audit is not a command layer.
+
+Audit may observe and record structural traces,
+but it must not write back into Φ, Vortex, projection, memory, or output.
+
+```text
+                 ┌────────────────────────────────────┐
                  │       READ-ONLY AUDIT CHANNEL      │
                  │  - Epistemic Cryptography          │
                  │  - EAT / logs / hashes             │
@@ -140,12 +147,18 @@ Audit may observe and record structural traces, but it must not write back into 
                  │  no feedback                       │
                  │  no deployment validation by itself│
                  └────────────────────────────────────┘
+```
 
-Audit artefacts may be referenced by output, but output must not become control.
+Audit artefacts may be referenced by output,
+but output must not become control.
 
-3. GLOBAL CONDITIONS
+---
+
+## 3. GLOBAL CONDITIONS
+
 The following conditions are active across the whole pipeline:
 
+```text
 NIR active globally.
 No feedback loop from output back into Φ.
 No memory layer may influence Φ or Vortex.
@@ -156,10 +169,15 @@ No layer may optimize K(Φ).
 No layer may treat κ as deployment threshold.
 Silence is a valid output.
 QE is a valid epistemic condition, not failure.
+```
 
-4. CORRECTIONS FROM PRIOR DRAFT
+---
+
+## 4. CORRECTIONS FROM PRIOR DRAFT
+
 This version corrects the previous draft in the following ways:
 
+```text
 1. Added LLM Adapter at entry.
 2. Added explicit 4ES + QE layer before Φ.
 3. Changed "Relational matrix A ∈ so(8)" to "R ∈ so(8)".
@@ -170,6 +188,13 @@ This version corrects the previous draft in the following ways:
 8. Clarified that Vortex itself has no knowledge of K(Φ) or κ.
 9. Clarified QE / silence as valid non-output path.
 10. Preserved LLM as language adapter only.
+```
 
-5. CANONICAL SENTENCE
-The VECTAETOS architecture pipeline exposes structure without authority: input is parsed, gated, represented in Φ, checked by K(Φ), optionally explored by the Simulation Vortex, projected through runes, rendered by the LLM adapter, and observed only by read-only audit without feedback, command, optimization, or decision power.
+---
+
+## 5. CANONICAL SENTENCE
+
+The VECTAETOS architecture pipeline exposes structure without authority: input is parsed,
+gated, represented in Φ, checked by K(Φ), optionally explored by the Simulation Vortex,
+projected through runes, rendered by the LLM adapter, and observed only by read-only audit
+without feedback, command, optimization, or decision power.
