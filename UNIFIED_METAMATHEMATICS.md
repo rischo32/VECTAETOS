@@ -171,22 +171,25 @@ It is not an optimization constraint.
 ## 8. Algebraic Curvature Domain
 
 ```math
-\mathcal{D}_{\mathrm{alg}} = \operatorname{Im}(d_1)
+\mathcal{D}_{\mathrm{alg}}
+\coloneqq
+\operatorname{Im}(d_1)
 ```
 
 ```math
 \mathcal{D}_{\mathrm{alg}}
 =
-\{
+\bigl\{
 \Delta \in C^2
 \mid
-\exists R \in \mathfrak{so}(8) : \Delta = d_1 R
-\}
+\exists\, R \in \mathfrak{so}(8)\ \text{such that}\ \Delta = d_1 R
+\bigr\}
 ```
 
 ```math
 \Delta \in \mathcal{D}_{\mathrm{alg}}
-\Rightarrow
+\quad\Longrightarrow\quad
+d_2 \Delta = 0.
 d_2 \Delta = 0
 ```
 
