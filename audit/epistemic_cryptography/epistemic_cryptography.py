@@ -8,7 +8,7 @@ Python: 3.11+
 
 Status:
     Deterministic audit-only implementation of
-    EPISTEMIC_CRYPTOGRAPHY_FORMALISM.md v0.2.1.
+    EPISTEMIC_CRYPTOGRAPHY_FORMALISM.md .
 
 Boundary:
     This module translates an already-given antisymmetric relational audit
