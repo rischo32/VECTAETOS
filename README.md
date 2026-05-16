@@ -62,8 +62,9 @@ ___
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
 ___
-### v procese Φ : čistá derivačna reťaz
-    Φ → Δ → EK observables → hash → ledger
+### v procese Φ : najprv dokončime pre-dimenzované a potom aj tak je v pláne čo sa META-MATEMATIKY týka vrátiť sa, k povodnemu jadru Φ (frozen core 1.1+)
+    Musíme opraviť koherenčné predikáty, drifty , ruffy, dokončíť perimetre, zavieš SLP sentinelov kodu a dalšie veci ...
+    NIE JE TOHO MALO ... 
 _________________________
 
              "Cogito cohaerenter ergo sum possibile"
