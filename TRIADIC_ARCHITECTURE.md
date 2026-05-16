@@ -1,6 +1,6 @@
-# 3. Triadic Architecture and Validity-State Logic
+#  Triadic Architecture and Validity-State Logic
  
-## 3.1 OAAT Definition
+##  OAAT Definition
  
 The **Ontologically Asymmetric Architectural Triality (OAAT)** defines
 a form of architecture in which:
@@ -55,7 +55,7 @@ Source: [`anchors/OAAT__ONTOLOGICALLY_ASYMMETRIC_ARCHITECTURAL_TRIALITY.md`](/an
  
 Source: [`anchors/ASYMMETRIC_ASSEMBLY_ANCHOR.md`](/anchors/ASYMMETRIC_ASSEMBLY_ANCHOR.md)
  
-## 3.2 Formal Validity-State Logic
+## Formal Validity-State Logic
  
 Source: [`anchors/VALIDITY_STATE_ANCHOR.md`](/anchors/VALIDITY_STATE_ANCHOR.md)
  
@@ -139,7 +139,7 @@ validity_anchor:
     - "E and not (V and S and M)"
 ```
  
-## 3.3 Asymmetric Assembly Rules
+## Asymmetric Assembly Rules
  
 Source: [`anchors/ASYMMETRIC_ASSEMBLY_ANCHOR.md`](/anchors/ASYMMETRIC_ASSEMBLY_ANCHOR.md)
  
@@ -150,7 +150,7 @@ Source: [`anchors/ASYMMETRIC_ASSEMBLY_ANCHOR.md`](/anchors/ASYMMETRIC_ASSEMBLY_A
 5. **No Inverse Necessity:** Upper layers depend on VECTAETOS; VECTAETOS does not depend on them
 6. **Mechanization:** Canonical assembly manifest, hash-locked anchors, boot attestation, fail-closed behavior
  
-## 3.4 Five Development Phases
+##  Five Development Phases
  
 Source: [`anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md`](/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md)
  
@@ -181,7 +181,7 @@ The triadic architecture defines five development phases:
 - Upper layers gain bounded operative legitimacy
 - Continuous monitoring and drift detection
  
-## 3.5 Empirical Safety Prior
+## Empirical Safety Prior
  
 Source: [`EMPIRICAL_SAFETY_PRIOR.md`](/EMPIRICAL_SAFETY_PRIOR.md)
  
