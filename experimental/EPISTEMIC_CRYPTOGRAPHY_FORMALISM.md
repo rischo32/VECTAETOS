@@ -123,27 +123,27 @@ Any interpretation that converts EK observables into authority over Φ is invali
 
 Because \(\Sigma\) has eight invariant centers, the relational carrier has the complete graph domain:
 
-\[
+```math
 K_8 = (\Sigma, E)
-\]
+```
 
 with:
 
-\[
+```math
 |E| = \binom{8}{2}=28
-\]
+```
 
 The curvature carrier is the triangle domain:
 
-\[
+```math
 \mathcal{T}_8 = \{(i,j,k)\mid i<j<k,\ i,j,k\in \{1,\dots,8\}\}
-\]
+```
 
 with:
 
-\[
+```math
 |\mathcal{T}_8| = \binom{8}{3}=56
-\]
+```
 
 The 28 relational tensions and 56 triangle curvatures are audit-visible structural carriers.
 
@@ -155,45 +155,45 @@ They are not decision variables.
 
 For every unordered pair \((i,j)\), define the absolute relational tension:
 
-\[
+```math
 \tau_{ij} = |R_{ij}|
-\]
+```
 
 with:
 
-\[
+```math
 \tau_{ij} = \tau_{ji}
-\]
+```
 
 For every center \(i\), define the incident relational load:
 
-\[
+```math
 L_i = \sum_{j \ne i} |R_{ij}|
-\]
+```
 
 The global relational load is:
 
-\[
+```math
 L_{\mathrm{tot}} = \sum_{1 \le i < j \le 8} |R_{ij}|
-\]
+```
 
 The normalized local relational tension observable is:
 
-\[
+```math
 T_i^{EK} =
 \begin{cases}
 \frac{L_i}{2L_{\mathrm{tot}}}, & L_{\mathrm{tot}} > 0 \\
 0, & L_{\mathrm{tot}} = 0
 \end{cases}
-\]
+```
 
 The factor \(2L_{\mathrm{tot}}\) appears because every edge is incident to two centers.
 
 Thus:
 
-\[
+```math
 \sum_{i=1}^{8} T_i^{EK} = 1
-\]
+```
 
 when \(L_{\mathrm{tot}}>0\).
 
@@ -209,45 +209,45 @@ It is not \(\kappa\).
 
 For every triangle \((i,j,k)\in \mathcal{T}_8\), define the discrete relational curvature:
 
-\[
+```math
 \Delta_{ijk} = R_{ij} + R_{jk} + R_{ki}
-\]
+```
 
 The absolute triangle curvature is:
 
-\[
+```math
 \delta_{ijk}=|\Delta_{ijk}|
-\]
+```
 
 For every center \(i\), define the incident triangle set:
 
-\[
+```math
 \mathcal{T}(i)=\{(a,b,c)\in \mathcal{T}_8 \mid i \in \{a,b,c\}\}
-\]
+```
 
 Since \(K_8\) has seven other vertices around every center:
 
-\[
+```math
 |\mathcal{T}(i)| = \binom{7}{2}=21
-\]
+```
 
 Define local curvature load:
 
-\[
+```math
 \chi_i = \frac{1}{21}\sum_{(a,b,c)\in\mathcal{T}(i)} |\Delta_{abc}|
-\]
+```
 
 Define the external curvature clarity observable:
 
-\[
+```math
 C_i^{EK} = \frac{1}{1+\chi_i}
-\]
+```
 
 where:
 
-\[
+```math
 0 < C_i^{EK} \le 1
-\]
+```
 
 \(C_i^{EK}\) is an external audit observable.
 
@@ -265,16 +265,16 @@ It is not a proxy for \(\kappa\).
 
 For every center \(i\), define local epistemic uncertainty:
 
-\[
+```math
 \mu_i =
 \frac{T_i^{EK}}{T_i^{EK} + C_i^{EK} + \varepsilon}
-\]
+```
 
 where:
 
-\[
+```math
 \varepsilon > 0
-\]
+```
 
 is a fixed numerical stabilizer used only to avoid division ambiguity in software implementation.
 
@@ -294,37 +294,37 @@ It is not an epistemic authority.
 
 For every unordered pair \((i,j)\), define the pairwise EK asymmetry observable:
 
-\[
+```math
 A_{ij}^{EK}=|\mu_i-\mu_j|
-\]
+```
 
 with:
 
-\[
+```math
 A_{ij}^{EK}=A_{ji}^{EK}
-\]
+```
 
 and:
 
-\[
+```math
 A_{ii}^{EK}=0
-\]
+```
 
 There are:
 
-\[
+```math
 \binom{8}{2}=28
-\]
+```
 
 pairwise asymmetry observables.
 
 Define total asymmetry:
 
-\[
+```math
 A_{\mathrm{tot}}^{EK}
 =
 \sum_{1 \le i < j \le 8} A_{ij}^{EK}
-\]
+```
 
 This observable exposes imbalance in the audit projection.
 
@@ -336,24 +336,24 @@ It does not prescribe correction.
 
 Define total local epistemic uncertainty:
 
-\[
+```math
 \mu_{\mathrm{tot}} =
 \sum_{i=1}^{8} \mu_i
-\]
+```
 
 Define the topological humility observable:
 
-\[
+```math
 h_{\mathrm{topo}} =
 \frac{\mu_{\mathrm{tot}}}
 {\mu_{\mathrm{tot}} + A_{\mathrm{tot}}^{EK} + \varepsilon}
-\]
+```
 
 where:
 
-\[
+```math
 0 \le h_{\mathrm{topo}} \le 1
-\]
+```
 
 under non-negative finite observables.
 
@@ -380,17 +380,17 @@ It is not deployment admissibility.
 
 For a sequence of observed states indexed by ledger time \(t\), define:
 
-\[
+```math
 h(t)=h_{\mathrm{topo}}(\Phi_t)
-\]
+```
 
 where \(\Phi_t\) denotes a read-only observed relational state.
 
 The temporal humility trace is:
 
-\[
+```math
 H_{EK} = \{h(t_0),h(t_1),\dots,h(t_n)\}
-\]
+```
 
 This sequence is used only for audit visibility.
 
@@ -414,7 +414,7 @@ The Layered Time Ledger records audit events as append-only entries.
 
 A ledger entry has the abstract form:
 
-\[
+```math
 \ell_t =
 (
 t,
@@ -429,7 +429,7 @@ F_{256},
 F_{3\text{-}512},
 m
 )
-\]
+```
 
 where:
 
@@ -447,9 +447,9 @@ where:
 
 The ledger is append-only:
 
-\[
+```math
 \ell_t \prec \ell_{t+1}
-\]
+```
 
 No later entry may rewrite an earlier entry.
 
@@ -463,23 +463,23 @@ It may not decide their meaning.
 
 Let:
 
-\[
+```math
 \mathrm{canon}(\ell_t)
-\]
+```
 
 be a deterministic canonical serialization of the ledger-relevant audit state.
 
 Define:
 
-\[
+```math
 F_{256}(t)=\mathrm{SHA256}(\mathrm{canon}(\ell_t))
-\]
+```
 
 and:
 
-\[
+```math
 F_{3\text{-}512}(t)=\mathrm{SHA3\text{-}512}(\mathrm{canon}(\ell_t))
-\]
+```
 
 The dual fingerprint path exists to expose tampering or structural mutation across time.
 
@@ -499,23 +499,23 @@ It does not validate \(K(\Phi)\).
 
 For a finite batch of ledger entries:
 
-\[
+```math
 B = \{\ell_{t_1},\ell_{t_2},\dots,\ell_{t_n}\}
-\]
+```
 
 define the leaf hash:
 
-\[
+```math
 M_i = H(\mathrm{canon}(\ell_{t_i}))
-\]
+```
 
 where \(H\) may be SHA-256 or SHA3-512.
 
 The Merkle root is:
 
-\[
+```math
 M_{\mathrm{root}} = \mathrm{Merkle}(M_1,\dots,M_n)
-\]
+```
 
 Merkle anchoring provides compact batch integrity visibility.
 
@@ -541,15 +541,15 @@ Within EK, QE may be externally indicated when audit observables expose non-repr
 
 The symbolic audit condition is:
 
-\[
+```math
 QE \Rightarrow \Pi_{EK}(\Phi) = \bot_{\mathrm{projection}}
-\]
+```
 
 where:
 
-\[
+```math
 \bot_{\mathrm{projection}}
-\]
+```
 
 means that no audit projection may be rendered as a determinate structural exposure.
 
@@ -563,29 +563,29 @@ It means representation is not available without violating the boundary.
 
 For every EK observable \(o \in \mathcal{O}_{EK}\):
 
-\[
+```math
 o = f(\Phi)
-\]
+```
 
 and simultaneously:
 
-\[
+```math
 \Phi \not= g(o)
-\]
+```
 
 There is no valid map:
 
-\[
+```math
 \mathcal{O}_{EK} \longrightarrow \Phi
-\]
+```
 
 inside the VECTAETOS architecture.
 
 Therefore:
 
-\[
+```math
 \mathcal{E}_{K}
-\]
+```
 
 is a read-only projectional audit layer.
 
@@ -613,29 +613,29 @@ Epistemic Cryptography records and fingerprints structural audit traces.
 
 The forbidden collapse is:
 
-\[
+```math
 \mathrm{Vortex} \equiv \mathcal{E}_{K}
-\]
+```
 
 The required separation is:
 
-\[
+```math
 \mathrm{Vortex} \cap \mathcal{E}_{K} = \varnothing
-\]
+```
 
 at the level of authority, intervention, and causality.
 
 Allowed relation:
 
-\[
+```math
 \mathrm{VortexOutput} \longrightarrow \mathcal{E}_{K}\mathrm{Record}
-\]
+```
 
 Forbidden relation:
 
-\[
+```math
 \mathcal{E}_{K}\mathrm{Record} \longrightarrow \mathrm{VortexControl}
-\]
+```
 
 EK may record Vortex traces.
 
@@ -775,43 +775,43 @@ It may not become Φ.
 
 ## 21. Final Invariant
 
-\[
+```math
 \boxed{
 \mathcal{E}_{K}(\Phi)
 =
 \mathrm{ReadOnlyAuditTrace}(\Phi)
 }
-\]
+```
 
-\[
+``math
 \boxed{
 \frac{\partial \Phi}{\partial \mathcal{E}_{K}} = 0
 }
-\]
+```
 
-\[
+``math
 \boxed{
 \mathcal{E}_{K}
 \not\Rightarrow
 K(\Phi)
 }
-\]
+```
 
-\[
+``math
 \boxed{
 \mathcal{E}_{K}
 \not\Rightarrow
 \kappa
 }
-\]
+```
 
-\[
+``math
 \boxed{
 \mathcal{E}_{K}
 \not\Rightarrow
 \mathrm{Decision}
 }
-\]
+```
 
 ---
 
