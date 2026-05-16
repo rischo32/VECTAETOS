@@ -41,55 +41,55 @@ Epistemic Cryptography operates strictly outside the ontological field.
 
 Let:
 
-\[
+```math
 \Phi = (\Sigma, R)
-\]
+```
 
 where:
 
-\[
+```math
 \Sigma = \{\mathrm{INT}, \mathrm{LEX}, \mathrm{VER}, \mathrm{LIB}, \mathrm{UNI}, \mathrm{REL}, \mathrm{WIS}, \mathrm{CRE}\}
-\]
+```
 
 and:
 
-\[
+```math
 R \in \mathfrak{so}(8)
-\]
+```
 
 with:
 
-\[
+```math
 R_{ij} = -R_{ji}, \qquad R_{ii}=0
-\]
+```
 
 Epistemic Cryptography defines an external read-only translation:
 
-\[
+```math
 \mathcal{E}_{K} : \Phi \longrightarrow \mathcal{O}_{EK}
-\]
+```
 
 where \(\mathcal{O}_{EK}\) is the space of external audit observables.
 
 The non-intervention condition is:
 
-\[
+```math
 \frac{\partial \Phi}{\partial \mathcal{E}_{K}} = 0
-\]
+```
 
 and therefore:
 
-\[
+```math
 \frac{\partial R}{\partial \mathcal{E}_{K}} = 0
-\]
+```
 
-\[
+```math
 \frac{\partial K(\Phi)}{\partial \mathcal{E}_{K}} = 0
-\]
+```
 
-\[
+```math
 \frac{\partial \kappa}{\partial \mathcal{E}_{K}} = 0
-\]
+```
 
 Epistemic Cryptography may expose traces.
 
