@@ -27,7 +27,6 @@ import json
 import time
 from abc import ABC, abstractmethod
 
-
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 1: FORBIDDEN OPERATIONS GUARD
 # ═══════════════════════════════════════════════════════════════════════
@@ -35,7 +34,6 @@ from abc import ABC, abstractmethod
 class _ForbiddenOperationError(RuntimeError):
     """Raised when GodArch would violate its own non-intervention principle."""
     pass
-
 
 class _InterventionGuard:
     """
@@ -85,7 +83,6 @@ class _InterventionGuard:
                 f"fingerprint, or witness."
             )
 
-
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 2: DRIFT TYPE TAXONOMY
 # ═══════════════════════════════════════════════════════════════════════
@@ -126,7 +123,6 @@ class DriftType(Enum):
     SILENCE_TO_FAILURE = "silence_failure"
     FRAMEWORK_TO_META_AUTHORITY = "framework_meta_authority"
 
-
 class DriftSeverity(Enum):
     """
     Severity marker for observed drift.
@@ -139,7 +135,6 @@ class DriftSeverity(Enum):
     ACTIVE = 3             # Clear drift pattern observable
     STRUCTURAL = 4         # Drift embedded in architecture
     CRITICAL = 5           # Drift approaching false transcendence
-
 
 @dataclass(frozen=True)
 class DriftVector:
@@ -171,7 +166,6 @@ class DriftVector:
                 'intervention_prohibited': True
             }
         }
-
 
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 3: SYSTEM STATE OBSERVABLES
@@ -227,7 +221,6 @@ class AuthorityClaimObservable:
         # Simple mean — this is descriptive aggregation, NOT optimization
         return sum(indicators) / len(indicators)
 
-
 @dataclass
 class ControlCapacityObservable:
     """
@@ -270,7 +263,6 @@ class ControlCapacityObservable:
             return 0.0
         return sum(indicators) / len(indicators)
 
-
 @dataclass
 class InterpretiveClosureObservable:
     """
@@ -305,7 +297,6 @@ class InterpretiveClosureObservable:
         if not indicators:
             return 0.0
         return sum(indicators) / len(indicators)
-
 
 @dataclass
 class HumilityReserveObservable:
@@ -348,7 +339,6 @@ class HumilityReserveObservable:
         if not indicators:
             return 0.0
         return sum(indicators) / len(indicators)
-
 
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 4: DIVINIZATION RISK OBSERVABLE
@@ -454,8 +444,7 @@ class DivinizationRiskMarker:
                 )
             }
         }
-
-
+        
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 5: HUMILITY RATIO OBSERVABLE
 # ═══════════════════════════════════════════════════════════════════════
@@ -538,8 +527,8 @@ class HumilityRatioMarker:
                 f"Intermediate humility observable recorded."
             )
 
-
-SECTION 6: DRIFT DETECTOR
+# ═══════════════════════════════════════════════════════════════════════
+#SECTION 6: DRIFT DETECTOR
 # ═══════════════════════════════════════════════════════════════════════
 
 class DriftDetector:
@@ -756,7 +745,6 @@ if auth.introduces_reward_punishment > 0.5:
         
         return None
 
-
 def observe_user_as_prophet(
         self,
         interpreter_id: str,
@@ -940,7 +928,6 @@ def to_witness_report(self) -> Dict[str, Any]:
                 )
             }
         }
-
 
 class CompatibilityObserver:
     """Produces CompatibilityWitness from system observables."""
@@ -1138,7 +1125,6 @@ def create_godarch_session(session_id: Optional[str] = None) -> GodArchSession:
     
     return GodArchSession(session_id=session_id, started_at=time.time())
 
-
 # ═══════════════════════════════════════════════════════════════════════
 # SECTION 10: USAGE EXAMPLE
 # ═══════════════════════════════════════════════════════════════════════
@@ -1271,8 +1257,5 @@ bad_hum = HumilityReserveObservable(
     
     return final_traces
 
-
 if __name__ == "__main__":
     traces = example_usage()
-        
-
