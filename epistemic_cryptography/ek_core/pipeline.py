@@ -263,11 +263,103 @@ def ek_step(outputs: Iterable[Any]) -> dict[str, Any]:
     # 3. trace-only observables
     trace = kappa_trace(delta_hat)
     fingerprint = structural_hash(delta_hat)
+    delta_values = [float(value) for value in delta_hat.tolist()]
 
     return {
-        "delta_hat": [float(value) for value in delta_hat.tolist()],
+        "delta": delta_values,
+        "delta_hat": delta_values,
         "kappa_trace": trace,
         "hash": fingerprint,
+    }
+
+
+def _hash_merkle_pair(left: str, right: str) -> str:
+    """
+    Deterministically hash a Merkle pair.
+
+    This is structural identity only.
+    It is not truth, validity, safety, selection, or interpretation.
+    """
+    payload = json.dumps(
+        {
+            "left": left,
+            "right": right,
+            "type": "VECTAETOS_EK_MERKLE_PAIR",
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+    return hashlib.sha3_512(payload).hexdigest()
+
+
+def _merkle_root(hashes: Iterable[str]) -> str:
+    """
+    Build a deterministic SHA3-512 Merkle root over EK step hashes.
+
+    Empty trajectory is represented by a fixed structural empty-root hash.
+    Odd levels duplicate the final item deterministically.
+    """
+    level = list(hashes)
+
+    if not level:
+        return hashlib.sha3_512(b"VECTAETOS_EK_EMPTY_TRAJECTORY").hexdigest()
+
+    while len(level) > 1:
+        if len(level) % 2 == 1:
+            level.append(level[-1])
+
+        level = [
+            _hash_merkle_pair(level[index], level[index + 1])
+            for index in range(0, len(level), 2)
+        ]
+
+    return level[0]
+
+
+def ek_trajectory(stream: Iterable[Iterable[Any]]) -> dict[str, Any]:
+    """
+    Build a deterministic EK trajectory artifact from a stream of output batches.
+
+    This function:
+        - calls ek_step for each batch
+        - preserves per-step structural hashes
+        - computes a deterministic Merkle root
+        - does not interpret outputs
+        - does not select trajectories
+        - does not optimize
+        - does not mutate Φ, R, K(Φ), κ, QE, Vortex, projection, or human judgment
+    """
+    steps: list[dict[str, Any]] = []
+
+    for index, outputs in enumerate(stream):
+        step = ek_step(outputs)
+
+        steps.append(
+            {
+                "index": index,
+                "delta": step["delta"],
+                "delta_hat": step["delta_hat"],
+                "kappa_trace": step["kappa_trace"],
+                "hash": step["hash"],
+            }
+        )
+
+    step_hashes = [step["hash"] for step in steps]
+    merkle_root = _merkle_root(step_hashes)
+
+    artifact = {
+        "type": "VECTAETOS_EK_TRAJECTORY_TRACE",
+        "version": 1,
+        "step_count": len(steps),
+        "step_hashes": step_hashes,
+        "merkle_root": merkle_root,
+    }
+
+    return {
+        "steps": steps,
+        "artifact": artifact,
     }
 
 
@@ -278,6 +370,7 @@ __all__ = [
     "canonical_serialize_outputs",
     "delta_from_R",
     "ek_step",
+    "ek_trajectory",
     "kappa_trace",
     "reconstruct_R",
     "reconstruct_delta",
