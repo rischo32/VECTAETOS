@@ -181,7 +181,7 @@ Before projection enters Φ, it passes through the intrinsic epistemic gate stru
 
 Canonical pre-field layer:
 
-- `3Gate`
+- `3GATE`
 - `4ES + QE`
 
 Defined in:
