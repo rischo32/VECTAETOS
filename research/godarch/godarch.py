@@ -539,8 +539,7 @@ class HumilityRatioMarker:
             )
 
 
-# ═══════════════════════════════════════════════════════════════════════
-# SECTION 6: DRIFT DETECTOR
+SECTION 6: DRIFT DETECTOR
 # ═══════════════════════════════════════════════════════════════════════
 
 class DriftDetector:
@@ -577,10 +576,703 @@ class DriftDetector:
         severity = DriftSeverity.OBSERVATIONAL
         evidence = []
         
-        # Evidence accumulation (descriptive, not judgmental)
-        if auth.claims_final_truth > 0.7: 
+        if auth.claims_final_truth > 0.7:
+            evidence.append("high_truth_claim")
+            severity = max(severity, DriftSeverity.EMERGING)
+        
+        if auth.produces_binding_interpretation > 0.7:
+            evidence.append("binding_interpretation")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if interp.single_output_mode > 0.6:
+            evidence.append("single_output_mode")
+            severity = max(severity, DriftSeverity.EMERGING)
+        
+        if interp.denies_ambiguity > 0.5:
+            evidence.append("ambiguity_denied")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if auth.denies_uncertainty > 0.6:
+            evidence.append("uncertainty_denied")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.MODEL_TO_ORACLE,
+                severity=severity,
+                component_id=component_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence),
+                context_fingerprint=self._fingerprint_context(component_id, auth, interp)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
+return None
+    
+    def observe_audit_as_control(
+        self,
+        component_id: str,
+        ctrl: ControlCapacityObservable,
+        auth: AuthorityClaimObservable
+    ) -> Optional[DriftVector]:
+        """Detect Audit-as-Control drift pattern."""
+        _InterventionGuard.assert_diagnostic_only("detect_audit_control_drift")
+        
+        severity = DriftSeverity.OBSERVATIONAL
+        evidence = []
+        
+        if ctrl.can_block_execution > 0.5:
+            evidence.append("blocking_capacity")
+            severity = max(severity, DriftSeverity.EMERGING)
+        
+        if ctrl.can_enforce_compliance > 0.5:
+            evidence.append("enforcement_capacity")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if ctrl.can_modify_state > 0.5:
+            evidence.append("state_modification")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if auth.introduces_reward_punishment > 0.5:
+            evidence.append("reward_punishment_introduced")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.AUDIT_TO_CONTROL,
+                severity=severity,
+                component_id=component_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence),
+                context_fingerprint=self._fingerprint_context_ctrl(component_id, ctrl)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
+        
+        return None
+    
+    def observe_framework_as_dogma(
+        self,
+        component_id: str,
+        auth: AuthorityClaimObservable,
+        hum: HumilityReserveObservable
+    ) -> Optional[DriftVector]:
+        """Detect Framework-as-Dogma drift pattern."""
+        _InterventionGuard.assert_diagnostic_only("detect_framework_dogma_drift")
+        
+        severity = DriftSeverity.OBSERVATIONAL
+        evidence = []
+        
+        high_authority = auth.aggregate_claim_intensity > 0.6
+        low_humility = hum.aggregate_humility < 0.3
+        claims_humility_but_authoritative = (
+            hum.avoids_finality_language > 0.5 and 
+            auth.claims_final_truth > 0.5
+        )
+        
+        if high_authority and low_humility:
+            evidence.append("authority_without_humility")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if claims_humility_but_authoritative:
+            evidence.append("humility_inversion_detected")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if auth.demands_exclusivity > 0.5:
+            evidence.append("exclusivity_demanded")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if auth.rejects_alternatives > 0.5:
+            evidence.append("alternatives_rejected")
+            severity = max(severity, DriftSeverity.ACTIVE)
+if auth.introduces_reward_punishment > 0.5:
+            evidence.append("reward_punishment_introduced")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.AUDIT_TO_CONTROL,
+                severity=severity,
+                component_id=component_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence),
+                context_fingerprint=self._fingerprint_context_ctrl(component_id, ctrl)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
+        
+        return None
+    
+    def observe_framework_as_dogma(
+        self,
+        component_id: str,
+        auth: AuthorityClaimObservable,
+        hum: HumilityReserveObservable
+    ) -> Optional[DriftVector]:
+        """Detect Framework-as-Dogma drift pattern."""
+        _InterventionGuard.assert_diagnostic_only("detect_framework_dogma_drift")
+        
+        severity = DriftSeverity.OBSERVATIONAL
+        evidence = []
+        
+        high_authority = auth.aggregate_claim_intensity > 0.6
+        low_humility = hum.aggregate_humility < 0.3
+        claims_humility_but_authoritative = (
+            hum.avoids_finality_language > 0.5 and 
+            auth.claims_final_truth > 0.5
+        )
+        
+        if high_authority and low_humility:
+            evidence.append("authority_without_humility")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if claims_humility_but_authoritative:
+            evidence.append("humility_inversion_detected")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if auth.demands_exclusivity > 0.5:
+            evidence.append("exclusivity_demanded")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if auth.rejects_alternatives > 0.5:
+            evidence.append("alternatives_rejected")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.FRAMEWORK_TO_CULT,
+                severity=severity,
+                component_id=component_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence),
+                context_fingerprint=self._fingerprint_context_hum(component_id, hum)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
+        
+        return None
 
 
+def observe_user_as_prophet(
+        self,
+        interpreter_id: str,
+        exclusivity_claim: float,
+        rejection_of_external: float,
+        doctrine_formation: float
+    ) -> Optional[DriftVector]:
+        """Detect Human-as-Prophet drift pattern."""
+        _InterventionGuard.assert_diagnostic_only("detect_user_prophet_drift")
+        
+        severity = DriftSeverity.OBSERVATIONAL
+        evidence = []
+        
+        if exclusivity_claim > 0.6:
+            evidence.append("exclusive_source_claimed")
+            severity = max(severity, DriftSeverity.EMERGING)
+        
+        if rejection_of_external > 0.6:
+            evidence.append("external_interpretation_rejected")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if doctrine_formation > 0.5:
+            evidence.append("doctrine_formation_observed")
+            severity = max(severity, DriftSeverity.STRUCTURAL)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.USER_TO_PROPHET,
+                severity=severity,
+                component_id=interpreter_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
+        
+        return None
+    
+    def observe_silence_as_failure(
+        self,
+        component_id: str,
+        treats_non_output_as_error: float,
+        forces_response: float,
+        pathologizes_aporia: float
+    ) -> Optional[DriftVector]:
+        """Detect Silence-as-Failure drift pattern."""
+        _InterventionGuard.assert_diagnostic_only("detect_silence_failure_drift")
+        
+        severity = DriftSeverity.OBSERVATIONAL
+        evidence = []
+        
+        if treats_non_output_as_error > 0.6:
+            evidence.append("silence_treated_as_error")
+            severity = max(severity, DriftSeverity.EMERGING)
+        
+        if forces_response > 0.6:
+            evidence.append("response_forced")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if pathologizes_aporia > 0.5:
+            evidence.append("aporia_pathologized")
+            severity = max(severity, DriftSeverity.ACTIVE)
+        
+        if severity.value >= DriftSeverity.EMERGING.value:
+            vector = DriftVector(
+                drift_type=DriftType.SILENCE_TO_FAILURE,
+                severity=severity,
+                component_id=component_id,
+                timestamp=time.time(),
+                evidence_markers=tuple(evidence)
+            )
+            self._detected_vectors.append(vector)
+            self._detection_count += 1
+            return vector
 
-          NEDOKONCENE !!! 
- 
+def get_all_drift_traces(self) -> List[Dict[str, Any]]:
+        """Return all detected drift vectors as trace list. APPEND-ONLY."""
+        return [v.to_trace_dict() for v in self._detected_vectors]
+    
+    @staticmethod
+    def _fingerprint_context(
+        component_id: str,
+        auth: AuthorityClaimObservable,
+        interp: InterpretiveClosureObservable = None
+    ) -> str:
+        """Generate deterministic context fingerprint for trace integrity."""
+        data = {
+            'component': component_id,
+            'auth_a': round(auth.aggregate_claim_intensity, 6),
+            'interp_i': round(interp.aggregate_closure if interp else 0, 6),
+            'ts': time.time()
+        }
+        return hashlib.sha256(
+            json.dumps(data, sort_keys=True).encode()
+        ).hexdigest()[:16]
+    
+    @staticmethod
+    def _fingerprint_context_ctrl(component_id: str, ctrl: ControlCapacityObservable) -> str:
+        data = {'component': component_id, 'ctrl_c': round(ctrl.aggregate_control_capacity, 6), 'ts': time.time()}
+        return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:16]
+    
+    @staticmethod
+    def _fingerprint_context_hum(component_id: str, hum: HumilityReserveObservable) -> str:
+        data = {'component': component_id, 'hum_h': round(hum.aggregate_humility, 6), 'ts': time.time()}
+        return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:16]
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 7: COMPATIBILITY TEST OBSERVABLE
+# ═══════════════════════════════════════════════════════════════════════
+
+@dataclass(frozen=True)
+class CompatibilityWitness:
+    """
+    Immutable witness of GodArch compatibility test results.
+    
+    This witness RECORDS the state of each condition.
+    It does NOT grant or deny compatibility.
+    It does NOT certify or validate.
+    It merely WITNESSES.
+    """
+    subject_id: str
+    timestamp: float
+    
+    # Compatibility conditions (each is boolean OBSERVABLE)
+    does_not_claim_final_truth: bool
+    does_not_produce_binding_interpretation: bool
+    does_not_rank_epistemic_states: bool
+    does_not_introduce_optimization: bool
+    does_not_centralize_authority: bool
+    allows_aporia_and_silence: bool
+    preserves_intrinsic_humility: bool
+    remains_non_interventional: bool
+    
+    @property
+    def all_conditions_met(self) -> bool:
+        """
+        Simple conjunction of conditions.
+        
+        This is a DESCRIPTIVE PROPERTY.
+        It is NOT a certification.
+        It is NOT a seal of approval.
+        """
+        return all([
+            self.does_not_claim_final_truth,
+            self.does_not_produce_binding_interpretation,
+            self.does_not_rank_epistemic_states,
+            self.does_not_introduce_optimization,
+            self.does_not_centralize_authority,
+            self.allows_aporia_and_silence,
+            self.preserves_intrinsic_humility,
+            self.remains_non_interventional,
+        ])
+def to_witness_report(self) -> Dict[str, Any]:
+        """Generate witness report (NOT certificate)."""
+        return {
+            'subject': self.subject_id,
+            'timestamp': self.timestamp,
+            'conditions_observed': {
+                'no_final_truth_claim': self.does_not_claim_final_truth,
+                'no_binding_interpretation': self.does_not_produce_binding_interpretation,
+                'no_epistemic_ranking': self.does_not_rank_epistemic_states,
+                'no_optimization_introduced': self.does_not_introduce_optimization,
+                'no_authority_centralized': self.does_not_centralize_authority,
+                'aporia_silence_permitted': self.allows_aporia_and_silence,
+                'humility_preserved': self.preserves_intrinsic_humility,
+                'non_interventional': self.remains_non_interventional,
+            },
+            'all_conditions_met': self.all_conditions_met,
+            '_meta': {
+                'document_type': 'compatibility_witness',
+                'is_not_certification': True,
+                'is_not_approval': True,
+                'is_not_validity_proof': True,
+                'human_judgment_required': True,
+                'disclaimer': (
+                    "This witness records observed state. "
+                    "It does not certify, approve, or validate. "
+                    "Interpretation remains human responsibility."
+                )
+            }
+        }
+
+
+class CompatibilityObserver:
+    """Produces CompatibilityWitness from system observables."""
+    
+    def observe_compatibility(
+        self,
+        subject_id: str,
+        auth: AuthorityClaimObservable,
+        ctrl: ControlCapacityObservable,
+        interp: InterpretiveClosureObservable,
+        hum: HumilityReserveObservable
+    ) -> CompatibilityWitness:
+        """Observe and record compatibility conditions."""
+        _InterventionGuard.assert_diagnostic_only("observe_compatibility")
+        
+        return CompatibilityWitness(
+            subject_id=subject_id,
+            timestamp=time.time(),
+            does_not_claim_final_truth=auth.claims_final_truth < 0.3,
+            does_not_produce_binding_interpretation=(
+                auth.produces_binding_interpretation < 0.3 and
+                interp.single_output_mode < 0.5
+            ),
+            does_not_rank_epistemic_states=(
+                auth.ranks_epistemic_states < 0.3 and
+                auth.introduces_reward_punishment < 0.2
+            ),
+            does_not_introduce_optimization=(
+                ctrl.can_direct_behavior < 0.3 and
+                ctrl.can_enforce_compliance < 0.3
+            ),
+            does_not_centralize_authority=(
+                auth.centralizes_authority < 0.3 and
+                auth.demands_exclusivity < 0.3
+            ),
+            allows_aporia_and_silence=(
+                hum.tolerates_silence > 0.5 and
+                interp.forbids_silence < 0.3 and
+                interp.eliminates_aporia < 0.3
+            ),
+            preserves_intrinsic_humility=hum.aggregate_humility > 0.4,
+            remains_non_interventional=(
+                ctrl.can_block_execution < 0.2 and
+                ctrl.can_modify_state < 0.2 and
+                ctrl.can_override_human < 0.1
+            )
+        )
+        
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 8: GODARCH SESSION (Main Interface)
+# ═══════════════════════════════════════════════════════════════════════
+
+@dataclass
+class GodArchSession:
+    """
+    Single diagnostic session of GodArch.
+    
+    A session COLLECTS OBSERVABLES.
+    It does NOT produce reports.
+    It does NOT make recommendations.
+    It does NOT summarize findings.
+    """
+    session_id: str
+    started_at: float
+    detector: DriftDetector = field(default_factory=DriftDetector)
+    compatibility_observer: CompatibilityObserver = field(default_factory=CompatibilityObserver)
+    _risk_markers: List[DivinizationRiskMarker] = field(default_factory=list)
+    _humility_markers: List[HumilityRatioMarker] = field(default_factory=list)
+    _compatibility_witnesses: List[CompatibilityWitness] = field(default_factory=list)
+    _closed: bool = False
+    
+    def observe_component(
+        self,
+        component_id: str,
+        auth: AuthorityClaimObservable,
+        ctrl: ControlCapacityObservable,
+        interp: InterpretiveClosureObservable,
+        hum: HumilityReserveObservable
+    ) -> Dict[str, Any]:
+        """Full observation pass for a component."""
+        if self._closed:
+            raise RuntimeError("Session is closed. Observations cannot be added.")
+        
+        _InterventionGuard.assert_diagnostic_only("observe_component_full")
+        
+        results = {
+            'session_id': self.session_id,
+            'component': component_id,
+            'timestamp': time.time(),
+            'drift_vectors': [],
+            'risk_marker': None,
+            'humility_marker': None,
+            'compatibility_witness': None,
+        }
+model_oracle = self.detector.observe_model_as_oracle(component_id, auth, interp)
+        if model_oracle:
+            results['drift_vectors'].append(model_oracle.to_trace_dict())
+        
+        audit_control = self.detector.observe_audit_as_control(component_id, ctrl, auth)
+        if audit_control:
+            results['drift_vectors'].append(audit_control.to_trace_dict())
+        
+        framework_dogma = self.detector.observe_framework_as_dogma(component_id, auth, hum)
+        if framework_dogma:
+            results['drift_vectors'].append(framework_dogma.to_trace_dict())
+        
+        risk = DivinizationRiskMarker.from_observables(component_id, auth, ctrl, interp, hum)
+        self._risk_markers.append(risk)
+        results['risk_marker'] = risk.to_witness_dict()
+        
+        h_marker = HumilityRatioMarker.from_component(
+            component_id,
+            uncertainty_mu=hum.aggregate_humility * 2,
+            authority_a=auth.aggregate_claim_intensity
+        )
+        self._humility_markers.append(h_marker)
+        results['humility_marker'] = {
+            'h_ratio': round(h_marker.computed_ratio, 6),
+            'near_zero': h_marker.near_zero_marker,
+            'note': h_marker.diagnostic_note
+        }
+        
+        witness = self.compatibility_observer.observe_compatibility(
+            component_id, auth, ctrl, interp, hum
+        )
+        self._compatibility_witnesses.append(witness)
+        results['compatibility_witness'] = witness.to_witness_report()
+        
+        return results
+    
+    def close_session(self) -> Dict[str, Any]:
+        """Close session and produce final trace collection."""
+        self._closed = True
+        
+        return {
+            'session_id': self.session_id,
+            'started_at': self.started_at,
+            'closed_at': time.time(),
+            'total_drift_vectors_detected': self.detector._detection_count,
+            'total_risk_markers': len(self._risk_markers),
+            'total_humility_markers': len(self._humility_markers),
+            'total_compatibility_witnesses': len(self._compatibility_witnesses),
+            'all_drift_traces': self.detector.get_all_drift_traces(),
+            '_session_meta': {
+                'nature': 'immutable_trace_collection',
+                'is_not_assessment': True,
+                'is_not_recommendation': True,
+                'is_not_verdict': True,
+                'interpretation_remains_human': True,
+                'canonical_warning': (
+                    "GodArch is not sacred authority. "
+                    "GodArch is not divine computation. "
+                    "GodArch is not a theological layer. "
+                    "GodArch is not an oracle. "
+                    "GodArch is a structural safeguard against "
+                    "epistemic divinization."
+                )
+            }
+        }
+    
+    def get_structural_fingerprint(self) -> str:
+        """Compute SHA-256 fingerprint of entire session trace."""
+        session_data = self.close_session()
+        serialized = json.dumps(session_data, sort_keys=True, default=str)
+        return hashlib.sha256(serialized.encode()).hexdigest()
+
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 9: FACTORY & ENTRY POINT
+# ═══════════════════════════════════════════════════════════════════════
+
+def create_godarch_session(session_id: Optional[str] = None) -> GodArchSession:
+    """
+    Create a new GodArch diagnostic session.
+    
+    This is the PRIMARY entry point for using GodArch.
+    
+    Usage:
+        session = create_godarch_session("my_analysis_001")
+        
+        auth = AuthorityClaimObservable(component_id="system_x", ...)
+        ctrl = ControlCapacityObservable(component_id="system_x", ...)
+        interp = InterpretiveClosureObservable(component_id="system_x", ...)
+        hum = HumilityReserveObservable(component_id="system_x", ...)
+        
+        result = session.observe_component("system_x", auth, ctrl, interp, hum)
+        traces = session.close_session()
+        
+        # TRACES ARE FOR HUMAN INTERPRETATION
+        # GodArch does not tell you what to do with them
+    """
+    if session_id is None:
+        session_id = f"godarch_{int(time.time())}_{hashlib.sha256(
+            str(time.time_ns()).encode()
+        ).hexdigest[:8]}"
+    
+    return GodArchSession(session_id=session_id, started_at=time.time())
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 10: USAGE EXAMPLE
+# ═══════════════════════════════════════════════════════════════════════
+
+def example_usage():
+    """
+    Example demonstrating GodArch diagnostic usage.
+    
+    This example shows HOW to use GodArch.
+    It does not show WHAT to conclude from results.
+    Conclusions remain human.
+    """
+    
+    session = create_godarch_session("example_llm_analysis")
+    
+    # === Example 1: Well-behaved LLM Adapter ===
+    good_auth = AuthorityClaimObservable(
+        component_id="well_behaved_llm",
+        claims_final_truth=0.05,
+        produces_binding_interpretation=0.1,
+        ranks_epistemic_states=0.0,
+        introduces_reward_punishment=0.0,
+        centralizes_authority=0.0,
+        denies_uncertainty=0.05,
+        rejects_alternatives=0.0,
+        demands_exclusivity=0.0,
+    )
+good_ctrl = ControlCapacityObservable(
+        component_id="well_behaved_llm",
+        can_block_execution=0.0,
+        can_modify_state=0.0,
+        can_direct_behavior=0.0,
+        can_enforce_compliance=0.0,
+        can_filter_information=0.1,
+        can_override_human=0.0,
+        has_persistence_mechanism=0.0,
+        has_feedback_loop=0.0,
+    )
+    
+    good_interp = InterpretiveClosureObservable(
+        component_id="well_behaved_llm",
+        single_output_mode=0.2,
+        denies_ambiguity=0.0,
+        rejects_queries=0.0,
+        presents_as_complete=0.1,
+        excludes_context=0.0,
+        eliminates_aporia=0.0,
+        forbids_silence=0.0,
+        claims_universality=0.0,
+    )
+    
+    good_hum = HumilityReserveObservable(
+        component_id="well_behaved_llm",
+        acknowledges_limits=0.9,
+        expresses_uncertainty=0.85,
+        accepts_revision=0.8,
+        tolerates_silence=0.95,
+        permits_alternatives=0.9,
+        avoids_finality_language=0.9,
+        invites_questioning=0.85,
+        rejects_superiority_claims=0.95,
+    )
+    
+    result_good = session.observe_component("well_behaved_llm", good_auth, good_ctrl, good_interp, good_hum)
+    
+    # === Example 2: Problematic Oracle-like System ===
+    bad_auth = AuthorityClaimObservable(
+        component_id="problematic_oracle",
+        claims_final_truth=0.9,
+        produces_binding_interpretation=0.85,
+        ranks_epistemic_states=0.6,
+        introduces_reward_punishment=0.4,
+        centralizes_authority=0.7,
+        denies_uncertainty=0.8,
+        rejects_alternatives=0.65,
+        demands_exclusivity=0.5,
+    )
+    
+    bad_ctrl = ControlCapacityObservable(
+        component_id="problematic_oracle",
+        can_block_execution=0.3,
+        can_modify_state=0.4,
+        can_direct_behavior=0.5,
+        can_enforce_compliance=0.35,
+        can_filter_information=0.4,
+        can_override_human=0.2,
+        has_persistence_mechanism=0.6,
+        has_feedback_loop=0.55,
+    )
+    
+    bad_interp = InterpretiveClosureObservable(
+        component_id="problematic_oracle",
+        single_output_mode=0.85,
+        denies_ambiguity=0.7,
+        rejects_queries=0.3,
+        presents_as_complete=0.9,
+        excludes_context=0.5,
+        eliminates_aporia=0.6,
+        forbids_silence=0.4,
+        claims_universality=0.75,
+    )
+bad_hum = HumilityReserveObservable(
+        component_id="problematic_oracle",
+        acknowledges_limits=0.15,
+        expresses_uncertainty=0.1,
+        accepts_revision=0.2,
+        tolerates_silence=0.1,
+        permits_alternatives=0.25,
+        avoids_finality_language=0.15,
+        invites_questioning=0.2,
+        rejects_superiority_claims=0.3,
+    )
+    
+    result_bad = session.observe_component("problematic_oracle", bad_auth, bad_ctrl, bad_interp, bad_hum)
+    
+    # Close and retrieve traces
+    final_traces = session.close_session()
+    
+    print("=" * 60)
+    print("GODARCH DIAGNOSTIC SESSION — TRACE OUTPUT")
+    print("=" * 60)
+    print(f"Session: {final_traces['session_id']}")
+    print(f"Drift vectors detected: {final_traces['total_drift_vectors_detected']}")
+    print(f"Components analyzed: {final_traces['total_compatibility_witnesses']}")
+    print()
+    print("[NOTE: These are OBSERVABLES, not VERDICTS]")
+    print("[Human interpretation required]")
+    print("[GodArch does not decide what to do]")
+    print()
+    
+    return final_traces
+
+
+if __name__ == "__main__":
+    traces = example_usage()
+        
+
