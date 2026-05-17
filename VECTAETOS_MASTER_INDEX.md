@@ -53,7 +53,7 @@ Defines:
 
 ### 2. Entropic Humility
 
-- `/formal/ENTROPIC_HUMILITY.md`
+- `/ENTROPIC_HUMILITY.md`
 
 Defines:
 
@@ -63,7 +63,7 @@ Defines:
 
 ### 3. Formal Meta-Mathematics
 
-- `/formal/FORMAL_META_MATHEMATICS.md`
+- `/formal/META_MATHEMATICS.md`
 
 Defines:
 
@@ -84,7 +84,7 @@ Defines:
 
 ### 5. Additional Canonical Extensions
 
-- `/formal/MECHANIZATION_OF_Φ.md`
+- `/formal/MECHANIZATION_OF_PHI.md`
 - `/formal/RECIPROCITY_MATRIX.md`
 - `/formal/RECIPROCITY_MINIMAL_EXTENSION.md`
 - `/formal/PROJECTION_RUNES.md`
@@ -97,7 +97,7 @@ but must remain compatible with the canonical anchors above.
 
 ### 6. Triadic Architecture Anchors
 
-- `/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md`
+- `/TRIADIC_ARCHITECTURE_AND_TRIALITY.md`
 - `/anchors/OAAT__ONTOLOGICALLY_ASYMMETRIC_ARCHITECTURAL_TRIALITY.md`
 
 Define:
@@ -116,7 +116,7 @@ They define the architectural dependency structure around Φ.
 
 ### 7. Empirical Evidence Roadmap
 
-- `/anchors/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md`
+- `/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md`
 
 Defines:
 
@@ -181,12 +181,12 @@ Before projection enters Φ, it passes through the intrinsic epistemic gate stru
 
 Canonical pre-field layer:
 
-- `3Gate`
+- `3GATE`
 - `4ES + QE`
 
 Defined in:
 
-- `/formal/FORMAL_EPISTEMIC_GATES.md`
+- `/formal/EPISTEMIC_GATES.md`
 - `/formal/3GATE.md`
 - `/formal/PIPELINE.md`
 
@@ -389,7 +389,7 @@ Defined in:
 
 - `/formal/NIR.md`
 - `/formal/SECURITY_MODEL.md`
-- `/formal/ENTROPIC_HUMILITY.md`
+- `/ENTROPIC_HUMILITY.md`
 
 Security claims remain bounded by evidence.
 
