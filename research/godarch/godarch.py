@@ -499,8 +499,7 @@ class HumilityRatioMarker:
             timestamp=time.time(),
             near_zero_marker=h < cls.THRESHOLD_NEAR_ZERO
         )
-    
-    @property
+
     def diagnostic_note(self) -> str:
         """
         Generate diagnostic note (descriptive, not prescriptive).
@@ -600,8 +599,7 @@ class DriftDetector:
 return None
     
     def observe_audit_as_control(
-        self,
-        component_id: str,
+        self, component_id: str,
         ctrl: ControlCapacityObservable,
         auth: AuthorityClaimObservable
     ) -> Optional[DriftVector]:
