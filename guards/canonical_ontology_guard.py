@@ -16,6 +16,7 @@ This guard:
     - reads git diff
     - detects protected file modifications
     - detects high-risk semantic drift phrases
+    - explicitly recognizes anchors/SEMANTIC_ERRATA.md as a narrow errata registry
     - emits deterministic CI errors
     - exits non-zero on violation
 
@@ -46,6 +47,19 @@ from typing import Iterable
 
 
 NULL_SHA = "0000000000000000000000000000000000000000"
+
+ERRATA_REGISTRY_PATH = "anchors/SEMANTIC_ERRATA.md"
+
+ERRATA_REQUIRED_MARKERS: tuple[str, ...] = (
+    "vectaetos-guard: allow-file",
+    "KANONICKÝ SEMANTIC ERRATA ANCHOR",
+    "Tento dokument nie je nová ontológia",
+    "Nie je náhrada immutable anchorov",
+    "Nemení Φ, K(Φ), κ, QE, Vortex, audit, projekciu",
+    "guardy môžu registrovaný historický drift chápať ako známe errata",
+    "neregistrovaný drift zostáva porušením",
+    "Aktívne súbory sa majú opraviť priamo",
+)
 
 
 class Severity(str, enum.Enum):
@@ -194,10 +208,12 @@ def run_git(args: list[str], *, allow_fail: bool = False) -> str:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+
     if result.returncode != 0 and not allow_fail:
         raise RuntimeError(
             f"git {' '.join(args)} failed with exit {result.returncode}:\n{result.stderr}"
         )
+
     return result.stdout
 
 
@@ -209,15 +225,26 @@ def is_null_sha(value: str | None) -> bool:
     return value is None or value.strip() == "" or value.strip() == NULL_SHA
 
 
+def is_errata_registry_path(path: str) -> bool:
+    return normalize_path(path) == ERRATA_REGISTRY_PATH
+
+
+def content_contains_required_errata_markers(content: str) -> bool:
+    normalized = content.lower()
+    return all(marker.lower() in normalized for marker in ERRATA_REQUIRED_MARKERS)
+
+
 def commit_exists(ref: str) -> bool:
     if is_null_sha(ref):
         return False
+
     result = subprocess.run(
         ["git", "cat-file", "-e", f"{ref}^{{commit}}"],
         check=False,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+
     return result.returncode == 0
 
 
@@ -253,6 +280,7 @@ def diff_name_status(base: str, head: str) -> list[ChangedPath]:
     )
 
     changes: list[ChangedPath] = []
+
     for line in raw.splitlines():
         if not line.strip():
             continue
@@ -310,6 +338,7 @@ def file_exists_at_head(path: str, head: str) -> bool:
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+
     return result.returncode == 0
 
 
@@ -320,11 +349,70 @@ def read_file_at_head(path: str, head: str) -> str:
     return run_git(["show", f"{head}:{path}"], allow_fail=False)
 
 
-def detect_protected_file_changes(changes: Iterable[ChangedPath]) -> list[Finding]:
+def validate_errata_registry_at_head(path: str, head: str) -> list[Finding]:
+    if not is_errata_registry_path(path):
+        return []
+
+    if not file_exists_at_head(path, head):
+        return [
+            Finding(
+                severity=Severity.BLOCK,
+                code="SEMANTIC_ERRATA_REGISTRY_MISSING",
+                path=path,
+                message=(
+                    "anchors/SEMANTIC_ERRATA.md is a registered semantic errata "
+                    "anchor and must not be deleted or moved away from anchors/."
+                ),
+            )
+        ]
+
+    try:
+        content = read_file_at_head(path, head)
+    except RuntimeError as exc:
+        return [
+            Finding(
+                severity=Severity.BLOCK,
+                code="SEMANTIC_ERRATA_REGISTRY_UNREADABLE",
+                path=path,
+                message=f"Cannot read semantic errata registry at HEAD: {exc}",
+            )
+        ]
+
+    if not content_contains_required_errata_markers(content):
+        return [
+            Finding(
+                severity=Severity.BLOCK,
+                code="SEMANTIC_ERRATA_REGISTRY_INVALID",
+                path=path,
+                message=(
+                    "anchors/SEMANTIC_ERRATA.md may contain forbidden historical "
+                    "phrases only if it preserves explicit errata registry clauses."
+                ),
+            )
+        ]
+
+    return []
+
+
+def semantic_scan_is_exempt(path: str, content: str) -> bool:
+    if not is_errata_registry_path(path):
+        return False
+
+    return content_contains_required_errata_markers(content)
+
+
+def detect_protected_file_changes(
+    changes: Iterable[ChangedPath],
+    head: str,
+) -> list[Finding]:
     findings: list[Finding] = []
 
     for change in changes:
         for path in change.paths:
+            if is_errata_registry_path(path):
+                findings.extend(validate_errata_registry_at_head(path, head))
+                continue
+
             if path_is_protected(path):
                 findings.append(
                     Finding(
@@ -355,6 +443,9 @@ def detect_semantic_drift(changes: Iterable[ChangedPath], head: str) -> list[Fin
         try:
             content = read_file_at_head(path, head)
         except RuntimeError:
+            continue
+
+        if semantic_scan_is_exempt(path, content):
             continue
 
         for line_number, line in enumerate(content.splitlines(), start=1):
@@ -403,10 +494,11 @@ def print_report(findings: list[Finding], changes: list[ChangedPath]) -> None:
 
     for finding in findings:
         location = finding.path
+
         if finding.line is not None:
             location = f"{location}:{finding.line}"
 
-        print(f"[{finding.severity}] {finding.code}")
+        print(f"[{finding.severity.value}] {finding.code}")
         print(f"  path: {location}")
         print(f"  msg : {finding.message}")
         print("")
@@ -422,6 +514,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="VECTAETOS canonical ontology repository guard"
     )
+
     parser.add_argument("--base", required=True, help="Base commit SHA or null SHA")
     parser.add_argument("--head", required=True, help="Head commit SHA")
     parser.add_argument(
@@ -430,6 +523,7 @@ def parse_args() -> argparse.Namespace:
         default="strict",
         help="strict exits non-zero on findings; report only prints findings",
     )
+
     return parser.parse_args()
 
 
@@ -442,7 +536,8 @@ def main() -> int:
     try:
         changes = diff_name_status(base, head)
         findings: list[Finding] = []
-        findings.extend(detect_protected_file_changes(changes))
+
+        findings.extend(detect_protected_file_changes(changes, head))
         findings.extend(detect_semantic_drift(changes, head))
 
         for finding in findings:

@@ -2,19 +2,23 @@ name: Vortex Determinism Verification
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
       - "vortex/**"
       - "scripts/verify_determinism.py"
       - "requirements.txt"
       - ".github/workflows/vortex_determinism.yml"
+
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
     paths:
       - "vortex/**"
       - "scripts/verify_determinism.py"
       - "requirements.txt"
       - ".github/workflows/vortex_determinism.yml"
+
   workflow_dispatch:
 
 permissions:
@@ -25,17 +29,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Manual checkout
+      - name: Manual trusted checkout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
         run: |
           set -euo pipefail
 
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            git fetch --no-tags --depth=1 origin "$GITHUB_REF"
+          if [ "${EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head"
           else
-            git fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
           fi
 
           git checkout --force FETCH_HEAD
@@ -61,32 +70,31 @@ jobs:
           if [ -f requirements.txt ]; then
             python3 -m pip install -r requirements.txt
           else
-            echo "[WARN] requirements.txt not found; continuing without dependency install."
+            echo "[WARN] requirements.txt not found; installing minimal Vortex dependencies."
+            python3 -m pip install numpy scipy
           fi
 
-      - name: Check determinism verifier exists
+      - name: Compile determinism verifier
         run: |
           set -euo pipefail
-
-          test -f scripts/verify_determinism.py
+          python3 -m py_compile scripts/verify_determinism.py
 
       - name: Run determinism verification
+        env:
+          PYTHONHASHSEED: "0"
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_determinism.py
+
+      - name: Inspect runtime determinism report
+        if: always()
         run: |
           set -euo pipefail
 
-          python3 scripts/verify_determinism.py
+          echo "=== RUNTIME DETERMINISM ==="
+          ls -la .runtime/determinism || true
 
-      - name: Inspect determinism artifacts
-        if: always()
-        run: |
-          echo "=== ARTIFACTS ==="
-          ls -la artifacts || true
-
-          if [ -d artifacts ]; then
-            tar -czf vortex-determinism-artifacts.tar.gz artifacts/
-            sha256sum vortex-determinism-artifacts.tar.gz > vortex-determinism-artifacts.sha256
-            echo "=== ARTIFACT HASH ==="
-            cat vortex-determinism-artifacts.sha256
-          else
-            echo "[INFO] No artifacts directory produced."
+          if [ -f ".runtime/determinism/verification_report.json" ]; then
+            echo "=== REPORT ==="
+            cat .runtime/determinism/verification_report.json
           fi

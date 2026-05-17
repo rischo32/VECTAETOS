@@ -1,52 +1,65 @@
-### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
+###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+___
+##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
 #### Nie samotné fundamentálne jadro Φ
 
-#### Technológie nie sú hračky... a práve presne preto :
+### Technológie nie sú hračky... a práve presne preto : ASI_MOD bol dočasne odstranení ako 3 downstream vrstva, a ASIMULATOR pozastavení a odstránení z "public" 
 
-     žiadna jednostranná legitimácia
-     žiadna predčasná operatívna expanzia
-     žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
-     rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
++ žiadna jednostranná legitimácia
++ žiadna predčasná operatívna expanzia
++ žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
++ rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
 ___
-##### Empirical Safety Prior : Neither ASIMULATOR nor ASI_MOD is being legitimized as a validated higher operative layer at this stage. Before any such role is allowed, VECTAETOS must first be empirically verified as a safe epistemic space for more than foundational use. Until that happens, all higher-layer ambition remains intentionally bounded. 
-+ Empiricky dôkaz všetkych vrstiev L0-L4
-+ Adversarialne a penetračné testy Φ
-___
-[![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
+
+[![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=for-the-badge&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/rischo32/Vectaetos)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
+[![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
-[![GitHub Pages](https://img.shields.io/badge/github-pages-blue)](https://github.com/rischo32/Vectaetos)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
-[![CodeQL](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/github-code-scanning/codeql)
-
+![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)
+___
 ![Vectaetos](badge.svg)
-
-[![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
+___
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
 
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12869/badge)](https://www.bestpractices.dev/projects/12869)
+[![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
+___
+### Level 0 — Fundamental Repository Perimeter
+[![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
+[![vectaetos-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml)
+[![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
+[![Φ Integrity Check](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml)
+[![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
+[![empirical-claim-guard](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml)
+[![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
+[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
+
+    These guards protect the root boundary of the repository.
+___
+### Level 1 — Specialized Ontological Guards
+[![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
+[![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
+[![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
+___
+
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
-[![Φ Determinism Check](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/determinism.yml)
 [![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
 [![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
+___
 
 [![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
 [![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
 [![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
-
-[![Release + EK Notarization](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/release.yml)
-[![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
-
-    “Work is currently underway on the fundamental security layers of the perimeter.”
-[![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
-[![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
-[![Φ Integrity Check](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_integrity.yml)
-[![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
-
-# VECTAETOS™ 
-#### Onto-Epistemic Field © framework of structure
+[![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
+[![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
+___
+### v procese Φ : najprv dokončime pre-dimenzované a potom aj tak je v pláne čo sa META-MATEMATIKY týka vrátiť sa, k povodnemu jadru Φ (frozen core 1.1+)
+    Musíme opraviť koherenčné predikáty, drifty , ruffy, dokončíť perimetre, zavieš SLP sentinelov kodu a dalšie veci ...
+    NIE JE TOHO MALO ... 
 _________________________
 
              "Cogito cohaerenter ergo sum possibile"
@@ -111,170 +124,249 @@ ___
 - [05 — Unified Cross-Section](./unified_architecture/05-unified-cross-section.png)
 
 </details>
----
+___
+<div align="center">
+<h2>Final Meta-Mathematical Closure</h2>
 
-## 1. Epistemic Field (Φ)
+     krivostná meta-matematika
 
-The system operates on:
+**VECTAETOS™** is formally closed as a non-agentic curvature-domain structure.
 
-    Φ = (Σ, R), R ∈ so(8)
-
-Derived structure: 
-
-    Δ = dR ∈ ℝ⁵⁶
-
-The representability domain:  
-
-    𝒟 = Im(d) ⊂ ℝ⁵⁶
-
-Boundary:   
-
-    κ = ∂𝒟
-
-Coherence:   
-
-    K(Φ) = 1 ⇔ Δ ∈ 𝒟
----
-
-## 2. Representability Layer (IMPLEMENTED)
-
-The system enforces:
-
-    Δ ∈ 𝒟
-
-via structural closure conditions:
-
-    dΔ = 0
-
-This is not approximate.
-This is a strict algebraic constraint.
-Non-representable states are rejected.
+> It does not describe what should happen.  
+> It describes what can remain representable without collapse of meaning.
 
 ---
 
-## 3. Canonical Structure (IMPLEMENTED)
+### Core Field Structure
 
-All epistemic configurations are mapped to canonical form:
+```math
+\begin{aligned}
+\Phi &= (\Sigma, R) \\
+\Sigma &= \{\mathrm{INT}, \mathrm{LEX}, \mathrm{VER}, \mathrm{LIB},
+\mathrm{UNI}, \mathrm{REL}, \mathrm{WIS}, \mathrm{CRE}\} \\
+R &\in \mathfrak{so}(8) \\
+R_{ij} &= -R_{ji} \\
+R_{ii} &= 0
+\end{aligned}
+```
 
-    canonicalize(Δ)
+### Curvature and Boundary Consistency
 
-Properties:
+```math
+\begin{aligned}
+\Delta &= d_1 R \\[6pt]
+(d_1 R)_{ijk} &= R_{ij} + R_{jk} + R_{ki} \\[6pt]
+d_2 d_1 &= 0
+\end{aligned}
+```
 
-- permutation invariant
-- structure preserving
-- collision resistant (within structural equivalence)
+### Algebraic Curvature Domain
 
-Canonicalization defines identity at the structural level.
+```math
+\begin{aligned}
+\mathcal{D}_{\mathrm{alg}}
+&=
+\mathrm{Im}(d_1)
+\end{aligned}
+```
 
----
+### Triality-Compatible Curvature Domain
 
-## 4. Structural Hash (IMPLEMENTED)
+```math
+\begin{aligned}
+\mathcal{D}_{\mathrm{tri}}
+&=
+\mathcal{D}_{\mathrm{alg}}
+\cap
+\mathrm{Fix}(\mathcal{T})
+\end{aligned}
+```
 
-Each epistemic state Φ is assigned:
+### Admissible Curvature Domain
 
-    H(Φ)
+```math
+\begin{aligned}
+\mathcal{D}
+&=
+\left\{
+\Delta \in C^2
+\;\middle|\;
+\Delta = d_1 R,\;
+d_2\Delta = 0,\;
+P_{\mathcal{T}}\Delta = \Delta,\;
+\mathrm{Rep}(\Delta)=1
+\right\}
+\end{aligned}
+```
 
-Properties:
+### Representable Field Space
 
-- invariant under canonicalization
-- sensitive to structural deformation
-- independent of representation
+```math
+\begin{aligned}
+E
+&=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+d_1R \in \mathcal{D}
+\right\}
+\end{aligned}
+```
 
-This forms the basis of epistemic cryptography.
+### ZMYSEL Carrier
 
----
+```math
+\begin{aligned}
+\Xi
+&=
+E
+=
+d_1^{-1}(\mathcal{D})
+\end{aligned}
+```
 
-## 5. κ-Signature (IMPLEMENTED)
+### Coherence Predicate — Positive Case
 
-The system computes:
+```math
+\begin{aligned}
+K_{\mathcal{D}}(\Phi)=1
+&\iff
+d_1R \in \mathcal{D}
+\end{aligned}
+```
 
-    κ(Φ)
+### Coherence Predicate — Negative Case
 
-as a structural trace of proximity to the boundary ∂𝒟.
+```math
+\begin{aligned}
+K_{\mathcal{D}}(\Phi)=0
+&\iff
+d_1R \notin \mathcal{D}
+\end{aligned}
+```
 
-Properties:
+### κ Boundary
 
-- no NaN
-- non-uniform under variation
-- deterministic
+```math
+\begin{aligned}
+\kappa
+&=
+\partial_{\mathcal{D}_{\mathrm{tri}}}
+\mathcal{D}
+\end{aligned}
+```
 
-κ is not a metric.
+### QE Curvature-Domain Condition
 
-It is a structural signal.
+```math
+\begin{aligned}
+\mathrm{QE}_{\mathcal{D}}
+&\iff
+d_1R \notin \mathcal{D}
+\end{aligned}
+```
 
----
+### Entropic Humility
 
-## 6. Pipeline (IMPLEMENTED)
+```math
+\begin{aligned}
+\forall I:\quad
+K_{\mathcal{D}}(\Phi \to I)=0
+&\Rightarrow
+I \notin \mathrm{Transitions}_{\mathcal{D}}(\Phi)
+\end{aligned}
+```
 
-The system exposes:
+### Simulation Vortex Boundary
 
-    run_pipeline(system, inputs)
+```math
+\begin{aligned}
+V_{\mathrm{ext}}
+&:
+\Phi \to \{\tau_i\}
+\end{aligned}
+```
 
-Properties:
+### Projection Boundary
 
-- no feedback loops
-- no behavioral modification
-- preserves input-output identity
+```math
+\begin{aligned}
+\Pi
+&:
+\Phi \to \Gamma
+\end{aligned}
+```
 
-Additionally:
+### LLM Adapter Boundary
 
-    ek_step(outputs)
+```math
+\begin{aligned}
+\mathrm{LLM}_{\mathrm{adapter}}
+&:
+\Gamma \to \mathrm{Language}
+\end{aligned}
+```
 
-returns:
+### Audit Non-Intervention — Φ
 
-{
-  "delta": Δ,
-  "hash": H(Φ),
-  "kappa_trace": κ(Φ)
-}
+```math
+\begin{aligned}
+\frac{\partial \Phi}{\partial \mathrm{Audit}}
+&=
+0
+\end{aligned}
+```
 
----
+### Audit Non-Intervention — 𝒟
 
-## 7. Family of Fields (DEFINED)
+```math
+\begin{aligned}
+\frac{\partial \mathcal{D}}{\partial \mathrm{Audit}}
+&=
+0
+\end{aligned}
+```
 
-Vectaetos extends from a single field to:
+## Konečná definícia 
 
-    ℱ = {Φₐ}
+```math
+\begin{aligned}
+\Phi &= (\Sigma, R) \\[6pt]
 
-with:
+\Delta &= d_1 R \\[6pt]
 
-- structural compatibility constraints
-- invariant Σ
-- preserved antisymmetry
+\mathcal{D}
+&=
+\left\{
+\Delta
+\;\middle|\;
+\Delta = d_1 R,\;
+d_2\Delta = 0,\;
+P_{\mathcal{T}}\Delta = \Delta,\;
+\mathrm{Rep}(\Delta)=1
+\right\} \\[8pt]
 
-Interaction rules are defined but not yet operationalized.
----
+K_{\mathcal{D}}(\Phi)=1
+&\iff
+d_1R \in \mathcal{D} \\[8pt]
 
-## 8. Epistemic Space (DEFINED)
+\kappa
+&=
+\partial_{\mathcal{D}_{\mathrm{tri}}}
+\mathcal{D} \\[8pt]
 
-The system explicitly models:
-
-    - space: 𝒟 ⊂ ℝ⁵⁶
-    - boundary: κ = ∂𝒟
-    - invalid region: ℝ⁵⁶ \ 𝒟
-
-Crossing κ results in:
-
-    QE (Qualitative Epistemic Aporia)
-
----
-
-## 9. Meaning of the System
-
-Vectaetos does not compute answers.
-Vectaetos enforces:
-the conditions under which a state of meaning remains structurally valid.
-
-It separates:
-representation
-from
-interpretation
-
-It protects:
-coherence
-against
-collapse
-
+\mathrm{QE}_{\mathcal{D}}
+&\iff
+d_1R \notin \mathcal{D}
+\end{aligned}
+```
+___
+| Tᵢ | Cᵢ | μᵢ | Aᵢⱼ | h | sú auditné observables.
+Nie sú K(Φ).
+Nie sú κ.
+Nie sú rozhodnutie.
+Nie sú validácia deploymentu.
+Nezasahujú späť do Φ.
 ____
 Nemáme algoritmus, lebo ho nepotrebujeme.
 Máme priestor, v ktorom algoritmy strácajú zmysel.
@@ -420,24 +512,15 @@ CRE — Creation
 These axioms form the topological geometry of meaning within the field.
 ------------------------------------------------------------
 
-EPISTEMIC STRUCTURE
-
-4ES — Four Epistemic States
-
-AA — Affirmative–Affirmative  
-AN — Affirmative–Negative  
-NA — Negative–Affirmative  
-NN — Negative–Negative  
-
-
 QE — Qualitative Epistemic Aporia
 
-QE represents a legitimate epistemic state where coherence cannot be maintained without distortion.
+QE represents a legitimate epistemic state in which representability reaches an aporetic boundary.
 
-QE is not failure.
+It marks non-realizability of a coherent projection under the current field configuration.
 
-Silence is therefore a valid outcome.
+QE does not force substitution, recovery, completion, or artificial continuation.
 
+Silence is therefore a valid descriptive outcome.
 
 ------------------------------------------------------------
 
@@ -507,7 +590,7 @@ Runes are symbolic projections of the state of Φ.
 
 They are descriptive glyphs representing structural coherence or fragmentation.
 
-Runes never prescribe decisions.
+Projekcie, runy a glyphy vystavujú deskriptívne štrukturálne stavy; neinterpretujú, nepredpisujú, nerozhodujú, neodporúčajú ani nepíšu späť do Φ.
 
 They indicate epistemic configuration only.
 ------------------------------------------------------------

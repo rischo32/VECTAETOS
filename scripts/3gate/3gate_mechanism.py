@@ -1,5 +1,5 @@
 """
-VECTAETOS — 3GATE_MECHANISM.py
+VECTAETOS — 3gate_mechanism.py
 
 Status: Canonical technical projection
 Ontology: Governed by FORMAL_3GATE_SHAPE.md

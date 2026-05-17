@@ -12,7 +12,7 @@
 | **so(8)** | Lie algebra context for the 28 independent relational tensions |
 | **K(Phi)** | Coherence / realizability predicate |
 | **Kappa (κ)** | Boundary of representability / ontological preservability |
-| **QE** | Qualitative Epistemic Aporia — active boundary state, not an error |
+| **QE** | ## QE je kvalitatívna epistemická apória.Označuje aktívny stav, v ktorom dostupné štrukturálne vyjadrenie nedokáže zachovať koherentný prechod. V kontexte VECTAETOS slúži ako pomenovanie hranice reprezentovateľnosti, kde ďalšia projekcia nemá stabilnú ontologickú formu. |
 | **4ES** | Four epistemic states: AA, AN, NA, NN |
 | **AA** | Coherent for human and field |
 | **AN** | Meaningful for human, incoherent for field |
@@ -20,7 +20,7 @@
 | **NN** | Incoherent for both |
 | **OAAT** | Ontologically Asymmetric Architectural Triality |
 | **3Gate** | Epistemic representability filter across Width, Depth, Height |
-| **Simulation Vortex** | Non-agentic generator of candidate deformations / trajectories; does not optimize, decide, or select |
+| **Simulation Vortex** | Simulation Vortex je neagentná procedurálna vrstva na generovanie kandidátnych trajektórií. Jeho výstupom je množina možných prechodových tvarov bez rankingovej alebo rozhodovacej autority. V knowledge base kontexte slúži ako opis exploračnej vrstvy downstream od ontológie. |
 | **Runic Projection (Π)** | Read-only, lossy structural projection of field states |
 | **Delta (Δ)** | Cyclic curvature structure across the relational field; commonly formalized over 56 coherence cycles |
 | **EK** | Epistemic Cryptography — structural coherence audit / integrity layer |

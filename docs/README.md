@@ -76,6 +76,9 @@ Tento priečinok môže obsahovať napríklad:
 - poznámky k so(8)
 - diagramy poľa
 - observatórne výstupy
+  ___
+      aktualny docs/VECTAETOS — METAMATEMATICKÝ ANCHOR.pdf je starší, a plaťí novší, a to v /anchors
+  ___
 
 ### Jednotný architektonický diagram
 
