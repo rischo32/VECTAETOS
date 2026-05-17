@@ -638,13 +638,13 @@ class DriftDetector:
             self._detection_count += 1
             return vector
 
-    return None
-    
-def observe_framework_as_dogma(
+        return None
+
+    def observe_framework_as_dogma(
         self,
         component_id: str,
         auth: AuthorityClaimObservable,
-        hum: HumilityReserveObservable
+        hum: HumilityReserveObservable,
     ) -> Optional[DriftVector]:
         """Detect Framework-as-Dogma drift pattern."""
         _InterventionGuard.assert_diagnostic_only("detect_framework_dogma_drift")
