@@ -53,7 +53,7 @@ Defines:
 
 ### 2. Entropic Humility
 
-- `//ENTROPIC_HUMILITY.md`
+- `/ENTROPIC_HUMILITY.md`
 
 Defines:
 
@@ -97,7 +97,7 @@ but must remain compatible with the canonical anchors above.
 
 ### 6. Triadic Architecture Anchors
 
-- `/anchors/TRIADIC_ARCHITECTURE_AND_TRIALITY.md`
+- `/TRIADIC_ARCHITECTURE_AND_TRIALITY.md`
 - `/anchors/OAAT__ONTOLOGICALLY_ASYMMETRIC_ARCHITECTURAL_TRIALITY.md`
 
 Define:
@@ -116,7 +116,7 @@ They define the architectural dependency structure around Φ.
 
 ### 7. Empirical Evidence Roadmap
 
-- `/anchors/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md`
+- `/EMPIRICAL_EVIDENCE_ROADMAP_ANCHOR.md`
 
 Defines:
 
@@ -181,7 +181,7 @@ Before projection enters Φ, it passes through the intrinsic epistemic gate stru
 
 Canonical pre-field layer:
 
-- `3Gate`
+- `3GATE`
 - `4ES + QE`
 
 Defined in:
