@@ -639,8 +639,6 @@ def observe_audit_as_control(
             return vector
 
         return None
-        
-        return None
     
     def observe_framework_as_dogma(
         self,
@@ -676,7 +674,8 @@ def observe_audit_as_control(
         if auth.rejects_alternatives > 0.5:
             evidence.append("alternatives_rejected")
             severity = max(severity, DriftSeverity.ACTIVE)
-if auth.introduces_reward_punishment > 0.5:
+            
+        if auth.introduces_reward_punishment > 0.5:
             evidence.append("reward_punishment_introduced")
             severity = max(severity, DriftSeverity.STRUCTURAL)
         
