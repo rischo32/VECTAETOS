@@ -597,34 +597,34 @@ class DriftDetector:
             self._detection_count += 1
             return vector
 return None
-    
-    def observe_audit_as_control(
-        self, component_id: str,
+def observe_audit_as_control(
+        self,
+        component_id: str,
         ctrl: ControlCapacityObservable,
-        auth: AuthorityClaimObservable
+        auth: AuthorityClaimObservable,
     ) -> Optional[DriftVector]:
         """Detect Audit-as-Control drift pattern."""
         _InterventionGuard.assert_diagnostic_only("detect_audit_control_drift")
-        
+
         severity = DriftSeverity.OBSERVATIONAL
         evidence = []
-        
+
         if ctrl.can_block_execution > 0.5:
             evidence.append("blocking_capacity")
             severity = max(severity, DriftSeverity.EMERGING)
-        
+
         if ctrl.can_enforce_compliance > 0.5:
             evidence.append("enforcement_capacity")
             severity = max(severity, DriftSeverity.ACTIVE)
-        
+
         if ctrl.can_modify_state > 0.5:
             evidence.append("state_modification")
             severity = max(severity, DriftSeverity.ACTIVE)
-        
+
         if auth.introduces_reward_punishment > 0.5:
             evidence.append("reward_punishment_introduced")
             severity = max(severity, DriftSeverity.STRUCTURAL)
-        
+
         if severity.value >= DriftSeverity.EMERGING.value:
             vector = DriftVector(
                 drift_type=DriftType.AUDIT_TO_CONTROL,
@@ -632,11 +632,13 @@ return None
                 component_id=component_id,
                 timestamp=time.time(),
                 evidence_markers=tuple(evidence),
-                context_fingerprint=self._fingerprint_context_ctrl(component_id, ctrl)
+                context_fingerprint=self._fingerprint_context_ctrl(component_id, ctrl),
             )
             self._detected_vectors.append(vector)
             self._detection_count += 1
             return vector
+
+        return None
         
         return None
     
