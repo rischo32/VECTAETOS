@@ -25,6 +25,7 @@ ___
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
 
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12869/badge)](https://www.bestpractices.dev/projects/12869)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 ___
 ### Level 0 — Fundamental Repository Perimeter
