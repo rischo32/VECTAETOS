@@ -596,8 +596,8 @@ class DriftDetector:
             self._detected_vectors.append(vector)
             self._detection_count += 1
             return vector
-return None
-def observe_audit_as_control(
+    return None
+    def observe_audit_as_control(
         self,
         component_id: str,
         ctrl: ControlCapacityObservable,
@@ -638,9 +638,9 @@ def observe_audit_as_control(
             self._detection_count += 1
             return vector
 
-        return None
+    return None
     
-    def observe_framework_as_dogma(
+def observe_framework_as_dogma(
         self,
         component_id: str,
         auth: AuthorityClaimObservable,
