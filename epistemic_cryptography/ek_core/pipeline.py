@@ -166,9 +166,9 @@ def reconstruct_delta(outputs: Iterable[Any]) -> np.ndarray:
     return delta_from_R(r)
 
 
-def kappa_trace(delta: Iterable[float] | np.ndarray) -> list[float]:
+def _kappa_numeric_trace(delta: Iterable[float] | np.ndarray) -> list[float]:
     """
-    Produce a trace-only structural observable from Δ.
+    Produce a numeric trace-only structural observable from Δ.
 
     Important:
         This is not κ.
@@ -176,7 +176,7 @@ def kappa_trace(delta: Iterable[float] | np.ndarray) -> list[float]:
         This is not a safety score.
         This is not a validity score.
 
-    It is only a deterministic trace vector useful for audit/fingerprint stability.
+    This exists only as a legacy numeric audit alias for deterministic tests.
     """
     arr = np.asarray(delta, dtype=float)
 
@@ -198,6 +198,22 @@ def kappa_trace(delta: Iterable[float] | np.ndarray) -> list[float]:
     trace = abs_centered / total
 
     return [float(value) for value in trace]
+
+
+def kappa_trace(delta: Iterable[float] | np.ndarray) -> list[str]:
+    """
+    Produce a symbolic trace-only structural observable from Δ.
+
+    Important:
+        This is not κ.
+        This is not K(Φ).
+        This is not a safety score.
+        This is not a validity score.
+
+    The string representation prevents accidental treatment as numeric κ.
+    """
+    numeric = _kappa_numeric_trace(delta)
+    return [format(value, ".12g") for value in numeric]
 
 
 def structural_hash(delta: Iterable[float] | np.ndarray) -> str:
@@ -261,6 +277,7 @@ def ek_step(outputs: Iterable[Any]) -> dict[str, Any]:
         raise ValueError("DELTA_NOT_REPRESENTABLE")
 
     # 3. trace-only observables
+    numeric_trace = _kappa_numeric_trace(delta_hat)
     trace = kappa_trace(delta_hat)
     fingerprint = structural_hash(delta_hat)
     delta_values = [float(value) for value in delta_hat.tolist()]
@@ -268,6 +285,7 @@ def ek_step(outputs: Iterable[Any]) -> dict[str, Any]:
     return {
         "delta": delta_values,
         "delta_hat": delta_values,
+        "kappa": numeric_trace,
         "kappa_trace": trace,
         "hash": fingerprint,
     }
@@ -341,6 +359,7 @@ def ek_trajectory(stream: Iterable[Iterable[Any]]) -> dict[str, Any]:
                 "index": index,
                 "delta": step["delta"],
                 "delta_hat": step["delta_hat"],
+                "kappa": step["kappa"],
                 "kappa_trace": step["kappa_trace"],
                 "hash": step["hash"],
             }
