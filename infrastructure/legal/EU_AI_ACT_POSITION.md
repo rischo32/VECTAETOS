@@ -832,16 +832,6 @@ The following public sources were considered for this version:
 infrastructure/legal/EU_AI_ACT_POSITION.md
 ```
 
-Suggested commit:
-
-```bash
-git add infrastructure/legal/EU_AI_ACT_POSITION.md
-git commit -m "Update EU AI Act positioning for downstream implementation boundaries"
-git push
-```
-
----
-
 ## 21. Version Notes
 
 ### v1.1
