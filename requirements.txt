@@ -8,6 +8,6 @@ rich
 eth-hash
 pycryptodome>=3.15.0
 pytest>=9.0.3,<10
-pygls"
+pygls
 lsprotocol
 jedi
