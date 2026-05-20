@@ -1,0 +1,81 @@
+name: Coherence Vocabulary Guard
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GUARD_MODE: report
+
+jobs:
+  coherence-vocabulary-guard:
+    name: GUARD-12 / Coherence Vocabulary Boundary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare reports directory
+        run: mkdir -p reports
+
+      - name: Run GUARD-12
+        id: coherence_vocabulary_guard
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          set +e
+          python3 guards/coherence_vocabulary_guard.py \
+            --root . \
+            --mode "${GUARD_MODE}" \
+            --json-out reports/coherence_vocabulary_guard.json \
+            | tee /tmp/coherence_vocabulary_guard.log
+          GUARD_EXIT="${PIPESTATUS[0]}"
+          set -e
+
+          {
+            echo "# GUARD-12 / Coherence Vocabulary Guard"
+            echo ""
+            echo "Mode: \`${GUARD_MODE}\`"
+            echo ""
+            echo "Guard exit code: \`${GUARD_EXIT}\`"
+            echo ""
+            echo '```text'
+            cat /tmp/coherence_vocabulary_guard.log
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "${GUARD_EXIT}" -eq 2 ]; then
+            echo "Coherence vocabulary guard execution/config error."
+            exit 2
+          fi
+
+          if [ "${GUARD_MODE}" = "strict" ] && [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Strict mode: coherence vocabulary findings detected."
+            exit 1
+          fi
+
+          if [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Report-only mode: findings detected, but CI is not failed."
+          fi
+
+          exit 0
+
+      - name: Upload GUARD-12 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coherence-vocabulary-guard-report
+          path: |
+            reports/coherence_vocabulary_guard.json
