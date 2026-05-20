@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "manifest_name": "vectaetos_perimeter_manifest",
   "status": "active_manifest_candidate",
-  "location": "guards/perimeter_manifest.json",
+  "location": "contracts/perimeter_manifest.json",
   "role": "deterministic guard command registry",
   "runner_policy": {
     "runner_has_semantic_authority": false,
