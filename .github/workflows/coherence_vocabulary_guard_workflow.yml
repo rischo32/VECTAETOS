@@ -23,10 +23,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Manual repository checkout
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPOSITORY}.git"
+
+          if [ "${EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/merge"
+          else
+            git fetch --no-tags --depth=1 origin "${COMMIT_SHA}"
+          fi
+
+          git checkout --detach FETCH_HEAD
 
       - name: Prepare reports directory
+        shell: bash
         run: mkdir -p reports
 
       - name: Run GUARD-12
@@ -72,10 +92,19 @@ jobs:
 
           exit 0
 
-      - name: Upload GUARD-12 report
+      - name: Show JSON report
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coherence-vocabulary-guard-report
-          path: |
-            reports/coherence_vocabulary_guard.json
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "## GUARD-12 JSON report" >> "${GITHUB_STEP_SUMMARY}"
+          echo "" >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ -f reports/coherence_vocabulary_guard.json ]; then
+            echo '```json' >> "${GITHUB_STEP_SUMMARY}"
+            cat reports/coherence_vocabulary_guard.json >> "${GITHUB_STEP_SUMMARY}"
+            echo '```' >> "${GITHUB_STEP_SUMMARY}"
+          else
+            echo "No JSON report produced." >> "${GITHUB_STEP_SUMMARY}"
+          fi
