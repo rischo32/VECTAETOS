@@ -2,20 +2,16 @@
 ## VECTAETOS™ 1.x Frozen Ontological Core
 
 ### Version
-1.2
+1.1
 
 ### Status
-Formal Technical-Regulatory Positioning Statement with Future Regulatory Horizon Register
+Formal Technical-Regulatory Positioning Statement
 
 ### Scope
 VECTAETOS™ 1.x Frozen Ontological Core only
 
 ### Freshness Review
-Reviewed against public European Commission, EUR-Lex, European AI Office, AI Act Service Desk, and Council of the European Union materials available on 19 May 2026.
-
-This version also notes the 7 May 2026 political agreement on the AI omnibus simplification proposal and the updated public EU implementation horizon for high-risk AI, transparency obligations, general-purpose AI, harmonised standards, AI Office governance, and Digital Package simplification materials.
-
-Where a measure is based on a political agreement, draft guideline, consultation, code of practice, standardisation process, or announced future support instrument, this document treats it as a regulatory horizon item, not as final law unless and until formally adopted and, where required, published in the Official Journal of the European Union.
+Reviewed against public European Commission and EUR-Lex materials available on 19 May 2026.
 
 ### Legal Character
 This document is not legal advice.
@@ -26,23 +22,11 @@ It is a formal technical-regulatory positioning statement of the VECTAETOS™ pr
 
 It expresses the project’s current technical position on the regulatory classification of the VECTAETOS™ 1.x Frozen Ontological Core under Regulation (EU) 2024/1689, commonly known as the EU Artificial Intelligence Act.
 
-No attorney-client relationship, legal privilege, conformity assessment, certification, regulatory approval, regulatory exemption, or official authority status is created by this document.
-
-No third party may rely on this document as a substitute for legal advice, conformity assessment, market-surveillance engagement, notified-body assessment, internal compliance review, or case-specific regulatory classification.
-
 ---
 
 ## 0. Purpose
 
 This document defines the regulatory positioning of **VECTAETOS™ 1.x Frozen Ontological Core** in relation to Regulation (EU) 2024/1689, the EU Artificial Intelligence Act.
-
-This statement must not be used as a regulatory shield for any operational, commercial, LLM-based, SaaS, API, dashboard, audit, simulation, advisory, decision-support, deployment, or third-party layer.
-
-The strongest boundary rule is:
-
-```text
-Core non-agency must not be used as a regulatory shield for operational systems.
-```
 
 The purpose of this statement is to clarify that VECTAETOS™ 1.x, as formally defined in its frozen ontological lineage, is not designed, structured, or operated as:
 
@@ -75,12 +59,6 @@ This statement is informed by the following public regulatory materials:
 5. European Commission materials on AI literacy under Article 4.
 6. European Commission materials on general-purpose AI model obligations.
 7. European Commission / European AI Office public materials concerning implementation, preparation, and governance.
-8. European Commission and Council materials concerning the Digital Omnibus / AI omnibus simplification proposal and the 7 May 2026 political agreement.
-9. European Commission materials on AI Act transparency obligations under Article 50, including draft guidance and the code-of-practice process for marking and labelling AI-generated content.
-10. European Commission materials on AI Act standardisation, harmonised standards, common specifications, and support tools for high-risk AI implementation.
-11. European Commission materials on the AI Act Service Desk and Single Information Platform.
-12. European Commission materials concerning the wider Digital Package, including data, cybersecurity, AI simplification, Data Union Strategy, and European business wallets.
-13. Public EU materials concerning the interaction between the AI Act, product safety legislation, sectoral legislation, data governance, cybersecurity, copyright, and fundamental-rights protection.
 
 These sources are used only for technical-regulatory orientation.
 
@@ -154,8 +132,6 @@ For positioning purposes, the relevant definitional elements are:
 
 This statement evaluates VECTAETOS™ 1.x Frozen Ontological Core against those elements.
 
-This evaluation is a technical-regulatory positioning exercise. It does not convert the AI Act definition into a mechanical checklist and does not replace case-specific legal analysis. A downstream implementation may fall within scope even if the Frozen Core itself remains outside the operational AI-system role.
-
 ---
 
 ## 4. Nature of VECTAETOS™ 1.x Frozen Ontological Core
@@ -213,12 +189,6 @@ However, the core itself is not defined as an operative software system.
 It is a formal ontological framework.
 
 A software implementation inspired by or derived from VECTAETOS™ must be assessed separately.
-
-The decisive distinction is not whether VECTAETOS™ concepts can be represented in software, but whether a specific artefact operates as a machine-based system that performs operational inference, generates user-facing outputs, pursues explicit or implicit objectives, or influences a physical or virtual environment.
-
-The Frozen Ontological Core, as a formal specification, does none of these.
-
-Any executable artefact implementing, simulating, visualising, wrapping, exposing, auditing, translating, or commercialising the Core must be assessed separately.
 
 Therefore:
 
@@ -299,10 +269,6 @@ It is a structural representation of epistemic tension.
 
 The framework does not approximate an external function, optimize a model, predict a future state, or infer a decision output.
 
-This statement does not claim that every mathematical, symbolic, structural, ontological, or knowledge-based mapping is outside the AI Act.
-
-It claims only that the Frozen Ontological Core does not perform operational inference from user input for the purpose of generating predictions, recommendations, decisions, classifications, rankings, compliance conclusions, behavioural guidance, or environment-influencing outputs.
-
 Therefore, VECTAETOS™ 1.x does not satisfy the inference-based operational element of the AI system definition.
 
 ---
@@ -364,12 +330,6 @@ They do not prescribe an outcome.
 They do not rank alternatives.
 
 They may legitimately remain silent.
-
-The reference to “content” in the AI Act is relevant for downstream generative systems.
-
-The Frozen Ontological Core is not a content-generation service.
-
-Any LLM adapter, chatbot, summarisation layer, report generator, dashboard, documentation assistant, natural-language interface, compliance narrative generator, or public-facing explanation service that generates user-facing content must be assessed separately.
 
 Therefore, VECTAETOS™ 1.x does not satisfy the output element of an AI system in the operational sense.
 
@@ -607,94 +567,7 @@ Any LLM-based implementation may raise obligations or responsibilities under AI-
 
 ASI_MOD, if LLM-based, must be treated as a separate downstream interface layer for regulatory analysis.
 
-A VECTAETOS-derived interface using a third-party general-purpose AI model may create obligations or responsibilities for one or more actors in the AI value chain, including a GPAI model provider, AI system provider, deployer, importer, distributor, product manufacturer, or professional user, depending on:
-
-- who places the model or system on the market,
-- who determines or modifies the intended purpose,
-- who integrates the model into a user-facing system,
-- who substantially modifies the system,
-- who controls deployment context,
-- who receives or relies on outputs,
-- whether the system is used in a high-risk domain,
-- whether content is generated, transformed, summarised, classified, ranked, or recommended,
-- and whether outputs influence persons, legal effects, business processes, or virtual/physical environments.
-
-The following anti-drift rule applies:
-
-```text
-LLM use does not become non-AI because the interface speaks VECTAETOS.
-```
-
-
-
 ---
-
-
-## 9A. Article 50 Transparency / Synthetic Content Boundary
-
-Article 50 transparency obligations are a future-facing implementation boundary for any VECTAETOS-derived interface that directly interacts with natural persons or generates, manipulates, summarises, labels, marks, publishes, or explains content through AI.
-
-This section does not apply to the Frozen Ontological Core as such.
-
-It may apply to downstream layers such as:
-
-```text
-ASI_MOD
-LLM adapters
-chat interfaces
-public explanation tools
-report generators
-summarisation services
-audit dashboards using generated narratives
-synthetic-content labelling tools
-documentation assistants
-interactive compliance walkthroughs
-```
-
-### 9A.1 Human Interaction Disclosure
-
-If a downstream VECTAETOS-derived interface is an AI system that directly interacts with natural persons, it may need to ensure that persons are informed that they are interacting with an AI system.
-
-The Frozen Core has no conversational agency and no human-facing interaction.
-
-ASI_MOD or any LLM-based wrapper may have one.
-
-### 9A.2 AI-Generated Content Marking
-
-If a downstream system generates or manipulates audio, image, video, or text content, it may trigger transparency, marking, labelling, or detectability obligations depending on the implementation and use context.
-
-A formal projection artefact is not automatically AI-generated public content.
-
-A generated report, chatbot answer, public explanation, synthetic visual, generated glyph rendering, generated legal note, or generated compliance narrative may be.
-
-### 9A.3 Deep Fakes, Public-Interest Text, Emotion Recognition, Biometric Categorisation
-
-VECTAETOS-derived systems must not be deployed to conceal or launder the artificial nature of:
-
-- deep fakes,
-- AI-generated or manipulated public-interest publications,
-- emotion-recognition outputs,
-- biometric categorisation outputs,
-- or synthetic content presented as authentic human-generated material.
-
-### 9A.4 Transparency Code and Guidelines Watch
-
-The European Commission and AI Office are developing and consulting on transparency guidance and a code of practice for marking and labelling AI-generated content.
-
-Until final instruments are adopted or confirmed, VECTAETOS-derived implementations should treat these as live regulatory horizon items.
-
-Implementation rule:
-
-```text
-If a downstream layer speaks to humans or generates content, Article 50 must be checked.
-```
-
-Canonical sentence:
-
-```text
-The Frozen Core is not a generative content service; downstream generative interfaces may be.
-```
-
 
 ## 10. Commercial Deployment Boundary
 
@@ -795,85 +668,6 @@ It must not be treated as automatic conformity assessment.
 
 ---
 
-
-## 13A. High-Risk Transition, Standards, and Support-Tool Boundary
-
-The EU implementation horizon for high-risk AI is evolving through the AI omnibus, standardisation work, common specifications, Commission guidance, and support tools.
-
-This section does not change the position that VECTAETOS™ 1.x Frozen Ontological Core is not itself a high-risk AI system.
-
-It creates a future-facing boundary for downstream implementations.
-
-### 13A.1 Updated High-Risk Horizon
-
-Public EU materials following the 7 May 2026 political agreement indicate an adjusted high-risk implementation horizon:
-
-```text
-Annex III / stand-alone high-risk areas:
-latest public horizon: 2 December 2027
-
-AI systems embedded into regulated products / Union harmonisation legislation:
-latest public horizon: 2 August 2028
-```
-
-These dates must be treated as horizon dates subject to final legal text, formal adoption, publication, and any implementing/delegated acts.
-
-### 13A.2 Standards and Presumption of Conformity
-
-Harmonised standards remain voluntary.
-
-Where harmonised standards are referenced in the Official Journal of the European Union, their use may provide a presumption of conformity with corresponding legal requirements.
-
-VECTAETOS-derived tooling must not claim conformity with an AI Act harmonised standard unless:
-
-- the relevant standard is final,
-- the standard is referenced in the Official Journal where required,
-- the implementation actually falls within its scope,
-- the implementation demonstrably applies it,
-- and the claim is verified through appropriate legal and technical review.
-
-### 13A.3 No Standard-Laundering
-
-A VECTAETOS-derived audit layer must not use standardisation language to imply legal approval.
-
-Forbidden claims include:
-
-```text
-VECTAETOS is AI Act harmonised-standard compliant.
-EAI/EK creates presumption of conformity.
-Structural traceability equals Article 17 quality management.
-A glyph, projection, fingerprint, or audit artefact satisfies technical documentation.
-```
-
-unless a specific downstream implementation has been separately assessed and the claim is legally and technically supportable.
-
-### 13A.4 Common Specifications / Commission Guidance / Support Tools
-
-If harmonised standards, common specifications, templates, Commission guidance, AI Office guidance, Service Desk tools, conformity-assessment guidance, or sectoral implementation acts become applicable, downstream systems must be re-assessed.
-
-The Frozen Core remains formal and non-agentic, but deployment wrappers may acquire obligations from the support-tool environment around the AI Act.
-
-### 13A.5 Regulatory Sandboxes
-
-Public EU materials indicate expanded access to regulatory sandboxes, including an EU-level sandbox.
-
-A VECTAETOS-derived project may use a sandbox only as an innovation, testing, or regulatory-learning environment.
-
-Sandbox participation must not be represented as:
-
-- certification,
-- legal exemption,
-- regulator approval,
-- safety proof,
-- or proof that the system is outside the AI Act.
-
-Canonical sentence:
-
-```text
-A sandbox is not absolution.
-```
-
-
 ## 14. Public Claims Discipline
 
 ### 14.1 Allowed Claims
@@ -960,228 +754,20 @@ Core non-agency must not be used as a regulatory shield for operational systems.
 
 ---
 
-
-## 16A. Future EU Regulatory Horizon Register
-
-This register identifies EU-level developments that must be monitored before any public claim, commercial deployment, downstream implementation, investor communication, partnership, audit service, or compliance-facing use.
-
-It is not a prediction engine.
-
-It is a horizon-control mechanism.
-
-### 16A.1 AI Omnibus / Digital Omnibus
-
-The AI omnibus and broader Digital Package may affect:
-
-- high-risk AI application timelines,
-- simplified requirements for SMEs and small mid-cap companies,
-- governance centralisation around the AI Office,
-- AI systems built on general-purpose AI models,
-- regulatory sandboxes,
-- product-safety overlap,
-- machinery-sector overlap,
-- data-access simplification,
-- cybersecurity simplification,
-- and business-identity / European business-wallet infrastructure.
-
-VECTAETOS impact:
-
-```text
-Frozen Core: no direct operational change.
-Downstream systems: re-assessment required if deployed, commercialised, integrated, or represented as compliance-support tooling.
-```
-
-### 16A.2 New Prohibition on Non-Consensual Intimate / Sexual Synthetic Content
-
-Public EU materials on the AI omnibus indicate agreement on a prohibition concerning AI systems that generate non-consensual sexually explicit and intimate content or child sexual abuse material, including so-called AI nudification applications.
-
-VECTAETOS-derived systems must not be used to build, evaluate, disguise, optimise, audit-launder, label-launder, route, recommend, rank, generate, or support such systems.
-
-Implementation boundary:
-
-```text
-No VECTAETOS layer may become infrastructure for synthetic sexual abuse, non-consensual intimate content, or child sexual abuse material.
-```
-
-### 16A.3 Article 50 Transparency Instruments
-
-The following must be monitored:
-
-- final Article 50 transparency guidelines,
-- final code of practice on marking and labelling AI-generated content,
-- machine-readable marking expectations,
-- detection and labelling expectations,
-- deepfake disclosure guidance,
-- public-interest text disclosure guidance,
-- exceptions and human-review/editorial-responsibility boundaries.
-
-VECTAETOS impact:
-
-```text
-ASI_MOD / LLM adapters / generated reports / public dashboards:
-Article 50 assessment required.
-
-Frozen Core:
-no generative interaction; no direct Article 50 role.
-```
-
-### 16A.4 General-Purpose AI Model Instruments
-
-The following must be monitored:
-
-- GPAI provider guidelines,
-- GPAI Code of Practice revisions,
-- transparency chapter,
-- copyright chapter,
-- safety and security chapter,
-- model documentation forms,
-- public summary of training content templates,
-- systemic-risk model designation practice,
-- AI Office enforcement practice,
-- harmonised standards for GPAI obligations.
-
-VECTAETOS impact:
-
-```text
-Frozen Core:
-not a GPAI model.
-
-LLM/GPAI-based downstream interface:
-separate provider/deployer/value-chain assessment required.
-```
-
-### 16A.5 Harmonised Standards / prEN 18286 / Quality Management
-
-The following must be monitored:
-
-- publication of harmonised AI standards,
-- OJ references creating presumption of conformity,
-- prEN 18286 or successor AI quality-management standards,
-- lifecycle governance requirements,
-- Article 17 quality-management interpretations,
-- technical documentation templates,
-- logging and post-market monitoring expectations.
-
-VECTAETOS impact:
-
-```text
-EAI/EK may support evidence and traceability.
-EAI/EK must not claim to satisfy quality management, conformity assessment, or technical documentation by itself.
-```
-
-### 16A.6 AI Act Service Desk / Single Information Platform
-
-The AI Act Service Desk and Single Information Platform may provide practical compliance checkers, AI Act explorer tools, guidance, FAQs, and tailored implementation support.
-
-VECTAETOS impact:
-
-```text
-These tools may inform downstream assessment.
-They do not convert this statement into official guidance.
-```
-
-### 16A.7 Product Safety / Machinery / Sectoral Overlap
-
-EU materials indicate continuing clarification of the relationship between the AI Act and sectoral product safety law, including machinery and other regulated products.
-
-VECTAETOS impact:
-
-```text
-Any implementation embedded in a product, safety component, industrial workflow, medical device, toy, lift, machinery context, vehicle, infrastructure system, or other regulated product environment requires separate product-law and AI-law assessment.
-```
-
-### 16A.8 Data, GDPR, Cybersecurity, Copyright, and Trade Secret Interface
-
-VECTAETOS-derived systems may also trigger adjacent EU legal regimes if they process personal data, system logs, confidential business information, copyrighted training data, trade secrets, security-sensitive information, or customer datasets.
-
-Watchlist:
-
-- GDPR and data protection obligations,
-- Data Act / Data Governance Act interactions,
-- cybersecurity obligations,
-- Cyber Resilience / product-security expectations,
-- copyright and text/data-mining boundaries,
-- trade secret protection,
-- consumer protection,
-- platform and digital-services law,
-- public-sector procurement and fundamental-rights impact assessment practice.
-
-VECTAETOS impact:
-
-```text
-Non-agency of Φ does not neutralise data, cyber, IP, consumer, or product-law duties of downstream systems.
-```
-
-### 16A.9 AI Liability / Civil Liability / Representative Actions
-
-If EU-level or Member-State-level liability, consumer, representative-action, or damages frameworks are amended or clarified for AI-related harm, downstream VECTAETOS implementations must be reviewed.
-
-VECTAETOS impact:
-
-```text
-Structural audit evidence may support traceability.
-It is not immunity from liability.
-```
-
-### 16A.10 Public Procurement / Fundamental Rights / Public-Sector Use
-
-If a VECTAETOS-derived implementation is used by or for a public authority, public-sector entity, law-enforcement body, migration authority, education provider, employment authority, public-service allocator, or essential-service operator, heightened review is required.
-
-Trigger:
-
-```text
-Any public-sector deployment or affected-person context requires legal review before use.
-```
-
-### 16A.11 Future Review Principle
-
-The project must maintain a regulatory horizon log.
-
-Minimum fields:
-
-```json
-{
-  "horizon_item": "string",
-  "source": "EU official / national authority / standardisation body / court / regulator",
-  "status": "draft | consultation | political agreement | adopted | published | applicable",
-  "affected_layer": "Frozen Core | EAI/EK | ASIMULATOR | ASI_MOD | LLM adapter | SaaS/API | third-party",
-  "risk": "none | monitor | reassess | freeze claims | legal review required",
-  "action": "string",
-  "date_checked": "YYYY-MM-DD"
-}
-```
-
-Canonical sentence:
-
-```text
-Future EU developments update downstream assessment; they do not mutate Φ.
-```
-
-
 ## 17. Revision Trigger
 
 This document must be reviewed if any of the following occur:
 
 - new European Commission guidance materially changes interpretation of the AI-system definition,
-- final Article 50 transparency guidelines are adopted,
-- the code of practice on marking and labelling AI-generated content is finalised, approved, revised, or rejected,
 - AI Office guidance modifies expectations for GPAI-based services,
-- GPAI Code of Practice, GPAI provider guidelines, systemic-risk designation practice, or GPAI documentation templates change materially,
-- harmonised standards relevant to audit tooling, high-risk AI, GPAI, transparency, quality management, lifecycle governance, logging, post-market monitoring, or technical documentation become applicable or are referenced in the Official Journal,
-- common specifications or Commission implementation guidance become relevant to VECTAETOS-derived tooling,
-- the AI omnibus / Digital Omnibus is formally adopted, published, amended, delayed, withdrawn, or interpreted by competent authorities,
-- updated high-risk timelines are legally confirmed or changed,
-- regulatory sandbox rules become applicable to VECTAETOS-derived testing,
+- harmonised standards relevant to audit tooling become applicable,
 - VECTAETOS-derived tooling becomes commercially deployed,
 - EAI/EK becomes a hosted audit service,
 - ASIMULATOR or ASI_MOD becomes operational,
 - an LLM wrapper is released publicly,
 - a third party uses VECTAETOS™ for decision support,
-- a VECTAETOS-derived implementation processes personal data, sensitive data, biometric data, copyrighted content, trade secrets, security-sensitive logs, or customer datasets,
-- a VECTAETOS-derived implementation is used in public-sector, employment, education, migration, law enforcement, essential services, credit, insurance, healthcare, product safety, or infrastructure contexts,
-- the project claims compliance, certification, risk scoring, safety validation, conformity, technical documentation sufficiency, quality-management sufficiency, or audit authority,
-- national competent authorities, the AI Office, courts, standardisation bodies, or market surveillance authorities publish materially relevant guidance,
-- future amendments, delegated acts, implementing acts, corrigenda, harmonised standards, common specifications, or sectoral AI/product-safety instruments modify the relevant regulatory landscape.
+- the project claims compliance, certification, risk scoring, safety validation, or audit authority,
+- future amendments or implementing acts modify the relevant regulatory landscape.
 
 ---
 
@@ -1238,39 +824,6 @@ The following public sources were considered for this version:
 7. European Commission — European AI Office:
    https://digital-strategy.ec.europa.eu/en/policies/ai-office
 
-8. European Commission — AI Act implementation and AI omnibus simplification horizon:
-   https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
-
-9. European Commission — EU agrees to simplify AI rules and ban non-consensual intimate synthetic-content systems:
-   https://digital-strategy.ec.europa.eu/en/news/eu-agrees-simplify-ai-rules-boost-innovation-and-ban-nudification-apps-protect-citizens
-
-10. Council of the European Union — Artificial Intelligence: Council and Parliament agree to simplify and streamline rules:
-   https://www.consilium.europa.eu/en/press/press-releases/2026/05/07/artificial-intelligence-council-and-parliament-agree-to-simplify-and-streamline-rules/
-
-11. European Commission — Standardisation of the AI Act:
-   https://digital-strategy.ec.europa.eu/en/policies/ai-act-standardisation
-
-12. European Commission — General-Purpose AI Code of Practice:
-   https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai
-
-13. European Commission — Guidelines for providers of general-purpose AI models:
-   https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers
-
-14. European Commission — Consultation on draft guidelines for transparency obligations under the AI Act:
-   https://digital-strategy.ec.europa.eu/en/news/commission-opens-consultation-draft-guidelines-ai-transparency-obligations
-
-15. European Commission — Code of Practice on marking and labelling of AI-generated content:
-   https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content
-
-16. European Commission — Navigating the AI Act:
-   https://digital-strategy.ec.europa.eu/en/faqs/navigating-ai-act
-
-17. European Commission — AI Act Service Desk / Single Information Platform:
-   https://ai-act-service-desk.ec.europa.eu/en
-
-18. European Commission — Digital Package:
-   https://digital-strategy.ec.europa.eu/en/faqs/digital-package
-
 ---
 
 ## 20. Suggested Repository Path
@@ -1280,20 +833,6 @@ infrastructure/legal/EU_AI_ACT_POSITION.md
 ```
 
 ## 21. Version Notes
-
-### v1.2
-
-- upgrades the statement from a static frozen-core positioning note to a future-aware technical-regulatory positioning statement;
-- adds explicit anti-shield language preventing use of Frozen Core non-agency as a regulatory defence for operational systems;
-- adds no-legal-privilege, no-certification, no-reliance, and no-official-authority language;
-- sharpens the machine-based-system, inference, and content-generation boundaries;
-- adds Article 50 transparency / synthetic-content boundary language for ASI_MOD, LLM adapters, dashboards, report generators, and generated narratives;
-- adds future-facing AI Omnibus / Digital Omnibus horizon language;
-- adds updated high-risk implementation horizon language based on public EU materials available on 19 May 2026;
-- adds harmonised standards, common specifications, support tools, and prEN 18286 / quality-management watch language;
-- adds sandbox, AI Office, GPAI, Service Desk, product-safety, machinery, data, GDPR, cybersecurity, copyright, trade-secret, liability, and public-sector horizon triggers;
-- expands revision triggers for future guidance, delegated/implementing acts, harmonised standards, downstream deployments, public claims, and regulated contexts;
-- preserves the core conclusion: Frozen Core may be outside the AI-system definition; downstream implementations remain separately assessable.
 
 ### v1.1
 

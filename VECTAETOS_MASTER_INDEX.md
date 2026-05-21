@@ -187,7 +187,7 @@ Canonical pre-field layer:
 Defined in:
 
 - `/formal/EPISTEMIC_GATES.md`
-- `/formal/3GATE.md`
+- `/formal/3GATE_SHAPE.md`
 - `/formal/PIPELINE.md`
 
 No input enters Φ unmediated.
