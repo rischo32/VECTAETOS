@@ -1,117 +1,12 @@
 {
-  "version": "0.1.4",
+  "version": "0.1.3",
   "name": "vectaetos_code_contract",
   "status": "fundamental_repository_perimeter",
-  "layer": "external_repository_perimeter",
-  "purpose": "Ontological behavior contract for VECTAETOS Python code and repository perimeter tooling.",
-  "authority": "none",
-  "canonical": false,
-  "enforcement_semantics": "Repository perimeter tools may emit findings or fail CI by exit code where explicitly allowed, but this is never truth validation, deployment validation, ontology validation, or authority over VECTAETOS.",
+  "purpose": "Ontological behavior contract for VECTAETOS Python production code.",
   "not_a_security_audit": true,
   "not_an_integrity_audit": true,
   "not_a_deployment_validation": true,
-  "not_a_truth_validation": true,
-  "not_an_ontology_validator": true,
-  "diagnostics_are_advisory": true,
   "canonical_sentence": "Code may implement repository behavior, but must not attach agency, optimization, truth authority, or decision power to VECTAETOS.",
-  "global_invariants": [
-    "No code role may define VECTAETOS truth.",
-    "No code role may optimize Phi.",
-    "No code role may modify Phi.",
-    "No code role may modify K(Phi).",
-    "No code role may modify kappa.",
-    "No code role may redefine QE.",
-    "No code role may select trajectories as authoritative truth.",
-    "No code role may claim deployment validity.",
-    "No code role may claim empirical safety.",
-    "No diagnostic output may become an ontology verdict.",
-    "No audit layer may become control.",
-    "No language layer may become truth authority."
-  ],
-  "selection_function_semantics": "When allow_selection_functions is true, it only permits local implementation choices such as sorting findings, selecting highest severity diagnostics, bounded numeric clamping, or deterministic report ordering. It never permits trajectory selection, truth ranking, recommendation authority, or optimization of Phi.",
-  "protected_ontology_names": [
-    "PHI",
-    "Phi",
-    "phi",
-    "Φ",
-    "K",
-    "K_PHI",
-    "KPhi",
-    "K(Phi)",
-    "K(Φ)",
-    "KAPPA",
-    "kappa",
-    "κ",
-    "QE"
-  ],
-  "protected_ontology_assignment_policy": {
-    "meaning": "Protected ontology identifiers must not be assigned, mutated, rebound, monkey-patched, or redefined in roles where protect_ontology_assignments is true.",
-    "diagnostic_semantics": "A protected-name assignment finding is a repository behavior signal, not an ontological verdict.",
-    "allowed_exceptions": [
-      "test fixtures where role protect_ontology_assignments is false",
-      "documentation examples that are not executable code",
-      "explicitly marked historical legacy material under legacy_vortex constraints"
-    ]
-  },
-  "forbidden_semantic_fragments": [
-    "decide",
-    "decision",
-    "recommend",
-    "optimize",
-    "optimizer",
-    "optimization",
-    "reward",
-    "policy_update",
-    "best_trajectory",
-    "select_best",
-    "rank_truth",
-    "rank_trajectories",
-    "truth_authority",
-    "deployment_valid",
-    "empirical_safety",
-    "argmax",
-    "argmin"
-  ],
-  "dynamic_execution_calls": [
-    "eval",
-    "exec",
-    "compile",
-    "__import__"
-  ],
-  "diagnostic_severity_policy": {
-    "warning": "Possible semantic drift or suspicious formulation. Human review required.",
-    "error": "Repository perimeter hard violation where the role contract explicitly forbids the behavior. This is still not truth validation.",
-    "information": "Descriptive local signal with no blocking semantics."
-  },
-  "ledger_policy": {
-    "automatic_writes_from_diagnostics": false,
-    "automatic_writes_from_lsp_publish": false,
-    "explicit_user_or_editor_action_required": true,
-    "ledger_is_audit_trace": true,
-    "ledger_is_not_enforcement": true,
-    "ledger_records_are_time_bound": true
-  },
-  "role_inference_priority": [
-    "git_guard",
-    "semantic_guard",
-    "behavior_audit",
-    "research_lsp",
-    "determinism_verifier",
-    "semantic_integrity_verifier",
-    "vortex_runner",
-    "projection_canonicalizer",
-    "language_adapter",
-    "deterministic_entropy",
-    "legacy_vortex",
-    "test",
-    "guard",
-    "audit",
-    "projection",
-    "parser",
-    "adapter",
-    "utility",
-    "vortex"
-  ],
   "role_inference": {
     "git_guard": [
       "canonical_ontology_guard.py"
@@ -123,13 +18,6 @@
     "behavior_audit": [
       "vectaetos_code_behavior_audit.py",
       "code_behavior_audit"
-    ],
-    "research_lsp": [
-      "research/lsp/",
-      "vectaetos_lsp.py",
-      "vectaetos-code-sentinel-lsp",
-      "code_sentinel_lsp",
-      "code-sentinel-lsp"
     ],
     "determinism_verifier": [
       "scripts/verify_determinism.py"
@@ -295,63 +183,6 @@
       "allow_randomness": false,
       "allow_selection_functions": true,
       "protect_ontology_assignments": true
-    },
-    "research_lsp": {
-      "meaning": "Research-only local editor diagnostic surface for possible semantic drift in VECTAETOS-related Python code.",
-      "allowed": [
-        "read opened editor documents",
-        "parse Python AST",
-        "load repository perimeter contract",
-        "infer advisory file roles",
-        "detect possible semantic drift",
-        "detect protected ontology-name assignment patterns",
-        "detect dynamic execution calls",
-        "emit local LSP diagnostics",
-        "publish warnings and errors to editor",
-        "provide local language completions",
-        "compute deterministic fingerprints",
-        "commit explicit ledger traces only after deliberate user or editor action"
-      ],
-      "forbidden": [
-        "define truth",
-        "decide code validity",
-        "act as canonical guard",
-        "act as deployment validator",
-        "block deployment",
-        "fail CI by itself",
-        "modify ontology",
-        "edit anchors automatically",
-        "optimize Phi",
-        "change K(Phi)",
-        "change kappa",
-        "change QE",
-        "select trajectories",
-        "rank trajectories",
-        "recommend trajectories",
-        "perform network calls",
-        "perform subprocess calls",
-        "claim deployment validity",
-        "claim empirical safety",
-        "write ledger records automatically from diagnostics",
-        "replace human review"
-      ],
-      "allow_network": false,
-      "allow_subprocess": false,
-      "allow_file_write": true,
-      "file_write_constraints": [
-        "only explicit user-triggered or editor-triggered audit ledger writes",
-        "no automatic writes from diagnostics",
-        "no writes to ontology files",
-        "no writes to anchors",
-        "no writes to contracts",
-        "no writes to source code"
-      ],
-      "allow_randomness": false,
-      "allow_selection_functions": false,
-      "protect_ontology_assignments": true,
-      "diagnostics_are_advisory": true,
-      "canonical_guard": false,
-      "deployment_gate": false
     },
     "determinism_verifier": {
       "meaning": "Deterministic verification utility that may write explicit report artifacts.",

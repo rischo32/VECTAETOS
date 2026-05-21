@@ -1,5 +1,7 @@
 ###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 ___
+https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
+___
 ##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
 #### Nie samotné fundamentálne jadro Φ
 
@@ -44,6 +46,7 @@ ___
 [![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
 [![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
 [![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
+[![Coherence Vocabulary Guard](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml)
 ___
 
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
@@ -57,11 +60,6 @@ ___
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
 ___
-### v procese Φ : najprv dokončime pre-dimenzované a potom aj tak je v pláne čo sa META-MATEMATIKY týka vrátiť sa, k povodnemu jadru Φ (frozen core 1.1+)
-    Musíme opraviť koherenčné predikáty, drifty , ruffy, dokončíť perimetre, zaviesť SLP sentinelov kodu a dalšie veci ...
-    A či to pôsobí profesionálne alebo nie, je vec vkusu... 🙂‍↕️
-_________________________
-
              "Cogito cohaerenter ergo sum possibile"
 
                  "Welcome to a new epistemic era"
