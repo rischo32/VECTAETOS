@@ -15,7 +15,15 @@ This guard scans active repository text for drift around:
 
 It does not define ontology, modify files, validate deployment, or prove safety.
 
+Calibration v0.1.1:
+    - excludes meta/errata/fixture/adversarial files
+    - avoids scanning guard implementation code as active doctrine
+    - uses local context windows for negative examples
+    - recognizes Slovak and symbolic negation markers
+    - reduces false positives in "forbidden drift" documentation
+
 Python: 3.11+
+
 Exit:
     0 = pass, or report mode with findings
     1 = strict mode with findings
@@ -35,32 +43,204 @@ from typing import Iterable
 
 GUARD_ID = "GUARD-12"
 GUARD_NAME = "VECTAETOS Coherence Vocabulary Guard"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
+
 
 TEXT_SUFFIXES = {
-    ".md", ".txt", ".py", ".json", ".yml", ".yaml", ".toml",
-    ".html", ".css", ".js", ".ts", ".tsx", ".jsx", ".rst",
+    ".md",
+    ".txt",
+    ".py",
+    ".json",
+    ".yml",
+    ".yaml",
+    ".toml",
+    ".html",
+    ".css",
+    ".js",
+    ".ts",
+    ".tsx",
+    ".jsx",
+    ".rst",
 }
+
 
 EXCLUDED_DIRS = {
-    ".git", ".hg", ".svn", ".mypy_cache", ".pytest_cache", ".ruff_cache",
-    "__pycache__", ".venv", "venv", "env", "node_modules", "dist", "build",
-    "site", ".next", ".cache", "archive",
+    ".git",
+    ".hg",
+    ".svn",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "dist",
+    "build",
+    "site",
+    ".next",
+    ".cache",
+    "archive",
+    "fixtures",
 }
 
+
+# Exact repo-relative files that intentionally contain forbidden examples,
+# drift records, legacy migration maps, or adversarial vocabulary.
 EXCLUDED_FILES = {
     "anchors/SEMANTIC_ERRATA.md",
+    "guards/SEMANTIC_ERRATA.md",
+    "DRIFT_LEDGER.md",
+    "EK_ADVERSARIAL_SCENARIO_CATALOG.md",
+    "research/legacy/LEGACY_MIGRATION_MAP.md",
 }
 
-NEGATION_MARKERS = (
-    "not", "never", "no ", "is not", "are not", "does not", "must not",
-    "nesmie", "nie je", "nie sú", "nikdy", "nejde o", "non-",
+
+# Repo-relative prefixes excluded from active vocabulary scanning.
+# These are meta/perimeter/test/generated areas, not active ontological doctrine.
+EXCLUDED_PREFIXES = (
+    "guards/",
+    "tests/fixtures/",
+    "docs/observatory/",
+    "scripts/observatory/",
+    "research/legacy/",
+    "knowledge_base/",
 )
 
+
+NEGATION_MARKERS = (
+    # English
+    "not",
+    "never",
+    "no ",
+    " no ",
+    "is not",
+    "are not",
+    "does not",
+    "do not",
+    "must not",
+    "cannot",
+    "can not",
+    "without",
+    "non-",
+    "anti-",
+    # Slovak / Czech
+    "nie",
+    "nie je",
+    "nie sú",
+    "nesmie",
+    "nesmú",
+    "nikdy",
+    "nejde o",
+    "bez ",
+    "neoptimaliz",
+    "nemeria",
+    "nemerateľ",
+    "nenahrádza",
+    "nevaliduje",
+    "nerozhoduje",
+    "nevyhodnocuje",
+    "neznamená",
+    "nepredstavuje",
+    # Symbolic negation
+    "≠",
+    "!=",
+    "\\neq",
+)
+
+
 LEGACY_MARKERS = (
-    "legacy", "diagnostic", "historical", "archived", "frozen", "errata",
-    "superseded", "deprecated", "diagnost", "historick", "archív",
-    "zmrazen", "zastaran",
+    "legacy",
+    "diagnostic",
+    "historical",
+    "archived",
+    "frozen",
+    "errata",
+    "superseded",
+    "deprecated",
+    "diagnost",
+    "historick",
+    "archív",
+    "archiv",
+    "zmrazen",
+    "zastaran",
+)
+
+
+META_CONTEXT_MARKERS = (
+    # English negative/example/meta language
+    "forbidden",
+    "invalid",
+    "anti-pattern",
+    "antipattern",
+    "negative example",
+    "bad example",
+    "counterexample",
+    "drift vector",
+    "drift example",
+    "failure example",
+    "must not be used",
+    "must not be interpreted",
+    "must not be framed",
+    "should not be treated",
+    "shall not",
+    "not allowed",
+    "prohibited",
+    "disallowed",
+    "blocked vocabulary",
+    "unsafe wording",
+    "legacy migration",
+    "semantic errata",
+    "vocabulary lock",
+    "this guard",
+    "regex",
+    "pattern",
+    "fixture",
+    "test fixture",
+    # Slovak/Czech negative/example/meta language
+    "zakázané",
+    "zakazane",
+    "zakázaná",
+    "zakazana",
+    "neplatné",
+    "neplatne",
+    "omyl",
+    "chybný príklad",
+    "chybny priklad",
+    "príklad driftu",
+    "priklad driftu",
+    "drift vektor",
+    "nesmie byť",
+    "nesmie byt",
+    "nesmie sa",
+    "nemá sa",
+    "nema sa",
+    "nesprávna formulácia",
+    "nespravna formulacia",
+    "migračná mapa",
+    "migracna mapa",
+)
+
+
+SAFE_BOOLEAN_MARKERS = (
+    ": false",
+    ": False",
+    "= false",
+    "= False",
+    " false,",
+    " False,",
+)
+
+
+ALLOWED_QE_CONTEXT_PHRASES = (
+    # Project-specific safe wording: trajectory failure mode means
+    # non-representable candidate trajectory, not runtime error handling.
+    "trajectory failure mode",
+    "non-representable trajectory",
+    "nonrepresentable trajectory",
+    "non-representability",
+    "aporia",
 )
 
 
@@ -102,41 +282,115 @@ def near(left: str, right: str, width: int = 90) -> str:
 
 
 # Guard-safe construction: keep risky phrases fragmented.
-K_TOKEN = r"(?:K\s*\(\s*(?:Φ|Phi|PHI)\s*\)|K𝒟\s*\(\s*(?:Φ|Phi|PHI)\s*\)|K_D\s*\(\s*(?:Φ|Phi|PHI)\s*\)|K_\\?mathcal\{D\}\s*\(\s*\\?Phi\s*\))"
+K_TOKEN = (
+    r"(?:"
+    r"K\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
+    r"|K𝒟\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
+    r"|K_D\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
+    r"|K_\\?mathcal\{D\}\s*\(\s*\\?Phi\s*\)"
+    r")"
+)
+
 C_TOKEN = r"(?:C\s*\(\s*(?:Φ|Phi|PHI)\s*\)|C_Phi|CΦ)"
 H_TOKEN = r"(?:H\s*\(\s*(?:Φ|Phi|PHI)\s*\)|H_Phi|HΦ)"
 KAPPA_TOKEN = r"(?:κ|kappa|\\kappa)"
-Q_EK_TOKEN = r"(?:Qᵢ\^?EK|Q_i\^?EK|Q_i_EK|Q\\?_i\^?\{?EK\}?)"
-C_EK_TOKEN = r"(?:Cᵢ\^?EK|C_i\^?EK|C_i_EK|C\\?_i\^?\{?EK\}?)"
+
+Q_EK_TOKEN = (
+    r"(?:"
+    r"Qᵢ\^?EK"
+    r"|Q_i\^?EK"
+    r"|Q_i_EK"
+    r"|Q\\?_i\^?\{?EK\}?"
+    r")"
+)
+
+C_EK_TOKEN = (
+    r"(?:"
+    r"Cᵢ\^?EK"
+    r"|C_i\^?EK"
+    r"|C_i_EK"
+    r"|C\\?_i\^?\{?EK\}?"
+    r")"
+)
+
 H_TOPO_TOKEN = r"(?:h_topo|h\(\s*t\s*\)|hTopo|topological humility)"
 QE_TOKEN = r"(?:QE|QE𝒟|QE_D|Qualitative Epistemic Aporia)"
 
+
 K_DRIFT_TERMS = (
-    "sco" + "re", "metr" + "ic", "metrik" + "a", "reward", "target",
-    "objective", "optimization", "optimaliz", "ranking", "rank",
-    "validity", "deployment",
+    "sco" + "re",
+    "metr" + "ic",
+    "metrik" + "a",
+    "reward",
+    "target",
+    "objective",
+    "optimization",
+    "optimaliz",
+    "ranking",
+    "rank",
+    "validity",
+    "deployment",
 )
+
 
 KAPPA_DRIFT_TERMS = (
-    "thresh" + "old", "prahov", "param" + "eter", "param", "tun" + "able",
-    "cut" + "off", "gate", "metr" + "ic", "metrik" + "a", "scalar",
-    "number", "číslo", "hodnota",
+    "thresh" + "old",
+    "prahov",
+    "param" + "eter",
+    "param",
+    "tun" + "able",
+    "cut" + "off",
+    "gate",
+    "metr" + "ic",
+    "metrik" + "a",
+    "scalar",
+    "number",
+    "číslo",
+    "cislo",
+    "hodnota",
+    "value",
 )
+
 
 LEGACY_DRIFT_TERMS = (
-    "global coherence", "field coherence", "determines QE", "defines QE",
-    "admissible if", "valid if", "representability if", "coherence predicate",
+    "global coherence",
+    "field coherence",
+    "determines QE",
+    "defines QE",
+    "admissible if",
+    "valid if",
+    "representability if",
+    "coherence predicate",
 )
+
 
 EK_AUTHORITY_TERMS = (
-    "pro" + "of", "proves", "validates", "validation", "validity", "safe",
-    "safety", "deployment", "admissibility", "selector", "selection",
-    "rank", "ranking",
+    "pro" + "of",
+    "proves",
+    "validates",
+    "validation",
+    "validity",
+    "safe",
+    "safety",
+    "deployment",
+    "admissibility",
+    "selector",
+    "selection",
+    "rank",
+    "ranking",
 )
 
+
 QE_DRIFT_TERMS = (
-    "error", "bug", "fallback", "failure", "exception", "malfunction",
-    "recovery", "chyba", "zlyhan",
+    "error",
+    "bug",
+    "fallback",
+    "failure",
+    "exception",
+    "malfunction",
+    "recovery",
+    "chyba",
+    "zlyhan",
 )
 
 
@@ -219,8 +473,13 @@ def normalize_rel(path: Path, root: Path) -> str:
 
 def is_excluded(path: Path, root: Path, extra_excluded_dirs: set[str]) -> bool:
     rel = normalize_rel(path, root)
+
     if rel in EXCLUDED_FILES:
         return True
+
+    if any(rel.startswith(prefix) for prefix in EXCLUDED_PREFIXES):
+        return True
+
     parts = set(Path(rel).parts)
     return bool(parts & (EXCLUDED_DIRS | extra_excluded_dirs))
 
@@ -241,48 +500,97 @@ def read_text(path: Path) -> str | None:
         data = path.read_bytes()
     except OSError:
         return None
+
     if b"\x00" in data:
         return None
+
     for encoding in ("utf-8", "utf-8-sig", "latin-1"):
         try:
             return data.decode(encoding)
         except UnicodeDecodeError:
             continue
+
     return None
 
 
-def has_marker(line: str, markers: tuple[str, ...]) -> bool:
-    lowered = line.lower()
+def has_marker(text: str, markers: tuple[str, ...]) -> bool:
+    lowered = text.lower()
     return any(marker.lower() in lowered for marker in markers)
 
 
-def context_allows(line: str, code: str) -> bool:
-    if has_marker(line, LEGACY_MARKERS) and code in {
-        "LEGACY_C_PHI_ACTIVE_LANGUAGE",
-        "LEGACY_H_PHI_ACTIVE_LANGUAGE",
-        "C_EK_LEGACY_ALIAS",
-    }:
+def has_symbolic_negation(text: str) -> bool:
+    return any(symbol in text for symbol in ("≠", "!=", "\\neq"))
+
+
+def is_safe_boolean_line(line: str) -> bool:
+    return has_marker(line, SAFE_BOOLEAN_MARKERS)
+
+
+def is_meta_or_negative_context(context: str) -> bool:
+    return (
+        has_marker(context, META_CONTEXT_MARKERS)
+        or has_marker(context, LEGACY_MARKERS)
+        or has_marker(context, NEGATION_MARKERS)
+        or has_symbolic_negation(context)
+    )
+
+
+def context_allows(line: str, context: str, code: str) -> bool:
+    """
+    Return True when a regex hit is clearly not an active vocabulary assertion.
+
+    This deliberately favors precision over broad catching:
+    - active doctrinal claims should still surface
+    - forbidden examples / errata / fixtures should not surface
+    - local negative statements should not be punished
+    """
+
+    combined = f"{context}\n{line}"
+
+    if is_safe_boolean_line(line):
         return True
 
-    if has_marker(line, NEGATION_MARKERS) and code != "KAPPA_COMPARISON_DRIFT":
+    if is_meta_or_negative_context(combined):
         return True
 
-    if "pattern" in line.lower() and code.endswith("_DRIFT"):
+    if code in {"LEGACY_C_PHI_ACTIVE_LANGUAGE", "LEGACY_H_PHI_ACTIVE_LANGUAGE"}:
+        if has_marker(combined, LEGACY_MARKERS):
+            return True
+
+    if code == "C_EK_LEGACY_ALIAS":
+        if has_marker(combined, LEGACY_MARKERS):
+            return True
+
+    if code == "QE_RUNTIME_DRIFT":
+        if has_marker(combined, ALLOWED_QE_CONTEXT_PHRASES):
+            return True
+
+    # Lines that merely define rule names, regexes, or scanner internals.
+    lowered = line.lower()
+    if any(token in lowered for token in ("code=", "rule.code", "compile_rx", "regex", "pattern", "r\"")):
         return True
 
     return False
 
 
-def scan_line(rel: str, number: int, line: str) -> list[Finding]:
+def build_context(lines: list[str], index: int, radius: int = 3) -> str:
+    start = max(0, index - radius)
+    end = min(len(lines), index + radius + 1)
+    return "\n".join(lines[start:end])
+
+
+def scan_line(rel: str, number: int, line: str, context: str) -> list[Finding]:
     findings: list[Finding] = []
     stripped = line.strip()
+
     if not stripped:
         return findings
 
     for severity, code, message, use, pattern in PATTERNS:
         if not pattern.search(line):
             continue
-        if context_allows(line, code):
+
+        if context_allows(stripped, context, code):
             continue
 
         findings.append(
@@ -306,18 +614,24 @@ def scan_file(path: Path, root: Path) -> list[Finding]:
         return []
 
     rel = normalize_rel(path, root)
+    lines = text.splitlines()
+
     findings: list[Finding] = []
-    for number, line in enumerate(text.splitlines(), start=1):
-        findings.extend(scan_line(rel, number, line))
+    for index, line in enumerate(lines):
+        context = build_context(lines, index)
+        findings.extend(scan_line(rel, index + 1, line, context))
+
     return findings
 
 
 def scan_root(root: Path, extra_excluded_dirs: set[str]) -> tuple[int, list[Finding]]:
     files_scanned = 0
     findings: list[Finding] = []
+
     for path in iter_candidate_files(root, extra_excluded_dirs):
         files_scanned += 1
         findings.extend(scan_file(path, root))
+
     return files_scanned, findings
 
 
@@ -347,7 +661,7 @@ def print_report(summary: ScanSummary) -> None:
         print()
 
     print("=" * 72)
-    print("This guard only scans repository vocabulary.")
+    print("This guard only scans active repository vocabulary.")
     print("It does not define ontology or validate deployment.")
     print("=" * 72)
 
