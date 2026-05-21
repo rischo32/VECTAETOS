@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: DeepWiki Vectaetos MCP API
+  description: OpenAPI wrapper for querying the DeepWiki MCP server about the GitHub repository rischo32/Vectaetos.
+  version: 1.0.0
+
+servers:
+  - url: https://mcp.deepwiki.com
+    description: DeepWiki MCP server
+
+paths:
+  /mcp:
+    post:
+      operationId: callDeepWikiMcp
+      summary: Query DeepWiki for the rischo32/Vectaetos repository
+      description: >
+        Sends a JSON-RPC 2.0 request to the DeepWiki MCP endpoint.
+        Use this action to ask questions about the repository, list wiki structure,
+        or read specific wiki pages for rischo32/Vectaetos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - jsonrpc
+                - id
+                - method
+                - params
+              properties:
+                jsonrpc:
+                  type: string
+                  enum:
+                    - "2.0"
+                  default: "2.0"
+                  description: JSON-RPC protocol version.
+                id:
+                  oneOf:
+                    - type: string
+                    - type: integer
+                  description: Unique request ID.
+                method:
+                  type: string
+                  enum:
+                    - tools/call
+                    - tools/list
+                  default: tools/call
+                  description: MCP JSON-RPC method.
+                params:
+                  oneOf:
+                    - type: object
+                      description: Parameters for calling a DeepWiki MCP tool.
+                      required:
+                        - name
+                        - arguments
+                      properties:
+                        name:
+                          type: string
+                          enum:
+                            - ask_question
+                            - read_wiki_structure
+                            - read_wiki_contents
+                          description: DeepWiki MCP tool name.
+                        arguments:
+                          type: object
+                          required:
+                            - repoName
+                          properties:
+                            repoName:
+                              type: string
+                              enum:
+                                - rischo32/Vectaetos
+                              default: rischo32/Vectaetos
+                              description: GitHub repository name in owner/repo format.
+                            question:
+                              type: string
+                              description: Question to ask about the repository. Used with ask_question.
+                            page:
+                              type: string
+                              description: Wiki page name to read. Used with read_wiki_contents.
+                          additionalProperties: true
+                      additionalProperties: false
+                    - type: object
+                      description: Empty object for tools/list.
+                      additionalProperties: true
+              additionalProperties: false
+            examples:
+              askQuestion:
+                summary: Ask a question about Vectaetos
+                value:
+                  jsonrpc: "2.0"
+                  id: 1
+                  method: tools/call
+                  params:
+                    name: ask_question
+                    arguments:
+                      repoName: rischo32/Vectaetos
+                      question: What is this project and how is it structured?
+              readWikiStructure:
+                summary: Read the DeepWiki structure
+                value:
+                  jsonrpc: "2.0"
+                  id: 2
+                  method: tools/call
+                  params:
+                    name: read_wiki_structure
+                    arguments:
+                      repoName: rischo32/Vectaetos
+              readWikiContents:
+                summary: Read a specific wiki page
+                value:
+                  jsonrpc: "2.0"
+                  id: 3
+                  method: tools/call
+                  params:
+                    name: read_wiki_contents
+                    arguments:
+                      repoName: rischo32/Vectaetos
+                      page: Overview
+              listTools:
+                summary: List available DeepWiki MCP tools
+                value:
+                  jsonrpc: "2.0"
+                  id: 4
+                  method: tools/list
+                  params: {}
+
+      responses:
+        "200":
+          description: JSON-RPC response from the DeepWiki MCP server.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jsonrpc:
+                    type: string
+                    enum:
+                      - "2.0"
+                  id:
+                    oneOf:
+                      - type: string
+                      - type: integer
+                      - type: "null"
+                  result:
+                    description: Successful MCP result.
+                    oneOf:
+                      - type: object
+                        additionalProperties: true
+                      - type: array
+                        items: {}
+                      - type: string
+                      - type: number
+                      - type: boolean
+                      - type: "null"
+                  error:
+                    type: object
+                    description: JSON-RPC error object.
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                      data:
+                        description: Additional error details.
+                    required:
+                      - code
+                      - message
+                    additionalProperties: true
+                additionalProperties: true
+        "400":
+          description: Invalid JSON-RPC request.
+        "500":
+          description: DeepWiki MCP server error.
