@@ -1,7 +1,7 @@
 # Epistemic Cryptography
 ## Structural Audit Layer for Relational Systems
 
-Version 1.0  
+Version 1.1
 Official Specification  
 
 ---
