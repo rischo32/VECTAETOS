@@ -1,10 +1,11 @@
-import hashlib
 import json
+import hashlib
 
-from Core.vortex_pipeline import Phi, compute_epistemic, sample_sigma, topology_hash, vortex
+from core.vortex_pipeline import construct_phi, sample_sigma, vortex
+
 
 def _serialize(value):
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
 
 
 def _sha256(value):
@@ -13,56 +14,49 @@ def _sha256(value):
 
 def extract_replay_config(run_output: dict) -> dict:
     """
-    Extract minimal deterministic replay config.
-    Requires canonical run() output with:
-    - seed
-    - phi
-    - states
+    Deterministic config extraction
     """
-    if "seed" not in run_output:
-        raise KeyError("run_output['seed'] is required for deterministic replay")
 
     return {
-        "seed": int(run_output["seed"]),
+        "seed": run_output["seed"],
         "steps": len(run_output["states"]),
-        "phi": {
-            "Sigma": tuple(run_output["phi"]["Sigma"]),
-            "R": run_output["phi"]["R"],
-        },
+        "phi": run_output["phi"]
     }
 
 
 def replay_run(config: dict) -> dict:
     """
-    Deterministic replay using canonical core logic only.
+    Deterministic replay using core logic
     """
-    seed = int(config["seed"])
-    steps = int(config["steps"])
+
+    seed = config["seed"]
+    steps = config["steps"]
     phi_data = config["phi"]
 
-    phi = Phi(
-        Sigma=tuple(phi_data["Sigma"]),
-        R=phi_data["R"],
-    )
+    # reconstruct Phi
+    phi = construct_phi(seed=seed)
 
+    # enforce exact R
+    phi.R = phi_data["R"]
+
+    # initial state
     sigma = sample_sigma(seed=seed)
-    states = vortex(phi, sigma, steps, seed)
-    epistemic = compute_epistemic(states, phi.R)
+
+    # run vortex (NO custom logic!)
+    states = vortex(phi, sigma, steps)
 
     return {
-        "seed": seed,
         "phi": {
             "Sigma": phi.Sigma,
-            "R": phi.R,
+            "R": phi.R
         },
-        "states": states,
-        "epistemic": epistemic,
-        "topology_hash": topology_hash(phi.R),
+        "states": states
     }
 
 
 def verify_replay(original: dict, replayed: dict) -> bool:
     """
-    Exact structural equality via canonical hash.
+    Exact hash match
     """
-    return _sha256(original) == _sha256(replayed)
+
+    return _sha256(original["states"]) == _sha256(replayed["states"])

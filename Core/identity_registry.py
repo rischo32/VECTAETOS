@@ -2,47 +2,46 @@ import json
 import hashlib
 
 
-def _serialize(value):
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
-def _sha256(value):
-    return hashlib.sha256(_serialize(value).encode("utf-8")).hexdigest()
+def _hash(data: dict) -> str:
+    serialized = json.dumps(data, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(serialized.encode()).hexdigest()
 
 
 def compute_phi_id(phi: dict) -> str:
     """
-    Identity of Φ (structure only).
-    Note: current version is order-sensitive.
-    S₈ canonicalization can be added later.
+    Identity of Φ (structure only)
     """
-    return _sha256({
+    payload = {
         "Sigma": phi["Sigma"],
-        "R": phi["R"],
-    })
+        "R": phi["R"]
+    }
+    return _hash(payload)
 
 
 def compute_run_id(phi_id: str, states: list) -> str:
     """
-    Identity of a simulation run.
+    Identity of a simulation run
     """
-    return _sha256({
+    payload = {
         "phi_id": phi_id,
-        "states": states,
-    })
+        "states": states
+    }
+    return _hash(payload)
 
 
 def compute_epistemic_hash(epistemic: dict) -> str:
     """
-    Hash of epistemic proof.
+    Hash of epistemic proof
     """
-    return _sha256(epistemic.get("proof", {}))
+    proof = epistemic.get("proof", {})
+    return _hash(proof)
 
 
 def create_identity_record(run_output: dict) -> dict:
     """
-    Pure identity extraction (no side effects).
+    Pure identity extraction (no side effects)
     """
+
     phi = run_output["phi"]
     states = run_output["states"]
     epistemic = run_output.get("epistemic", {})
@@ -54,15 +53,7 @@ def create_identity_record(run_output: dict) -> dict:
     return {
         "phi_id": phi_id,
         "run_id": run_id,
-        "topology_hash": run_output["topology_hash"],
+        "topology_hash": run_output.get("topology_hash"),
         "epistemic_hash": epistemic_hash,
-        "steps": len(states),
+        "steps": len(states)
     }
-
-
-__all__ = [
-    "compute_phi_id",
-    "compute_run_id",
-    "compute_epistemic_hash",
-    "create_identity_record",
-]
