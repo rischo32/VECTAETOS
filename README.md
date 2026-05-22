@@ -623,10 +623,15 @@ Human
 
 
 There are no feedback loops.
-
 No component issues commands.
-
 The system remains descriptive.
+
+    Repozitárny guard VECTAETOS exponuje sémantický, architektonický
+    a behaviorálny drift voči kanonickým anchorom a behaviorálnym kontraktom.
+    Nedefinuje ontológiu, nedokazuje pravdu, nevaliduje bezpečnosť,
+    neoptimalizuje architektúru a neautorizuje deployment. LSP diagnostika je
+    poradná. CLI/CI enforcement chráni iba stav repozitára. Žiadny guard nesmie
+    mutovať Φ, Σ, R, K(Φ), κ, QE, kanonické anchory ani hranice downstream vrstiev.
 ------------------------------------------------------------
 
 
