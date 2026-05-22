@@ -58,6 +58,7 @@ ___
 [![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
 [![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
+[![Repository Summary](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
 ___
              "Cogito cohaerenter ergo sum possibile"
@@ -622,10 +623,15 @@ Human
 
 
 There are no feedback loops.
-
 No component issues commands.
-
 The system remains descriptive.
+
+    Repozitárny guard VECTAETOS exponuje sémantický, architektonický
+    a behaviorálny drift voči kanonickým anchorom a behaviorálnym kontraktom.
+    Nedefinuje ontológiu, nedokazuje pravdu, nevaliduje bezpečnosť,
+    neoptimalizuje architektúru a neautorizuje deployment. LSP diagnostika je
+    poradná. CLI/CI enforcement chráni iba stav repozitára. Žiadny guard nesmie
+    mutovať Φ, Σ, R, K(Φ), κ, QE, kanonické anchory ani hranice downstream vrstiev.
 ------------------------------------------------------------
 
 
