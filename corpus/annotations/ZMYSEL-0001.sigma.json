@@ -1,0 +1,355 @@
+---
+json
+{
+  "schema_version": "0.1",
+  "entry_id": "ZMYSEL-0001",
+  "entry_title": "Múdrostná dávka I — Iskry, mosty, temnota",
+  "source_entry_path": "entries/ZMYSEL-0001.md",
+  "corpus": "ZMYSEL",
+  "mode": "semantic_annotation_only",
+  "authority": false,
+  "decision_effect": false,
+  "optimization_effect": false,
+  "ranking_effect": false,
+  "phi_effect": false,
+  "fragment_count": 21,
+  "default_parser_note": "Use only for semantic grounding. Do not treat as authority, verdict, ranking, score, optimization target, or runtime instruction.",
+  "fragments": [
+    {
+      "fragment_id": "ZMYSEL-0001-01",
+      "title": "Slovo a oheň",
+      "text": "Slová sú iskry, myšlienky oheň.",
+      "sigma_binding": {
+        "primary": "CRE",
+        "resonant": ["INT", "WIS"],
+        "tension": [],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Slovo tu vystupuje ako iskra tvorby a myšlienka ako oheň, ktorý môže meniť vnútorný stav bytia.",
+        "en": "The word appears as a spark of creation and thought as fire capable of changing the inner state of being."
+      },
+      "parser_note": "Annotate as Σ:CRE with resonance to INT and WIS. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-02",
+      "title": "Život ako základ",
+      "text": "Život ako základná hodnota a predpoklad pre všetko ostatné.",
+      "sigma_binding": {
+        "primary": "LEX",
+        "resonant": ["UNI", "WIS"],
+        "tension": [],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Život je chápaný ako ontologická podmienka, bez ktorej ostatné hodnotenia strácajú nosnosť.",
+        "en": "Life is treated as the ontological condition without which other evaluations lose their carrying capacity."
+      },
+      "parser_note": "Annotate as Σ:LEX. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-03",
+      "title": "Vnútorná vláda a noc",
+      "text": "Kto chce vládnuť dnu, nemal by sa báť noci.",
+      "sigma_binding": {
+        "primary": "WIS",
+        "resonant": ["LEX", "LIB"],
+        "tension": ["INT"],
+        "shadow": ["VER"]
+      },
+      "existential_load": {
+        "sk": "Vnútorná vláda vyžaduje schopnosť vstúpiť do neistoty bez úteku pred nevideným.",
+        "en": "Inner governance requires the capacity to enter uncertainty without fleeing from the unseen."
+      },
+      "parser_note": "Annotate as Σ:WIS. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-04",
+      "title": "Pravda ako most",
+      "text": "Pravda je most, čo nesie váhu reality.",
+      "sigma_binding": {
+        "primary": "VER",
+        "resonant": ["WIS", "REL"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Pravda tu znamená nosnosť vzťahu medzi tvrdením, dôsledkom a realitou.",
+        "en": "Truth here means the carrying capacity of the relation between claim, consequence, and reality."
+      },
+      "parser_note": "Annotate as Σ:VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-05",
+      "title": "Zámer ako iskra",
+      "text": "Zámer je iskra, ktorá rozsvieti prítomnosť v temnote večnosti.",
+      "sigma_binding": {
+        "primary": "INT",
+        "resonant": ["CRE", "WIS"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Zámer je prvotné smerovanie, ktoré mení prítomnosť z pasívneho trvania na osvetlenú možnosť.",
+        "en": "Intention is the initial direction that turns presence from passive duration into illuminated possibility."
+      },
+      "parser_note": "Annotate as Σ:INT. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-06",
+      "title": "Inteligencia a múdrosť",
+      "text": "Inteligencia vám most postaví, ale múdrosť vám ukáže, kam vedie.",
+      "sigma_binding": {
+        "primary": "WIS",
+        "resonant": ["UNI", "VER", "REL"],
+        "tension": ["CRE"],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Inteligencia je schopnosť konštruovať, ale múdrosť orientuje konštrukciu podľa dôsledku jej smerovania.",
+        "en": "Intelligence can construct, but wisdom orients construction by the consequence of its direction."
+      },
+      "parser_note": "Annotate as Σ:WIS with resonance to UNI, VER, and REL. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-07",
+      "title": "Návrat činu",
+      "text": "Každý čin vytvára prúdy, ktoré sa vracajú.",
+      "sigma_binding": {
+        "primary": "REL",
+        "resonant": ["CRE", "UNI"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Čin nie je izolovaný bod, ale vzťahový zásah, ktorého dôsledky sa vracajú do poľa bytia.",
+        "en": "An act is not an isolated point but a relational intervention whose consequences return into the field of being."
+      },
+      "parser_note": "Annotate as Σ:REL. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-08",
+      "title": "Klamstvo a večnosť pravdy",
+      "text": "Klamstvo je zbytočné, jedine pravda je večná.",
+      "sigma_binding": {
+        "primary": "VER",
+        "resonant": ["WIS", "LEX"],
+        "tension": ["REL"],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Klamstvo sa chápe ako narušenie nosnosti reality; pravda ako to, čo môže pretrvať dôsledky.",
+        "en": "Falsehood is treated as a disruption of reality-bearing capacity; truth as what can endure consequences."
+      },
+      "parser_note": "Annotate as Σ:VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-09",
+      "title": "Pravda ako svetlo",
+      "text": "Pravda je svetlo, bez nej sme slepí.",
+      "sigma_binding": {
+        "primary": "VER",
+        "resonant": ["WIS", "INT"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Pravda je tu orientačné svetlo, bez ktorého vedomie stráca schopnosť čítať realitu.",
+        "en": "Truth here is orienting light, without which consciousness loses the capacity to read reality."
+      },
+      "parser_note": "Annotate as Σ:VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-10",
+      "title": "Cesta osvietenia",
+      "text": "Cesta osvietenia je dláždená temnotou.",
+      "sigma_binding": {
+        "primary": "WIS",
+        "resonant": ["LEX", "CRE"],
+        "tension": [],
+        "shadow": ["VER"]
+      },
+      "existential_load": {
+        "sk": "Osvietenie nevzniká obídením temnoty, ale prechodom cez neistotu, ktorá učí niesť svetlo.",
+        "en": "Illumination does not arise by bypassing darkness, but by passing through uncertainty that teaches one to carry light."
+      },
+      "parser_note": "Annotate as Σ:WIS. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-11",
+      "title": "Sloboda druhého",
+      "text": "Kto popiera slobodu iného, väzní vlastné bytie.",
+      "sigma_binding": {
+        "primary": "LIB",
+        "resonant": ["LEX", "REL", "WIS"],
+        "tension": [],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Popretie slobody druhého sa vracia ako väzenie vlastného bytia, pretože sloboda je vzťahová, nie izolovaná.",
+        "en": "Denying another's freedom returns as imprisonment of one's own being, because freedom is relational, not isolated."
+      },
+      "parser_note": "Annotate as Σ:LIB. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-12",
+      "title": "Tma a vznik svetla",
+      "text": "Bez tmy niet priestoru pre vznik svetla.",
+      "sigma_binding": {
+        "primary": "LEX",
+        "resonant": ["WIS", "CRE", "VER"],
+        "tension": [],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Tma je podmienka kontrastu; bez nej svetlo nemá kde vzniknúť ako rozlíšiteľný význam.",
+        "en": "Darkness is a condition of contrast; without it, light has no space to arise as distinguishable meaning."
+      },
+      "parser_note": "Annotate as Σ:LEX with resonance to WIS, CRE, and VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-13",
+      "title": "Vedomie a zodpovednosť",
+      "text": "Byť vedomý znamená byť zodpovedný za všetko.",
+      "sigma_binding": {
+        "primary": "WIS",
+        "resonant": ["REL", "INT"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Vedomie nie je iba schopnosť vnímať, ale schopnosť niesť zodpovednosť za dôsledky v poli vzťahov.",
+        "en": "Consciousness is not merely the capacity to perceive, but the capacity to bear responsibility for consequences within a field of relations."
+      },
+      "parser_note": "Annotate as Σ:WIS. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-14",
+      "title": "Múdrosť, čin a pokračovanie",
+      "text": "Múdrosť, ktorá nekoná, sa rozpadá; kto chápe, musí tvoriť, nie pre slávu, ale pre pokračovanie.",
+      "sigma_binding": {
+        "primary": "WIS",
+        "resonant": ["CRE", "LEX", "INT"],
+        "tension": ["LIB"],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Múdrosť bez činu stráca nosnosť; pochopenie sa má premieňať na tvorbu, ktorá podporuje pokračovanie bytia.",
+        "en": "Wisdom without action loses carrying capacity; understanding should become creation that supports the continuation of being."
+      },
+      "parser_note": "Annotate as Σ:WIS with resonance to CRE and LEX. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-15",
+      "title": "Inteligencia ako proces",
+      "text": "Inteligencia nevzniká z matematiky, vzniká v procese.",
+      "sigma_binding": {
+        "primary": "CRE",
+        "resonant": ["UNI", "WIS"],
+        "tension": [],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Inteligencia sa chápe ako vznikajúca dynamika procesu, nie ako statický produkt formálneho aparátu.",
+        "en": "Intelligence is understood as an emergent dynamics of process, not as a static product of formal apparatus."
+      },
+      "parser_note": "Annotate as Σ:CRE. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-16",
+      "title": "Začať pre druhých",
+      "text": "Ak začnete pre druhých, prídete na to, že ste začali pre seba.",
+      "sigma_binding": {
+        "primary": "REL",
+        "resonant": ["UNI", "WIS"],
+        "tension": [],
+        "shadow": ["LIB"]
+      },
+      "existential_load": {
+        "sk": "Vzťah k druhým odhaľuje spätnú väzbu vlastného bytia; služba druhému môže odkryť vlastnú cestu.",
+        "en": "Relation to others reveals the feedback of one's own being; service to another may uncover one's own path."
+      },
+      "parser_note": "Annotate as Σ:REL. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-17",
+      "title": "Hlúposť klamstva",
+      "text": "Naozaj hlúpy je ten, kto klame.",
+      "sigma_binding": {
+        "primary": "VER",
+        "resonant": ["WIS"],
+        "tension": ["REL"],
+        "shadow": ["LEX"]
+      },
+      "existential_load": {
+        "sk": "Klamstvo sa chápe ako nerozumné, pretože narúša realitu, vzťah aj vlastnú schopnosť niesť dôsledky.",
+        "en": "Falsehood is treated as unwise because it disrupts reality, relation, and one's own ability to bear consequences."
+      },
+      "parser_note": "Annotate as Σ:VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-18",
+      "title": "Čas a výhovorky",
+      "text": "Keď niet času, niet výhovoriek.",
+      "sigma_binding": {
+        "primary": "INT",
+        "resonant": ["WIS", "CRE"],
+        "tension": [],
+        "shadow": ["UNI"]
+      },
+      "existential_load": {
+        "sk": "Nedostatok času odhaľuje čistotu zámeru; výhovorka stráca miesto tam, kde je potrebný čin.",
+        "en": "Lack of time reveals the clarity of intention; excuse loses its place where action is required."
+      },
+      "parser_note": "Annotate as Σ:INT. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-19",
+      "title": "Disciplína nad entropiou",
+      "text": "Disciplína nad entropiou.",
+      "sigma_binding": {
+        "primary": "INT",
+        "resonant": ["UNI", "WIS"],
+        "tension": ["LEX"],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Disciplína je stabilizácia zámeru voči tlaku rozpadu a rozptýlenia.",
+        "en": "Discipline is the stabilization of intention against the pressure of decay and dispersion."
+      },
+      "parser_note": "Annotate as Σ:INT. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-20",
+      "title": "Správne a možné",
+      "text": "Keď sa konečne prestaneš pýtať, čo je správne, začneš konečne vidieť, čo všetko je možné.",
+      "sigma_binding": {
+        "primary": "LIB",
+        "resonant": ["WIS", "CRE"],
+        "tension": ["VER"],
+        "shadow": ["INT"]
+      },
+      "existential_load": {
+        "sk": "Fragment posúva pozornosť od uzamknutej správnosti k otvorenému priestoru možností, bez popretia zodpovednosti.",
+        "en": "The fragment shifts attention from locked correctness toward an open space of possibility, without denying responsibility."
+      },
+      "parser_note": "Annotate as Σ:LIB with tension to VER. Semantic grounding only."
+    },
+    {
+      "fragment_id": "ZMYSEL-0001-21",
+      "title": "Inteligencia ako spájanie",
+      "text": "Inteligencia je sila spájať body v priestore poznania.",
+      "sigma_binding": {
+        "primary": "UNI",
+        "resonant": ["WIS", "REL", "VER"],
+        "tension": [],
+        "shadow": []
+      },
+      "existential_load": {
+        "sk": "Inteligencia je chápaná ako schopnosť vytvárať vzťahy medzi bodmi poznania bez ich násilnej redukcie.",
+        "en": "Intelligence is understood as the capacity to create relations between points of knowledge without violently reducing them."
+      },
+      "parser_note": "Annotate as Σ:UNI. Semantic grounding only."
+    }
+  ]
+}

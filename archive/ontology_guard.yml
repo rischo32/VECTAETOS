@@ -1,0 +1,113 @@
+name: Φ Ontology Guard
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "VECTAETOS_MASTER_INDEX.md"
+      - "formal/**"
+      - "Core/**"
+      - "governance/**"
+      - "scripts/audit/**"
+      - ".github/workflows/ontology_guard.yml"
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "VECTAETOS_MASTER_INDEX.md"
+      - "formal/**"
+      - "Core/**"
+      - "governance/**"
+      - "scripts/audit/**"
+      - ".github/workflows/ontology_guard.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ontology-integrity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --depth=1 origin "$GITHUB_REF"
+          else
+            git fetch --depth=1 origin "$GITHUB_SHA"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Debug repository structure
+        run: |
+          set -euo pipefail
+
+          echo "=== ROOT ==="
+          ls -la
+
+          echo "=== FORMAL ==="
+          ls -la formal || true
+
+          echo "=== CORE ==="
+          ls -la Core || true
+
+          echo "=== GOVERNANCE ==="
+          ls -la governance || true
+
+          echo "=== AUDIT SCRIPTS ==="
+          ls -la scripts/audit || true
+
+      - name: Ensure artifacts directory
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+
+      - name: Check hash guard exists
+        run: |
+          set -euo pipefail
+          test -f scripts/audit/check_ontology_hash.py
+
+      - name: Check language guard exists
+        run: |
+          set -euo pipefail
+          test -f scripts/audit/check_ontology_language.py
+
+      - name: Check governance guard exists
+        run: |
+          set -euo pipefail
+          test -f scripts/audit/check_governance_rules.py
+
+      - name: Ontology hash guard
+        run: |
+          set -euo pipefail
+
+          echo "=== HASH GUARD ==="
+          python3 scripts/audit/check_ontology_hash.py
+
+      - name: Ontology language guard
+        run: |
+          set -euo pipefail
+
+          echo "=== LANGUAGE GUARD ==="
+          python3 scripts/audit/check_ontology_language.py
+
+      - name: Governance guard
+        run: |
+          set -euo pipefail
+
+          echo "=== GOVERNANCE GUARD ==="
+          python3 scripts/audit/check_governance_rules.py
+
+      - name: Show generated artifacts
+        if: always()
+        run: |
+          echo "=== ARTIFACTS ==="
+          ls -la artifacts || true

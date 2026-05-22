@@ -1,0 +1,80 @@
+name: triality-guard
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.json"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.toml"
+      - "**/*.html"
+      - "guards/triality_guard.py"
+      - ".github/workflows/triality-guard.yml"
+
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/*.py"
+      - "**/*.json"
+      - "**/*.yml"
+      - "**/*.yaml"
+      - "**/*.toml"
+      - "**/*.html"
+      - "guards/triality_guard.py"
+      - ".github/workflows/triality-guard.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  triality-guard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Manual trusted checkout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head"
+          else
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Verify Python runtime
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          if sys.version_info < (3, 11):
+              raise SystemExit("Python >= 3.11 required")
+          print("[OK] Python runtime is compatible")
+          PY
+
+      - name: Compile triality guard
+        run: |
+          set -euo pipefail
+          python3 -m py_compile guards/triality_guard.py
+
+      - name: Run triality guard
+        run: |
+          set -euo pipefail
+          python3 guards/triality_guard.py --root . --mode report

@@ -1,0 +1,25 @@
+{
+  "package": "vectaetos_claims_roadmap",
+  "date": "2026-05-08",
+  "purpose": "Unified ToDo roadmap and claim/proof evidence files for VECTAETOS and Epistemic Cryptography",
+  "files": [
+    "00_TODO_ROADMAP.md",
+    "01_CANONICAL_GLOSSARY.md",
+    "02_CLAIM_REGISTER.md",
+    "03_FORMAL_CORE_CLAIMS.md",
+    "04_PROOF_OBLIGATIONS.md",
+    "05_REPRESENTABILITY_REP_DELTA.md",
+    "06_EMPIRICAL_VALIDATION_PLAN.md",
+    "07_THEOREM_GAUGE_INVARIANCE.md",
+    "08_THEOREM_BOUNDARY_QE.md",
+    "09_THEOREM_TRIALITY_COMPATIBILITY.md",
+    "10_EXISTENCE_THEOREM_OR_CONJECTURE.md",
+    "11_NON_COLLAPSE_THEOREM_DRAFT.md",
+    "12_CI_GUARDRAILS.md",
+    "13_OVERCLAIM_RISK_REGISTER.md",
+    "14_FALSIFICATION_CONDITIONS.md",
+    "15_PUBLIC_CLAIM_GUIDELINES.md",
+    "16_PAPER_CLAIM_MAP.md",
+    "17_TWO_TRACK_STRATEGY.md"
+  ]
+}

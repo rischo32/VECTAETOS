@@ -1,0 +1,45 @@
+name: root-canonical-anchor
+
+on:
+  push:
+    paths:
+      - "anchors/ROOT_CANONICAL_ANCHOR.md"
+      - "anchors/ROOT_CANONICAL_ANCHOR.sha256"
+      - ".github/workflows/root-canonical-anchor.yml"
+  pull_request:
+    paths:
+      - "anchors/ROOT_CANONICAL_ANCHOR.md"
+      - "anchors/ROOT_CANONICAL_ANCHOR.sha256"
+      - ".github/workflows/root-canonical-anchor.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-root-canonical-anchor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Manual checkout
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --depth=1 origin "$GITHUB_REF"
+          else
+            git fetch --depth=1 origin "$GITHUB_SHA"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Verify root canonical anchor hash
+        run: |
+          set -euo pipefail
+
+          test -f anchors/ROOT_CANONICAL_ANCHOR.md
+          test -f anchors/ROOT_CANONICAL_ANCHOR.sha256
+
+          sha256sum -c anchors/ROOT_CANONICAL_ANCHOR.sha256

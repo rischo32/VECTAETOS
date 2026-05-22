@@ -1,0 +1,55 @@
+name: canonical-anchor
+
+on:
+  push:
+    paths:
+      - "anchors/CANONICAL_ANCHOR.md"
+      - "anchors/CANONICAL_ANCHOR.sha256"
+      - ".github/workflows/canonical-anchor.yml"
+  pull_request:
+    paths:
+      - "anchors/CANONICAL_ANCHOR.md"
+      - "anchors/CANONICAL_ANCHOR.sha256"
+      - ".github/workflows/canonical-anchor.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-canonical-anchor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository without external actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "${GITHUB_REF}"
+          else
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Verify canonical anchor hash
+        run: |
+          set -euo pipefail
+
+          computed="$(sha256sum anchors/CANONICAL_ANCHOR.md | awk '{print $1}')"
+          committed="$(tr -d '[:space:]' < anchors/CANONICAL_ANCHOR.sha256)"
+
+          echo "Computed : ${computed}"
+          echo "Committed: ${committed}"
+
+          if [ "${computed}" != "${committed}" ]; then
+            echo "[ERROR] Canonical anchor hash mismatch."
+            exit 1
+          fi
+
+          echo "[OK] Canonical anchor hash verified."

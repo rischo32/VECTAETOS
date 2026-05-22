@@ -9,7 +9,7 @@
 <meta name="citation_author" content="Richard Fonfara">
 <meta name="citation_public_url" content="https://vectaetos.eu">
 
-  <!-- Google Scholar citation meta tags -->
+<!-- Google Scholar citation meta tags -->
 <meta name="citation_title" content="Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility">
 <meta name="citation_author" content="Fonfára, Richard">
 <meta name="citation_publication_date" content="2025/12/28">
@@ -31,17 +31,23 @@
 <meta name="citation_pdf_url" content="https://vectaetos.eu/papers/Epistemic_Cryptography_v1.pdf">
 <meta name="citation_language" content="en">
 
+<meta name="citation_title" content="TetraGlyph: A Non-Intervention Relational Projection Language for Epistemic Field Topologies">
+<meta name="citation_author" content="Fonfára, Richard">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_doi" content="10.5281/zenodo.19148358">
+<meta name="citation_language" content="en">
+
 <!-- JSON-LD pre Google -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ScholarlyArticle","name":"Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility","author":{"@type":"Person","name":"Richard Fonfára","identifier":"https://orcid.org/0009-0008-5980-8940"},"datePublished":"2025-12-28","identifier":"https://doi.org/10.5281/zenodo.18076787","keywords":["epistemic field","AI safety","non-agentic","so(8)","Lie algebra","triality"]}
 </script>
 
-<title>VECTAETOS™ — Epistemic Field © Architecture</title>
+<title>VECTAETOS™ — Non-Agentic Epistemic Field Architecture</title>
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="shortcut icon" href="/favicon.svg">
 
-<meta name="description" content="Vectaetos — relational epistemic field architecture. Knowledge as topology of tensions.">
+<meta name="description" content="Vectaetos — non-agentic onto-epistemic field architecture. Knowledge as topology of relational tensions.">
 <meta name="author" content="Richard Fonfára">
 <meta name="robots" content="index, follow">
 
@@ -50,6 +56,10 @@
 <style>
 
 /* ===== GLOBAL ===== */
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -64,7 +74,7 @@ padding:40px 0;
 }
 
 .wrapper{
-max-width:760px;
+max-width:860px;
 padding:40px;
 }
 
@@ -75,34 +85,109 @@ font-size:34px;
 margin-top:30px;
 margin-bottom:10px;
 font-weight:normal;
+letter-spacing:.04em;
+}
+
+h2{
+font-size:18px;
+font-weight:normal;
+margin:0 0 18px 0;
+opacity:.9;
+}
+
+h3{
+font-size:15px;
+font-weight:normal;
+margin:0 0 12px 0;
+opacity:.95;
 }
 
 .subtitle{
 opacity:.7;
 margin-bottom:32px;
+line-height:1.7;
 }
 
 p{
 line-height:1.65;
 opacity:0.85;
+margin:14px 0;
 }
 
-/* ===== CORE BLOCK ===== */
+.small{
+font-size:13px;
+opacity:.68;
+line-height:1.65;
+}
+
+/* ===== BLOCKS ===== */
 
 .coreblock{
 margin-top:40px;
-padding:20px;
+padding:22px;
 border:1px solid #222;
 background:#0d0d0d;
 font-size:15px;
+line-height:1.75;
+}
+
+.section{
+margin-top:38px;
+padding-top:30px;
+border-top:1px solid #171717;
+}
+
+.langgrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-top:28px;
+text-align:left;
+}
+
+.card{
+border:1px solid #222;
+background:#0b0b0b;
+padding:18px;
+min-height:100%;
+}
+
+.card p{
+font-size:14px;
+margin:0;
+}
+
+.stack{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:22px;
+text-align:left;
+}
+
+.pill{
+border:1px solid #222;
+background:#090909;
+padding:14px;
+font-size:13px;
 line-height:1.6;
+}
+
+.statement{
+margin-top:34px;
+padding:18px;
+border:1px solid #282828;
+background:#080808;
+font-size:14px;
+line-height:1.7;
 }
 
 /* ===== LINKS ===== */
 
 .links{
-margin-top:40px;
+margin-top:42px;
 font-size:14px;
+line-height:2.4;
 }
 
 .links a{
@@ -111,6 +196,7 @@ text-decoration:none;
 margin:0 10px;
 border-bottom:1px solid #333;
 padding-bottom:2px;
+white-space:nowrap;
 }
 
 .links a:hover{
@@ -146,6 +232,26 @@ animation:orbitFlow 18s linear infinite;
 animation:breathe 6s ease-in-out infinite;
 }
 
+@media (max-width:720px){
+body{
+padding:16px 0;
+}
+.wrapper{
+padding:28px 20px;
+}
+.langgrid,
+.stack{
+grid-template-columns:1fr;
+}
+h1{
+font-size:30px;
+}
+.links a{
+display:inline-block;
+margin:4px 6px;
+}
+}
+
 </style>
 
 </head>
@@ -156,7 +262,7 @@ animation:breathe 6s ease-in-out infinite;
 
 <!-- Φ glyph with singularities -->
 
-<svg viewBox="0 0 100 100" width="180" height="180">
+<svg viewBox="0 0 100 100" width="180" height="180" role="img" aria-label="Vectaetos Phi glyph with eight epistemic singularities">
 
 <!-- orbit -->
 
@@ -210,21 +316,18 @@ stroke-width="6"
 <h1>VECTAETOS™</h1>
 
 <div class="subtitle">
-Epistemic Field © Architecture
+Non-Agentic Onto-Epistemic Field Architecture<br>
+Neagentná onto-epistemická architektúra poľa
 </div>
 
 <p>
-Vectaetos describes knowledge as a <b>relational tension field</b>
+Vectaetos describes knowledge as a <b>topology of relational tensions</b>
 between invariant epistemic singularities.
 </p>
 
 <p>
-The system contains no optimization, no agents, and no reward mechanisms.
-</p>
-
-<p>
-It does not compute answers.<br>
-It reveals the structure of epistemic space.
+VECTAETOS opisuje poznanie ako <b>topológiu relačných napätí</b>
+medzi invariantnými epistemickými ťažiskami.
 </p>
 
 <div class="coreblock">
@@ -233,39 +336,138 @@ It reveals the structure of epistemic space.
 
 <br><br>
 
-Σ — invariant epistemic singularities  
-R — antisymmetric relational tensions  
-K(Φ) — representability predicate  
-κ — coherence threshold
+Σ = {INT, LEX, VER, LIB, UNI, REL, WIS, CRE}<br>
+R ∈ so(8), R<sub>ij</sub> = −R<sub>ji</sub><br>
+K(Φ) — representability predicate / predikát reprezentovateľnosti<br>
+κ — boundary of ontological preservability / hranica ontologickej zachovateľnosti<br>
+4ES + QE — epistemic state topology / topológia epistemických stavov
 
+</div>
+
+<div class="section">
+<h2>Core Orientation / Základná orientácia</h2>
+
+<div class="langgrid">
+
+<div class="card">
+<h3>EN</h3>
+<p>
+VECTAETOS is not an agent, assistant, optimizer, reward system, or decision engine.
+It is a non-agentic epistemic field framework for describing which configurations of meaning remain structurally coherent without collapse.
+</p>
+</div>
+
+<div class="card">
+<h3>SK</h3>
+<p>
+VECTAETOS nie je agent, asistent, optimalizátor, systém odmien ani rozhodovací mechanizmus.
+Je to neagentný epistemický rámec poľa, ktorý opisuje, ktoré konfigurácie významu zostávajú štrukturálne koherentné bez kolapsu.
+</p>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Architecture / Architektúra</h2>
+
+<div class="stack">
+
+<div class="pill">
+<b>Φ Field / Pole Φ</b><br>
+Primary ontology. A global configuration of relations, not an agent and not a data structure of authority.
+</div>
+
+<div class="pill">
+<b>Σ₁…Σ₈ Singularities / Ťažiská</b><br>
+Eight invariant axiomatic centers: intent, existence, truth, freedom, unity, reciprocity, wisdom, creation.
+</div>
+
+<div class="pill">
+<b>Simulation Vortex / Simulačný Vortex</b><br>
+Generates candidate trajectories as projections only. No decision, no optimization, no preferred attractor.
+</div>
+
+<div class="pill">
+<b>Epistemic Cryptography / Epistemická kryptografia</b><br>
+A read-only audit layer preserving structural coherence and the geometry of uncertainty without intervention.
+</div>
+
+<div class="pill">
+<b>Projection Layer / Projekčná vrstva</b><br>
+Runes and TetraGlyph describe field states. They are descriptive, non-prescriptive, and non-authoritative.
+</div>
+
+<div class="pill">
+<b>Human Interpretation / Ľudská interpretácia</b><br>
+Meaning is not imposed by the lower layers. Interpretation remains downstream, explicit, and human-readable.
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Entropic Humility / Entropická pokora</h2>
+
+<div class="langgrid">
+
+<div class="card">
+<h3>EN</h3>
+<p>
+Entropic humility means that impulses which would reduce global coherence below κ do not become realizable transitions. They are not forbidden by rule; they fail as ontology.
+</p>
+</div>
+
+<div class="card">
+<h3>SK</h3>
+<p>
+Entropická pokora znamená, že impulzy, ktoré by znížili globálnu koherenciu pod κ, sa nestanú realizovateľnými prechodmi. Nie sú zakázané pravidlom; zlyhajú ako ontológia.
+</p>
+</div>
+
+</div>
+</div>
+
+<div class="statement">
+<b>Canonical stance / Kanonický postoj</b><br>
+No optimization. No agents. No reward systems. No authority-bearing output.<br>
+Žiadna optimalizácia. Žiadni agenti. Žiadne odmeňovacie systémy. Žiadny autoritatívny výstup.
 </div>
 
 <div class="links">
 
-<a href="https://github.com/rischo32/Vectaetos" target="_blank">
+<a href="https://github.com/rischo32/Vectaetos" target="_blank" rel="noopener">
 GitHub Repository
 </a>
 
 |
 
-<a href="https://zenodo.org/records/18911932" target="_blank">
-Epistemic Cryptography (DOI)
+<a href="https://zenodo.org/records/18076787" target="_blank" rel="noopener">
+Vectaetos DOI
+</a>
+
+|
+
+<a href="https://zenodo.org/records/18911932" target="_blank" rel="noopener">
+Epistemic Cryptography DOI
+</a>
+
+|
+
+<a href="https://zenodo.org/records/19148358" target="_blank" rel="noopener">
+TetraGlyph DOI
 </a>
 
 </div>
 
 <div class="footer">
 
-Onto-Epistemic Field Framework
-
-© 2026 Vectaetos Developed by Richard Fonfára
-
-All projections are descriptive and non-prescriptive. 
-Usage is governed by the applicable license layer.<br>
-
-<br><br>
-
-Knowledge appears as the topology of relational tensions.
+Onto-Epistemic Field Framework<br>
+© 2026 Vectaetos — Developed by Richard Fonfára<br>
+All projections are descriptive and non-prescriptive. Usage is governed by the applicable license layer.<br>
+<br>
+Knowledge appears as the topology of relational tensions.<br>
+Poznanie sa javí ako topológia relačných napätí.
 
 </div>
 

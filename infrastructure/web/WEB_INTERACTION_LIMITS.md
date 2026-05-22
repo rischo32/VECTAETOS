@@ -143,6 +143,9 @@ Je to dôsledok entropickej pokory.
 
 NIR (Non-Intervention Regime):
 
+Canonical meaning in this context: NIR = Non-Intervention Regime.
+
+
 - je aktívny počas celej interakcie
 - neblokuje vstup
 - blokuje preskripciu

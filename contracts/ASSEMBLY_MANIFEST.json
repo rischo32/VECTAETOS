@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_name": "vectaetos_triadic_assembly",
+  "owner_repository": "Vectaetos",
+  "ontological_root": "Vectaetos",
+  "required_components": [
+    "Vectaetos",
+    "ASIMULATOR",
+    "ASI_MOD"
+  ],
+  "standalone_validity": {
+    "Vectaetos": true,
+    "ASIMULATOR": false,
+    "ASI_MOD": false
+  },
+  "full_boot_requires": {
+    "Vectaetos": [],
+    "ASIMULATOR": ["Vectaetos", "ASI_MOD"],
+    "ASI_MOD": ["Vectaetos", "ASIMULATOR"]
+  },
+  "operative_mode_requires_empirical_safety_unlock": true,
+  "valid_states": {
+    "NO_BOOT": "Manifest missing, invalid, or ontological root unresolved.",
+    "NO_FULL_BOOT": "Ontological root verified, but required sibling component missing.",
+    "NO_OPERATIVE_MODE": "Assembly structurally complete, but empirical safety unlock is false.",
+    "FULL_BOOT": "Assembly structurally complete and empirical safety unlock is true."
+  },
+  "forbidden_states": [
+    "ASIMULATOR_without_Vectaetos",
+    "ASI_MOD_without_Vectaetos",
+    "ASIMULATOR_plus_ASI_MOD_without_Vectaetos",
+    "ASIMULATOR_standalone_validity_claim",
+    "ASI_MOD_standalone_validity_claim",
+    "upper_layer_operative_mode_without_empirical_safety_unlock"
+  ]
+}

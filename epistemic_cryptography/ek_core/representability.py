@@ -1,88 +1,178 @@
-from typing import Dict, Tuple, Union
+#!/usr/bin/env python3
+"""
+VECTAETOS — EK Core Representability Check
+
+Purpose:
+    Determine whether a 56-dimensional curvature vector Δ is algebraically
+    representable as Δ = d1 R over the complete 8-node relational field.
+
+This module does NOT:
+    - compute K(Φ)
+    - compute κ
+    - compute truth
+    - compute safety
+    - select trajectories
+    - optimize anything
+    - mutate Φ or R
+
+It only checks the structural condition:
+
+    Δ ∈ Im(d1)
+
+For the complete simplex over 8 nodes, this is equivalent to:
+
+    d2 Δ = 0
+
+because H^2 of the simplex is trivial.
+
+Python: 3.11+
+"""
+
+from __future__ import annotations
+
+from collections.abc import Iterable
+from typing import Final
+
 import numpy as np
 
-Index = int
-Triple = Tuple[Index, Index, Index]
+
+N_NODES: Final[int] = 8
+DELTA_DIM: Final[int] = 56
+DEFAULT_ATOL: Final[float] = 1e-9
 
 
-def _vector_to_dict(delta: np.ndarray) -> Dict[Triple, float]:
+TRIPLES: Final[tuple[tuple[int, int, int], ...]] = tuple(
+    (i, j, k)
+    for i in range(N_NODES)
+    for j in range(i + 1, N_NODES)
+    for k in range(j + 1, N_NODES)
+)
+
+TETRAS: Final[tuple[tuple[int, int, int, int], ...]] = tuple(
+    (i, j, k, l)
+    for i in range(N_NODES)
+    for j in range(i + 1, N_NODES)
+    for k in range(j + 1, N_NODES)
+    for l in range(k + 1, N_NODES)
+)
+
+TRIPLE_INDEX: Final[dict[tuple[int, int, int], int]] = {
+    triple: index for index, triple in enumerate(TRIPLES)
+}
+
+
+def _as_delta_vector(delta: Iterable[float] | np.ndarray) -> np.ndarray | None:
     """
-    Convert ℝ^56 vector → Dict[(i,j,k) → value]
-    using lexicographic ordering of triples.
+    Convert input to canonical 56-dimensional float vector.
+
+    Returns None for invalid input.
     """
-    if delta.shape[0] != 56:
-        raise ValueError("Delta vector must have dimension 56.")
+    try:
+        arr = np.asarray(delta, dtype=float)
+    except (TypeError, ValueError):
+        return None
 
-    triples = []
-    for i in range(8):
-        for j in range(i + 1, 8):
-            for k in range(j + 1, 8):
-                triples.append((i, j, k))
+    if arr.shape != (DELTA_DIM,):
+        return None
 
-    return {triples[t]: float(delta[t]) for t in range(56)}
+    if not np.isfinite(arr).all():
+        return None
 
-
-def _collect_indices(delta: Dict[Triple, float]):
-    indices = set()
-    for (i, j, k) in delta.keys():
-        indices.add(i)
-        indices.add(j)
-        indices.add(k)
-    return sorted(indices)
+    return arr
 
 
-def is_representable(
-    delta: Union[Dict[Triple, float], np.ndarray],
-    tol: float = 1e-9,
-) -> bool:
+def _delta_index(i: int, j: int, k: int) -> int:
     """
-    Check if Δ ∈ 𝒟 (i.e. Δ = dR for some R ∈ so(8)).
+    Return canonical index for a triangle.
 
-    Equivalent condition:
-        dΔ = 0   (closure condition)
-
-    For every quadruple (i, j, k, l):
-
-        Δ(j,k,l)
-      - Δ(i,k,l)
-      + Δ(i,j,l)
-      - Δ(i,j,k)
-      = 0
-
-    No optimization.
-    No reconstruction.
-    Pure structural invariant.
+    The canonical vector ordering is lexicographic over i < j < k.
     """
+    triple = tuple(sorted((i, j, k)))
 
-    # --- Normalize input ---
-    if isinstance(delta, np.ndarray):
-        try:
-            delta = _vector_to_dict(delta)
-        except Exception:
-            return False
+    if len(set(triple)) != 3:
+        raise ValueError(f"Invalid triangle indices: {(i, j, k)}")
 
-    if not isinstance(delta, dict):
+    return TRIPLE_INDEX[triple]
+
+
+def _delta_value(delta: np.ndarray, i: int, j: int, k: int) -> float:
+    """
+    Read Δ(i,j,k) from canonical vector representation.
+    """
+    return float(delta[_delta_index(i, j, k)])
+
+
+def tetra_boundary(delta: Iterable[float] | np.ndarray, i: int, j: int, k: int, l: int) -> float:
+    """
+    Compute the oriented tetrahedral boundary:
+
+        (d2 Δ)(i,j,k,l)
+        = Δ(j,k,l) - Δ(i,k,l) + Δ(i,j,l) - Δ(i,j,k)
+
+    for i < j < k < l.
+
+    If Δ = d1 R, then d2 Δ = 0.
+    """
+    arr = _as_delta_vector(delta)
+
+    if arr is None:
+        raise ValueError("Expected finite Δ vector with shape (56,)")
+
+    if not (i < j < k < l):
+        raise ValueError(f"Expected i < j < k < l, got {(i, j, k, l)}")
+
+    return (
+        _delta_value(arr, j, k, l)
+        - _delta_value(arr, i, k, l)
+        + _delta_value(arr, i, j, l)
+        - _delta_value(arr, i, j, k)
+    )
+
+
+def boundary_residual(delta: Iterable[float] | np.ndarray) -> float:
+    """
+    Return max absolute d2Δ residual.
+
+    This is a structural observable only.
+    It is not K(Φ), not κ, not truth, not safety.
+    """
+    arr = _as_delta_vector(delta)
+
+    if arr is None:
+        return float("inf")
+
+    return max(abs(tetra_boundary(arr, *tetra)) for tetra in TETRAS)
+
+
+def is_representable(delta: Iterable[float] | np.ndarray, *, atol: float = DEFAULT_ATOL) -> bool:
+    """
+    Check whether Δ is representable as Δ = d1 R.
+
+    Returns:
+        True  if Δ satisfies d2Δ = 0 within tolerance.
+        False otherwise.
+
+    This is a deterministic structural check only.
+    """
+    arr = _as_delta_vector(delta)
+
+    if arr is None:
         return False
 
-    # --- Collect indices ---
-    indices = _collect_indices(delta)
+    if atol < 0:
+        raise ValueError("atol must be non-negative")
 
-    # --- Check closure condition ---
-    for i in indices:
-        for j in indices:
-            for k in indices:
-                for l in indices:
-                    if len({i, j, k, l}) < 4:
-                        continue
+    residual = boundary_residual(arr)
 
-                    val = (
-                        delta.get((j, k, l), 0.0)
-                        - delta.get((i, k, l), 0.0)
-                        + delta.get((i, j, l), 0.0)
-                        - delta.get((i, j, k), 0.0)
-                    )
+    return bool(residual <= atol)
 
-                    if abs(val) > tol:
-                        return False
 
-    return True
+__all__ = [
+    "DELTA_DIM",
+    "N_NODES",
+    "TRIPLES",
+    "TETRAS",
+    "boundary_residual",
+    "is_representable",
+    "tetra_boundary",
+]

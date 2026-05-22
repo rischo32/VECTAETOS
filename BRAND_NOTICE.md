@@ -7,6 +7,9 @@ The framework:
 - does not prescribe
 - does not provide authority
 
-All projections are descriptive and non-prescriptive.
-
-© 2026 Richard Fonfára
+      VECTAETOS™
+      Onto-Epistemic Field Framework
+      © 2026 Vectaetos
+      Developed by Richard Fonfára
+      All projections are descriptive and non-prescriptive.
+      Usage is governed by the applicable license layer.

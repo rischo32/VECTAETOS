@@ -40,7 +40,7 @@ SUSPECT_WORDS = [
     "correct",
 ]
 
-SCAN_DIRS = ["formal", "core", "VECTAETOS_MASTER_INDEX.md"]
+SCAN_DIRS = ["formal", "Core", "VECTAETOS_MASTER_INDEX.md"]
 
 
 # ============================================
