@@ -22,11 +22,13 @@ import dataclasses
 import enum
 import hashlib
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeVar
 
 
 SCHEMA_BASELINE = "perimeter-finding-schema/1.0"
 DEFAULT_CONTRACT_SCHEMA_VERSION = "1.0"
+
+EnumT = TypeVar("EnumT", bound=enum.Enum)
 
 
 class Severity(str, enum.Enum):
@@ -131,32 +133,47 @@ class Finding:
         normalized_path = normalize_path(self.path)
 
         object.__setattr__(self, "path", normalized_path)
-        object.__setattr__(self, "severity", Severity(str(self.severity)))
-        object.__setattr__(self, "confidence", Confidence(str(self.confidence)))
+        object.__setattr__(
+            self,
+            "severity",
+            coerce_enum(Severity, self.severity, "severity"),
+        )
+        object.__setattr__(
+            self,
+            "confidence",
+            coerce_enum(Confidence, self.confidence, "confidence"),
+        )
+        object.__setattr__(
+            self,
+            "scope",
+            coerce_enum(Scope, self.scope, "scope"),
+        )
+        object.__setattr__(
+            self,
+            "vector",
+            coerce_enum(DriftVector, self.vector, "vector"),
+        )
 
-        if isinstance(self.scope, Scope):
-            normalized_scope = self.scope
-        else:
-            normalized_scope = Scope(str(self.scope))
-        object.__setattr__(self, "scope", normalized_scope)
-
-        if isinstance(self.vector, DriftVector):
-            normalized_vector = self.vector
-        else:
-            normalized_vector = DriftVector(str(self.vector))
-        object.__setattr__(self, "vector", normalized_vector)
-
-        if isinstance(self.evidence_class_allowed, str):
+        if self.evidence_class_allowed is not None:
             object.__setattr__(
                 self,
                 "evidence_class_allowed",
-                EvidenceClass(self.evidence_class_allowed),
+                coerce_enum(
+                    EvidenceClass,
+                    self.evidence_class_allowed,
+                    "evidence_class_allowed",
+                ),
             )
-        if isinstance(self.evidence_class_claimed, str):
+
+        if self.evidence_class_claimed is not None:
             object.__setattr__(
                 self,
                 "evidence_class_claimed",
-                EvidenceClass(self.evidence_class_claimed),
+                coerce_enum(
+                    EvidenceClass,
+                    self.evidence_class_claimed,
+                    "evidence_class_claimed",
+                ),
             )
 
         validate_required_text("guard_id", self.guard_id)
@@ -169,7 +186,9 @@ class Finding:
             raise ValueError("Finding invariant violation: ontology_authority must be false.")
 
         if self.auto_fix_allowed:
-            raise ValueError("Finding invariant violation: auto_fix_allowed must be false by default.")
+            raise ValueError(
+                "Finding invariant violation: auto_fix_allowed must be false by default."
+            )
 
         if self.line is not None and self.line < 1:
             raise ValueError("Finding line must be >= 1 when provided.")
@@ -183,7 +202,39 @@ class Finding:
 
 def validate_required_text(field_name: str, value: str) -> None:
     if not isinstance(value, str) or not value.strip():
-        raise ValueError(f"Finding field {field_name!r} is required and must be non-empty.")
+        raise ValueError(
+            f"Finding field {field_name!r} is required and must be non-empty."
+        )
+
+
+def coerce_enum(enum_type: type[EnumT], value: Any, field_name: str) -> EnumT:
+    """
+    Normalize enum values accepted by guard code.
+
+    Accepted:
+    - enum member, e.g. Severity.BLOCKER
+    - schema value, e.g. "BLOCKER"
+
+    Not accepted:
+    - repr-like strings such as "Severity.BLOCKER"
+    """
+
+    if isinstance(value, enum_type):
+        return value
+
+    if isinstance(value, enum.Enum):
+        raw_value = value.value
+    else:
+        raw_value = value
+
+    try:
+        return enum_type(str(raw_value))
+    except ValueError as exc:
+        allowed = ", ".join(str(item.value) for item in enum_type)
+        raise ValueError(
+            f"Finding field {field_name!r} has invalid value {raw_value!r}; "
+            f"allowed values: {allowed}"
+        ) from exc
 
 
 def normalize_path(path: Path | str) -> str:
