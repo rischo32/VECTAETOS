@@ -23,7 +23,7 @@ ___
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12869/badge)](https://www.bestpractices.dev/projects/12869)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 ___
-### Level 0 — Fundamental Repository Perimeter
+#### Level 0 — Fundamental Repository Perimeter
 [![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
 [![vectaetos-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml)
 [![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
@@ -35,12 +35,18 @@ ___
 
     These guards protect the root boundary of the repository.
 ___
-### Level 1 — Specialized Ontological Guards
+#### Level 1 — Specialized Ontological Perimeter
 [![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
 [![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
 [![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
 [![Coherence Vocabulary Guard](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml)
 ___
+#### Level 2 — Semantic / Ontological Vocabulary Perimeter
+#### Level 3 — Code Behavior Perimeter
+#### Level 4 — Bridge / Projection / Trace Perimeter
+#### Level 5 — Runtime / Evidence / Release Perimeter
+
+    "Ostatné vrstvy perimeter bezpecnostnej matice a ich strazcovia budú radené až ku koncu"
 
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
 [![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
