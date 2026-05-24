@@ -2,7 +2,9 @@
 
 ## Status
 
-Fundamental repository perimeter layer.
+Fundamental repository perimeter MATICA_GUARDS layer.
+
+    Perimeter môže byť tvrdší, ale nikdy autoritatívnejší.
 
 ## Purpose
 
