@@ -464,7 +464,7 @@ regarding Regulation (EU) 2024/1689.
 
 See:
 
-/compliance/EU_AI_ACT_POSITION.md
+/infrastructure/legal//EU_AI_ACT_POSITION.md
 
 ------------------------------------------------------------
 ## Papers
