@@ -149,7 +149,7 @@ No language layer may become truth authority.
 | Unified Metamathematics | `METAMATHEMATICS.md` / `UNIFIED_METAMATHEMATICS.md` | CANONICAL REFERENCE | Formal reference only |
 | Mechanization of Φ | `MECHANIZATION_OF_PHI_v1_1...md` | CANONICAL ANCHOR | Mechanization anchor, read-only |
 | Epistemic Cryptography | EK reports / notes | STRUCTURAL AUDIT FRAMEWORK | Audit only |
-| VECTAETOS FOUNDATIONS | `docs/foundations/VECTAETOS_FOUNDATIONS.md` | PRE-LEGAL / GOVERNANCE | No core mutation |
+| VECTAETOS FOUNDATIONS | `/VECTAETOS_FOUNDATIONS_v2.md` | PRE-LEGAL / GOVERNANCE | No core mutation |
 | Trademark Policy | `TRADEMARK_POLICY.md` | PUBLIC POLICY | Identity protection only |
 | VECTLAB Research Node | `research/VECTLAB/` | DOWNSTREAM RESEARCH NODE | No core mutation |
 | VECTLAB Epistemic Shield | `research/VECTLAB/VECTLAB_EPISTEMIC_SHIELD_PROTOTYPE.md` | NON-OPERATIONAL PROTOTYPE CONCEPT | No deployment claim |
