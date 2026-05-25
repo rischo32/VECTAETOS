@@ -1,5 +1,7 @@
 ###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 ___
+#### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTALAB™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
+___
 https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
 ___
 ##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
