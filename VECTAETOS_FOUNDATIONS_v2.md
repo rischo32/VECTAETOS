@@ -1,9 +1,9 @@
-# VECTAETOS FOUNDATIONS — Plural Stewardship Status
+# VECTAETOS™ FOUNDATIONS — Plural Stewardship Status
 
 **Document type:** Foundational plural-status anchor  
 **Status:** PRE-LEGAL / NON-EXECUTIVE / CANONICAL CANDIDATE  
 **Layer:** Institutional stewardship / public continuity / research-node governance  
-**Scope:** VECTAETOS / documentation / archive / research continuity / public governance / VECTLAB Research Node / future institutions  
+**Scope:** VECTAETOS / documentation / archive / research continuity / public governance / VECTLABS Research Node / future institutions  
 **Legal status:** This document does **not** establish a legal entity.  
 **Execution power:** none  
 **Authority over Φ:** none  
@@ -17,7 +17,7 @@
 
 ## 0. Core Sentence
 
-**VECTAETOS FOUNDATIONS označuje budúcu pluralitnú správcovskú, výskumnú, archivačnú a edukačnú vrstvu okolo VECTAETOS, nie jednu centrálnu nadáciu, nie vlastníka pravdy, nie rozhodovací orgán, nie optimalizačný mechanizmus a nie autoritu nad Φ.**
+**VECTAETOS™ FOUNDATIONS označuje budúcu pluralitnú správcovskú, výskumnú, archivačnú a edukačnú vrstvu okolo VECTAETOS, nie jednu centrálnu nadáciu, nie vlastníka pravdy, nie rozhodovací orgán, nie optimalizačný mechanizmus a nie autoritu nad Φ.**
 
 Short form:
 
@@ -187,7 +187,7 @@ VECTAETOS Research Foundation
 VECTAETOS Education Foundation
 VECTAETOS Documentation Stewardship
 VECTAETOS Applied Epistemic Security Branch
-VECTLAB Research Node
+VECTLABS Research Node
 ```
 
 Tieto vetvy môžu byť organizačne, právne alebo projektovo oddelené.
@@ -198,26 +198,26 @@ Tieto vetvy môžu byť organizačne, právne alebo projektovo oddelené.
 
 ---
 
-## 7. VECTLAB Research Node
+## 7. VECTLABS Research Node
 
 Aktuálne zaužívaný názov prvej výskumnej nody je:
 
 ```text
-VECTLAB Research Node
+VECTLABS Research Node
 ```
 
-VECTLAB Research Node je prvá downstream výskumná noda pre aplikovaný výskum epistemickej bezpečnosti, obrany, ochrany, integrity významu a rizika nereprezentovateľnosti.
+VECTLABS Research Node je prvá downstream výskumná noda pre aplikovaný výskum epistemickej bezpečnosti, obrany, ochrany, integrity významu a rizika nereprezentovateľnosti.
 
 Kanonická veta:
 
 ```text
-VECTLAB is a research node, not an authority.
+VECTLABS is a research node, not an authority.
 ```
 
 Slovensky:
 
 ```text
-VECTLAB je výskumná noda, nie autorita.
+VECTLABS je výskumná noda, nie autorita.
 ```
 
 Bezpečný smer vzťahu:
@@ -229,17 +229,17 @@ VECTAETOS core → informs VECTLAB Research Node
 Zakázaný spätný smer:
 
 ```text
-VECTLAB Research Node → redefines VECTAETOS core
-VECTLAB Research Node → mutates Φ
-VECTLAB Research Node → changes K(Φ)
-VECTLAB Research Node → changes κ
-VECTLAB Research Node → trains Vortex
-VECTLAB Research Node → becomes authority over meaning
+VECTLABS Research Node → redefines VECTAETOS core
+VECTLABS Research Node → mutates Φ
+VECTLABS Research Node → changes K(Φ)
+VECTLABS Research Node → changes κ
+VECTLABS Research Node → trains Vortex
+VECTLABS Research Node → becomes authority over meaning
 ```
 
-VECTLAB Research Node môže skúmať obranné a ochranné technológie epistemickej bezpečnosti.
+VECTLABS Research Node môže skúmať obranné a ochranné technológie epistemickej bezpečnosti.
 
-VECTLAB Research Node nesmie byť čítaná ako:
+VECTLABS Research Node nesmie byť čítaná ako:
 
 - zbraňový systém,
 - útočný systém,
@@ -254,7 +254,7 @@ VECTLAB Research Node nesmie byť čítaná ako:
 
 ## 8. Defense and Protection Boundary
 
-VECTAETOS FOUNDATIONS a VECTLAB Research Node môžu podporovať výskum obrany a ochrany v oblasti:
+VECTAETOS FOUNDATIONS a VECTLABS Research Node môžu podporovať výskum obrany a ochrany v oblasti:
 
 - epistemickej bezpečnosti,
 - integrity informačných tokov,
