@@ -127,7 +127,7 @@ ___
 
 ___
 
-    VECTLAB™ Research Node is a downstream applied research node under /research/VECTLAB.
+    VECTLABS™ Research Node is a downstream applied research node under /research/VECTLAB.
     It explores defensive epistemic-security research based on VECTAETOS-derived structures.
     It does not redefine Φ, K(Φ), κ, Vortex, or Epistemic Cryptography.
     It is not a weapon system, targeting system, autonomous agent, or deployment authority.
