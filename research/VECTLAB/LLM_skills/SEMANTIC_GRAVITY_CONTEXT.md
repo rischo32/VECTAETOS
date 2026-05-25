@@ -1,4 +1,4 @@
-# Semantic Gravity Context  THEORY.md
+# Semantic Gravity Context .md
 # Semantic Gravity Context Budgeting
 ## Gravitačne vážené skladanie kontextu pre prompt-safe reasoning systémy
 
