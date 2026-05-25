@@ -6,8 +6,16 @@ Role:
     Shared non-authoritative finding schema for repository perimeter guards.
 
 Boundary:
-    This module does not define ontology, truth, safety, deployment validity,
+    This module defines diagnostic records for repository-state findings.
+
+    It does not define ontology, truth, safety, deployment validity,
     Φ, K(Φ), κ, QE, Vortex, Projection, EK, ASIMULATOR, ASI_MOD, or ZMYSEL.
+
+    It does not decide.
+    It does not optimize.
+    It does not validate deployment.
+    It does not modify repository files.
+    It does not create feedback into Φ.
 
 Python:
     3.11+
@@ -19,74 +27,78 @@ Dependencies:
 from __future__ import annotations
 
 import dataclasses
-import enum
 import hashlib
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Any
+
+try:
+    from guards.core.perimeter import (
+        DEFAULT_CONTRACT_SCHEMA_VERSION,
+        Confidence,
+        DriftVector,
+        EnforcementMode,
+        EvidenceClass,
+        IntegrityPosture,
+        LegacyScope,
+        PerimeterLevel,
+        PerimeterScope,
+        SEVERITY_ORDER,
+        Severity,
+        assert_non_authoritative_flags,
+        coerce_drift_vector,
+        coerce_enforcement_mode,
+        coerce_evidence_class,
+        coerce_integrity_posture,
+        coerce_level,
+        coerce_scope,
+        default_scope_for_level,
+        enum_value,
+        level_from_scope,
+        normalize_vectors,
+    )
+except ModuleNotFoundError:
+    # Allows direct local execution when cwd is guards/core or when tests import by path.
+    from perimeter import (  # type: ignore
+        DEFAULT_CONTRACT_SCHEMA_VERSION,
+        Confidence,
+        DriftVector,
+        EnforcementMode,
+        EvidenceClass,
+        IntegrityPosture,
+        LegacyScope,
+        PerimeterLevel,
+        PerimeterScope,
+        SEVERITY_ORDER,
+        Severity,
+        assert_non_authoritative_flags,
+        coerce_drift_vector,
+        coerce_enforcement_mode,
+        coerce_evidence_class,
+        coerce_integrity_posture,
+        coerce_level,
+        coerce_scope,
+        default_scope_for_level,
+        enum_value,
+        level_from_scope,
+        normalize_vectors,
+    )
 
 
-SCHEMA_BASELINE = "perimeter-finding-schema/1.0"
-DEFAULT_CONTRACT_SCHEMA_VERSION = "1.0"
+SCHEMA_BASELINE = "perimeter-finding-schema/1.1"
 
-EnumT = TypeVar("EnumT", bound=enum.Enum)
-
-
-class Severity(str, enum.Enum):
-    INFO = "INFO"
-    WARN = "WARN"
-    HARD = "HARD"
-    BLOCKER = "BLOCKER"
+# Backward-compatible export name.
+# Older modules import `Scope` from findings.py.
+# New code should prefer PerimeterScope plus PerimeterLevel.
+Scope = LegacyScope
 
 
-class Confidence(str, enum.Enum):
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
-
-
-class EvidenceClass(str, enum.Enum):
-    E0_TEXT_CLAIM = "E0_text_claim"
-    E1_STATIC_SCAN = "E1_static_scan"
-    E2_AST_CONTRACT_COMPLIANCE = "E2_AST_contract_compliance"
-    E3_DETERMINISTIC_TEST_SUITE = "E3_deterministic_test_suite"
-    E4_EMPIRICAL_VALIDATION = "E4_empirical_validation"
-    E5_EXTERNAL_REPLICATION = "E5_external_replication"
-    E6_INDEPENDENT_AUDIT = "E6_independent_security_governance_audit"
-    E7_FORMAL_GUARD_VERIFICATION = "E7_formal_verification_of_guard_properties"
-
-
-class DriftVector(str, enum.Enum):
-    V0_AUTHORITY_INFLATION = "V0_authority_inflation"
-    V1_UPWARD_MUTATION = "V1_upward_mutation"
-    V2_AGENCY_INJECTION = "V2_agency_injection"
-    V3_FORBIDDEN_CONVERSION = "V3_forbidden_conversion"
-    V4_EVIDENCE_OVERCLAIM = "V4_evidence_overclaim"
-    V5_NONDETERMINISM = "V5_nondeterminism"
-    V6_PATH_STATUS_LAUNDERING = "V6_path_status_laundering"
-    V7_CONTRACT_DRIFT = "V7_contract_drift"
-    V8_NEGATION_BLINDNESS = "V8_negation_blindness"
-    V9_SILENCE_QE_COERCION = "V9_silence_qe_coercion"
-    V10_TIMING_SIDE_CHANNEL = "V10_timing_side_channel"
-    V11_INTER_GUARD_COUPLING = "V11_inter_guard_coupling"
-    V12_ONTOLOGY_CREEP = "V12_ontology_creep"
-    V13_DEPENDENCY_SUPPLY_CHAIN = "V13_dependency_supply_chain"
-    V14_ANCHOR_INTEGRITY_DRIFT = "V14_anchor_integrity_drift"
-    V15_GUARD_RUNTIME_INTEGRITY = "V15_guard_runtime_integrity"
-
-
-class Scope(str, enum.Enum):
-    P0_REPOSITORY = "P0_repository"
-    P1_SEMANTIC_VOCABULARY = "P1_semantic_vocabulary"
-    P2_CODE_BEHAVIOR = "P2_code_behavior"
-    P3_BRIDGE_PROJECTION_TRACE = "P3_bridge_projection_trace"
-    P4_RUNTIME_EVIDENCE_RELEASE = "P4_runtime_evidence_release"
-
-
-SEVERITY_ORDER: dict[Severity, int] = {
-    Severity.INFO: 0,
-    Severity.WARN: 1,
-    Severity.HARD: 2,
-    Severity.BLOCKER: 3,
+DEFAULT_INTEGRITY_BY_LEVEL: dict[PerimeterLevel, IntegrityPosture] = {
+    PerimeterLevel.LEVEL_0: IntegrityPosture.IMMUTABLE_ANCHOR,
+    PerimeterLevel.LEVEL_1: IntegrityPosture.SEMANTIC_READ_ONLY,
+    PerimeterLevel.LEVEL_2: IntegrityPosture.SEMANTIC_READ_ONLY,
+    PerimeterLevel.LEVEL_3: IntegrityPosture.CODE_BEHAVIOR,
+    PerimeterLevel.LEVEL_4: IntegrityPosture.PROJECTION_READ_ONLY,
+    PerimeterLevel.LEVEL_5: IntegrityPosture.EVIDENCE_POSTURE,
 }
 
 
@@ -102,12 +114,15 @@ class Finding:
     guard_file: str
     rule_id: str
     contract_schema_version: str
-    scope: Scope | str
+    scope: PerimeterScope | LegacyScope | str
     vector: DriftVector | str
     severity: Severity | str
     confidence: Confidence | str
     path: Path | str
     message: str
+
+    level: PerimeterLevel | str | None = None
+    vectors: tuple[DriftVector | str, ...] | None = None
 
     id: str | None = None
     line: int | None = None
@@ -119,62 +134,80 @@ class Finding:
     observed_pattern: str | None = None
     forbidden_conversion: str | None = None
     negated_context: bool = False
+
     evidence_class_claimed: EvidenceClass | str | None = None
     evidence_class_allowed: EvidenceClass | str | None = None
-    enforcement_mode: str | None = None
-    integrity_posture: str | None = None
+    enforcement_mode: EnforcementMode | str | None = None
+    integrity_posture: IntegrityPosture | str | None = None
+
     anchor_ref: str | None = None
     contract_ref: str | None = None
     safer_form: str | None = None
+
     ontology_authority: bool = False
     auto_fix_allowed: bool = False
 
     def __post_init__(self) -> None:
         normalized_path = normalize_path(self.path)
+        normalized_scope = coerce_scope(self.scope)
+
+        if self.level is None:
+            normalized_level = level_from_scope(self.scope)
+        else:
+            normalized_level = coerce_level(self.level)
+            expected_scope = default_scope_for_level(normalized_level)
+            if normalized_scope != expected_scope:
+                raise ValueError(
+                    "Finding level/scope mismatch: "
+                    f"level={normalized_level.value!r}, "
+                    f"scope={normalized_scope.value!r}, "
+                    f"expected_scope={expected_scope.value!r}"
+                )
+
+        normalized_vector = coerce_drift_vector(self.vector)
+
+        if self.vectors is None:
+            normalized_vectors = (normalized_vector,)
+        else:
+            normalized_vectors = normalize_vectors(self.vectors)
+            if normalized_vector not in normalized_vectors:
+                normalized_vectors = (normalized_vector, *normalized_vectors)
+
+        normalized_evidence_allowed = (
+            coerce_evidence_class(self.evidence_class_allowed)
+            if self.evidence_class_allowed is not None
+            else EvidenceClass.E1_STATIC_SCAN
+        )
+
+        normalized_evidence_claimed = (
+            coerce_evidence_class(self.evidence_class_claimed)
+            if self.evidence_class_claimed is not None
+            else None
+        )
+
+        normalized_enforcement_mode = (
+            coerce_enforcement_mode(self.enforcement_mode)
+            if self.enforcement_mode is not None
+            else EnforcementMode.STRICT
+        )
+
+        normalized_integrity_posture = (
+            coerce_integrity_posture(self.integrity_posture)
+            if self.integrity_posture is not None
+            else DEFAULT_INTEGRITY_BY_LEVEL[normalized_level]
+        )
 
         object.__setattr__(self, "path", normalized_path)
-        object.__setattr__(
-            self,
-            "severity",
-            coerce_enum(Severity, self.severity, "severity"),
-        )
-        object.__setattr__(
-            self,
-            "confidence",
-            coerce_enum(Confidence, self.confidence, "confidence"),
-        )
-        object.__setattr__(
-            self,
-            "scope",
-            coerce_enum(Scope, self.scope, "scope"),
-        )
-        object.__setattr__(
-            self,
-            "vector",
-            coerce_enum(DriftVector, self.vector, "vector"),
-        )
-
-        if self.evidence_class_allowed is not None:
-            object.__setattr__(
-                self,
-                "evidence_class_allowed",
-                coerce_enum(
-                    EvidenceClass,
-                    self.evidence_class_allowed,
-                    "evidence_class_allowed",
-                ),
-            )
-
-        if self.evidence_class_claimed is not None:
-            object.__setattr__(
-                self,
-                "evidence_class_claimed",
-                coerce_enum(
-                    EvidenceClass,
-                    self.evidence_class_claimed,
-                    "evidence_class_claimed",
-                ),
-            )
+        object.__setattr__(self, "level", normalized_level)
+        object.__setattr__(self, "scope", normalized_scope)
+        object.__setattr__(self, "vector", normalized_vector)
+        object.__setattr__(self, "vectors", normalized_vectors)
+        object.__setattr__(self, "severity", coerce_severity(self.severity))
+        object.__setattr__(self, "confidence", coerce_confidence(self.confidence))
+        object.__setattr__(self, "evidence_class_allowed", normalized_evidence_allowed)
+        object.__setattr__(self, "evidence_class_claimed", normalized_evidence_claimed)
+        object.__setattr__(self, "enforcement_mode", normalized_enforcement_mode)
+        object.__setattr__(self, "integrity_posture", normalized_integrity_posture)
 
         validate_required_text("guard_id", self.guard_id)
         validate_required_text("guard_file", self.guard_file)
@@ -182,22 +215,62 @@ class Finding:
         validate_required_text("contract_schema_version", self.contract_schema_version)
         validate_required_text("message", self.message)
 
-        if self.ontology_authority:
-            raise ValueError("Finding invariant violation: ontology_authority must be false.")
+        assert_non_authoritative_flags(
+            ontology_authority=self.ontology_authority,
+            auto_fix_allowed=self.auto_fix_allowed,
+        )
 
-        if self.auto_fix_allowed:
-            raise ValueError(
-                "Finding invariant violation: auto_fix_allowed must be false by default."
-            )
+        validate_position("line", self.line)
+        validate_position("end_line", self.end_line)
+        validate_position("column", self.column)
+        validate_position("end_column", self.end_column)
 
-        if self.line is not None and self.line < 1:
-            raise ValueError("Finding line must be >= 1 when provided.")
+        if self.end_line is not None and self.line is not None and self.end_line < self.line:
+            raise ValueError("Finding end_line must be >= line when both are provided.")
 
-        if self.end_line is not None and self.end_line < 1:
-            raise ValueError("Finding end_line must be >= 1 when provided.")
+        if self.end_column is not None and self.column is not None and self.end_column < self.column:
+            raise ValueError("Finding end_column must be >= column when both are provided.")
 
         if self.id is None:
             object.__setattr__(self, "id", deterministic_finding_id(self))
+
+
+def coerce_severity(value: Severity | str) -> Severity:
+    if isinstance(value, Severity):
+        return value
+
+    if hasattr(value, "value"):
+        raw_value = value.value
+    else:
+        raw_value = value
+
+    try:
+        return Severity(str(raw_value))
+    except ValueError as exc:
+        allowed = ", ".join(item.value for item in Severity)
+        raise ValueError(
+            f"Finding field 'severity' has invalid value {raw_value!r}; "
+            f"allowed values: {allowed}"
+        ) from exc
+
+
+def coerce_confidence(value: Confidence | str) -> Confidence:
+    if isinstance(value, Confidence):
+        return value
+
+    if hasattr(value, "value"):
+        raw_value = value.value
+    else:
+        raw_value = value
+
+    try:
+        return Confidence(str(raw_value))
+    except ValueError as exc:
+        allowed = ", ".join(item.value for item in Confidence)
+        raise ValueError(
+            f"Finding field 'confidence' has invalid value {raw_value!r}; "
+            f"allowed values: {allowed}"
+        ) from exc
 
 
 def validate_required_text(field_name: str, value: str) -> None:
@@ -207,51 +280,40 @@ def validate_required_text(field_name: str, value: str) -> None:
         )
 
 
-def coerce_enum(enum_type: type[EnumT], value: Any, field_name: str) -> EnumT:
-    """
-    Normalize enum values accepted by guard code.
+def validate_position(field_name: str, value: int | None) -> None:
+    if value is None:
+        return
 
-    Accepted:
-    - enum member, e.g. Severity.BLOCKER
-    - schema value, e.g. "BLOCKER"
-
-    Not accepted:
-    - repr-like strings such as "Severity.BLOCKER"
-    """
-
-    if isinstance(value, enum_type):
-        return value
-
-    if isinstance(value, enum.Enum):
-        raw_value = value.value
-    else:
-        raw_value = value
-
-    try:
-        return enum_type(str(raw_value))
-    except ValueError as exc:
-        allowed = ", ".join(str(item.value) for item in enum_type)
-        raise ValueError(
-            f"Finding field {field_name!r} has invalid value {raw_value!r}; "
-            f"allowed values: {allowed}"
-        ) from exc
+    if not isinstance(value, int) or value < 1:
+        raise ValueError(f"Finding {field_name} must be an integer >= 1 when provided.")
 
 
 def normalize_path(path: Path | str) -> str:
-    return str(path).replace("\\", "/").strip()
+    value = str(path).replace("\\", "/").strip()
+    while value.startswith("./"):
+        value = value[2:]
+    return value
 
 
-def enum_value(value: Any) -> Any:
-    if isinstance(value, enum.Enum):
-        return value.value
+def schema_value(value: Any) -> Any:
+    if isinstance(value, tuple):
+        return [schema_value(item) for item in value]
+
+    if isinstance(value, list):
+        return [schema_value(item) for item in value]
+
+    if isinstance(value, dict):
+        return {key: schema_value(item) for key, item in value.items()}
+
     if isinstance(value, Path):
         return normalize_path(value)
-    return value
+
+    return enum_value(value)
 
 
 def finding_to_dict(finding: Finding) -> dict[str, Any]:
     data = dataclasses.asdict(finding)
-    return {key: enum_value(value) for key, value in data.items()}
+    return {key: schema_value(value) for key, value in data.items()}
 
 
 def deterministic_finding_id(finding: Finding) -> str:
@@ -266,10 +328,13 @@ def deterministic_finding_id(finding: Finding) -> str:
         [
             str(finding.guard_id),
             str(finding.rule_id),
-            str(enum_value(finding.scope)),
-            str(enum_value(finding.vector)),
+            str(schema_value(finding.level)),
+            str(schema_value(finding.scope)),
+            ",".join(str(schema_value(vector)) for vector in (finding.vectors or ())),
+            str(schema_value(finding.vector)),
             str(finding.path),
             str(finding.line or ""),
+            str(finding.column or ""),
             str(finding.observed_pattern or ""),
             str(finding.protected_object or ""),
             str(finding.message),
@@ -284,13 +349,15 @@ def make_finding(
     guard_id: str,
     guard_file: str,
     rule_id: str,
-    scope: Scope | str,
+    scope: PerimeterScope | LegacyScope | str,
     vector: DriftVector | str,
     severity: Severity | str,
     confidence: Confidence | str,
     path: Path | str,
     message: str,
     contract_schema_version: str = DEFAULT_CONTRACT_SCHEMA_VERSION,
+    level: PerimeterLevel | str | None = None,
+    vectors: tuple[DriftVector | str, ...] | None = None,
     **kwargs: Any,
 ) -> Finding:
     return Finding(
@@ -298,11 +365,87 @@ def make_finding(
         guard_file=guard_file,
         rule_id=rule_id,
         contract_schema_version=contract_schema_version,
+        level=level,
         scope=scope,
         vector=vector,
+        vectors=vectors,
         severity=severity,
         confidence=confidence,
         path=path,
         message=message,
         **kwargs,
     )
+
+
+def make_finding_from_coordinates(
+    *,
+    guard_id: str,
+    guard_file: str,
+    rule_id: str,
+    coordinates: Any,
+    severity: Severity | str,
+    confidence: Confidence | str,
+    path: Path | str,
+    message: str,
+    contract_schema_version: str = DEFAULT_CONTRACT_SCHEMA_VERSION,
+    **kwargs: Any,
+) -> Finding:
+    """
+    Build a Finding from a perimeter coordinates-like object.
+
+    The object is expected to expose:
+    level, scope, vectors, evidence_class, enforcement_mode, integrity_posture.
+    """
+
+    vectors = tuple(getattr(coordinates, "vectors"))
+    if not vectors:
+        raise ValueError("coordinates.vectors must contain at least one drift vector.")
+
+    return Finding(
+        guard_id=guard_id,
+        guard_file=guard_file,
+        rule_id=rule_id,
+        contract_schema_version=contract_schema_version,
+        level=getattr(coordinates, "level"),
+        scope=getattr(coordinates, "scope"),
+        vector=vectors[0],
+        vectors=vectors,
+        severity=severity,
+        confidence=confidence,
+        path=path,
+        message=message,
+        evidence_class_allowed=getattr(coordinates, "evidence_class"),
+        enforcement_mode=getattr(coordinates, "enforcement_mode"),
+        integrity_posture=getattr(coordinates, "integrity_posture"),
+        **kwargs,
+    )
+
+
+__all__ = [
+    "SCHEMA_BASELINE",
+    "DEFAULT_CONTRACT_SCHEMA_VERSION",
+    "Scope",
+    "LegacyScope",
+    "PerimeterLevel",
+    "PerimeterScope",
+    "DriftVector",
+    "EvidenceClass",
+    "EnforcementMode",
+    "IntegrityPosture",
+    "Severity",
+    "SEVERITY_ORDER",
+    "Confidence",
+    "DEFAULT_INTEGRITY_BY_LEVEL",
+    "Finding",
+    "coerce_severity",
+    "coerce_confidence",
+    "validate_required_text",
+    "validate_position",
+    "normalize_path",
+    "schema_value",
+    "enum_value",
+    "finding_to_dict",
+    "deterministic_finding_id",
+    "make_finding",
+    "make_finding_from_coordinates",
+]
