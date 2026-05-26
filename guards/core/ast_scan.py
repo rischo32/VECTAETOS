@@ -736,3 +736,5 @@ def scan_python_source(
         path=repo_path,
         role=resolved_role,
         imports=dict
+        )
+    )
