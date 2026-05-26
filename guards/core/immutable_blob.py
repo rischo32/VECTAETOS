@@ -35,21 +35,26 @@ try:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from guards.core.perimeter import EnforcementMode, enum_value
 except ModuleNotFoundError:
-    # Allows direct local execution when cwd is guards/core or when tests import by path.
     from findings import (  # type: ignore
         Confidence,
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from perimeter import EnforcementMode, enum_value  # type: ignore
 
 
 SUPPORTED_SCHEMA_VERSION = "1.0"
@@ -105,13 +110,10 @@ def enum_schema_value(value: Any) -> Any:
     """
     Return stable schema value for enum-like inputs.
 
-    This avoids passing repr-like values such as "Severity.BLOCKER"
-    into Finding normalization.
+    Retained for backwards compatibility with earlier immutable_blob versions.
     """
 
-    if hasattr(value, "value"):
-        return value.value
-    return value
+    return enum_value(value)
 
 
 def normalize_repo_path(path: Path | str) -> str:
@@ -121,7 +123,7 @@ def normalize_repo_path(path: Path | str) -> str:
     return value
 
 
-def ensure_relative_repo_path(path: str) -> None:
+def ensure_relative_repo_path(path: str | Path) -> str:
     normalized = normalize_repo_path(path)
 
     if not normalized:
@@ -135,24 +137,26 @@ def ensure_relative_repo_path(path: str) -> None:
     if ".." in candidate.parts:
         raise BlobIntegrityError(f"manifest blob path must not contain '..': {path}")
 
+    return normalized
 
-def resolve_under_root(root: Path, repo_relative_path: str) -> Path:
-    ensure_relative_repo_path(repo_relative_path)
 
-    root_resolved = root.resolve()
-    target = (root_resolved / normalize_repo_path(repo_relative_path)).resolve()
+def resolve_under_root(root: Path | str, repo_relative_path: Path | str) -> Path:
+    repo_path = ensure_relative_repo_path(repo_relative_path)
+
+    root_resolved = Path(root).resolve()
+    target = (root_resolved / repo_path).resolve()
 
     try:
         target.relative_to(root_resolved)
     except ValueError as exc:
         raise BlobIntegrityError(
-            f"resolved path escapes repository root: {repo_relative_path}"
+            f"resolved path escapes repository root: {repo_path}"
         ) from exc
 
     return target
 
 
-def hash_file(path: Path, *, include_sha3_512: bool = False) -> BlobDigest:
+def hash_file(path: Path | str, *, include_sha3_512: bool = False) -> BlobDigest:
     """
     Return byte digest for a single file.
 
@@ -160,11 +164,12 @@ def hash_file(path: Path, *, include_sha3_512: bool = False) -> BlobDigest:
     It is not semantic truth and not ontology.
     """
 
+    source = Path(path)
     sha256 = hashlib.sha256()
     sha3_512 = hashlib.sha3_512() if include_sha3_512 else None
     size = 0
 
-    with path.open("rb") as handle:
+    with source.open("rb") as handle:
         for chunk in iter(lambda: handle.read(READ_CHUNK_SIZE), b""):
             size += len(chunk)
             sha256.update(chunk)
@@ -172,11 +177,33 @@ def hash_file(path: Path, *, include_sha3_512: bool = False) -> BlobDigest:
                 sha3_512.update(chunk)
 
     return BlobDigest(
-        path=normalize_repo_path(path),
+        path=normalize_repo_path(source),
         size=size,
         sha256=sha256.hexdigest(),
         sha3_512=sha3_512.hexdigest() if sha3_512 is not None else None,
     )
+
+
+def validate_sha256(value: str, *, context: str) -> str:
+    normalized = value.strip().lower()
+    if len(normalized) != 64 or any(char not in "0123456789abcdef" for char in normalized):
+        raise BlobIntegrityError(f"{context} has invalid sha256")
+    return normalized
+
+
+def validate_sha3_512(value: str, *, context: str) -> str:
+    normalized = value.strip().lower()
+    if len(normalized) != 128 or any(char not in "0123456789abcdef" for char in normalized):
+        raise BlobIntegrityError(f"{context} has invalid sha3_512")
+    return normalized
+
+
+def optional_text(raw: Mapping[str, Any], key: str) -> str | None:
+    value = raw.get(key)
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
 
 
 def record_from_mapping(raw: Mapping[str, Any], *, index: int) -> BlobRecord:
@@ -187,12 +214,8 @@ def record_from_mapping(raw: Mapping[str, Any], *, index: int) -> BlobRecord:
                 f"manifest blob #{index} missing required field: {key}"
             )
 
-    path = normalize_repo_path(str(raw["path"]))
-    ensure_relative_repo_path(path)
-
-    sha256 = str(raw["sha256"]).strip().lower()
-    if len(sha256) != 64 or any(char not in "0123456789abcdef" for char in sha256):
-        raise BlobIntegrityError(f"manifest blob #{index} has invalid sha256: {path}")
+    path = ensure_relative_repo_path(raw["path"])
+    sha256 = validate_sha256(str(raw["sha256"]), context=f"manifest blob #{index}: {path}")
 
     try:
         size = int(raw["size"])
@@ -207,13 +230,10 @@ def record_from_mapping(raw: Mapping[str, Any], *, index: int) -> BlobRecord:
     sha3_512_value = raw.get("sha3_512")
     sha3_512 = None
     if sha3_512_value is not None:
-        sha3_512 = str(sha3_512_value).strip().lower()
-        if len(sha3_512) != 128 or any(
-            char not in "0123456789abcdef" for char in sha3_512
-        ):
-            raise BlobIntegrityError(
-                f"manifest blob #{index} has invalid sha3_512: {path}"
-            )
+        sha3_512 = validate_sha3_512(
+            str(sha3_512_value),
+            context=f"manifest blob #{index}: {path}",
+        )
 
     return BlobRecord(
         path=path,
@@ -221,12 +241,8 @@ def record_from_mapping(raw: Mapping[str, Any], *, index: int) -> BlobRecord:
         size=size,
         role=str(raw.get("role", "tracked_blob")).strip() or "tracked_blob",
         sha3_512=sha3_512,
-        anchor_ref=(
-            str(raw["anchor_ref"]).strip()
-            if raw.get("anchor_ref") is not None
-            else None
-        ),
-        notes=str(raw["notes"]).strip() if raw.get("notes") is not None else None,
+        anchor_ref=optional_text(raw, "anchor_ref"),
+        notes=optional_text(raw, "notes"),
     )
 
 
@@ -302,8 +318,8 @@ def blob_finding(
     message: str,
     guard_id: str = DEFAULT_GUARD_ID,
     guard_file: str = DEFAULT_GUARD_FILE,
-    severity: Severity | str = Severity.BLOCKER.value,
-    confidence: Confidence | str = Confidence.HIGH.value,
+    severity: Severity | str = Severity.BLOCKER,
+    confidence: Confidence | str = Confidence.HIGH,
     observed_pattern: str | None = None,
     protected_object: str | None = None,
     contract_schema_version: str = SUPPORTED_SCHEMA_VERSION,
@@ -316,19 +332,21 @@ def blob_finding(
         guard_file=guard_file,
         rule_id=rule_id,
         contract_schema_version=contract_schema_version,
-        scope=Scope.P0_REPOSITORY.value,
-        vector=DriftVector.V14_ANCHOR_INTEGRITY_DRIFT.value,
-        severity=enum_schema_value(severity),
-        confidence=enum_schema_value(confidence),
+        level=PerimeterLevel.LEVEL_0,
+        scope=PerimeterScope.FUNDAMENTAL_REPOSITORY,
+        vector=DriftVector.V14_ANCHOR_INTEGRITY_DRIFT,
+        severity=severity,
+        confidence=confidence,
         path=normalize_repo_path(path),
         message=message,
         protected_object=protected_object,
         observed_pattern=observed_pattern,
-        evidence_class_allowed=EvidenceClass.E1_STATIC_SCAN.value,
+        evidence_class_allowed=EvidenceClass.E1_STATIC_SCAN,
+        enforcement_mode=EnforcementMode.STRICT,
         anchor_ref=anchor_ref,
         contract_ref=contract_ref,
         safer_form=safer_form,
-        integrity_posture="byte_integrity_read_only",
+        integrity_posture=IntegrityPosture.BYTE_INTEGRITY_READ_ONLY,
     )
 
 
@@ -503,6 +521,8 @@ def verify_manifest(
     This function is read-only. It never modifies repository files.
     """
 
+    manifest_ref = contract_ref or normalize_repo_path(manifest_path)
+
     try:
         manifest = load_manifest(manifest_path)
     except BlobIntegrityError as exc:
@@ -513,11 +533,11 @@ def verify_manifest(
                 message=str(exc),
                 guard_id=guard_id,
                 guard_file=guard_file,
-                severity=Severity.BLOCKER.value,
-                confidence=Confidence.HIGH.value,
+                severity=Severity.BLOCKER,
+                confidence=Confidence.HIGH,
                 protected_object="blob_manifest",
                 contract_schema_version=contract_schema_version,
-                contract_ref=contract_ref,
+                contract_ref=manifest_ref,
                 safer_form=(
                     "Restore or regenerate manifest through explicit "
                     "human-reviewed process."
@@ -534,7 +554,7 @@ def verify_manifest(
                 guard_id=guard_id,
                 guard_file=guard_file,
                 contract_schema_version=manifest.schema_version,
-                contract_ref=contract_ref,
+                contract_ref=manifest_ref,
             )
         )
 
@@ -558,7 +578,7 @@ def manifest_record_for_file(
     """
 
     repo_root = Path(root)
-    repo_path = normalize_repo_path(path)
+    repo_path = ensure_relative_repo_path(path)
     target = resolve_under_root(repo_root, repo_path)
 
     if not target.exists() or not target.is_file():
@@ -631,3 +651,34 @@ def render_manifest_json(manifest: BlobManifest) -> str:
         )
         + "\n"
     )
+
+
+__all__ = [
+    "SUPPORTED_SCHEMA_VERSION",
+    "DEFAULT_HASH_ALGORITHM",
+    "DEFAULT_MANIFEST_ROLE",
+    "DEFAULT_GUARD_ID",
+    "DEFAULT_GUARD_FILE",
+    "READ_CHUNK_SIZE",
+    "BlobIntegrityError",
+    "BlobDigest",
+    "BlobRecord",
+    "BlobManifest",
+    "enum_schema_value",
+    "normalize_repo_path",
+    "ensure_relative_repo_path",
+    "resolve_under_root",
+    "hash_file",
+    "validate_sha256",
+    "validate_sha3_512",
+    "optional_text",
+    "record_from_mapping",
+    "load_manifest",
+    "blob_finding",
+    "verify_blob",
+    "verify_manifest",
+    "manifest_record_for_file",
+    "manifest_to_dict",
+    "build_manifest",
+    "render_manifest_json",
+]
