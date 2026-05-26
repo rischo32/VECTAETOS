@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1",
+  "manifest_role": "minimal_protected_immutable_surface",
+  "status": "research_profile",
+  "active_enforcement": false,
+  "protected_paths": [],
+  "protected_globs": [
+    "anchors/**",
+    "formal/**",
+    "contracts/**",
+    "guards/core/**"
+  ],
+  "excluded_globs": [
+    "research/guards/**",
+    "tests/fixtures/**",
+    "docs/archive/**"
+  ],
+  "unlock": {
+    "mode": "solo_maintainer",
+    "required_unlock_file_glob": "research/guards/unlocks/UNLOCK-*.json",
+    "required_signed_by": "Richard Fonfára",
+    "required_confirmation": "I confirm solo-maintainer protected-surface unlock.",
+    "ai_review_is_advisory_only": true
+  },
+  "claims": {
+    "ontology_authority": false,
+    "auto_fix_allowed": false,
+    "truth_claim_allowed": false,
+    "safety_claim_allowed": false
+  },
+  "failure_mode": {
+    "fail_closed": true,
+    "exit_code_on_blocker": 1,
+    "exit_code_on_infrastructure_error": 2
+  },
+  "future_migration_target": "contracts/protected_surface_manifest.json"
+}
