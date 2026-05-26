@@ -667,6 +667,7 @@ def findings_for_ontology_assignments(
                 guard_file=guard_file,
             )
         )
+    )
 
     return findings
 
