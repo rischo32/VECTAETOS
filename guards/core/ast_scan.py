@@ -667,6 +667,7 @@ def findings_for_ontology_assignments(
                 guard_file=guard_file,
             )
         )
+    )
 
     return findings
 
@@ -735,96 +736,4 @@ def scan_python_source(
     return AstScanResult(
         path=repo_path,
         role=resolved_role,
-        imports=dict(sorted(aliases.items())),
-        calls=calls,
-        assignments=assignments,
-        findings=tuple(findings),
-    )
-
-
-def scan_python_file(
-    *,
-    path: Path | str,
-    role: CodeRole | str | None = None,
-    guard_id: str = DEFAULT_GUARD_ID,
-    guard_file: str = DEFAULT_GUARD_FILE,
-) -> AstScanResult:
-    source_path = Path(path)
-
-    try:
-        source = source_path.read_text(encoding="utf-8")
-    except UnicodeDecodeError:
-        source = source_path.read_text(encoding="utf-8-sig")
-    except OSError as exc:
-        finding = ast_finding(
-            rule_id="AST-FILE-UNREADABLE",
-            path=path,
-            message=f"Python source could not be read: {exc}",
-            line=1,
-            column=1,
-            role=CodeRole.UNKNOWN,
-            observed_pattern="",
-            vector=DriftVector.V7_CONTRACT_DRIFT,
-            severity=Severity.HARD,
-            confidence=Confidence.HIGH,
-            protected_object="python_source",
-            guard_id=guard_id,
-            guard_file=guard_file,
-        )
-        return AstScanResult(
-            path=normalize_repo_path(path),
-            role=CodeRole.UNKNOWN,
-            imports={},
-            calls=tuple(),
-            assignments=tuple(),
-            findings=(finding,),
-        )
-
-    return scan_python_source(
-        path=path,
-        source=source,
-        role=role,
-        guard_id=guard_id,
-        guard_file=guard_file,
-    )
-
-
-__all__ = [
-    "SUPPORTED_CONTRACT_SCHEMA_VERSION",
-    "DEFAULT_GUARD_ID",
-    "DEFAULT_GUARD_FILE",
-    "NETWORK_ROOTS",
-    "SUBPROCESS_ROOTS",
-    "RANDOMNESS_ROOTS",
-    "DYNAMIC_EXEC_ROOTS",
-    "FILE_MUTATION_METHODS",
-    "SELECTION_FUNCTIONS",
-    "ONTOLOGY_NAMES",
-    "AstCall",
-    "AstAssignment",
-    "AstImport",
-    "AstScanResult",
-    "normalize_repo_path",
-    "source_segment",
-    "dotted_name",
-    "target_name",
-    "build_import_aliases",
-    "collect_imports",
-    "resolve_call_name",
-    "starts_with_any",
-    "call_name_for_node",
-    "is_write_mode",
-    "is_open_write_call",
-    "is_file_mutation_call",
-    "is_selection_call",
-    "is_ontology_assignment",
-    "ast_finding",
-    "parse_python_source",
-    "collect_calls",
-    "collect_assignments",
-    "findings_for_call",
-    "findings_for_file_mutations",
-    "findings_for_ontology_assignments",
-    "scan_python_source",
-    "scan_python_file",
-]
+        imports=dict
