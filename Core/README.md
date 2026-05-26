@@ -1,4 +1,4 @@
-# VECTAETOS â€” Core
+# VECTAETOS™ / Core
 
 ## Status
 
