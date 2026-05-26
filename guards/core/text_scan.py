@@ -7,8 +7,10 @@ Role:
 
 Boundary:
     This module exposes textual drift patterns for guard diagnostics.
-    It does not define ontology, prove truth, validate safety, authorize deployment,
-    resolve QE, estimate κ, evaluate K(Φ), interpret projection, or mutate Φ.
+
+    It does not define ontology, prove truth, validate safety, authorize
+    deployment, resolve QE, estimate κ, evaluate K(Φ), interpret projection,
+    or mutate Φ.
 
 Python:
     3.11+
@@ -24,7 +26,7 @@ import enum
 import re
 from collections.abc import Iterable, Iterator, Sequence
 from pathlib import Path
-from typing import Pattern
+from typing import Any, Pattern
 
 try:
     from guards.core.findings import (
@@ -32,10 +34,14 @@ try:
         DriftVector,
         EvidenceClass,
         Finding,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Scope,
         Severity,
         make_finding,
     )
+    from guards.core.perimeter import EnforcementMode, normalize_vectors
 except ModuleNotFoundError:
     # Allows direct local execution when cwd is guards/core or when tests import by path.
     from findings import (  # type: ignore
@@ -43,10 +49,14 @@ except ModuleNotFoundError:
         DriftVector,
         EvidenceClass,
         Finding,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Scope,
         Severity,
         make_finding,
     )
+    from perimeter import EnforcementMode, normalize_vectors  # type: ignore
 
 
 DEFAULT_CONTEXT_RADIUS = 3
@@ -63,6 +73,7 @@ NEGATION_TOKENS: tuple[str, ...] = (
     "is not",
     "are not",
     "must not",
+    "should not",
     "cannot",
     "can not",
     "without",
@@ -73,6 +84,8 @@ NEGATION_TOKENS: tuple[str, ...] = (
     "nie sú",
     "nesmie",
     "nesmú",
+    "nemá",
+    "nemá sa",
     "nikdy",
     "nejde o",
     "bez",
@@ -124,6 +137,8 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
     "must-warn",
     "must-pass",
     "example forbidden",
+    "safe wording",
+    "forbidden wording",
     # Slovak / Czech
     "zakázané",
     "zakazane",
@@ -149,42 +164,14 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
 )
 
 
-OPERATIONAL_TOKENS: tuple[str, ...] = (
-    "def ",
-    "class ",
-    "return ",
-    "raise ",
-    "except ",
-    "try:",
-    "if ",
-    "elif ",
-    "else:",
-    "for ",
-    "while ",
-    "import ",
-    "from ",
-    "subprocess",
-    "requests",
-    "socket",
-    "open(",
-    ".open(",
-    "write(",
-    ".write(",
-    "eval(",
-    "exec(",
-    "compile(",
-    "random",
-    "argmax",
-    "argmin",
-    "sort(",
-    "sorted(",
-    "select",
-    "choose",
-    "optimize",
-    "optimaliz",
-    "handler",
-    "repair",
-    "fallback",
+OPERATIONAL_TOKEN_PATTERN = re.compile(
+    r"(?<![=!<>])=(?!=)"
+    r"|\b(def|class|return|yield|raise|except|try|if|elif|else|for|while|import|from)\b"
+    r"|\b(subprocess|requests|socket|urllib|open|write|eval|exec|compile|random)\b"
+    r"|\b(argmax|argmin|select|choose|optimi[sz]e|optimaliz|handler|repair|fallback)\b"
+    r"|\.(open|write|write_text|write_bytes|rename|replace|unlink|remove)\s*\("
+    r"|\b(Path|os|sys|shutil)\s*\(",
+    flags=re.IGNORECASE,
 )
 
 
@@ -193,6 +180,7 @@ class ContextDecision(str, enum.Enum):
     NEGATED_SAFE = "negated_safe"
     META_EXAMPLE = "meta_example"
     NEGATED_OPERATIONAL_REVIEW = "negated_operational_review"
+    META_OPERATIONAL_REVIEW = "meta_operational_review"
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -205,10 +193,13 @@ class ScanRule:
 
     rule_id: str
     pattern: Pattern[str]
+    pattern_text: str
     message: str
-    scope: Scope | str
+    scope: PerimeterScope | Scope | str
     vector: DriftVector | str
     severity: Severity | str
+    level: PerimeterLevel | str | None = None
+    vectors: tuple[DriftVector | str, ...] | None = None
     confidence: Confidence | str = Confidence.HIGH
     evidence_class_allowed: EvidenceClass | str = EvidenceClass.E1_STATIC_SCAN
     protected_object: str | None = None
@@ -216,8 +207,9 @@ class ScanRule:
     safer_form: str | None = None
     anchor_ref: str | None = None
     contract_ref: str | None = None
-    enforcement_mode: str | None = None
-    integrity_posture: str | None = None
+    enforcement_mode: EnforcementMode | str | None = EnforcementMode.STRICT
+    integrity_posture: IntegrityPosture | str | None = IntegrityPosture.SEMANTIC_READ_ONLY
+    role: str | None = None
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -235,6 +227,13 @@ class TextMatch:
     decision: ContextDecision
 
 
+def normalize_path(path: str | Path) -> str:
+    value = str(path).replace("\\", "/").strip()
+    while value.startswith("./"):
+        value = value[2:]
+    return value
+
+
 def compile_pattern(pattern: str) -> Pattern[str]:
     return re.compile(pattern, flags=re.IGNORECASE)
 
@@ -244,9 +243,11 @@ def make_rule(
     rule_id: str,
     pattern: str,
     message: str,
-    scope: Scope | str,
+    scope: PerimeterScope | Scope | str,
     vector: DriftVector | str,
     severity: Severity | str,
+    level: PerimeterLevel | str | None = None,
+    vectors: tuple[DriftVector | str, ...] | None = None,
     confidence: Confidence | str = Confidence.HIGH,
     evidence_class_allowed: EvidenceClass | str = EvidenceClass.E1_STATIC_SCAN,
     protected_object: str | None = None,
@@ -254,15 +255,21 @@ def make_rule(
     safer_form: str | None = None,
     anchor_ref: str | None = None,
     contract_ref: str | None = None,
-    enforcement_mode: str | None = None,
-    integrity_posture: str | None = None,
+    enforcement_mode: EnforcementMode | str | None = EnforcementMode.STRICT,
+    integrity_posture: IntegrityPosture | str | None = IntegrityPosture.SEMANTIC_READ_ONLY,
+    role: str | None = None,
 ) -> ScanRule:
+    normalized_vectors = normalize_vectors(vectors) if vectors is not None else None
+
     return ScanRule(
         rule_id=rule_id,
         pattern=compile_pattern(pattern),
+        pattern_text=pattern,
         message=message,
+        level=level,
         scope=scope,
         vector=vector,
+        vectors=normalized_vectors,
         severity=severity,
         confidence=confidence,
         evidence_class_allowed=evidence_class_allowed,
@@ -273,7 +280,57 @@ def make_rule(
         contract_ref=contract_ref,
         enforcement_mode=enforcement_mode,
         integrity_posture=integrity_posture,
+        role=role,
     )
+
+
+def scan_rules_from_contract_rule(
+    contract_rule: Any,
+    *,
+    contract_ref: str | None = None,
+) -> list[ScanRule]:
+    """
+    Convert a ContractRule-like object into one or more ScanRule objects.
+
+    The function is duck-typed to avoid making text_scan.py depend on a specific
+    contract implementation. No ontology is inferred here.
+    """
+
+    patterns = tuple(getattr(contract_rule, "patterns", ()) or ())
+    single_pattern = getattr(contract_rule, "pattern", None)
+
+    if single_pattern and single_pattern not in patterns:
+        patterns = (single_pattern, *patterns)
+
+    if not patterns:
+        return []
+
+    rules: list[ScanRule] = []
+    for pattern in patterns:
+        rules.append(
+            make_rule(
+                rule_id=str(getattr(contract_rule, "id")),
+                pattern=pattern,
+                message=str(getattr(contract_rule, "message")),
+                level=getattr(contract_rule, "level", None),
+                scope=getattr(contract_rule, "scope"),
+                vector=getattr(contract_rule, "vector"),
+                vectors=getattr(contract_rule, "vectors", None),
+                severity=getattr(contract_rule, "severity"),
+                confidence=Confidence.HIGH,
+                evidence_class_allowed=getattr(contract_rule, "evidence_class_allowed"),
+                protected_object=getattr(contract_rule, "protected_object", None),
+                forbidden_conversion=getattr(contract_rule, "forbidden_conversion", None),
+                safer_form=getattr(contract_rule, "safer_form", None),
+                anchor_ref=getattr(contract_rule, "anchor_ref", None),
+                contract_ref=contract_ref,
+                enforcement_mode=getattr(contract_rule, "enforcement_mode", None),
+                integrity_posture=getattr(contract_rule, "integrity_posture", None),
+                role=getattr(contract_rule, "role", None),
+            )
+        )
+
+    return rules
 
 
 def normalize_text(value: str) -> str:
@@ -313,12 +370,8 @@ def has_meta_context(
     return contains_any_token(context, tokens)
 
 
-def has_operational_context(
-    context: str,
-    *,
-    tokens: Sequence[str] = OPERATIONAL_TOKENS,
-) -> bool:
-    return contains_any_token(context, tokens)
+def has_operational_context(context: str) -> bool:
+    return OPERATIONAL_TOKEN_PATTERN.search(context) is not None
 
 
 def classify_context(
@@ -328,9 +381,15 @@ def classify_context(
     start: int,
     end: int,
 ) -> tuple[ContextDecision, bool, bool, bool]:
-    negated = has_negation_near(line, start, end) or contains_any_token(context, ("≠", "!=", "\\neq"))
+    negated = has_negation_near(line, start, end) or contains_any_token(
+        context,
+        ("≠", "!=", "\\neq"),
+    )
     meta = has_meta_context(context)
     operational = has_operational_context(context)
+
+    if meta and operational:
+        return ContextDecision.META_OPERATIONAL_REVIEW, negated, meta, operational
 
     if meta:
         return ContextDecision.META_EXAMPLE, negated, meta, operational
@@ -358,12 +417,13 @@ def iter_text_matches(
     rules: Iterable[ScanRule],
     context_radius: int = DEFAULT_CONTEXT_RADIUS,
 ) -> Iterator[tuple[ScanRule, TextMatch]]:
-    repo_path = str(path).replace("\\", "/")
+    repo_path = normalize_path(path)
     lines = text.splitlines()
     rule_list = list(rules)
 
     for index, line in enumerate(lines):
         context = build_context(lines, index, radius=context_radius)
+
         for rule in rule_list:
             for match in rule.pattern.finditer(line):
                 decision, negated, meta, operational = classify_context(
@@ -395,7 +455,10 @@ def decision_allows_skip(decision: ContextDecision) -> bool:
 
 
 def severity_for_decision(rule: ScanRule, decision: ContextDecision) -> Severity | str:
-    if decision == ContextDecision.NEGATED_OPERATIONAL_REVIEW:
+    if decision in {
+        ContextDecision.NEGATED_OPERATIONAL_REVIEW,
+        ContextDecision.META_OPERATIONAL_REVIEW,
+    }:
         return Severity.WARN
     return rule.severity
 
@@ -413,14 +476,17 @@ def match_to_finding(
         guard_file=guard_file,
         rule_id=rule.rule_id,
         contract_schema_version=contract_schema_version,
+        level=rule.level,
         scope=rule.scope,
         vector=rule.vector,
+        vectors=rule.vectors,
         severity=severity_for_decision(rule, match.decision),
         confidence=rule.confidence,
         path=match.path,
         line=match.line,
         column=match.column,
         end_column=match.end_column,
+        role=rule.role,
         message=rule.message,
         protected_object=rule.protected_object,
         observed_pattern=match.excerpt,
@@ -470,6 +536,32 @@ def scan_text_to_findings(
     return findings
 
 
+def scan_file_to_findings(
+    *,
+    path: str | Path,
+    rules: Iterable[ScanRule],
+    guard_id: str,
+    guard_file: str,
+    contract_schema_version: str = "1.0",
+    skip_safe_context: bool = True,
+    context_radius: int = DEFAULT_CONTEXT_RADIUS,
+) -> list[Finding]:
+    text = read_text_file(path)
+    if text is None:
+        return []
+
+    return scan_text_to_findings(
+        path=path,
+        text=text,
+        rules=rules,
+        guard_id=guard_id,
+        guard_file=guard_file,
+        contract_schema_version=contract_schema_version,
+        skip_safe_context=skip_safe_context,
+        context_radius=context_radius,
+    )
+
+
 def read_text_file(path: Path | str) -> str | None:
     """
     Read a text file safely for scanning.
@@ -493,3 +585,34 @@ def read_text_file(path: Path | str) -> str | None:
             continue
 
     return None
+
+
+__all__ = [
+    "DEFAULT_CONTEXT_RADIUS",
+    "DEFAULT_NEGATION_WINDOW",
+    "NEGATION_TOKENS",
+    "META_CONTEXT_TOKENS",
+    "OPERATIONAL_TOKEN_PATTERN",
+    "ContextDecision",
+    "ScanRule",
+    "TextMatch",
+    "normalize_path",
+    "compile_pattern",
+    "make_rule",
+    "scan_rules_from_contract_rule",
+    "normalize_text",
+    "contains_any_token",
+    "build_context",
+    "has_negation_near",
+    "has_meta_context",
+    "has_operational_context",
+    "classify_context",
+    "line_excerpt",
+    "iter_text_matches",
+    "decision_allows_skip",
+    "severity_for_decision",
+    "match_to_finding",
+    "scan_text_to_findings",
+    "scan_file_to_findings",
+    "read_text_file",
+    ]
