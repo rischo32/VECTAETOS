@@ -98,13 +98,7 @@ REQUIRED_LICENSE_README_BOUNDARIES = (
     "EK ≠ decision",
 )
 
-DEPRECATED_PERIMETER_LABELS = (
-    "P0",
-    "P1",
-    "P2",
-    "P3",
-    "P4",
-)
+DEPRECATED_PERIMETER_LABELS = ("P0", "P1", "P2", "P3", "P4")
 
 FORBIDDEN_AUTHORITY_PATTERNS = (
     r"\bproves?\s+ontology\b",
@@ -148,13 +142,6 @@ SAFE_CONTEXT_MARKERS = (
     "forbidden without",
     "must never",
 )
-
-
-def repo_rel(path: Path, repo_root: Path) -> str:
-    try:
-        return path.resolve().relative_to(repo_root.resolve()).as_posix()
-    except ValueError:
-        return path.as_posix()
 
 
 def read_text(path: Path) -> str:
@@ -268,7 +255,6 @@ def deprecated_perimeter_label_guard(repo_root: Path) -> list[Finding]:
         for index, line in enumerate(lines):
             for label in DEPRECATED_PERIMETER_LABELS:
                 if re.search(rf"\b{re.escape(label)}\b", line):
-                    # Allow historical mentions in lineage documents if explicitly marked.
                     if "deprecated" in line.lower() or "historical" in line.lower():
                         continue
 
@@ -437,10 +423,7 @@ def format_json(findings: list[Finding]) -> str:
     payload = {
         "schema_version": "1.0",
         "guard": "license_stack_guard",
-        "levels": [
-            Level.LEVEL_0.value,
-            Level.LEVEL_5.value,
-        ],
+        "levels": [Level.LEVEL_0.value, Level.LEVEL_5.value],
         "summary": {
             "finding_count": len(findings),
             "blocker_count": sum(1 for f in findings if f.severity == Severity.BLOCKER.value),
@@ -461,29 +444,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="VECTAETOS™ License Stack Guard — Level 0 / Level 5 repository-state check."
     )
-    parser.add_argument(
-        "--repo-root",
-        type=Path,
-        default=Path("."),
-        help="Repository root. Default: current directory.",
-    )
-    parser.add_argument(
-        "--format",
-        choices=("text", "json"),
-        default="text",
-        help="Output format. Default: text.",
-    )
-    parser.add_argument(
-        "--report",
-        type=Path,
-        default=None,
-        help="Optional path for JSON report.",
-    )
-    parser.add_argument(
-        "--strict",
-        action="store_true",
-        help="Exit 1 when BLOCKER findings are present.",
-    )
+    parser.add_argument("--repo-root", type=Path, default=Path("."), help="Repository root. Default: current directory.")
+    parser.add_argument("--format", choices=("text", "json"), default="text", help="Output format. Default: text.")
+    parser.add_argument("--report", type=Path, default=None, help="Optional path for JSON report.")
+    parser.add_argument("--strict", action="store_true", help="Exit 1 when BLOCKER findings are present.")
     return parser.parse_args(argv)
 
 
@@ -515,3 +479,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+  
