@@ -9,6 +9,9 @@
 
 ---
 
+    " Nie všetky prompty, a podobné subory 
+    su aj verejné, niektoré sú držane výhradne interne (zaťiaľ) "
+
 ## 0. Purpose
 
 This directory collects LLM skill definitions, workflow adapters, and skill-related documentation used around VECTAETOS-compatible work.
