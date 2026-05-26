@@ -1,4 +1,4 @@
-# VECTAETOS™ / Core
+# VECTAETOS / Core
 
 ## Status
 
@@ -61,19 +61,19 @@ The ontology must not be changed to fit code.
 All code in `/Core/` must preserve the following invariants:
 
 ```text
-Î¦ is not an agent.
-Î¦ is not an optimizer.
-Î¦ is not a controller.
-Î¦ is not a planner.
-Î¦ is not a decision subject.
+Phi is not an agent.
+Phi is not an optimizer.
+Phi is not a controller.
+Phi is not a planner.
+Phi is not a decision subject.
 
-K(Î¦) is not a score.
-K(Î¦) is not a reward.
-K(Î¦) is not an optimization target.
+K(Phi) is not a score.
+K(Phi) is not a reward.
+K(Phi) is not an optimization target.
 
-Îş is not a numeric threshold.
-Îş is not a tunable parameter.
-Îş is not a deployment metric.
+kappa is not a numeric threshold.
+kappa is not a tunable parameter.
+kappa is not a deployment metric.
 
 QE is not an error.
 QE is not a fallback failure.
@@ -82,7 +82,7 @@ QE is an active epistemic aporia.
 The Simulation Vortex does not decide.
 The Simulation Vortex does not select.
 The Simulation Vortex does not optimize.
-The Simulation Vortex does not repair Î¦.
+The Simulation Vortex does not repair Phi.
 The Simulation Vortex does not mutate epistemic ontology.
 
 Audit layers observe only.
@@ -113,7 +113,7 @@ Code in `/Core/` may:
 
 Code in `/Core/` must not:
 
-- select the â€śbestâ€ť trajectory
+- select the "best" trajectory
 - recommend an action
 - optimize field state
 - maximize coherence
@@ -121,8 +121,8 @@ Code in `/Core/` must not:
 - convert audit observables into authority
 - convert projection into interpretation
 - convert memory into truth source
-- use feedback loops into Î¦
-- treat numeric observables as K(Î¦), Îş, safety, truth, validity, or deployment readiness
+- use feedback loops into Phi
+- treat numeric observables as K(Phi), kappa, safety, truth, validity, or deployment readiness
 - present VECTAETOS as an autonomous system
 - present VECTAETOS as a military, regulatory, or operational decision engine
 
@@ -134,15 +134,15 @@ The Simulation Vortex, if present in `/Core/`, is a candidate trajectory generat
 
 It may expose possible deformations or trajectory candidates.
 
-It must not know or enforce Îş.
+It must not know or enforce kappa.
 
-It must not define K(Î¦).
+It must not define K(Phi).
 
 It must not decide which trajectory is valid.
 
 It must not rank candidate trajectories as preferred outcomes.
 
-It must not repair, rescue, stabilize, or mutate Î¦.
+It must not repair, rescue, stabilize, or mutate Phi.
 
 Correct posture:
 
@@ -229,14 +229,14 @@ mypy .
 Core tests should verify:
 
 - no agency language in executable behavior
-- no optimization operators over Î¦
+- no optimization operators over Phi
 - no feedback into ontology
 - deterministic output for identical input
 - audit observables remain audit-only
 - Vortex outputs remain candidate-only
 - QE is treated as aporia, not error
-- Îş is not treated as a numeric threshold
-- K(Î¦) is not treated as a score
+- kappa is not treated as a numeric threshold
+- K(Phi) is not treated as a score
 
 ---
 
@@ -264,7 +264,7 @@ Role: candidate trajectory generation
 Authority: none
 Agency: none
 Optimization: none
-Feedback into Î¦: none
+Feedback into Phi: none
 """
 ```
 
@@ -285,7 +285,7 @@ ASI_MOD -> controls Core
 ASIMULATOR -> redefines Core ontology
 Audit -> commands Core
 Projection -> mutates Core
-Memory -> updates Î¦
+Memory -> updates Phi
 ```
 
 Allowed direction:
