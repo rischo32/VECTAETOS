@@ -6,7 +6,16 @@
 **Legal note:** This directory is not legal advice. Custom license enforceability depends on jurisdiction, registration status, actual use, and applicable law.
 
 ---
+___
+## Perimeter Level Mapping
 
+This license stack is guarded under the VECTAETOS Level model:
+
+- Level 0 — repository identity, canonical file presence, license stack placement
+- Level 5 — release wording, evidence claims, DOI wording, CI execution checks
+
+The license stack must not use older P0–P4 perimeter labels.
+___
 ## 0. Core Boundary
 
 This directory contains the licensing and identity-use layer for VECTAETOS™.
