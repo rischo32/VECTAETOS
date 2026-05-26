@@ -6,8 +6,10 @@ Role:
     Shared role capability matrix for repository perimeter guards.
 
 Boundary:
-    Capabilities describe what a code role is allowed to do inside the repository
-    perimeter. They do not define ontology, truth, safety, deployment validity,
+    Capabilities describe what a code role is allowed to do inside the
+    repository perimeter.
+
+    They do not define ontology, truth, safety, deployment validity,
     Φ, K(Φ), κ, QE, Vortex, Projection, EK, ASIMULATOR, ASI_MOD, or ZMYSEL.
 
     Capability denial is a repository-state diagnostic only.
@@ -34,10 +36,13 @@ try:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from guards.core.perimeter import EnforcementMode
 except ModuleNotFoundError:
     # Allows direct local execution when cwd is guards/core or when tests import by path.
     from findings import (  # type: ignore
@@ -45,10 +50,13 @@ except ModuleNotFoundError:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from perimeter import EnforcementMode  # type: ignore
 
 
 SUPPORTED_CONTRACT_SCHEMA_VERSION = "1.0"
@@ -68,6 +76,35 @@ class CodeRole(str, enum.Enum):
     UNKNOWN = "unknown"
 
 
+class CapabilityName(str, enum.Enum):
+    NETWORK = "network"
+    SUBPROCESS = "subprocess"
+    FILE_WRITE = "file_write"
+    RANDOMNESS = "randomness"
+    SELECTION_FUNCTIONS = "selection_functions"
+    ONTOLOGY_ASSIGNMENTS = "ontology_assignments"
+
+
+CAPABILITY_TO_VECTOR: dict[CapabilityName, DriftVector] = {
+    CapabilityName.NETWORK: DriftVector.V2_AGENCY_INJECTION,
+    CapabilityName.SUBPROCESS: DriftVector.V2_AGENCY_INJECTION,
+    CapabilityName.FILE_WRITE: DriftVector.V1_UPWARD_MUTATION,
+    CapabilityName.RANDOMNESS: DriftVector.V5_NONDETERMINISM,
+    CapabilityName.SELECTION_FUNCTIONS: DriftVector.V2_AGENCY_INJECTION,
+    CapabilityName.ONTOLOGY_ASSIGNMENTS: DriftVector.V12_ONTOLOGY_CREEP,
+}
+
+
+CAPABILITY_TO_OBJECT: dict[CapabilityName, str] = {
+    CapabilityName.NETWORK: "network",
+    CapabilityName.SUBPROCESS: "subprocess",
+    CapabilityName.FILE_WRITE: "file_write",
+    CapabilityName.RANDOMNESS: "randomness",
+    CapabilityName.SELECTION_FUNCTIONS: "selection_functions",
+    CapabilityName.ONTOLOGY_ASSIGNMENTS: "ontology_assignments",
+}
+
+
 @dataclasses.dataclass(frozen=True, slots=True)
 class CapabilityPolicy:
     role: CodeRole
@@ -78,6 +115,7 @@ class CapabilityPolicy:
     allow_selection_functions: bool = True
     protect_ontology_assignments: bool = True
     subprocess_allowlist: tuple[str, ...] = ()
+    file_write_allowlist: tuple[str, ...] = ()
     notes: str | None = None
 
 
@@ -111,7 +149,8 @@ DEFAULT_CAPABILITY_MATRIX: dict[CodeRole, CapabilityPolicy] = {
         allow_randomness=False,
         allow_selection_functions=True,
         protect_ontology_assignments=True,
-        notes="report writer may write report artifacts only",
+        file_write_allowlist=("reports/", "artifacts/", ".guard_reports/"),
+        notes="report writer may write explicit report artifacts only",
     ),
     CodeRole.VORTEX: CapabilityPolicy(
         role=CodeRole.VORTEX,
@@ -131,7 +170,8 @@ DEFAULT_CAPABILITY_MATRIX: dict[CodeRole, CapabilityPolicy] = {
         allow_randomness=False,
         allow_selection_functions=True,
         protect_ontology_assignments=True,
-        notes="audit adapter may write audit reports, not alter ontology",
+        file_write_allowlist=("audit/", "reports/", "artifacts/", ".guard_reports/"),
+        notes="audit adapter may write audit/report artifacts, not alter ontology",
     ),
     CodeRole.CONTRACT_TOOL: CapabilityPolicy(
         role=CodeRole.CONTRACT_TOOL,
@@ -141,6 +181,7 @@ DEFAULT_CAPABILITY_MATRIX: dict[CodeRole, CapabilityPolicy] = {
         allow_randomness=False,
         allow_selection_functions=True,
         protect_ontology_assignments=True,
+        file_write_allowlist=("contracts/", "reports/", "artifacts/", ".guard_reports/"),
         notes="contract helper may generate files only under explicit human invocation",
     ),
     CodeRole.TEST: CapabilityPolicy(
@@ -176,15 +217,6 @@ DEFAULT_CAPABILITY_MATRIX: dict[CodeRole, CapabilityPolicy] = {
 }
 
 
-class CapabilityName(str, enum.Enum):
-    NETWORK = "network"
-    SUBPROCESS = "subprocess"
-    FILE_WRITE = "file_write"
-    RANDOMNESS = "randomness"
-    SELECTION_FUNCTIONS = "selection_functions"
-    ONTOLOGY_ASSIGNMENTS = "ontology_assignments"
-
-
 CAPABILITY_ATTRS: dict[CapabilityName, str] = {
     CapabilityName.NETWORK: "allow_network",
     CapabilityName.SUBPROCESS: "allow_subprocess",
@@ -205,11 +237,27 @@ def normalize_repo_path(path: Path | str) -> str:
 def coerce_role(value: CodeRole | str) -> CodeRole:
     if isinstance(value, CodeRole):
         return value
+
+    raw = str(value).strip().replace("-", "_").lower()
     try:
-        return CodeRole(str(value))
+        return CodeRole(raw)
     except ValueError as exc:
         allowed = ", ".join(item.value for item in CodeRole)
         raise ValueError(f"invalid code role {value!r}; allowed values: {allowed}") from exc
+
+
+def coerce_capability(value: CapabilityName | str) -> CapabilityName:
+    if isinstance(value, CapabilityName):
+        return value
+
+    raw = str(value).strip().replace("-", "_").lower()
+    try:
+        return CapabilityName(raw)
+    except ValueError as exc:
+        allowed = ", ".join(item.value for item in CapabilityName)
+        raise ValueError(
+            f"invalid capability {value!r}; allowed values: {allowed}"
+        ) from exc
 
 
 def get_capability_policy(
@@ -223,11 +271,7 @@ def get_capability_policy(
 
 
 def capability_allowed(policy: CapabilityPolicy, capability: CapabilityName | str) -> bool:
-    if isinstance(capability, CapabilityName):
-        normalized = capability
-    else:
-        normalized = CapabilityName(str(capability))
-
+    normalized = coerce_capability(capability)
     attr = CAPABILITY_ATTRS[normalized]
     value = getattr(policy, attr)
 
@@ -239,6 +283,34 @@ def capability_allowed(policy: CapabilityPolicy, capability: CapabilityName | st
     return bool(value)
 
 
+def allowlist_matches(observed_pattern: str | None, allowlist: tuple[str, ...]) -> bool:
+    if not allowlist:
+        return True
+
+    if not observed_pattern:
+        return False
+
+    lowered = observed_pattern.casefold()
+    return any(item.casefold() in lowered for item in allowlist)
+
+
+def capability_allowlist_ok(
+    *,
+    policy: CapabilityPolicy,
+    capability: CapabilityName | str,
+    observed_pattern: str | None,
+) -> bool:
+    normalized = coerce_capability(capability)
+
+    if normalized == CapabilityName.SUBPROCESS:
+        return allowlist_matches(observed_pattern, policy.subprocess_allowlist)
+
+    if normalized == CapabilityName.FILE_WRITE:
+        return allowlist_matches(observed_pattern, policy.file_write_allowlist)
+
+    return True
+
+
 def capability_finding(
     *,
     rule_id: str,
@@ -248,34 +320,34 @@ def capability_finding(
     capability: CapabilityName | str,
     guard_id: str = DEFAULT_GUARD_ID,
     guard_file: str = DEFAULT_GUARD_FILE,
-    severity: Severity | str = Severity.BLOCKER.value,
-    confidence: Confidence | str = Confidence.HIGH.value,
+    severity: Severity | str = Severity.BLOCKER,
+    confidence: Confidence | str = Confidence.HIGH,
     contract_schema_version: str = SUPPORTED_CONTRACT_SCHEMA_VERSION,
     observed_pattern: str | None = None,
     safer_form: str | None = None,
 ) -> Finding:
     normalized_role = coerce_role(role)
-    normalized_capability = (
-        capability if isinstance(capability, CapabilityName) else CapabilityName(str(capability))
-    )
+    normalized_capability = coerce_capability(capability)
 
     return make_finding(
         guard_id=guard_id,
         guard_file=guard_file,
         rule_id=rule_id,
         contract_schema_version=contract_schema_version,
-        scope=Scope.P2_CODE_BEHAVIOR.value,
-        vector=DriftVector.V1_UPWARD_MUTATION.value,
-        severity=severity.value if isinstance(severity, Severity) else severity,
-        confidence=confidence.value if isinstance(confidence, Confidence) else confidence,
+        level=PerimeterLevel.LEVEL_3,
+        scope=PerimeterScope.CODE_BEHAVIOR,
+        vector=CAPABILITY_TO_VECTOR[normalized_capability],
+        severity=severity,
+        confidence=confidence,
         path=normalize_repo_path(path),
         message=message,
         role=normalized_role.value,
-        protected_object=normalized_capability.value,
+        protected_object=CAPABILITY_TO_OBJECT[normalized_capability],
         observed_pattern=observed_pattern,
-        evidence_class_allowed=EvidenceClass.E2_AST_CONTRACT_COMPLIANCE.value,
+        evidence_class_allowed=EvidenceClass.E2_AST_CONTRACT_COMPLIANCE,
+        enforcement_mode=EnforcementMode.STRICT,
+        integrity_posture=IntegrityPosture.ROLE_CAPABILITY_READ_ONLY,
         safer_form=safer_form,
-        integrity_posture="role_capability_read_only",
     )
 
 
@@ -289,14 +361,28 @@ def validate_capability_use(
     guard_file: str = DEFAULT_GUARD_FILE,
 ) -> list[Finding]:
     policy = get_capability_policy(role)
+    normalized_capability = coerce_capability(capability)
+    normalized_role = coerce_role(role)
 
-    if capability_allowed(policy, capability):
+    if capability_allowed(policy, normalized_capability) and capability_allowlist_ok(
+        policy=policy,
+        capability=normalized_capability,
+        observed_pattern=observed_pattern,
+    ):
         return []
 
-    normalized_capability = (
-        capability if isinstance(capability, CapabilityName) else CapabilityName(str(capability))
-    )
-    normalized_role = coerce_role(role)
+    if capability_allowed(policy, normalized_capability):
+        message = (
+            f"Role {normalized_role.value!r} may use capability "
+            f"{normalized_capability.value!r}, but observed use is outside the declared allowlist."
+        )
+        safer_form = "Keep allowed behavior within declared bounded paths or commands."
+    else:
+        message = (
+            f"Role {normalized_role.value!r} is not allowed to use "
+            f"capability {normalized_capability.value!r}."
+        )
+        safer_form = "Move behavior behind explicit bounded contract or keep guard read-only."
 
     return [
         capability_finding(
@@ -304,14 +390,11 @@ def validate_capability_use(
             path=path,
             role=normalized_role,
             capability=normalized_capability,
-            message=(
-                f"Role {normalized_role.value!r} is not allowed to use "
-                f"capability {normalized_capability.value!r}."
-            ),
+            message=message,
             observed_pattern=observed_pattern,
             guard_id=guard_id,
             guard_file=guard_file,
-            safer_form="Move behavior behind explicit bounded contract or keep guard read-only.",
+            safer_form=safer_form,
         )
     ]
 
@@ -326,5 +409,41 @@ def policy_to_dict(policy: CapabilityPolicy) -> dict[str, Any]:
         "allow_selection_functions": policy.allow_selection_functions,
         "protect_ontology_assignments": policy.protect_ontology_assignments,
         "subprocess_allowlist": list(policy.subprocess_allowlist),
+        "file_write_allowlist": list(policy.file_write_allowlist),
         "notes": policy.notes,
     }
+
+
+def matrix_to_dict(
+    matrix: Mapping[CodeRole, CapabilityPolicy] | None = None,
+) -> dict[str, dict[str, Any]]:
+    selected_matrix = matrix or DEFAULT_CAPABILITY_MATRIX
+    return {
+        role.value: policy_to_dict(policy)
+        for role, policy in sorted(selected_matrix.items(), key=lambda item: item[0].value)
+    }
+
+
+__all__ = [
+    "SUPPORTED_CONTRACT_SCHEMA_VERSION",
+    "DEFAULT_GUARD_ID",
+    "DEFAULT_GUARD_FILE",
+    "CodeRole",
+    "CapabilityName",
+    "CAPABILITY_TO_VECTOR",
+    "CAPABILITY_TO_OBJECT",
+    "CapabilityPolicy",
+    "DEFAULT_CAPABILITY_MATRIX",
+    "CAPABILITY_ATTRS",
+    "normalize_repo_path",
+    "coerce_role",
+    "coerce_capability",
+    "get_capability_policy",
+    "capability_allowed",
+    "allowlist_matches",
+    "capability_allowlist_ok",
+    "capability_finding",
+    "validate_capability_use",
+    "policy_to_dict",
+    "matrix_to_dict",
+]
