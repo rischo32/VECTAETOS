@@ -28,27 +28,54 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repository without external actions
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+          git init .
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPOSITORY}.git"
+          git fetch --no-tags --depth=1 origin "${SHA}"
+          git checkout --detach FETCH_HEAD
+
+      - name: Show Python version
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
 
       - name: Run VECTAETOS license stack guard
+        shell: bash
         run: |
+          set -euo pipefail
+
           mkdir -p reports
-          python Vectaetos/cli/license_stack_guard.py \
+
+          python3 Vectaetos/cli/license_stack_guard.py \
             --repo-root . \
             --strict \
             --format text \
             --report reports/license-stack-guard.json
 
-      - name: Upload guard report
+      - name: Write guard report to job summary
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: license-stack-guard-report
-          path: reports/license-stack-guard.json
-          if-no-files-found: ignore
+        shell: bash
+        run: |
+          {
+            echo "## VECTAETOS™ License Stack Guard"
+            echo
+            echo "Level 0 / Level 5 repository-state check."
+            echo
+            echo '```json'
+            if [ -f reports/license-stack-guard.json ]; then
+              cat reports/license-stack-guard.json
+            else
+              echo '{"status":"no report generated"}'
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          
