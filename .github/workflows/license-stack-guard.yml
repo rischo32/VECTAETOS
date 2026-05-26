@@ -6,7 +6,7 @@ on:
       - "LICENSE.md"
       - "LICENSES/**"
       - "README.md"
-      - "Vectaetos/cli/**"
+      - "VECTAETOS/cli/**"
       - ".github/workflows/license-stack-guard.yml"
   push:
     branches:
@@ -15,7 +15,7 @@ on:
       - "LICENSE.md"
       - "LICENSES/**"
       - "README.md"
-      - "Vectaetos/cli/**"
+      - "VECTAETOS/cli/**"
       - ".github/workflows/license-stack-guard.yml"
   workflow_dispatch:
 
@@ -55,7 +55,7 @@ jobs:
 
           mkdir -p reports
 
-          python3 Vectaetos/cli/license_stack_guard.py \
+          python3 VECTAETOS/cli/license_stack_guard.py \
             --repo-root . \
             --strict \
             --format text \
