@@ -44,9 +44,14 @@ ___
 [![Coherence Vocabulary Guard](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml)
 ___
 #### Level 2 — Semantic / Ontological Vocabulary Perimeter
+
 #### Level 3 — Code Behavior Perimeter
+
 #### Level 4 — Bridge / Projection / Trace Perimeter
+
 #### Level 5 — Runtime / Evidence / Release Perimeter
+[![license-stack-guard](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml)
+___
 
     "Ostatné vrstvy perimeter bezpecnostnej matice a ich strazcovia budú radené až ku koncu"
 
