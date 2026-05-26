@@ -27,7 +27,6 @@ import ast
 import dataclasses
 from collections.abc import Iterable, Mapping
 from pathlib import Path
-from typing import Any
 
 try:
     from guards.core.capabilities import (
@@ -363,7 +362,6 @@ def is_write_mode(mode: str | None) -> bool:
     if any(flag in normalized for flag in ("w", "a", "x")):
         return True
 
-    # r+ is readable and writable.
     return "+" in normalized
 
 
@@ -667,7 +665,6 @@ def findings_for_ontology_assignments(
                 guard_file=guard_file,
             )
         )
-    )
 
     return findings
 
