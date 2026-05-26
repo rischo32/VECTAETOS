@@ -7,9 +7,13 @@ Role:
     iteration helpers for perimeter guards.
 
 Boundary:
-    This module classifies paths. It does not decide ontology, validate safety,
-    interpret anchors, mutate repository files, or globally exclude repository
-    areas by itself.
+    This module classifies paths and exposes path-policy diagnostics.
+
+    It does not decide ontology.
+    It does not validate safety.
+    It does not interpret anchors.
+    It does not mutate repository files.
+    It does not globally exclude repository areas by itself.
 
     Path exclusion from any guard must be declared by the calling guard or by a
     machine-readable contract. Exclusion from one guard is not exclusion from the
@@ -35,10 +39,13 @@ try:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from guards.core.perimeter import EnforcementMode
 except ModuleNotFoundError:
     # Allows direct local execution when cwd is guards/core or when tests import by path.
     from findings import (  # type: ignore
@@ -46,10 +53,13 @@ except ModuleNotFoundError:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from perimeter import EnforcementMode  # type: ignore
 
 
 DEFAULT_GUARD_ID = "GUARD-19"
@@ -82,6 +92,9 @@ class PathRole(str, enum.Enum):
     KNOWLEDGE_BASE = "knowledge_base"
     PUBLIC = "public"
     SOURCE = "source"
+    REQUIREMENTS = "requirements"
+    CONFIG = "config"
+    LICENSE = "license"
     UNKNOWN = "unknown"
 
 
@@ -91,17 +104,28 @@ TEXT_SUFFIXES = frozenset(
         ".txt",
         ".py",
         ".json",
+        ".jsonl",
         ".yml",
         ".yaml",
         ".toml",
+        ".ini",
+        ".cfg",
         ".html",
         ".css",
         ".js",
+        ".mjs",
+        ".cjs",
         ".ts",
         ".tsx",
         ".jsx",
         ".rst",
         ".csv",
+        ".sh",
+        ".bash",
+        ".ps1",
+        ".env.example",
+        ".gitignore",
+        ".gitattributes",
     }
 )
 
@@ -130,6 +154,11 @@ BINARY_SUFFIXES = frozenset(
         ".avi",
         ".sqlite",
         ".db",
+        ".pyc",
+        ".pyo",
+        ".so",
+        ".dll",
+        ".dylib",
     }
 )
 
@@ -151,6 +180,31 @@ HEAVY_OR_GENERATED_DIR_NAMES = frozenset(
         "site",
         ".next",
         ".cache",
+        ".tox",
+        ".nox",
+        "coverage",
+        "htmlcov",
+    }
+)
+
+ROOT_TEXT_FILES = frozenset(
+    {
+        "README.md",
+        "LICENSE",
+        "LICENSE.md",
+        "NOTICE",
+        "NOTICE.md",
+        "CONTRIBUTING.md",
+        "CHANGELOG.md",
+        "MASTER_INDEX.md",
+        "VOCABULARY_LOCK.md",
+        "GUARD_TABLE.md",
+        "REQUIREMENTS.txt",
+        "REQUIREMENTS-dev.txt",
+        "requirements.txt",
+        "requirements-dev.txt",
+        "pyproject.toml",
+        "ruff.toml",
     }
 )
 
@@ -159,6 +213,8 @@ HEAVY_OR_GENERATED_DIR_NAMES = frozenset(
 class PathInfo:
     repo_path: str
     role: PathRole
+    level: PerimeterLevel
+    scope: PerimeterScope
     suffix: str
     parts: tuple[str, ...]
     is_text_candidate: bool
@@ -166,6 +222,7 @@ class PathInfo:
     is_guard_core: bool
     is_fixture: bool
     is_archive: bool
+    is_generated_or_heavy: bool
 
 
 def normalize_repo_path(path: Path | str) -> str:
@@ -175,7 +232,7 @@ def normalize_repo_path(path: Path | str) -> str:
     return value
 
 
-def path_parts(repo_path: str) -> tuple[str, ...]:
+def path_parts(repo_path: str | Path) -> tuple[str, ...]:
     normalized = normalize_repo_path(repo_path)
     if not normalized:
         return tuple()
@@ -220,6 +277,13 @@ def infer_path_role(path: Path | str) -> PathRole:
     if not parts:
         return PathRole.ROOT
 
+    if len(parts) == 1 and parts[0] in ROOT_TEXT_FILES:
+        if parts[0].casefold().startswith("license"):
+            return PathRole.LICENSE
+        if parts[0].casefold().startswith("requirements"):
+            return PathRole.REQUIREMENTS
+        return PathRole.ROOT
+
     if parts[0] == "anchors":
         return PathRole.ANCHOR
 
@@ -237,6 +301,9 @@ def infer_path_role(path: Path | str) -> PathRole:
     if len(parts) >= 2 and parts[0] == ".github" and parts[1] == "workflows":
         return PathRole.WORKFLOW
 
+    if parts[0] == ".github":
+        return PathRole.CONFIG
+
     if parts[0] == "tests":
         if "fixtures" in parts:
             return PathRole.FIXTURE
@@ -248,7 +315,7 @@ def infer_path_role(path: Path | str) -> PathRole:
     if parts[0] == "research":
         return PathRole.RESEARCH
 
-    if parts[0] == "archive":
+    if parts[0] in {"archive", "docs/archive"}:
         return PathRole.ARCHIVE
 
     if parts[0] == "docs":
@@ -260,18 +327,88 @@ def infer_path_role(path: Path | str) -> PathRole:
     if parts[0] in {"public", "site", "web"}:
         return PathRole.PUBLIC
 
-    if parts[0] in {"src", "Core", "core", "scripts", "tools"}:
+    if parts[0] in {"src", "Core", "core", "scripts", "tools", "ek_core"}:
         return PathRole.SOURCE
+
+    if parts[0] in {".config", "config"}:
+        return PathRole.CONFIG
 
     return PathRole.UNKNOWN
 
 
+def level_for_path_role(role: PathRole) -> PerimeterLevel:
+    if role in {
+        PathRole.ROOT,
+        PathRole.ANCHOR,
+        PathRole.FORMAL,
+        PathRole.GUARD,
+        PathRole.GUARD_CORE,
+        PathRole.CONTRACT,
+        PathRole.WORKFLOW,
+        PathRole.REQUIREMENTS,
+        PathRole.CONFIG,
+        PathRole.LICENSE,
+    }:
+        return PerimeterLevel.LEVEL_0
+
+    if role in {PathRole.SOURCE}:
+        return PerimeterLevel.LEVEL_3
+
+    if role in {PathRole.PUBLIC}:
+        return PerimeterLevel.LEVEL_5
+
+    if role in {PathRole.RESEARCH, PathRole.DOCS, PathRole.KNOWLEDGE_BASE}:
+        return PerimeterLevel.LEVEL_2
+
+    if role in {PathRole.TEST, PathRole.FIXTURE}:
+        return PerimeterLevel.LEVEL_5
+
+    if role == PathRole.ARCHIVE:
+        return PerimeterLevel.LEVEL_2
+
+    return PerimeterLevel.LEVEL_0
+
+
+def scope_for_path_role(role: PathRole) -> PerimeterScope:
+    level = level_for_path_role(role)
+
+    if level == PerimeterLevel.LEVEL_0:
+        return PerimeterScope.FUNDAMENTAL_REPOSITORY
+    if level == PerimeterLevel.LEVEL_1:
+        return PerimeterScope.SPECIALIZED_ONTOLOGICAL
+    if level == PerimeterLevel.LEVEL_2:
+        return PerimeterScope.SEMANTIC_VOCABULARY
+    if level == PerimeterLevel.LEVEL_3:
+        return PerimeterScope.CODE_BEHAVIOR
+    if level == PerimeterLevel.LEVEL_4:
+        return PerimeterScope.BRIDGE_PROJECTION_TRACE
+    if level == PerimeterLevel.LEVEL_5:
+        return PerimeterScope.RUNTIME_EVIDENCE_RELEASE
+
+    return PerimeterScope.FUNDAMENTAL_REPOSITORY
+
+
 def is_text_candidate_path(path: Path | str) -> bool:
-    return Path(path).suffix.lower() in TEXT_SUFFIXES
+    repo_path = normalize_repo_path(path)
+    name = Path(repo_path).name
+    suffix = Path(repo_path).suffix.lower()
+
+    if name in ROOT_TEXT_FILES:
+        return True
+
+    if suffix in TEXT_SUFFIXES:
+        return True
+
+    return False
 
 
 def is_binary_candidate_path(path: Path | str) -> bool:
-    return Path(path).suffix.lower() in BINARY_SUFFIXES
+    return Path(normalize_repo_path(path)).suffix.lower() in BINARY_SUFFIXES
+
+
+def should_skip_heavy_dir(path: Path | str) -> bool:
+    parts = path_parts(normalize_repo_path(path))
+    return any(part in HEAVY_OR_GENERATED_DIR_NAMES for part in parts)
 
 
 def describe_path(path: Path | str) -> PathInfo:
@@ -283,6 +420,8 @@ def describe_path(path: Path | str) -> PathInfo:
     return PathInfo(
         repo_path=repo_path,
         role=role,
+        level=level_for_path_role(role),
+        scope=scope_for_path_role(role),
         suffix=suffix,
         parts=parts,
         is_text_candidate=is_text_candidate_path(repo_path),
@@ -290,12 +429,8 @@ def describe_path(path: Path | str) -> PathInfo:
         is_guard_core=role == PathRole.GUARD_CORE,
         is_fixture=role == PathRole.FIXTURE,
         is_archive=role == PathRole.ARCHIVE,
+        is_generated_or_heavy=should_skip_heavy_dir(repo_path),
     )
-
-
-def should_skip_heavy_dir(path: Path | str) -> bool:
-    parts = path_parts(normalize_repo_path(path))
-    return any(part in HEAVY_OR_GENERATED_DIR_NAMES for part in parts)
 
 
 def iter_repo_files(
@@ -343,6 +478,44 @@ def iter_repo_files(
         yield path
 
 
+def path_finding(
+    *,
+    rule_id: str,
+    path: Path | str,
+    message: str,
+    guard_id: str = DEFAULT_GUARD_ID,
+    guard_file: str = DEFAULT_GUARD_FILE,
+    severity: Severity | str = Severity.BLOCKER,
+    confidence: Confidence | str = Confidence.HIGH,
+    contract_schema_version: str = SUPPORTED_CONTRACT_SCHEMA_VERSION,
+    observed_pattern: str | None = None,
+    protected_object: str | None = "repo_path",
+    safer_form: str | None = None,
+) -> Finding:
+    info = describe_path(path)
+
+    return make_finding(
+        guard_id=guard_id,
+        guard_file=guard_file,
+        rule_id=rule_id,
+        contract_schema_version=contract_schema_version,
+        level=PerimeterLevel.LEVEL_0,
+        scope=PerimeterScope.FUNDAMENTAL_REPOSITORY,
+        vector=DriftVector.V6_PATH_STATUS_LAUNDERING,
+        severity=severity,
+        confidence=confidence,
+        path=normalize_repo_path(path),
+        message=message,
+        role=info.role.value,
+        protected_object=protected_object,
+        observed_pattern=observed_pattern,
+        evidence_class_allowed=EvidenceClass.E1_STATIC_SCAN,
+        enforcement_mode=EnforcementMode.STRICT,
+        integrity_posture=IntegrityPosture.PATH_POLICY_READ_ONLY,
+        safer_form=safer_form,
+    )
+
+
 def validate_repo_path(
     path: Path | str,
     *,
@@ -367,34 +540,70 @@ def validate_repo_path(
     return []
 
 
-def path_finding(
+def validate_paths(
+    paths: Iterable[Path | str],
     *,
-    rule_id: str,
-    path: Path | str,
-    message: str,
     guard_id: str = DEFAULT_GUARD_ID,
     guard_file: str = DEFAULT_GUARD_FILE,
-    severity: Severity | str = Severity.BLOCKER.value,
-    confidence: Confidence | str = Confidence.HIGH.value,
     contract_schema_version: str = SUPPORTED_CONTRACT_SCHEMA_VERSION,
-    observed_pattern: str | None = None,
-    protected_object: str | None = "repo_path",
-    safer_form: str | None = None,
-) -> Finding:
-    return make_finding(
-        guard_id=guard_id,
-        guard_file=guard_file,
-        rule_id=rule_id,
-        contract_schema_version=contract_schema_version,
-        scope=Scope.P0_REPOSITORY.value,
-        vector=DriftVector.V6_PATH_STATUS_LAUNDERING.value,
-        severity=severity.value if isinstance(severity, Severity) else severity,
-        confidence=confidence.value if isinstance(confidence, Confidence) else confidence,
-        path=normalize_repo_path(path),
-        message=message,
-        protected_object=protected_object,
-        observed_pattern=observed_pattern,
-        evidence_class_allowed=EvidenceClass.E1_STATIC_SCAN.value,
-        safer_form=safer_form,
-        integrity_posture="path_policy_read_only",
-    )
+) -> list[Finding]:
+    findings: list[Finding] = []
+
+    for path in paths:
+        findings.extend(
+            validate_repo_path(
+                path,
+                guard_id=guard_id,
+                guard_file=guard_file,
+                contract_schema_version=contract_schema_version,
+            )
+        )
+
+    return findings
+
+
+def info_to_dict(info: PathInfo) -> dict[str, object]:
+    return {
+        "repo_path": info.repo_path,
+        "role": info.role.value,
+        "level": info.level.value,
+        "scope": info.scope.value,
+        "suffix": info.suffix,
+        "parts": list(info.parts),
+        "is_text_candidate": info.is_text_candidate,
+        "is_binary_candidate": info.is_binary_candidate,
+        "is_guard_core": info.is_guard_core,
+        "is_fixture": info.is_fixture,
+        "is_archive": info.is_archive,
+        "is_generated_or_heavy": info.is_generated_or_heavy,
+    }
+
+
+__all__ = [
+    "DEFAULT_GUARD_ID",
+    "DEFAULT_GUARD_FILE",
+    "SUPPORTED_CONTRACT_SCHEMA_VERSION",
+    "PathPolicyError",
+    "PathRole",
+    "TEXT_SUFFIXES",
+    "BINARY_SUFFIXES",
+    "HEAVY_OR_GENERATED_DIR_NAMES",
+    "ROOT_TEXT_FILES",
+    "PathInfo",
+    "normalize_repo_path",
+    "path_parts",
+    "ensure_repo_relative",
+    "resolve_under_root",
+    "infer_path_role",
+    "level_for_path_role",
+    "scope_for_path_role",
+    "is_text_candidate_path",
+    "is_binary_candidate_path",
+    "should_skip_heavy_dir",
+    "describe_path",
+    "iter_repo_files",
+    "path_finding",
+    "validate_repo_path",
+    "validate_paths",
+    "info_to_dict",
+]
