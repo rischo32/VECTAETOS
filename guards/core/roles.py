@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3#!/usr/bin/env python3
 """
 VECTAETOS — Shared Guard Role Core
 
@@ -9,8 +9,12 @@ Role:
 Boundary:
     Role inference is a repository diagnostic helper only.
 
-    It does not grant authority, define ontology, validate safety, authorize
-    deployment, mutate files, or decide which layer is metaphysically valid.
+    It does not grant authority.
+    It does not define ontology.
+    It does not validate safety.
+    It does not authorize deployment.
+    It does not mutate files.
+    It does not decide which layer is metaphysically valid.
 
 Python:
     3.11+
@@ -31,23 +35,28 @@ try:
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from guards.core.perimeter import EnforcementMode
     from guards.core.paths import PathRole, describe_path
 except ModuleNotFoundError:
-    # Allows direct local execution when cwd is guards/core or when tests import by path.
     from capabilities import CodeRole  # type: ignore
     from findings import (  # type: ignore
         Confidence,
         DriftVector,
         EvidenceClass,
         Finding,
-        Scope,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
         Severity,
         make_finding,
     )
+    from perimeter import EnforcementMode  # type: ignore
     from paths import PathRole, describe_path  # type: ignore
 
 
@@ -60,12 +69,33 @@ ROLE_DECLARATION_PATTERN = re.compile(
     flags=re.IGNORECASE,
 )
 
+ROLE_FILE_NAME_HINTS: tuple[tuple[str, CodeRole], ...] = (
+    ("vortex", CodeRole.VORTEX),
+    ("epistemic_cryptography", CodeRole.AUDIT_ADAPTER),
+    ("ek_", CodeRole.AUDIT_ADAPTER),
+    ("audit", CodeRole.AUDIT_ADAPTER),
+    ("report", CodeRole.REPORT_WRITER),
+    ("contract", CodeRole.CONTRACT_TOOL),
+    ("git", CodeRole.GIT_GUARD),
+)
+
 
 def normalize_repo_path(path: Path | str) -> str:
     value = str(path).replace("\\", "/").strip()
     while value.startswith("./"):
         value = value[2:]
     return value
+
+
+def coerce_code_role(value: CodeRole | str) -> CodeRole:
+    if isinstance(value, CodeRole):
+        return value
+
+    raw = str(value).strip().replace("-", "_").lower()
+    try:
+        return CodeRole(raw)
+    except ValueError:
+        return CodeRole.UNKNOWN
 
 
 def parse_declared_role(text: str, *, max_lines: int = 80) -> CodeRole | None:
@@ -85,11 +115,8 @@ def parse_declared_role(text: str, *, max_lines: int = 80) -> CodeRole | None:
         if not match:
             continue
 
-        raw_role = match.group(1).strip().replace("-", "_").lower()
-        try:
-            return CodeRole(raw_role)
-        except ValueError:
-            return CodeRole.UNKNOWN
+        raw_role = match.group(1).strip()
+        return coerce_code_role(raw_role)
 
     return None
 
@@ -113,14 +140,9 @@ def infer_role_from_path(path: Path | str) -> CodeRole:
     if info.role == PathRole.CONTRACT:
         return CodeRole.CONTRACT_TOOL
 
-    if "vortex" in lowered:
-        return CodeRole.VORTEX
-
-    if "audit" in lowered or "ek_" in lowered or "epistemic_cryptography" in lowered:
-        return CodeRole.AUDIT_ADAPTER
-
-    if "report" in lowered:
-        return CodeRole.REPORT_WRITER
+    for needle, role in ROLE_FILE_NAME_HINTS:
+        if needle in lowered:
+            return role
 
     if info.role == PathRole.SOURCE:
         return CodeRole.SCRIPT
@@ -135,12 +157,7 @@ def resolve_code_role(
     explicit_role: CodeRole | str | None = None,
 ) -> CodeRole:
     if explicit_role is not None:
-        if isinstance(explicit_role, CodeRole):
-            return explicit_role
-        try:
-            return CodeRole(str(explicit_role))
-        except ValueError:
-            return CodeRole.UNKNOWN
+        return coerce_code_role(explicit_role)
 
     if text is not None:
         declared = parse_declared_role(text)
@@ -158,31 +175,33 @@ def role_finding(
     role: CodeRole | str,
     guard_id: str = DEFAULT_GUARD_ID,
     guard_file: str = DEFAULT_GUARD_FILE,
-    severity: Severity | str = Severity.WARN.value,
-    confidence: Confidence | str = Confidence.MEDIUM.value,
+    severity: Severity | str = Severity.WARN,
+    confidence: Confidence | str = Confidence.MEDIUM,
     contract_schema_version: str = SUPPORTED_CONTRACT_SCHEMA_VERSION,
     observed_pattern: str | None = None,
     safer_form: str | None = None,
 ) -> Finding:
-    normalized_role = role if isinstance(role, CodeRole) else CodeRole(str(role))
+    normalized_role = coerce_code_role(role)
 
     return make_finding(
         guard_id=guard_id,
         guard_file=guard_file,
         rule_id=rule_id,
         contract_schema_version=contract_schema_version,
-        scope=Scope.P2_CODE_BEHAVIOR.value,
-        vector=DriftVector.V7_CONTRACT_DRIFT.value,
-        severity=severity.value if isinstance(severity, Severity) else severity,
-        confidence=confidence.value if isinstance(confidence, Confidence) else confidence,
+        level=PerimeterLevel.LEVEL_3,
+        scope=PerimeterScope.CODE_BEHAVIOR,
+        vector=DriftVector.V7_CONTRACT_DRIFT,
+        severity=severity,
+        confidence=confidence,
         path=normalize_repo_path(path),
         message=message,
         role=normalized_role.value,
         protected_object="code_role",
         observed_pattern=observed_pattern,
-        evidence_class_allowed=EvidenceClass.E2_AST_CONTRACT_COMPLIANCE.value,
+        evidence_class_allowed=EvidenceClass.E2_AST_CONTRACT_COMPLIANCE,
+        enforcement_mode=EnforcementMode.STRICT,
+        integrity_posture=IntegrityPosture.ROLE_INFERENCE_READ_ONLY,
         safer_form=safer_form,
-        integrity_posture="role_inference_read_only",
     )
 
 
@@ -207,3 +226,28 @@ def validate_role_known(
             safer_form="Add explicit '# VECTAETOS_ROLE: <role>' declaration or path policy.",
         )
     ]
+
+
+def role_to_dict(role: CodeRole | str) -> dict[str, str]:
+    normalized = coerce_code_role(role)
+    return {
+        "role": normalized.value,
+        "status": "known" if normalized != CodeRole.UNKNOWN else "unknown",
+    }
+
+
+__all__ = [
+    "SUPPORTED_CONTRACT_SCHEMA_VERSION",
+    "DEFAULT_GUARD_ID",
+    "DEFAULT_GUARD_FILE",
+    "ROLE_DECLARATION_PATTERN",
+    "ROLE_FILE_NAME_HINTS",
+    "normalize_repo_path",
+    "coerce_code_role",
+    "parse_declared_role",
+    "infer_role_from_path",
+    "resolve_code_role",
+    "role_finding",
+    "validate_role_known",
+    "role_to_dict",
+]
