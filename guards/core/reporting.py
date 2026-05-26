@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VECTAETOS ” Shared Guard Reporting "
+VECTAETOS — Shared Guard Reporting
 
 Role:
     Deterministic report rendering and exit-code mapping for repository
@@ -319,7 +319,7 @@ def render_github_step_summary(
     lines.append("")
 
     for finding in ordered:
-        lines.append(f"### {finding.severity.value} â€” `{finding.rule_id}`")
+        lines.append(f"### {finding.severity.value} — `{finding.rule_id}`")
         lines.append("")
         lines.append(f"- ID: `{finding.id}`")
         lines.append(f"- Guard: `{finding.guard_id}`")
