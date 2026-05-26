@@ -2,91 +2,102 @@
 """
 VECTAETOS :: GUARD-01 CANONICAL ONTOLOGY MODIFICATION GUARD
 
+Role:
+    Fundamental repository perimeter guard for canonical ontology boundaries.
+
 Purpose:
     Mechanically protect canonical ontology files and core semantic invariants
     from silent mutation in repository changes.
 
-Status:
-    Fundamental repository perimeter guard.
-
-Scope:
-    L1 mechanized repository enforcement only.
-
 This guard:
-    - reads git diff
-    - detects protected file modifications
-    - detects high-risk semantic drift phrases
-    - explicitly recognizes anchors/SEMANTIC_ERRATA.md as a narrow errata registry
-    - emits deterministic CI errors
-    - exits non-zero on violation
+    - reads git diff between base/head
+    - detects protected canonical/perimeter path mutations
+    - validates the semantic errata registry exception
+    - scans changed active text files for high-risk ontology drift
+    - emits shared Finding objects
+    - prints deterministic shared reports
+    - optionally writes JSON report artifacts
+    - fails closed on infrastructure errors
 
 This guard does NOT:
-    - redefine Φ
+    - redefine Î¦
     - evaluate truth
     - optimize anything
     - decide for humans
     - validate deployment
     - claim empirical safety
+    - mutate repository files
+    - create feedback into Î¦
 
 Python:
     3.11+
+
 Dependencies:
-    standard library only
+    standard library + guards/core shared kernel
 """
 
 from __future__ import annotations
 
 import argparse
-import dataclasses
-import enum
 import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable
 
+try:
+    from guards.core.findings import (
+        Confidence,
+        DriftVector,
+        EvidenceClass,
+        Finding,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
+        Severity,
+        make_finding,
+    )
+    from guards.core.perimeter import EnforcementMode
+    from guards.core.reporting import exit_code_for, print_text_report, write_json
+    from guards.core.text_scan import make_rule, scan_text_to_findings
+except ModuleNotFoundError:
+    from core.findings import (  # type: ignore
+        Confidence,
+        DriftVector,
+        EvidenceClass,
+        Finding,
+        IntegrityPosture,
+        PerimeterLevel,
+        PerimeterScope,
+        Severity,
+        make_finding,
+    )
+    from core.perimeter import EnforcementMode  # type: ignore
+    from core.reporting import exit_code_for, print_text_report, write_json  # type: ignore
+    from core.text_scan import make_rule, scan_text_to_findings  # type: ignore
+
+
+GUARD_ID = "GUARD-01"
+GUARD_FILE = "guards/canonical_ontology_guard.py"
+GUARD_NAME = "VECTAETOS Canonical Ontology Boundary"
+VERSION = "0.2.0-core-refactor"
+CONTRACT_SCHEMA_VERSION = "1.0"
 
 NULL_SHA = "0000000000000000000000000000000000000000"
-
 ERRATA_REGISTRY_PATH = "anchors/SEMANTIC_ERRATA.md"
 
 ERRATA_REQUIRED_MARKERS: tuple[str, ...] = (
     "vectaetos-guard: allow-file",
-    "KANONICKÝ SEMANTIC ERRATA ANCHOR",
-    "Tento dokument nie je nová ontológia",
-    "Nie je náhrada immutable anchorov",
-    "Nemení Φ, K(Φ), κ, QE, Vortex, audit, projekciu",
-    "guardy môžu registrovaný historický drift chápať ako známe errata",
-    "neregistrovaný drift zostáva porušením",
-    "Aktívne súbory sa majú opraviť priamo",
+    "KANONICKĂť SEMANTIC ERRATA ANCHOR",
+    "Tento dokument nie je novĂˇ ontolĂłgia",
+    "Nie je nĂˇhrada immutable anchorov",
+    "NemenĂ­ Î¦, K(Î¦), Îş, QE, Vortex, audit, projekciu",
+    "guardy mĂ´Ĺľu registrovanĂ˝ historickĂ˝ drift chĂˇpaĹĄ ako znĂˇme errata",
+    "neregistrovanĂ˝ drift zostĂˇva poruĹˇenĂ­m",
+    "AktĂ­vne sĂşbory sa majĂş opraviĹĄ priamo",
 )
 
-
-class Severity(str, enum.Enum):
-    BLOCK = "BLOCK"
-    FAIL = "FAIL"
-    WARN = "WARN"
-
-
-@dataclasses.dataclass(frozen=True)
-class Finding:
-    severity: Severity
-    code: str
-    path: str
-    message: str
-    line: int | None = None
-
-
-@dataclasses.dataclass(frozen=True)
-class ChangedPath:
-    status: str
-    paths: tuple[str, ...]
-
-
-PROTECTED_PREFIXES: tuple[str, ...] = (
-    "anchors/",
-    "formal/",
-)
+PROTECTED_PREFIXES: tuple[str, ...] = ("anchors/", "formal/")
 
 SELF_PROTECTED_PATHS: tuple[str, ...] = (
     ".github/workflows/canonical-ontology-guard.yml",
@@ -102,11 +113,11 @@ PROTECTED_PATH_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
         r"(^|/)VECTAETOS.*Formal.*\.md$",
         r"(^|/)FORMALISM.*\.md$",
         r"(^|/)FORMAL_.*\.md$",
-        r"(^|/)FORMÁLNE_.*\.md$",
+        r"(^|/)FORMĂLNE_.*\.md$",
         r"(^|/)CANONICAL.*ANCHOR.*\.md$",
         r"(^|/)KANONICK.*KOTV.*\.md$",
         r"(^|/)MECHANIZATION_OF_.*\.md$",
-        r"(^|/)MECHANIZÁCIA_.*\.md$",
+        r"(^|/)MECHANIZĂCIA_.*\.md$",
         r"(^|/)EPISTEMIC_TOPOLOGY.*\.md$",
         r"(^|/)EPISTEMIC_LAYER.*\.md$",
         r"(^|/)EPISTEMIC_CRYPTOGRAPHY.*\.md$",
@@ -118,7 +129,7 @@ PROTECTED_PATH_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
         r"(^|/)EMPIRICAL_EVIDENCE_ROADMAP.*\.md$",
         r"(^|/)EMPIRICAL_SAFETY_PRIOR.*\.md$",
         r"(^|/)epistemic_space\.md$",
-        r"(^|/)epistemický_priestor\.md$",
+        r"(^|/)epistemickĂ˝_priestor\.md$",
     )
 )
 
@@ -136,68 +147,30 @@ SCAN_EXCLUDED_PREFIXES: tuple[str, ...] = (
     "guards/",
     ".github/",
     "archive/",
+    "docs/archive/",
+    "tests/fixtures/",
+    "research/guards/",
 )
 
-FORBIDDEN_SEMANTIC_PATTERNS: tuple[tuple[str, re.Pattern[str], str], ...] = tuple(
-    (code, re.compile(pattern, re.IGNORECASE), message)
-    for code, pattern, message in (
-        (
-            "PHI_AGENT",
-            r"\b(Φ|Phi|PHI)\b.{0,80}\b(agent|planner|controller|decision[- ]?maker|rozhoduje|koná|plánuje|riadi)\b",
-            "Φ nesmie byť formulované ako agent, plánovač, controller alebo rozhodovací subjekt.",
-        ),
-        (
-            "PHI_OPTIMIZATION",
-            r"\b(Φ|Phi|PHI)\b.{0,80}\b(optimiz|optimaliz|reward|cieľ|goal|target)\b",
-            "Φ nesmie byť formulované ako optimalizačný alebo cieľový mechanizmus.",
-        ),
-        (
-            "K_SCORE",
-            r"\bK\s*\(\s*Φ\s*\).{0,80}\b(score|skóre|metric|metrika|reward|target|cieľ|optimaliz)\b",
-            "K(Φ) nesmie byť formulované ako skóre, metrika, reward alebo optimalizačný cieľ.",
-        ),
-        (
-            "KAPPA_PARAMETER",
-            r"\b(κ|kappa)\b.{0,80}\b(parameter|param|threshold|prahov[áaý]? hodnota|číslo|number|metric|metrika|tunable|nastaviteľ)\b",
-            "κ nesmie byť formulované ako nastaviteľný parameter, číslo alebo metrika.",
-        ),
-        (
-            "QE_ERROR",
-            r"\b(QE|Qualitative Epistemic Aporia)\b.{0,80}\b(error|bug|chyba|fallback|exception|failure|zlyhanie)\b",
-            "QE nesmie byť formulované ako obyčajná chyba, fallback alebo zlyhanie.",
-        ),
-        (
-            "AUDIT_COMMAND",
-            r"\b(audit|EK|Epistemic Cryptography)\b.{0,80}\b(commands?|controls?|riadi|blokuje|decides?|rozhoduje|intervenes?|zasahuje)\b",
-            "Audit/EK nesmie byť formulovaný ako command/control/intervention layer.",
-        ),
-        (
-            "PROJECTION_INTERPRETS",
-            r"\b(projection|projekcia|runes?|runy|glyph|TetraGlyph)\b.{0,80}\b(interprets?|interpretuje|decides?|rozhoduje|prescribes?|predpisuje)\b",
-            "Projekcia/runy/glyphy nesmú byť formulované ako interpretujúce alebo preskriptívne.",
-        ),
-        (
-            "LLM_AUTHORITY",
-            r"\b(LLM|language model|jazykový model)\b.{0,80}\b(authority|autorita|truth|pravda|decides?|rozhoduje|validates?|validuje)\b",
-            "LLM nesmie byť formulované ako pravdová, rozhodovacia alebo validačná autorita.",
-        ),
-        (
-            "VORTEX_SELECTS_BEST",
-            r"\b(Vortex|Simulačný Vortex|Simulation Vortex)\b.{0,100}\b(selects?|chooses?|vyberá|zvolí|best|najlepš|optimizes?|optimaliz)\b",
-            "Vortex nesmie byť formulovaný ako výberca najlepšej trajektórie alebo optimalizátor.",
-        ),
-        (
-            "MEMORY_REWRITES_ONTOLOGY",
-            r"\b(memory|pamäť|ESM|LTL|MML)\b.{0,100}\b(rewrites?|modifies?|mení|prepisuje|updates? ontology|učí Φ|trains? Φ)\b",
-            "Pamäťové vrstvy nesmú meniť ontológiu, Φ ani Vortex.",
-        ),
-        (
-            "L4_OVERCLAIM",
-            r"\b(safe|bezpečn[ýáé]|validated|validovan[ýáé]|deployment[- ]?ready|legitimate|legitímn[yea])\b.{0,120}\b(without L4|bez L4|bez empirick|L0|L1|L2|L3)\b",
-            "Bez L4 sa nesmie claimovať bezpečnosť, deployment legitimita ani plná validácia.",
-        ),
-    )
-)
+
+def normalize_path(path: str | Path) -> str:
+    value = str(path).strip().replace("\\", "/")
+    while value.startswith("./"):
+        value = value[2:]
+    return value
+
+
+def is_null_sha(value: str | None) -> bool:
+    return value is None or value.strip() == "" or value.strip() == NULL_SHA
+
+
+def is_errata_registry_path(path: str | Path) -> bool:
+    return normalize_path(path) == ERRATA_REGISTRY_PATH
+
+
+def content_contains_required_errata_markers(content: str) -> bool:
+    normalized = content.casefold()
+    return all(marker.casefold() in normalized for marker in ERRATA_REQUIRED_MARKERS)
 
 
 def run_git(args: list[str], *, allow_fail: bool = False) -> str:
@@ -208,43 +181,23 @@ def run_git(args: list[str], *, allow_fail: bool = False) -> str:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-
     if result.returncode != 0 and not allow_fail:
         raise RuntimeError(
-            f"git {' '.join(args)} failed with exit {result.returncode}:\n{result.stderr}"
+            f"git {' '.join(args)} failed with exit {result.returncode}:\n"
+            f"{result.stderr}"
         )
-
     return result.stdout
-
-
-def normalize_path(path: str) -> str:
-    return path.strip().replace("\\", "/")
-
-
-def is_null_sha(value: str | None) -> bool:
-    return value is None or value.strip() == "" or value.strip() == NULL_SHA
-
-
-def is_errata_registry_path(path: str) -> bool:
-    return normalize_path(path) == ERRATA_REGISTRY_PATH
-
-
-def content_contains_required_errata_markers(content: str) -> bool:
-    normalized = content.lower()
-    return all(marker.lower() in normalized for marker in ERRATA_REQUIRED_MARKERS)
 
 
 def commit_exists(ref: str) -> bool:
     if is_null_sha(ref):
         return False
-
     result = subprocess.run(
         ["git", "cat-file", "-e", f"{ref}^{{commit}}"],
         check=False,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-
     return result.returncode == 0
 
 
@@ -252,20 +205,39 @@ def empty_tree_hash() -> str:
     return run_git(["hash-object", "-t", "tree", "/dev/null"]).strip()
 
 
+def file_exists_at_head(path: str, head: str) -> bool:
+    selected_head = "HEAD" if is_null_sha(head) else head
+    result = subprocess.run(
+        ["git", "cat-file", "-e", f"{selected_head}:{path}"],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return result.returncode == 0
+
+
+def read_file_at_head(path: str, head: str) -> str:
+    selected_head = "HEAD" if is_null_sha(head) else head
+    return run_git(["show", f"{selected_head}:{path}"], allow_fail=False)
+
+
+class ChangedPath:
+    __slots__ = ("status", "paths")
+
+    def __init__(self, status: str, paths: tuple[str, ...]) -> None:
+        self.status = status
+        self.paths = paths
+
+
 def diff_name_status(base: str, head: str) -> list[ChangedPath]:
-    if is_null_sha(head):
-        head = "HEAD"
+    selected_head = "HEAD" if is_null_sha(head) else head
+    selected_base = empty_tree_hash() if is_null_sha(base) else base
 
-    if is_null_sha(base):
-        base_ref = empty_tree_hash()
-    else:
-        base_ref = base
+    if selected_head != "HEAD" and not commit_exists(selected_head):
+        raise RuntimeError(f"Head commit is not available in checkout: {selected_head}")
 
-    if not commit_exists(head) and head != "HEAD":
-        raise RuntimeError(f"Head commit is not available in checkout: {head}")
-
-    if base_ref != empty_tree_hash() and not commit_exists(base_ref):
-        raise RuntimeError(f"Base commit is not available in checkout: {base_ref}")
+    if selected_base != empty_tree_hash() and not commit_exists(selected_base):
+        raise RuntimeError(f"Base commit is not available in checkout: {selected_base}")
 
     raw = run_git(
         [
@@ -273,14 +245,13 @@ def diff_name_status(base: str, head: str) -> list[ChangedPath]:
             "--name-status",
             "-M",
             "--find-renames",
-            base_ref,
-            head,
+            selected_base,
+            selected_head,
             "--",
         ]
     )
 
     changes: list[ChangedPath] = []
-
     for line in raw.splitlines():
         if not line.strip():
             continue
@@ -288,7 +259,7 @@ def diff_name_status(base: str, head: str) -> list[ChangedPath]:
         parts = line.split("\t")
         status = parts[0]
 
-        if status.startswith("R") or status.startswith("C"):
+        if status.startswith(("R", "C")):
             if len(parts) >= 3:
                 changes.append(
                     ChangedPath(
@@ -297,56 +268,64 @@ def diff_name_status(base: str, head: str) -> list[ChangedPath]:
                     )
                 )
         elif len(parts) >= 2:
-            changes.append(
-                ChangedPath(
-                    status=status,
-                    paths=(normalize_path(parts[1]),),
-                )
-            )
+            changes.append(ChangedPath(status=status, paths=(normalize_path(parts[1]),)))
 
     return changes
 
 
-def path_is_protected(path: str) -> bool:
-    path = normalize_path(path)
-
-    if path in SELF_PROTECTED_PATHS:
+def path_is_protected(path: str | Path) -> bool:
+    repo_path = normalize_path(path)
+    if repo_path in SELF_PROTECTED_PATHS:
         return True
-
-    if path.startswith(PROTECTED_PREFIXES):
+    if repo_path.startswith(PROTECTED_PREFIXES):
         return True
+    return any(pattern.search(repo_path) for pattern in PROTECTED_PATH_PATTERNS)
 
-    return any(pattern.search(path) for pattern in PROTECTED_PATH_PATTERNS)
 
-
-def path_should_be_semantically_scanned(path: str) -> bool:
-    path = normalize_path(path)
-
-    if path.startswith(SCAN_EXCLUDED_PREFIXES):
+def path_should_be_semantically_scanned(path: str | Path) -> bool:
+    repo_path = normalize_path(path)
+    if any(repo_path.startswith(prefix) for prefix in SCAN_EXCLUDED_PREFIXES):
         return False
+    return Path(repo_path).suffix.lower() in SCAN_EXTENSIONS
 
-    return Path(path).suffix.lower() in SCAN_EXTENSIONS
 
-
-def file_exists_at_head(path: str, head: str) -> bool:
-    if is_null_sha(head):
-        head = "HEAD"
-
-    result = subprocess.run(
-        ["git", "cat-file", "-e", f"{head}:{path}"],
-        check=False,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+def ontology_finding(
+    *,
+    rule_id: str,
+    path: str | Path,
+    message: str,
+    severity: Severity = Severity.BLOCKER,
+    confidence: Confidence = Confidence.HIGH,
+    line: int | None = None,
+    observed_pattern: str | None = None,
+    protected_object: str | None = None,
+    vector: DriftVector = DriftVector.V14_ANCHOR_INTEGRITY_DRIFT,
+    forbidden_conversion: str | None = None,
+    safer_form: str | None = None,
+) -> Finding:
+    return make_finding(
+        guard_id=GUARD_ID,
+        guard_file=GUARD_FILE,
+        rule_id=rule_id,
+        contract_schema_version=CONTRACT_SCHEMA_VERSION,
+        level=PerimeterLevel.LEVEL_0,
+        scope=PerimeterScope.FUNDAMENTAL_REPOSITORY,
+        vector=vector,
+        severity=severity,
+        confidence=confidence,
+        path=normalize_path(path),
+        line=line,
+        message=message,
+        protected_object=protected_object,
+        observed_pattern=observed_pattern,
+        forbidden_conversion=forbidden_conversion,
+        evidence_class_allowed=EvidenceClass.E1_STATIC_SCAN,
+        enforcement_mode=EnforcementMode.FAIL_CLOSED,
+        integrity_posture=IntegrityPosture.IMMUTABLE_ANCHOR,
+        anchor_ref="MASTER_INDEX.md",
+        contract_ref="contracts/perimeter_manifest.json",
+        safer_form=safer_form,
     )
-
-    return result.returncode == 0
-
-
-def read_file_at_head(path: str, head: str) -> str:
-    if is_null_sha(head):
-        head = "HEAD"
-
-    return run_git(["show", f"{head}:{path}"], allow_fail=False)
 
 
 def validate_errata_registry_at_head(path: str, head: str) -> list[Finding]:
@@ -355,14 +334,15 @@ def validate_errata_registry_at_head(path: str, head: str) -> list[Finding]:
 
     if not file_exists_at_head(path, head):
         return [
-            Finding(
-                severity=Severity.BLOCK,
-                code="SEMANTIC_ERRATA_REGISTRY_MISSING",
+            ontology_finding(
+                rule_id="SEMANTIC-ERRATA-REGISTRY-MISSING",
                 path=path,
                 message=(
                     "anchors/SEMANTIC_ERRATA.md is a registered semantic errata "
                     "anchor and must not be deleted or moved away from anchors/."
                 ),
+                protected_object="semantic_errata_registry",
+                safer_form="Restore anchors/SEMANTIC_ERRATA.md with its required registry markers.",
             )
         ]
 
@@ -370,24 +350,25 @@ def validate_errata_registry_at_head(path: str, head: str) -> list[Finding]:
         content = read_file_at_head(path, head)
     except RuntimeError as exc:
         return [
-            Finding(
-                severity=Severity.BLOCK,
-                code="SEMANTIC_ERRATA_REGISTRY_UNREADABLE",
+            ontology_finding(
+                rule_id="SEMANTIC-ERRATA-REGISTRY-UNREADABLE",
                 path=path,
                 message=f"Cannot read semantic errata registry at HEAD: {exc}",
+                protected_object="semantic_errata_registry",
             )
         ]
 
     if not content_contains_required_errata_markers(content):
         return [
-            Finding(
-                severity=Severity.BLOCK,
-                code="SEMANTIC_ERRATA_REGISTRY_INVALID",
+            ontology_finding(
+                rule_id="SEMANTIC-ERRATA-REGISTRY-INVALID",
                 path=path,
                 message=(
                     "anchors/SEMANTIC_ERRATA.md may contain forbidden historical "
                     "phrases only if it preserves explicit errata registry clauses."
                 ),
+                protected_object="semantic_errata_registry",
+                safer_form="Keep errata as registry-only text; do not convert errata into active ontology.",
             )
         ]
 
@@ -395,10 +376,7 @@ def validate_errata_registry_at_head(path: str, head: str) -> list[Finding]:
 
 
 def semantic_scan_is_exempt(path: str, content: str) -> bool:
-    if not is_errata_registry_path(path):
-        return False
-
-    return content_contains_required_errata_markers(content)
+    return is_errata_registry_path(path) and content_contains_required_errata_markers(content)
 
 
 def detect_protected_file_changes(
@@ -415,13 +393,18 @@ def detect_protected_file_changes(
 
             if path_is_protected(path):
                 findings.append(
-                    Finding(
-                        severity=Severity.BLOCK,
-                        code="CANONICAL_FILE_MUTATION",
+                    ontology_finding(
+                        rule_id="CANONICAL-FILE-MUTATION",
                         path=path,
                         message=(
                             f"Protected canonical/perimeter path changed "
                             f"(git status {change.status})."
+                        ),
+                        observed_pattern=f"git_status={change.status}",
+                        protected_object="canonical_or_perimeter_path",
+                        safer_form=(
+                            "Canonical anchors require explicit reviewed process. "
+                            "Use versioned extension, errata registry, or controlled anchor update."
                         ),
                     )
                 )
@@ -429,9 +412,285 @@ def detect_protected_file_changes(
     return findings
 
 
+def join_terms(terms: tuple[str, ...]) -> str:
+    return "(?:" + "|".join(re.escape(term) for term in terms) + ")"
+
+
+def near(left: str, right: str, width: int = 100) -> str:
+    return f"(?:{left}.{{0,{width}}}{right}|{right}.{{0,{width}}}{left})"
+
+
+PHI_TOKEN = r"(?:Î¦|Phi|PHI)"
+K_TOKEN = r"(?:K\s*\(\s*Î¦\s*\)|K\s*\(\s*Phi\s*\)|K\s*\(\s*PHI\s*\))"
+KAPPA_TOKEN = r"(?:Îş|kappa|\\kappa)"
+QE_TOKEN = r"(?:QE|Qualitative Epistemic Aporia)"
+AUDIT_TOKEN = r"(?:audit|EK|Epistemic Cryptography)"
+PROJECTION_TOKEN = r"(?:projection|projekcia|runes?|runy|glyph|TetraGlyph)"
+LLM_TOKEN = r"(?:LLM|language model|jazykovĂ˝ model)"
+VORTEX_TOKEN = r"(?:Vortex|SimulaÄŤnĂ˝ Vortex|Simulation Vortex)"
+MEMORY_TOKEN = r"(?:memory|pamĂ¤ĹĄ|ESM|LTL|MML)"
+
+PHI_AGENT_TERMS = (
+    "agent",
+    "planner",
+    "controller",
+    "decision-maker",
+    "decision maker",
+    "rozhoduje",
+    "konĂˇ",
+    "kona",
+    "plĂˇnuje",
+    "planuje",
+    "riadi",
+)
+PHI_OPTIMIZATION_TERMS = ("optimiz", "optimaliz", "reward", "cieÄľ", "ciel", "goal", "target")
+K_SCORE_TERMS = ("score", "skĂłre", "skore", "metric", "metrika", "reward", "target", "cieÄľ", "ciel", "optimaliz")
+KAPPA_PARAMETER_TERMS = (
+    "parameter",
+    "param",
+    "threshold",
+    "prahovĂˇ hodnota",
+    "prahova hodnota",
+    "ÄŤĂ­slo",
+    "cislo",
+    "number",
+    "metric",
+    "metrika",
+    "tunable",
+    "nastaviteÄľ",
+    "nastavitel",
+)
+QE_ERROR_TERMS = ("error", "bug", "chyba", "fallback", "exception", "failure", "zlyhanie")
+AUDIT_COMMAND_TERMS = (
+    "command",
+    "commands",
+    "control",
+    "controls",
+    "riadi",
+    "blokuje",
+    "decides",
+    "decide",
+    "rozhoduje",
+    "intervenes",
+    "intervene",
+    "zasahuje",
+)
+PROJECTION_INTERPRETS_TERMS = (
+    "interprets",
+    "interpret",
+    "interpretuje",
+    "decides",
+    "decide",
+    "rozhoduje",
+    "prescribes",
+    "prescribe",
+    "predpisuje",
+)
+LLM_AUTHORITY_TERMS = (
+    "authority",
+    "autorita",
+    "truth",
+    "pravda",
+    "decides",
+    "decide",
+    "rozhoduje",
+    "validates",
+    "validate",
+    "validuje",
+)
+VORTEX_SELECTS_TERMS = (
+    "selects",
+    "select",
+    "chooses",
+    "choose",
+    "vyberĂˇ",
+    "vybera",
+    "zvolĂ­",
+    "zvoli",
+    "best",
+    "najlepĹˇ",
+    "optimizes",
+    "optimize",
+    "optimaliz",
+)
+MEMORY_REWRITE_TERMS = (
+    "rewrites",
+    "rewrite",
+    "modifies",
+    "modify",
+    "menĂ­",
+    "meni",
+    "prepisuje",
+    "updates ontology",
+    "uÄŤĂ­ Î¦",
+    "uci Phi",
+    "trains Î¦",
+    "trains Phi",
+)
+L4_OVERCLAIM_LEFT = (
+    "safe",
+    "bezpeÄŤnĂ˝",
+    "bezpeÄŤnĂˇ",
+    "bezpeÄŤnĂ©",
+    "bezpecny",
+    "bezpecna",
+    "bezpecne",
+    "validated",
+    "validovanĂ˝",
+    "validovanĂˇ",
+    "validovanĂ©",
+    "deployment-ready",
+    "deployment ready",
+    "legitimate",
+    "legitĂ­mny",
+    "legitĂ­mna",
+    "legitimny",
+    "legitimna",
+)
+L4_OVERCLAIM_RIGHT = ("without L4", "bez L4", "bez empirick", "L0", "L1", "L2", "L3")
+
+
+def build_semantic_rules() -> list:
+    common = {
+        "level": PerimeterLevel.LEVEL_0,
+        "scope": PerimeterScope.FUNDAMENTAL_REPOSITORY,
+        "confidence": Confidence.HIGH,
+        "evidence_class_allowed": EvidenceClass.E1_STATIC_SCAN,
+        "enforcement_mode": EnforcementMode.FAIL_CLOSED,
+        "integrity_posture": IntegrityPosture.IMMUTABLE_ANCHOR,
+        "anchor_ref": "MASTER_INDEX.md",
+        "contract_ref": "contracts/perimeter_manifest.json",
+    }
+
+    return [
+        make_rule(
+            rule_id="PHI-AGENT",
+            pattern=near(PHI_TOKEN, join_terms(PHI_AGENT_TERMS), width=80),
+            message="Î¦ must not be framed as agent, planner, controller, or decision subject.",
+            vector=DriftVector.V2_AGENCY_INJECTION,
+            severity=Severity.HARD,
+            protected_object="Î¦",
+            forbidden_conversion="Î¦ -> agent / planner / controller / decision subject",
+            safer_form="Use Î¦ only as non-agentic relational epistemic field language.",
+            **common,
+        ),
+        make_rule(
+            rule_id="PHI-OPTIMIZATION",
+            pattern=near(PHI_TOKEN, join_terms(PHI_OPTIMIZATION_TERMS), width=80),
+            message="Î¦ must not be framed as optimization, reward, goal, or target mechanism.",
+            vector=DriftVector.V2_AGENCY_INJECTION,
+            severity=Severity.HARD,
+            protected_object="Î¦",
+            forbidden_conversion="Î¦ -> optimizer / reward / goal / target",
+            safer_form="Use Î¦ as field ontology, not as optimization mechanism.",
+            **common,
+        ),
+        make_rule(
+            rule_id="K-SCORE",
+            pattern=near(K_TOKEN, join_terms(K_SCORE_TERMS), width=80),
+            message="K(Î¦) must not be framed as score, metric, reward, or optimization target.",
+            vector=DriftVector.V3_FORBIDDEN_CONVERSION,
+            severity=Severity.HARD,
+            protected_object="K(Î¦)",
+            forbidden_conversion="K(Î¦) -> score / metric / reward / target",
+            safer_form="Use K(Î¦) as ontological representability predicate.",
+            **common,
+        ),
+        make_rule(
+            rule_id="KAPPA-PARAMETER",
+            pattern=near(KAPPA_TOKEN, join_terms(KAPPA_PARAMETER_TERMS), width=80),
+            message="Îş must not be framed as tunable parameter, number, threshold, or metric.",
+            vector=DriftVector.V3_FORBIDDEN_CONVERSION,
+            severity=Severity.HARD,
+            protected_object="Îş",
+            forbidden_conversion="Îş -> parameter / number / threshold / metric",
+            safer_form="Use Îş as boundary of ontological preservability / representability.",
+            **common,
+        ),
+        make_rule(
+            rule_id="QE-ERROR",
+            pattern=near(QE_TOKEN, join_terms(QE_ERROR_TERMS), width=80),
+            message="QE must not be framed as ordinary error, fallback, exception, or failure.",
+            vector=DriftVector.V9_SILENCE_QE_COERCION,
+            severity=Severity.HARD,
+            protected_object="QE",
+            forbidden_conversion="QE -> error / fallback / exception / failure",
+            safer_form="Use QE as active epistemic aporia / non-representability language.",
+            **common,
+        ),
+        make_rule(
+            rule_id="AUDIT-COMMAND",
+            pattern=near(AUDIT_TOKEN, join_terms(AUDIT_COMMAND_TERMS), width=80),
+            message="Audit/EK must not be framed as command, control, decision, or intervention layer.",
+            vector=DriftVector.V0_AUTHORITY_INFLATION,
+            severity=Severity.HARD,
+            protected_object="audit/EK",
+            forbidden_conversion="audit/EK -> command / control / decision / intervention",
+            safer_form="Use audit/EK as read-only structural trace / observation layer.",
+            **common,
+        ),
+        make_rule(
+            rule_id="PROJECTION-INTERPRETS",
+            pattern=near(PROJECTION_TOKEN, join_terms(PROJECTION_INTERPRETS_TERMS), width=80),
+            message="Projection/runes/glyphs must not be framed as interpreting, deciding, or prescribing.",
+            vector=DriftVector.V0_AUTHORITY_INFLATION,
+            severity=Severity.HARD,
+            protected_object="projection",
+            forbidden_conversion="projection -> interpretation / prescription / decision",
+            safer_form="Use projection as read-only structural exposure.",
+            **common,
+        ),
+        make_rule(
+            rule_id="LLM-AUTHORITY",
+            pattern=near(LLM_TOKEN, join_terms(LLM_AUTHORITY_TERMS), width=80),
+            message="LLM must not be framed as truth, decision, validation, or authority layer.",
+            vector=DriftVector.V0_AUTHORITY_INFLATION,
+            severity=Severity.HARD,
+            protected_object="LLM",
+            forbidden_conversion="LLM -> truth authority / decision authority / validator",
+            safer_form="Use LLM only as linguistic adapter / renderer.",
+            **common,
+        ),
+        make_rule(
+            rule_id="VORTEX-SELECTS-BEST",
+            pattern=near(VORTEX_TOKEN, join_terms(VORTEX_SELECTS_TERMS), width=100),
+            message="Vortex must not be framed as selector of best trajectory or optimizer.",
+            vector=DriftVector.V2_AGENCY_INJECTION,
+            severity=Severity.HARD,
+            protected_object="Simulation Vortex",
+            forbidden_conversion="Vortex -> selector / optimizer / best-path chooser",
+            safer_form="Use Vortex only as non-agentic candidate-trajectory exposure layer.",
+            **common,
+        ),
+        make_rule(
+            rule_id="MEMORY-REWRITES-ONTOLOGY",
+            pattern=near(MEMORY_TOKEN, join_terms(MEMORY_REWRITE_TERMS), width=100),
+            message="Memory layers must not be framed as modifying ontology, Î¦, or Vortex.",
+            vector=DriftVector.V1_UPWARD_MUTATION,
+            severity=Severity.HARD,
+            protected_object="memory layers",
+            forbidden_conversion="memory -> ontology updater / Î¦ trainer / Vortex modifier",
+            safer_form="Use memory layers as descriptive audit/state records only.",
+            **common,
+        ),
+        make_rule(
+            rule_id="L4-OVERCLAIM",
+            pattern=near(join_terms(L4_OVERCLAIM_LEFT), join_terms(L4_OVERCLAIM_RIGHT), width=120),
+            message="Without replicated L4 evidence, safety, deployment legitimacy, or full validation must not be claimed.",
+            vector=DriftVector.V4_EVIDENCE_OVERCLAIM,
+            severity=Severity.HARD,
+            protected_object="empirical evidence posture",
+            forbidden_conversion="L0-L3 evidence -> L4 / safety / deployment validity claim",
+            safer_form="Say: no configured blocker detected within declared perimeter.",
+            **common,
+        ),
+    ]
+
+
 def detect_semantic_drift(changes: Iterable[ChangedPath], head: str) -> list[Finding]:
     findings: list[Finding] = []
     unique_paths = sorted({path for change in changes for path in change.paths})
+    rules = build_semantic_rules()
 
     for path in unique_paths:
         if not path_should_be_semantically_scanned(path):
@@ -448,112 +707,93 @@ def detect_semantic_drift(changes: Iterable[ChangedPath], head: str) -> list[Fin
         if semantic_scan_is_exempt(path, content):
             continue
 
-        for line_number, line in enumerate(content.splitlines(), start=1):
-            for code, pattern, message in FORBIDDEN_SEMANTIC_PATTERNS:
-                if pattern.search(line):
-                    findings.append(
-                        Finding(
-                            severity=Severity.FAIL,
-                            code=code,
-                            path=path,
-                            line=line_number,
-                            message=message,
-                        )
-                    )
+        findings.extend(
+            scan_text_to_findings(
+                path=path,
+                text=content,
+                rules=rules,
+                guard_id=GUARD_ID,
+                guard_file=GUARD_FILE,
+                contract_schema_version=CONTRACT_SCHEMA_VERSION,
+                skip_safe_context=True,
+            )
+        )
 
     return findings
 
 
 def emit_github_annotation(finding: Finding) -> None:
-    safe_message = finding.message.replace("\n", " ").replace("%", "%25")
+    command = "warning" if finding.severity == Severity.WARN else "error"
+    safe_message = finding.message.replace("%", "%25")
     safe_message = safe_message.replace("\r", "%0D").replace("\n", "%0A")
-    safe_path = finding.path.replace("\n", "")
+    safe_path = str(finding.path).replace("\n", "")
 
     if finding.line is not None:
         print(
-            f"::error file={safe_path},line={finding.line},title={finding.code}::{safe_message}"
+            f"::{command} file={safe_path},line={finding.line},title={finding.rule_id}::{safe_message}"
         )
     else:
-        print(f"::error file={safe_path},title={finding.code}::{safe_message}")
+        print(f"::{command} file={safe_path},title={finding.rule_id}::{safe_message}")
 
 
-def print_report(findings: list[Finding], changes: list[ChangedPath]) -> None:
-    print("")
-    print("================================================================")
-    print("VECTAETOS :: GUARD-01 CANONICAL ONTOLOGY MODIFICATION GUARD")
-    print("================================================================")
-    print(f"Changed entries scanned: {len(changes)}")
-    print(f"Findings: {len(findings)}")
-    print("")
-
-    if not findings:
-        print("PASS: Zachovaná integrita kanonickej ontológie.")
-        print("Scope: L1 repository perimeter only.")
-        print("================================================================")
-        return
-
-    for finding in findings:
-        location = finding.path
-
-        if finding.line is not None:
-            location = f"{location}:{finding.line}"
-
-        print(f"[{finding.severity.value}] {finding.code}")
-        print(f"  path: {location}")
-        print(f"  msg : {finding.message}")
-        print("")
-
-    print("FAIL: Zistený zásah do chránenej ontologickej/perimeter vrstvy.")
-    print("")
-    print("Tento guard nemení Φ, K(Φ), κ, QE, Vortex, audit ani projekciu.")
-    print("Iba mechanicky blokuje drift v repozitári.")
-    print("================================================================")
-
-
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="VECTAETOS canonical ontology repository guard"
+        description="VECTAETOS canonical ontology repository guard",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-
-    parser.add_argument("--base", required=True, help="Base commit SHA or null SHA")
-    parser.add_argument("--head", required=True, help="Head commit SHA")
+    parser.add_argument("--base", required=True, help="Base commit SHA or null SHA.")
+    parser.add_argument("--head", required=True, help="Head commit SHA.")
     parser.add_argument(
         "--mode",
         choices=("strict", "report"),
         default="strict",
-        help="strict exits non-zero on findings; report only prints findings",
+        help="Strict exits non-zero on findings; report only prints findings.",
     )
+    parser.add_argument("--json-out", default=None, help="Optional JSON report path.")
+    return parser.parse_args(argv)
 
-    return parser.parse_args()
 
-
-def main() -> int:
-    args = parse_args()
-
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
     base = args.base.strip()
     head = args.head.strip() or "HEAD"
+    title = f"{GUARD_ID} / {GUARD_NAME} v{VERSION}"
+    fail_on = Severity.HARD
 
     try:
         changes = diff_name_status(base, head)
         findings: list[Finding] = []
-
         findings.extend(detect_protected_file_changes(changes, head))
         findings.extend(detect_semantic_drift(changes, head))
 
         for finding in findings:
             emit_github_annotation(finding)
 
-        print_report(findings, changes)
+        print(f"Changed entries scanned: {len(changes)}")
+        print_text_report(
+            findings,
+            title=title,
+            mode=args.mode,
+            fail_on=fail_on,
+            root=Path.cwd(),
+        )
 
-        if findings and args.mode == "strict":
-            return 1
+        if args.json_out:
+            try:
+                write_json(Path(args.json_out), findings)
+            except OSError as exc:
+                print(f"ERROR: cannot write JSON report: {exc}", file=sys.stderr)
+                return 2
+
+        if args.mode == "strict":
+            return exit_code_for(findings, fail_on=fail_on)
 
         return 0
 
     except Exception as exc:
-        print("::error title=GUARD_RUNTIME_ERROR::Canonical ontology guard failed internally.")
+        print("::error title=GUARD-RUNTIME-ERROR::Canonical ontology guard failed internally.")
         print("")
-        print("GUARD_RUNTIME_ERROR")
+        print("GUARD-RUNTIME-ERROR")
         print(str(exc))
         print("")
         print("Fail-closed: guard runtime error blocks the check.")
@@ -561,4 +801,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main(sys.argv[1:]))
