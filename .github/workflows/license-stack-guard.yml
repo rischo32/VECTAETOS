@@ -1,0 +1,54 @@
+name: license-stack-guard
+
+on:
+  pull_request:
+    paths:
+      - "LICENSE.md"
+      - "LICENSES/**"
+      - "README.md"
+      - "Vectaetos/cli/**"
+      - ".github/workflows/license-stack-guard.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "LICENSE.md"
+      - "LICENSES/**"
+      - "README.md"
+      - "Vectaetos/cli/**"
+      - ".github/workflows/license-stack-guard.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  license-stack-guard:
+    name: Level 0 / Level 5 license stack guard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run VECTAETOS license stack guard
+        run: |
+          mkdir -p reports
+          python Vectaetos/cli/license_stack_guard.py \
+            --repo-root . \
+            --strict \
+            --format text \
+            --report reports/license-stack-guard.json
+
+      - name: Upload guard report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-stack-guard-report
+          path: reports/license-stack-guard.json
+          if-no-files-found: ignore
