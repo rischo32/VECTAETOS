@@ -1,6 +1,6 @@
-#### " Na prvý pohľad to nemusí dávať každému zmysel, ani nie každý to hneď pochopí, no nie je to žiadna pseudoveda, je to post anti-AGI bezpečnostná architektúra, "Terminator problém" to nevyrieši, v VECTAETOS-e mu nedovoli vzniknúť "
+### " Na prvý pohľad to nemusí dávať každému zmysel, ani nie každý to hneď pochopí, no nie je to žiadna pseudoveda, je to post anti-AGI bezpečnostná architektúra, "Terminator problém" to nevyrieši, v VECTAETOS-e mu nedovoli vzniknúť "
 ___
-#####  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+####  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 ___
 ##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
 ___
