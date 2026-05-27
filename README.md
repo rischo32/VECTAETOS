@@ -1,4 +1,17 @@
-#### " Na prvý pohľad to nemusí dávať každému zmysel, ani nie každý to hneď pochopí, no nie je to žiadna pseudoveda, je to post anti-AGI bezpečnostná architektúra, "Terminator problém" to nevyrieši, v VECTAETOS-e mu nedovoli vzniknúť na globalnej úrovni" (LLM adaptéry,Agenti musia mať dominantné axis-osi)
+#### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. Nie je však myslený ako pseudoveda, produktový alignment systém ani regulačný mechanizmus.
+
+VECTAETOS je post-AGI epistemická bezpečnostná architektúra:
+nechráni behaviorálnu poslušnosť inteligentných systémov, ale štrukturálnu
+reprezentovateľnosť stavov poznania.
+
+Takzvaný „Terminator problém“ nerieši ako zákaz alebo kontrolu agenta.
+Rámcuje ho skôr tak, že deštruktívne alebo dominačné konfigurácie sa na
+globálnej úrovni nečítajú ako preferované trajektórie, ale ako porušenie
+reprezentovateľnosti relačného poľa.
+
+LLM adaptéry a agentné wrappery nie sú autoritou pravdy.
+Sú iba downstream rozhrania, ktoré musia mať explicitne deklarované osi,
+role-boundaries a zákaz spätnej väzby do Φ."
 ___
 ###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 ___
