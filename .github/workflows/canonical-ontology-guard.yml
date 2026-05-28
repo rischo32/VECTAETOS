@@ -29,12 +29,12 @@ jobs:
           set -euo pipefail
 
           NULL_SHA="0000000000000000000000000000000000000000"
-          TRUSTED_ROOT=".trusted"
-          TRUSTED_LOG_DIR="${TRUSTED_ROOT}/logs"
+          REPO_ROOT="${PWD}"
+          TRUSTED_ROOT=".trusted/base"
+          TRUSTED_ROOT_ABS="${REPO_ROOT}/${TRUSTED_ROOT}"
+          TRUSTED_LOG_DIR=".trusted/logs"
+          TRUSTED_LOG_ABS="${REPO_ROOT}/${TRUSTED_LOG_DIR}"
           TRUSTED_GUARD_REL="guards/canonical_ontology_guard.py"
-
-          rm -rf "${TRUSTED_ROOT}"
-          mkdir -p "${TRUSTED_ROOT}/guards/core" "${TRUSTED_LOG_DIR}"
 
           if [ ! -d .git ]; then
             git init .
@@ -44,13 +44,12 @@ jobs:
           git remote remove origin 2>/dev/null || true
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-          EVENT_NAME="${GITHUB_EVENT_NAME}"
           BASE_REF=""
           HEAD_REF=""
           TRUSTED_REF=""
           BOOTSTRAP_MODE="false"
 
-          if [ "${EVENT_NAME}" = "pull_request" ]; then
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
             echo "Manual trusted checkout for pull request #${PR_NUMBER}"
 
             if [ -z "${PR_BASE_SHA:-}" ] || [ -z "${PR_HEAD_SHA:-}" ] || [ -z "${PR_NUMBER:-}" ]; then
@@ -87,13 +86,16 @@ jobs:
             TRUSTED_REF="${BEFORE}"
           fi
 
+          rm -rf ".trusted"
+          mkdir -p "${TRUSTED_ROOT_ABS}/guards/core" "${TRUSTED_LOG_ABS}"
+
           echo "Resolved base ref: ${BASE_REF}"
           echo "Resolved head ref: ${HEAD_REF}"
           echo "Resolved trusted ref: ${TRUSTED_REF}"
 
           write_trusted_file() {
             local rel_path="$1"
-            local out_path="${TRUSTED_ROOT}/${rel_path}"
+            local out_path="${TRUSTED_ROOT_ABS}/${rel_path}"
 
             mkdir -p "$(dirname "${out_path}")"
 
@@ -105,18 +107,16 @@ jobs:
             return 1
           }
 
-          # trusted guard
           if ! write_trusted_file "${TRUSTED_GUARD_REL}"; then
             echo "::warning title=Bootstrap mode::Trusted guard not found on base/previous ref; using current working tree guard."
             if [ ! -f "${TRUSTED_GUARD_REL}" ]; then
               echo "::error title=Guard missing::${TRUSTED_GUARD_REL} does not exist in working tree."
               exit 2
             fi
-            cp "${TRUSTED_GUARD_REL}" "${TRUSTED_ROOT}/${TRUSTED_GUARD_REL}"
+            cp "${TRUSTED_GUARD_REL}" "${TRUSTED_ROOT_ABS}/${TRUSTED_GUARD_REL}"
             BOOTSTRAP_MODE="true"
           fi
 
-          # trusted core runtime
           CORE_FILES=(
             "guards/core/findings.py"
             "guards/core/reporting.py"
@@ -132,27 +132,27 @@ jobs:
 
           for rel_path in "${CORE_FILES[@]}"; do
             if ! write_trusted_file "${rel_path}"; then
-              if [ -f "${rel_path}" ] && [ "${BOOTSTRAP_MODE}" = "true" ]; then
-                cp "${rel_path}" "${TRUSTED_ROOT}/${rel_path}"
+              if [ "${BOOTSTRAP_MODE}" = "true" ] && [ -f "${rel_path}" ]; then
+                cp "${rel_path}" "${TRUSTED_ROOT_ABS}/${rel_path}"
               fi
             fi
           done
 
-          # force explicit package boundary inside .trusted
-          : > "${TRUSTED_ROOT}/guards/__init__.py"
-          : > "${TRUSTED_ROOT}/guards/core/__init__.py"
+          : > "${TRUSTED_ROOT_ABS}/guards/__init__.py"
+          : > "${TRUSTED_ROOT_ABS}/guards/core/__init__.py"
 
-          # compile trusted runtime
           while IFS= read -r -d '' pyfile; do
             python3 -m py_compile "${pyfile}"
-          done < <(find "${TRUSTED_ROOT}" -type f -name '*.py' -print0)
+          done < <(find "${TRUSTED_ROOT_ABS}" -type f -name '*.py' -print0)
 
           echo "base=${BASE_REF}" >> "${GITHUB_OUTPUT}"
           echo "head=${HEAD_REF}" >> "${GITHUB_OUTPUT}"
           echo "trusted_ref=${TRUSTED_REF}" >> "${GITHUB_OUTPUT}"
+          echo "repo_root=${REPO_ROOT}" >> "${GITHUB_OUTPUT}"
           echo "trusted_root=${TRUSTED_ROOT}" >> "${GITHUB_OUTPUT}"
-          echo "trusted_guard=${TRUSTED_ROOT}/${TRUSTED_GUARD_REL}" >> "${GITHUB_OUTPUT}"
-          echo "trusted_log=${TRUSTED_LOG_DIR}/canonical_ontology_guard.log" >> "${GITHUB_OUTPUT}"
+          echo "trusted_root_abs=${TRUSTED_ROOT_ABS}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_guard=${TRUSTED_ROOT_ABS}/${TRUSTED_GUARD_REL}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_log=${TRUSTED_LOG_ABS}/canonical_ontology_guard.log" >> "${GITHUB_OUTPUT}"
           echo "bootstrap_mode=${BOOTSTRAP_MODE}" >> "${GITHUB_OUTPUT}"
 
       - name: Run canonical ontology guard
@@ -161,16 +161,26 @@ jobs:
         run: |
           set -euo pipefail
 
+          REPO_ROOT="${{ steps.checkout.outputs.repo_root }}"
+          TRUSTED_ROOT_ABS="${{ steps.checkout.outputs.trusted_root_abs }}"
           LOG_PATH="${{ steps.checkout.outputs.trusted_log }}"
+
           mkdir -p "$(dirname "${LOG_PATH}")"
 
           set +e
-          PYTHONPATH="${{ steps.checkout.outputs.trusted_root }}:${PYTHONPATH:-}" \
-          python3 "${{ steps.checkout.outputs.trusted_guard }}" \
-            --base "${{ steps.checkout.outputs.base }}" \
-            --head "${{ steps.checkout.outputs.head }}" \
-            --mode strict \
-            | tee "${LOG_PATH}"
+          (
+            cd "${TRUSTED_ROOT_ABS}"
+
+            GIT_DIR="${REPO_ROOT}/.git" \
+            GIT_WORK_TREE="${REPO_ROOT}" \
+            VECTAETOS_TRUSTED_RUNTIME_ROOT="${TRUSTED_ROOT_ABS}" \
+            PYTHONPATH="${TRUSTED_ROOT_ABS}" \
+            python3 "guards/canonical_ontology_guard.py" \
+              --base "${{ steps.checkout.outputs.base }}" \
+              --head "${{ steps.checkout.outputs.head }}" \
+              --mode strict
+          ) | tee "${LOG_PATH}"
+
           GUARD_EXIT="${PIPESTATUS[0]}"
           set -e
 
@@ -190,7 +200,7 @@ jobs:
           BOOTSTRAP="${{ steps.checkout.outputs.bootstrap_mode }}"
 
           {
-            echo "# Guard 01 / Canonical Ontology Boundary"
+            echo "# Guard 01 / Kanonický ontologický strážca"
             echo ""
             echo "- Mode: \`strict\`"
             echo "- Exit code: \`${EXIT_CODE}\`"
@@ -218,7 +228,7 @@ jobs:
 
           case "${EXIT_CODE}" in
             0)
-              echo "Canonical ontology guard passed within declared perimeter."
+              echo "Kanonický ontologický strážca passed within declared perimeter."
               exit 0
               ;;
             1)
