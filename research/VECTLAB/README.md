@@ -1,4 +1,4 @@
-# VECTLAB Research Node
+# VECTLAB™ / VECTALBS™ Research Node
 
 **Status:** DRAFT / DOWNSTREAM / RESEARCH NODE  
 **Layer:** Applied epistemic-security research  
@@ -13,7 +13,7 @@
 
 ## 0. Core Sentence
 
-**VECTLAB Research Node je downstream výskumná noda pre aplikovanú epistemickú bezpečnosť, obranný audit integrity, ochranu významu a skúmanie rizika nereprezentovateľnosti na základe VECTAETOS-derived formálnych štruktúr.**
+**VECTLABS™ Research Node je downstream výskumná noda pre aplikovanú epistemickú bezpečnosť, obranný audit integrity, ochranu významu a skúmanie rizika nereprezentovateľnosti na základe VECTAETOS-derived formálnych štruktúr.**
 
 Short form:
 
