@@ -97,7 +97,7 @@ except ModuleNotFoundError as exc:
 GUARD_ID = "GUARD-PIS-01"
 GUARD_FILE = "guards/protected_surface_guard.py"
 GUARD_NAME = "Minimal Protected Surface Guard"
-VERSION = "0.1.0"
+VERSION = "0.1.1-pinned-minimal-globs"
 CONTRACT_SCHEMA_VERSION = "0.1"
 
 DEFAULT_MANIFEST_PATH = "research/pis/protected_surface_manifest.minimal.json"
@@ -105,6 +105,23 @@ NULL_SHA = "0000000000000000000000000000000000000000"
 
 DEFAULT_REQUIRED_SIGNED_BY = "Richard Fonfara"
 DEFAULT_REQUIRED_CONFIRMATION = "I confirm solo-maintainer protected-surface unlock."
+
+REQUIRED_MINIMAL_PROTECTED_GLOBS: tuple[str, ...] = (
+    "anchors/**",
+    "formal/**",
+    "contracts/**",
+    "guards/core/**",
+)
+
+# Research PIS files are intentionally not part of the active protected surface
+# yet, but the manifest is still shape-checked against the pinned baseline above.
+RESEARCH_PROFILE_EXCLUDED_GLOBS: tuple[str, ...] = (
+    "research/pis/**",
+    "tests/fixtures/**",
+    "docs/archive/**",
+)
+
+GLOB_META_CHARS = frozenset("*?[]")
 
 
 class ChangedPath:
@@ -240,8 +257,12 @@ def path_matches_glob(path: str, glob_pattern: str) -> bool:
     return False
 
 
-def path_in_patterns(path: str, patterns: list[str]) -> bool:
+def path_in_patterns(path: str, patterns: list[str] | tuple[str, ...]) -> bool:
     return any(path_matches_glob(path, pattern) for pattern in patterns)
+
+
+def contains_glob_meta(path: str) -> bool:
+    return any(char in path for char in GLOB_META_CHARS)
 
 
 def protected_vector_for_path(path: str) -> DriftVector:
@@ -295,6 +316,13 @@ def protected_changed_paths(
 
     for path, status in changed_paths(changes):
         repo_path = normalize_path(path)
+
+        # Pinned baseline is evaluated before manifest-provided exclusions.
+        # A PR must not be able to weaken the minimal PIS surface by editing
+        # research/pis/protected_surface_manifest.minimal.json.
+        if path_in_patterns(repo_path, REQUIRED_MINIMAL_PROTECTED_GLOBS):
+            result.append((repo_path, status))
+            continue
 
         if path_in_patterns(repo_path, normalized_excluded_globs):
             continue
@@ -375,6 +403,13 @@ def validate_unlock_record(
         isinstance(item, str) and item.strip() for item in data.get("paths_allowed", [])
     ):
         errors.append("paths_allowed must be a non-empty string list")
+    else:
+        for item in data["paths_allowed"]:
+            normalized_item = normalize_path(item)
+            if contains_glob_meta(normalized_item):
+                errors.append(
+                    f"paths_allowed entry must be an exact path, not a glob: {normalized_item}"
+                )
 
     if not isinstance(data.get("reason"), str) or not data["reason"].strip():
         errors.append("reason is required")
@@ -418,7 +453,10 @@ def unlock_covers_path(record: UnlockRecord, path: str) -> bool:
             continue
 
         allowed_path = normalize_path(item)
-        if repo_path == allowed_path or path_matches_glob(repo_path, allowed_path):
+        if contains_glob_meta(allowed_path):
+            continue
+
+        if repo_path == allowed_path:
             return True
 
     return False
@@ -519,8 +557,21 @@ def validate_manifest_shape(manifest: dict[str, Any], manifest_path: str) -> lis
             "Research manifest must keep active_enforcement=false until promoted to contracts/.",
         )
 
-    if not isinstance(manifest.get("protected_globs"), list):
+    protected_globs_raw = manifest.get("protected_globs")
+    if not isinstance(protected_globs_raw, list):
         add("PIS-MANIFEST-PROTECTED-GLOBS", "Minimal PIS manifest must define protected_globs as a list.")
+    else:
+        normalized_manifest_globs = {
+            normalize_path(item)
+            for item in protected_globs_raw
+            if isinstance(item, str)
+        }
+        for required_glob in REQUIRED_MINIMAL_PROTECTED_GLOBS:
+            if normalize_path(required_glob) not in normalized_manifest_globs:
+                add(
+                    "PIS-MANIFEST-MISSING-REQUIRED-GLOB",
+                    f"Minimal PIS manifest must include pinned protected glob: {required_glob}",
+                )
 
     unlock = manifest.get("unlock")
     if not isinstance(unlock, dict):
@@ -568,11 +619,16 @@ def analyze_protected_surface(
         for item in manifest.get("protected_paths", [])
         if isinstance(item, str)
     ]
-    protected_globs = [
-        normalize_path(item)
-        for item in manifest.get("protected_globs", [])
-        if isinstance(item, str)
-    ]
+    protected_globs = sorted(
+        {
+            *(normalize_path(item) for item in REQUIRED_MINIMAL_PROTECTED_GLOBS),
+            *(
+                normalize_path(item)
+                for item in manifest.get("protected_globs", [])
+                if isinstance(item, str)
+            ),
+        }
+    )
     excluded_globs = [
         normalize_path(item)
         for item in manifest.get("excluded_globs", [])
@@ -649,9 +705,9 @@ def analyze_protected_surface(
                 protected_object=protected_object_for_path(protected_path),
                 vector=protected_vector_for_path(protected_path),
                 safer_form=(
-                    "Create research/pis/unlocks/UNLOCK-*.json that names the exact "
-                    "protected path, reason, maintainer signature, exact confirmation, "
-                    "expiry, ontology_authority=false, and auto_fix_allowed=false."
+                    "Create research/pis/unlocks/UNLOCK-*.json with exact protected paths only, "
+                    "reason, maintainer signature, exact confirmation, expiry, "
+                    "ontology_authority=false, and auto_fix_allowed=false."
                 ),
             )
         )
