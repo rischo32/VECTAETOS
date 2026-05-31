@@ -1,6 +1,6 @@
 # VECTAETOS — Minimal PIS Implementation Notes
 
-**Path:** `research/guards/PIS_MINIMAL_IMPLEMENTATION_NOTES.md`  
+**Path:** `research/pis/PIS_MINIMAL_IMPLEMENTATION_NOTES.md`  
 **Status:** implementation notes  
 **Ontology authority:** none  
 
@@ -19,8 +19,8 @@ guards/protected_surface_guard.py
 ```text
 base ref
 head ref
-research/guards/protected_surface_manifest.minimal.json
-research/guards/unlocks/UNLOCK-*.json
+research/pis/protected_surface_manifest.minimal.json
+research/pis/unlocks/UNLOCK-*.json
 ```
 
 ## Algorithm

@@ -1,6 +1,6 @@
 # VECTAETOS — Minimal Protected Surface Applied Profile
 
-**Path:** `research/guards/PIS_MINIMAL_APPLIED_PROFILE.md`  
+**Path:** `research/pis/PIS_MINIMAL_APPLIED_PROFILE.md`  
 **Status:** current recommended minimal profile  
 **Active enforcement:** proposal  
 **Ontology authority:** none  
@@ -74,13 +74,13 @@ auto_fix_allowed is false
 ## Recommended Unlock Location
 
 ```text
-research/guards/unlocks/UNLOCK-YYYY-MM-DD-short-name.json
+research/pis/unlocks/UNLOCK-YYYY-MM-DD-short-name.json
 ```
 
-## Recommended Active Manifest
+## Recommended Research Manifest
 
 ```text
-research/guards/protected_surface_manifest.minimal.json
+research/pis/protected_surface_manifest.minimal.json
 ```
 
 Later, after stabilization, the manifest may move to:
@@ -105,4 +105,4 @@ Create a minimal guard:
 guards/protected_surface_guard.py
 ```
 
-It should read this profile or its manifest and compare changed files against the protected globs.
+It should read the manifest and compare changed files against the protected globs.
