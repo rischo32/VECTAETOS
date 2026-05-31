@@ -16,7 +16,6 @@ ___
 
     Nie samotné fundamentálne jadro Φ
 ___
-![References VECTLAB Research Node](https://img.shields.io/badge/references-VECTLAB%E2%84%A2%20Research%20Node-lightgrey)
 [![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=for-the-badge&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/rischo32/Vectaetos)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
@@ -42,7 +41,6 @@ ___
 [![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
 [![empirical-claim-guard](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml)
 [![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
-[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
 
     These guards protect the root boundary of the repository.
 ___
@@ -51,6 +49,11 @@ ___
 [![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
 [![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
 [![Coherence Vocabulary Guard](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml)
+[![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
+[![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
+[![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
+[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
+
 ___
 #### Level 2 — Semantic / Ontological Vocabulary Perimeter
 
@@ -60,26 +63,21 @@ ___
 
 #### Level 5 — Runtime / Evidence / Release Perimeter
 [![license-stack-guard](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml)
-___
 
-    "Ostatné vrstvy perimeter bezpecnostnej matice a ich strazcovia budú radené až ku koncu"
-
-[![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
-[![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
-[![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
-___
-
+#### Dodatočné GUARDY : 
+[![Guard PIS 01 / Minimal Protected Surface](https://github.com/rischo32/VECTAETOS/actions/workflows/protected-surface-guard.yml/badge.svg)](https://github.com/rischo32/VECTAETOS/actions/workflows/protected-surface-guard.yml)
 [![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
 [![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
 [![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
 [![Repository Summary](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
+
 ___
-             "Cogito cohaerenter ergo sum possibile"
+#### "Cogito cohaerenter ergo sum possibile"
 
                  "Welcome to a new epistemic era"
-
+___ 
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
 ___
