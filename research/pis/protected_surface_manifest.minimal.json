@@ -11,13 +11,13 @@
     "guards/core/**"
   ],
   "excluded_globs": [
-    "research/guards/**",
+    "research/pis/**",
     "tests/fixtures/**",
     "docs/archive/**"
   ],
   "unlock": {
     "mode": "solo_maintainer",
-    "required_unlock_file_glob": "research/guards/unlocks/UNLOCK-*.json",
+    "required_unlock_file_glob": "research/pis/unlocks/UNLOCK-*.json",
     "required_signed_by": "Richard Fonfára",
     "required_confirmation": "I confirm solo-maintainer protected-surface unlock.",
     "ai_review_is_advisory_only": true
