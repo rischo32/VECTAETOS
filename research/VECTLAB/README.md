@@ -155,13 +155,4 @@ Nesmie tvrdiť konečnú pravdu.
 
 ---
 
-## 6. Files
-
-```text
-README.md
-BOUNDARY.md
-VECTLAB_DEFENSIVE_RESEARCH_NOTE.md
-VECTLAB_EPISTEMIC_SHIELD_PROTOTYPE.md
-```
-
 End of file.
