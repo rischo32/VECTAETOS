@@ -253,10 +253,13 @@ It is not an optimization constraint.
 
 ## 6. Algebraic Curvature Domain
 
-Define the algebraic curvature domain:
+Define the algebraic curvature domain as the image of the first coboundary map:
 
 $$
-\mathcal{D}_{\mathrm{alg}}=\operatorname{Im}(d_1)
+\mathcal{D}_{\mathrm{alg}}
+:=
+\operatorname{Im}\!\left(d_1:C^1\to C^2\right)
+\subseteq C^2
 $$
 
 Equivalently:
@@ -264,11 +267,12 @@ Equivalently:
 $$
 \mathcal{D}_{\mathrm{alg}}
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
-\exists R\in\mathfrak{so}(8):\Delta=d_1R
-\}
+\;\middle|\;
+\exists R\in C^1\simeq\mathfrak{so}(8):
+\Delta=d_1(R)
+\right\}
 $$
 
 Because:
