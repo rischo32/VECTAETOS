@@ -1,0 +1,23 @@
+{
+  "package": "VECTAETOS_REQUIRED_EVIDENCE_AND_ASI_LIKE_ABSTRACT",
+  "created_utc_assumed": "2026-05-31",
+  "files": [
+    {
+      "name": "L0_L4_REQUIRED_EVIDENCE.md",
+      "size_bytes": 11243,
+      "sha256": "8d123de9de9f44d0120f9d12417f7ef057af9e4b917a6c2ab46e1f33869283f3"
+    },
+    {
+      "name": "ASI_LIKE_ABSTRACT.md",
+      "size_bytes": 8362,
+      "sha256": "79263d0323f0f20ad0f433054d9a3f47dc6796cb7fd4fa3d27375f841c245c96"
+    }
+  ],
+  "status": "generated",
+  "boundary": {
+    "authority": "descriptive_only",
+    "feedback_into_phi": false,
+    "optimization": false,
+    "decision_power": false
+  }
+}
