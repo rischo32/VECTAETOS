@@ -44,11 +44,9 @@ No layer feeds back into Φ.
 + ├── README.md              ✅ verejné
 + ├── CLAIM_BOUNDARIES.md           ✅ verejné
 + ├── PUBLIC_SAFETY_POSITION.md     /v koreni repozitara
-+ ├── L0_L4_REQUIRED_EVIDENCE.md    ❌ neverejné zatiaľ
++ ├── ASI_LIKE_SAFE_SYSTEM_ARCHITECTURE.md    ❌ neverejné zatiaľ
 + ├── ASI_LIKE_ABSTRACT.md          ✅ verejné
 + ├── SECURITY_DISCLOSURE_NOTICE.md ❌ neverejné zatiaľ
-
-+    └── private/
 +    ├── full_architecture.md      ❌ neverejné zatiaľ
 +    ├── downstream_paths.md       ❌ neverejné zatiaľ
 +    ├── runtime_risk_model.md     ❌ neverejné zatiaľ
