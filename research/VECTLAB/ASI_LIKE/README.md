@@ -39,12 +39,12 @@ No layer feeds back into Φ.
 ```
 
 + research/VECTLAB/ASI_like/
-+ ├── PUBLIC_README.md              ✅ verejné
++ ├── README.md              ✅ verejné
 + ├── CLAIM_BOUNDARIES.md           ✅ verejné
 + ├── PUBLIC_SAFETY_POSITION.md     ✅ verejné
 + ├── L0_L4_REQUIRED_EVIDENCE.md    ✅ verejné
 + ├── ASI_LIKE_ABSTRACT.md          ✅ verejné
-+ ├── SECURITY_DISCLOSURE_NOTICE.md ❌ neverejné zatiaľ
++ ├── SECURITY_DISCLOSURE_NOTICE.md ✅ verejné
 
 +    └── private/
 +    ├── full_architecture.md      ❌ neverejné zatiaľ
