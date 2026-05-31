@@ -1,10 +1,7 @@
-#### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. Nie je však myslený ako pseudoveda, produktový alignment systém ani regulačný mechanizmus.
-
-    VECTAETOS je post-AGI epistemická bezpečnostná architektúra:
-    nechráni behaviorálnu poslušnosť inteligentných systémov, ale štrukturálnu
-    reprezentovateľnosť stavov poznania.
-
-For a public-facing explanation of why VECTAETOS is a post-AGI epistemic
+#### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
+### VECTAETOS je post-AGI epistemická bezpečnostná architektúra.
+    
+For a public explanation of why VECTAETOS is a post-AGI epistemic
 security architecture rather than a behavioral alignment product, see
 [TERMINATOR_PROBLEM.md](./TERMINATOR_PROBLEM.md).
 ___
