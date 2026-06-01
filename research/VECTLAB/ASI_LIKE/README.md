@@ -38,17 +38,4 @@ No layer commands.
 No layer feeds back into Φ.
 ```
 
-    Všetky súbory máme, z morálneho hľadiska držané striktne offline
-
-+ research/VECTLAB/ASI_like/
-+ ├── README.md              ✅ verejné
-+ ├── CLAIM_BOUNDARIES.md           ✅ verejné
-+ ├── PUBLIC_SAFETY_POSITION.md     /v koreni repozitara
-+ ├── ASI_LIKE_SAFE_SYSTEM_ARCHITECTURE.md    ❌ neverejné zatiaľ
-+ ├── ASI_LIKE_ABSTRACT.md          ✅ verejné
-+ ├── SECURITY_DISCLOSURE_NOTICE.md ❌ neverejné zatiaľ
-+    ├── full_architecture.md      ❌ neverejné zatiaľ
-+    ├── downstream_paths.md       ❌ neverejné zatiaľ
-+    ├── runtime_risk_model.md     ❌ neverejné zatiaľ
-+    └── implementation_notes.md   ❌ neverejné zatiaľ
-+    
+    Ostatné súbory nie sú sprístupnené verejne, zatial sa jedná o výskumnú fázu, ak to bude neskôr relevantné, zmeníme prístup [ podmienka je L0-L4 verifikacia Vectaetosu™ a adversarialne testy Φ ]
