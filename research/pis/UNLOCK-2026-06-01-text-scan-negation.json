@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1",
+  "unlock_id": "UNLOCK-2026-06-01-text-scan-negation",
+  "mode": "solo_maintainer",
+  "paths_allowed": [
+    "guards/core/text_scan.py"
+  ],
+  "reason": "Add Slovak/Czech negation handling and regression coverage for guards.core.text_scan false-positive prevention.",
+  "signed_by": "Richard Fonfára",
+  "confirmation": "I confirm solo-maintainer protected-surface unlock.",
+  "ai_review": {
+    "used": true,
+    "advisory_only": true,
+    "notes": "AI review is advisory only. Unlock applies only to the exact text_scan.py protected path."
+  },
+  "expires_utc": "2026-06-02T23:59:00Z",
+  "ontology_authority": false,
+  "auto_fix_allowed": false
+}
