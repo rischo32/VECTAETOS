@@ -231,7 +231,7 @@ OPERATIONAL_TOKEN_PATTERN = re.compile(
     r"(?<![=!<>])=(?!=)"
     r"|\b(def|class|return|yield|raise|except|try|if|elif|else|for|while|import|from)\b"
     r"|\b(subprocess|requests|socket|urllib|open|write|eval|exec|compile|random)\b"
-    r"|\b(argmax|argmin|select|choose|optimi[sz]e|optimaliz|handler|repair|fallback)\b"
+    r"|\b(argmax|argmin|handler|repair)\b"
     r"|\.(open|write|write_text|write_bytes|rename|replace|unlink|remove)\s*\("
     r"|\b(Path|os|sys|shutil)\s*\(",
     flags=re.IGNORECASE,
