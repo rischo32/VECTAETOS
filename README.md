@@ -1,7 +1,9 @@
 #### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
 
     VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra.
-    
+___
+    VECTAETOS nemožno korektne pochopiť z jednej LLM odpovede; jedna odpoveď je vždy iba projekcia, nie vysledny cely stav pochopenia Φ
+___
 For a public explanation of why VECTAETOS is a post-AGI epistemic
 security architecture rather than a behavioral alignment product, see
 [TERMINATOR_PROBLEM.md](./TERMINATOR_PROBLEM.md).
