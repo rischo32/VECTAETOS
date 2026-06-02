@@ -1,0 +1,92 @@
+name: EK Core / Tests and GUARD-13
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ek-core-and-guard13:
+    name: EK Core tests + GUARD-13
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Manual repository checkout
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          git init --initial-branch=main .
+          git config --global --add safe.directory "$PWD"
+
+          git remote remove origin 2>/dev/null || true
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            if [ -z "${PR_NUMBER:-}" ]; then
+              echo "::error title=Missing PR number::github.event.pull_request.number is empty."
+              exit 2
+            fi
+
+            echo "Manual checkout for pull request #${PR_NUMBER}"
+            git fetch --no-tags --depth=1 origin "pull/${PR_NUMBER}/head"
+            git checkout --force FETCH_HEAD
+          else
+            echo "Manual checkout for push ${GITHUB_SHA}"
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA}"
+            git checkout --force FETCH_HEAD
+          fi
+
+          echo "Checked out commit: $(git rev-parse HEAD)"
+
+      - name: Show Python version
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+
+      - name: Compile EK core, tests, and GUARD-13 under python -S
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONNOUSERSITE=1
+          unset PYTHONPATH
+
+          python3 -S -m py_compile ek_core/vectaetos_phi_ek_core.py
+          python3 -S -m py_compile guards/ek_observable_non_authority_guard.py
+          python3 -S -m py_compile tests/test_ek_core_phi_ek_core.py
+          python3 -S -m py_compile tests/test_guard13_ek_observable_non_authority.py
+
+      - name: Run EK core tests under python -S
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONNOUSERSITE=1
+          unset PYTHONPATH
+
+          python3 -S tests/test_ek_core_phi_ek_core.py
+
+      - name: Run GUARD-13 canary tests under python -S
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONNOUSERSITE=1
+          unset PYTHONPATH
+
+          python3 -S tests/test_guard13_ek_observable_non_authority.py
+
+      - name: Run GUARD-13 strict repository scan under python -S
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONNOUSERSITE=1
+          unset PYTHONPATH
+
+          python3 -S guards/ek_observable_non_authority_guard.py --root . --mode strict
