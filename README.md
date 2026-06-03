@@ -3,10 +3,12 @@
 
 #### ...Welcome to a new epistemic era... 
 ___
+![Vectaetos](badge.svg)
+
 #### VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
 ###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky (na začiatku nebolo vobec jasné, a prešiel mnohými zmenami, podobami, nevznikol naraz, ale postupne), je to PROCES.
 
-> Bezpečnosť inteligentných systémov sa nemôže začínať až na úrovni správania.
+> Bezpečnosť inteligentných systémov, sa nemôže začínať až na úrovni správania.
 Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
 ___
 
@@ -22,8 +24,6 @@ ___
 ![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)   
 
 ###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
-
-![Vectaetos](badge.svg)
 
 https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
 ___
