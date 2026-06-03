@@ -1,7 +1,7 @@
 ### "Cogito cohaerenter ergo sum possibile"
 ###### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
 
-## Welcome to a new epistemic era
+#### ...Welcome to a new epistemic era... 
 ___
 #### VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
 ###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky (na začiatku nebolo vobec jasné, a prešiel mnohými zmenami, podobami, nevznikol naraz, ale postupne), je to PROCES.
