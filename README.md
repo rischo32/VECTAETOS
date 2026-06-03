@@ -2,6 +2,8 @@
 
     VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra.
 ___
+![Vectaetos](badge.svg)
+___
     VECTAETOS nemožno korektne pochopiť z jednej LLM odpovede; jedna odpoveď je vždy iba projekcia, nie vysledny cely stav pochopenia Φ
 ___
 For a public explanation of why VECTAETOS is a post-AGI epistemic
@@ -26,8 +28,6 @@ ___
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
 ![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)
-___
-![Vectaetos](badge.svg)
 ___
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
