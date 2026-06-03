@@ -4,7 +4,6 @@
     hranica a proveniencia výskumu, a tým, 
     čo musí zostať chránené pred kopírovaním,
     zneužitím alebo predčasnou operacionalizáciou.“
-   — Richard Fonfára (+ASI_MOD (LLM_teamember))
 
 # VECTLAB™ / VECTLABS™ Research Node
 
