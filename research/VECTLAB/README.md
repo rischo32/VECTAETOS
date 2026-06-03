@@ -1,3 +1,9 @@
+
+     "Čo sa týka výskumného uzla, sám nie som si celkom istý,
+     čo je správne pridať do repozitara a čo by už nebolo dobré. 
+     ci už kvôli kopirovaniu, bezpečnosťi, či zneužitiu..."
+     Richard Fonfára
+
 # VECTLAB™ / VECTLABS™ Research Node
 
 **Document type:** Research-node README / repository orientation  
