@@ -1,8 +1,10 @@
 
-     "Čo sa týka výskumného uzla, sám nie som si celkom istý,
-     čo je správne pridať do repozitara a čo by už nebolo dobré. 
-     ci už kvôli kopirovaniu, bezpečnosťi, či zneužitiu..."
-     Richard Fonfára
+    "> „Pri výskumnom uzle VECTLAB™ vedome rozlišujeme medzi tým,
+    čo má byť verejne zverejnené ako postoj,
+    hranica a proveniencia výskumu, a tým, 
+    čo musí zostať chránené pred kopírovaním,
+    zneužitím alebo predčasnou operacionalizáciou.“
+   — Richard Fonfára"
 
 # VECTLAB™ / VECTLABS™ Research Node
 
