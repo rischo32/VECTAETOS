@@ -212,12 +212,6 @@ Je to jeho architektonická cnosť."
 
 "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
-
-------------------
-## Vortex Root Core
-
-It is a non-agentic trajectory generator within fixed Φ topology.  
-It does not optimize, rank, recommend, mutate R, compute K(Φ), estimate κ, or select trajectories.
 ---------------------------------------
 CANONICAL STATUS
 
@@ -387,12 +381,10 @@ Zenodo DOIs:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18138226.svg)](https://doi.org/10.5281/zenodo.18138226) Entropic Humility  
 
 ## Structural Layer
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110) Epistemic Cryptography  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18911932.svg)](https://doi.org/10.5281/zenodo.18911932) Epistemic Cryptography (Extended)
 
 ## Representation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
-
 ____________________________________________
 ### External Systems
 
@@ -414,7 +406,7 @@ _________________________________________
 
 # VECTAETOS™
 
-[![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
+[![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
 
     **Onto-Epistemic Field Framework**  
     © 2026 Richard Fonfára / VECTAETOS Project.  
