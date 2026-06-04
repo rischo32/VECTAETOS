@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "unlock_id": "UNLOCK-2026-06-01-anchor-d-latex-rename",
+  "mode": "solo_maintainer",
+  "paths_allowed": [
+    "anchors/ANCHOR_D_ADMISSIBLE_CURVATURE_DOMAIN_NO_OPERATORNAME.md",
+    "anchors/ANCHOR_D_ADMISSIBLE_CURVATURE_DOMAIN.md"
+  ],
+  "reason": "Replace the corrected ANCHOR_D admissible curvature domain file after LaTeX operator-name cleanup; rename preserves canonical anchor path and removes broken LaTeX variant.",
+  "signed_by": "Richard Fonfára",
+  "confirmation": "I confirm solo-maintainer protected-surface unlock.",
+  "expires_utc": "2026-06-07T23:59:00Z",
+  "ontology_authority": false,
+  "auto_fix_allowed": false,
+  "ai_review": {
+    "used": true,
+    "advisory_only": true,
+    "notes": "AI review is advisory only. Unlock covers only the exact anchor rename paths listed above."
+  }
+}
