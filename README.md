@@ -6,6 +6,9 @@ ___
 ![Vectaetos](badge.svg)
 
 #### VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
+
+    Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
+
 ###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky, na začiatku vznikla AXIOMATICKA_INTELIGENCIA, odrázil som sa od Pána Bayes-a, Markov chain bol zvažovaný tiež.
 ##### Nevznikol naraz, ale postupne, matematika, príšla až neskor. Je to proces, trajektoria...
 
