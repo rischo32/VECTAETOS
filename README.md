@@ -1,4 +1,4 @@
-### "Cogito cohaerenter ergo sum possibile"
+### "Cogito cohaerenter, possibile sum ergo"
 ###### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
 
 #### ...Welcome to a new epistemic era... 
