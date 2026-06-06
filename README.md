@@ -408,7 +408,13 @@ _________________________________________
 
 [![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
 
-    **Onto-Epistemic Field Framework**  
+    Onto-Epistemic Field Framework
     © 2026 Richard Fonfára / VECTAETOS Project.  
     All projections are descriptive and non-prescriptive.  
     Usage is governed by the applicable VECTAETOS™ license layer.
+___
+    VECTAETOS™, VECTAETΦS™, VECTAETOS FOUNDATIONS, VECTLAB™, VECTLAB Research Node, 
+    and related marks are associated with the VECTAETOS project by Richard Fonfára. 
+    This work is independent unless explicitly marked as official. 
+    Use of the marks does not imply endorsement, certification, deployment validity, 
+    ňdefense readiness, operational capability, safety guarantee, or decision authority.
