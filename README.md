@@ -34,10 +34,18 @@ ___
 ##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
 
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
-[![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
+___
+#### LICENSES STACK : 
+→ VCL-2.0 : [![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
 
+→ AEPL-2.0 : [![AEPL-2.0-VECTAETOS DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574489.svg)](https://doi.org/10.5281/zenodo.20574489)
+
+→ VNAL-1.1 : [![VNAL-1.1 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20571153.svg)](https://doi.org/10.5281/zenodo.20571153) 
+
+→ VPL-1.0 : [![VPL-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574386.svg)](https://doi.org/10.5281/zenodo.20574386)
+
+→ VTP-1.0 : [![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
+___
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12869/badge)](https://www.bestpractices.dev/projects/12869)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
