@@ -32,3 +32,12 @@
 +    └── archive
 
     Nie je to hračka. Je to základ výskumnej infraštruktúry.
+___
+
+GitHub write access: forbidden
+GitHub read access: forbidden, later, only if needed
+Repo modification: forbidden, human only
+Publishing: forbidden, human only
+Zenodo: forbidden, human only
+License change: , forbiddenhuman only
+Canonical anchor change: forbidden, human only
