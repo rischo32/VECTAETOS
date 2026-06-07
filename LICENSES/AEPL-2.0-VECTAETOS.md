@@ -1,5 +1,6 @@
 # AXIOMATIC EPISTEMIC PUBLIC LICENSE
 ## AEPL-2.0-VECTAETOS
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574489.svg)](https://doi.org/10.5281/zenodo.20574489)
 
 **Status:** Draft for project and legal review  
 **Version:** 2.0-draft  
