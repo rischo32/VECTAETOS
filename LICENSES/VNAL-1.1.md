@@ -1,5 +1,6 @@
 # VECTAETOS™ NON-AGENTIC LICENSE
 ## VNAL-1.1
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20571153.svg)](https://doi.org/10.5281/zenodo.20571153)
 
 **Status:** Draft for project and legal review  
 **Version:** 1.1-draft  
