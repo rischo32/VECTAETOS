@@ -1,16 +1,102 @@
 cff-version: 1.2.0
-title: VECTAETOS
-message: "If you use this framework, please cite it as below."
+message: "If you use VECTAETOS™, please cite this repository and the relevant license-layer DOI(s)."
+title: "VECTAETOS™ — Onto-Epistemic Field Framework"
+type: software
 authors:
-  - family-names: Fonfára
-    given-names: Richard
-orcid: https://orcid.org/0009-0008-5980-8940
-doi: 10.5281/zenodo.18735195
-
+  - family-names: "Fonfára"
+    given-names: "Richard"
+    orcid: "https://orcid.org/0009-0008-5980-8940"
 abstract: >
-  Vectaetos™ defines the frozen ontological core of Φ as a non-agentic,
-  non-teleological epistemic field composed of eight invariant singularities
-  (Σ₁…Σ₈) and antisymmetric relational tensions Rᵢⱼ.
-  The 1.x lineage prohibits optimization, feedback loops,
-  teleological attractors, and adaptive convergence.
-  Entropic humility (κ) defines the ontological boundary of representability.
+  VECTAETOS™ is a non-agentic onto-epistemic field framework. It describes
+  the frozen ontological core Φ = (Σ, R) as a formal topology of invariant,
+  non-hierarchical singularities and antisymmetric relational tensions.
+  The 1.x lineage prohibits optimization, decision authority, reward-driven
+  convergence, feedback into Φ, teleological attractors, and adaptive mutation
+  of the ontological core. Entropic humility (κ) is treated as a boundary of
+  representability, not as a metric, score, KPI, or optimization target.
+keywords:
+  - VECTAETOS
+  - onto-epistemic field
+  - non-agentic architecture
+  - epistemic field
+  - epistemic cryptography
+  - semantic drift
+  - uncertainty geometry
+  - projection trace
+  - non-decision system
+  - license governance
+repository-code: "https://github.com/rischo32/VECTAETOS"
+url: "https://github.com/rischo32/VECTAETOS"
+doi: "10.5281/zenodo.18735195"
+version: "1.x-license-stack"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.18735195"
+    description: "Primary VECTAETOS repository / ontology-lineage DOI"
+  - type: doi
+    value: "10.5281/zenodo.18739552"
+    description: "VECTAETOS formal constraint / ontology lineage"
+  - type: doi
+    value: "10.5281/zenodo.19370185"
+    description: "VECTAETOS software / repository release context"
+  - type: doi
+    value: "10.5281/zenodo.20533697"
+    description: "VCL-2.0 — VECTAETOS™ Canonical Ontology License"
+  - type: doi
+    value: "10.5281/zenodo.20534913"
+    description: "VTP-1.0 — VECTAETOS™ Trademark and Compatibility Policy"
+  - type: doi
+    value: "10.5281/zenodo.20571153"
+    description: "VNAL-1.1 — VECTAETOS™ Non-Agentic License"
+  - type: doi
+    value: "10.5281/zenodo.20574386"
+    description: "VPL-1.0 — VECTAETOS™ Projection License"
+  - type: doi
+    value: "10.5281/zenodo.20574489"
+    description: "AEPL-2.0-VECTAETOS — VECTAETOS™ Axiomatic Epistemic Public License"
+  - type: doi
+    value: "10.5281/zenodo.19478683"
+    description: "Historical VNAL-1.0 / ASIMULATOR lineage"
+  - type: doi
+    value: "10.5281/zenodo.17931554"
+    description: "Historical AEPL-1.2-VECTAETOS license lineage"
+references:
+  - type: generic
+    title: "VECTAETOS™ Canonical Ontology License v2.0"
+    authors:
+      - family-names: "Fonfára"
+        given-names: "Richard"
+    doi: "10.5281/zenodo.20533697"
+  - type: generic
+    title: "VECTAETOS™ Trademark and Compatibility Policy v1.0"
+    authors:
+      - family-names: "Fonfára"
+        given-names: "Richard"
+    doi: "10.5281/zenodo.20534913"
+  - type: generic
+    title: "VECTAETOS™ Non-Agentic License v1.1"
+    authors:
+      - family-names: "Fonfára"
+        given-names: "Richard"
+    doi: "10.5281/zenodo.20571153"
+  - type: generic
+    title: "VECTAETOS™ Projection License v1.0"
+    authors:
+      - family-names: "Fonfára"
+        given-names: "Richard"
+    doi: "10.5281/zenodo.20574386"
+  - type: generic
+    title: "VECTAETOS™ - Axiomatic Epistemic Public License v2.0"
+    authors:
+      - family-names: "Fonfára"
+        given-names: "Richard"
+    doi: "10.5281/zenodo.20574489"
+preferred-citation:
+  type: software
+  title: "VECTAETOS™ — Onto-Epistemic Field Framework"
+  authors:
+    - family-names: "Fonfára"
+      given-names: "Richard"
+      orcid: "https://orcid.org/0009-0008-5980-8940"
+  doi: "10.5281/zenodo.18735195"
+  url: "https://github.com/rischo32/VECTAETOS"
