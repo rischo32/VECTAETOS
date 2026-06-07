@@ -1,5 +1,6 @@
 # VECTAETOS™ PROJECTION LICENSE
 ## VPL-1.0
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574386.svg)](https://doi.org/10.5281/zenodo.20574386)
 
 **Status:** Draft for project and legal review  
 **Version:** 1.0-draft  
