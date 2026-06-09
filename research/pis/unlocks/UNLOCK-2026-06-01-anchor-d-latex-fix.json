@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1",
+  "unlock_id": "UNLOCK-2026-06-01-anchor-d-latex-fix",
+  "mode": "solo_maintainer",
+  "paths_allowed": [
+    "anchors/ANCHOR_D_ADMISSIBLE_CURVATURE_DOMAIN.md"
+  ],
+  "reason": "Correct LaTeX equivalence formatting in the existing ANCHOR_D admissible curvature domain anchor without changing canonical meaning, file identity, file path, or ontology.",
+  "signed_by": "Richard Fonfára",
+  "confirmation": "I confirm solo-maintainer protected-surface unlock.",
+  "expires_utc": "2026-06-07T23:59:00Z",
+  "ontology_authority": false,
+  "auto_fix_allowed": false,
+  "ai_review": {
+    "used": true,
+    "advisory_only": true,
+    "notes": "AI review is advisory only. Unlock covers only the exact anchor path listed above and only the LaTeX formatting correction."
+  }
+}

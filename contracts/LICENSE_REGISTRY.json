@@ -1,0 +1,94 @@
+{
+  "schema": "vectaetos-license-registry-v0.2",
+  "name": "VECTAETOS License Stack Registry",
+  "status": "active-boundary-registry-candidate",
+  "execution_power": "none",
+  "feedback_into_phi": "none",
+  "ontology_authority": "none",
+  "legal_validity_claim": "none",
+  "hash_manifest": "LICENSES/LICENSE_INTEGRITY_MANIFEST.sha256",
+  "hash_manifest_required": false,
+  "note": "Set hash_manifest_required to true only after LICENSE_INTEGRITY_MANIFEST.sha256 is generated from the final license files and committed.",
+  "licenses": [
+    {
+      "id": "VCL-2.0",
+      "role": "canonical ontology / documentation",
+      "path": "LICENSES/VCL-2.0.md",
+      "doi": "10.5281/zenodo.20533697",
+      "status": "published",
+      "required_markers": [
+        "## VCL-2.0",
+        "Custom canonical ontology / documentation license",
+        "This license does not make any person, institution, implementation, artifact, report, projection, guard, signature, hash, DOI, ledger, or derivative an authority over Φ.",
+        "license ≠ ontology",
+        "hash ≠ truth",
+        "audit ≠ decision"
+      ]
+    },
+    {
+      "id": "VTP-1.0",
+      "role": "identity / compatibility policy",
+      "path": "LICENSES/VTP-1.0.md",
+      "doi": "10.5281/zenodo.20534913",
+      "status": "published",
+      "required_markers": [
+        "## VTP-1.0",
+        "Trademark, public identity, and compatibility-use policy",
+        "**Execution Power:** none",
+        "**Feedback into Φ:** none",
+        "Neither owns Φ.",
+        "Neither decides truth.",
+        "Compatibility does not imply endorsement, canonical status, or safety."
+      ]
+    },
+    {
+      "id": "VNAL-1.1",
+      "role": "implementation behavior",
+      "path": "LICENSES/VNAL-1.1.md",
+      "doi": "10.5281/zenodo.20571153",
+      "status": "published",
+      "required_markers": [
+        "## VNAL-1.1",
+        "Custom behavioral implementation license with epistemic boundary conditions",
+        "**Execution Power:** none",
+        "**Feedback into Φ:** none",
+        "clearly distinguish implementation behavior from ontology",
+        "make the implementation mutate Φ, canonical anchors, or protected ontology",
+        "It does not guarantee truth, safety, deployment validity, or decision legitimacy."
+      ]
+    },
+    {
+      "id": "VPL-1.0",
+      "role": "projection / trace artifacts",
+      "path": "LICENSES/VPL-1.0.md",
+      "doi": "10.5281/zenodo.20574386",
+      "status": "published",
+      "required_markers": [
+        "## VPL-1.0",
+        "Custom projection / symbolic artifact / trace license",
+        "**Execution Power:** none",
+        "**Feedback into Φ:** none",
+        "projection ≠ interpretation",
+        "hash ≠ truth",
+        "EK trace ≠ deployment validation",
+        "They do not decide, optimize, intervene, rank, recommend, validate deployment, prove truth, or mutate Φ."
+      ]
+    },
+    {
+      "id": "AEPL-2.0-VECTAETOS",
+      "role": "software / tooling / guards",
+      "path": "LICENSES/AEPL-2.0-VECTAETOS.md",
+      "doi": "10.5281/zenodo.20574489",
+      "status": "published",
+      "required_markers": [
+        "## AEPL-2.0-VECTAETOS",
+        "Custom source-available / research-permissive software and tooling license with epistemic boundary conditions",
+        "**Execution Power:** none",
+        "**Feedback into Φ:** none",
+        "Guards must not define ontology, prove truth, authorize deployment, rewrite canonical meaning",
+        "A configured boundary appears to be violated.",
+        "These mechanisms must not be represented as proof of semantic truth, ontology validity, safety, correctness, or deployment readiness."
+      ]
+    }
+  ]
+}

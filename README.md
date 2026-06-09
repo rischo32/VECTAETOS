@@ -1,40 +1,57 @@
-#### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
+### "Cogito cohaerenter, possibile sum ergo"
+###### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
 
-    VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra.
-    
-For a public explanation of why VECTAETOS is a post-AGI epistemic
-security architecture rather than a behavioral alignment product, see
-[TERMINATOR_PROBLEM.md](./TERMINATOR_PROBLEM.md).
+#### ...Welcome to a new epistemic era... 
 ___
-####  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
-___
-##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
-___
-https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
-___
-##### Pozastavená je legitimácia a operatívna expanzia vyšších vrstiev.
+![Vectaetos](badge.svg)
 
-    Nie samotné fundamentálne jadro Φ
+#### VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
+
+    Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
+
+###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky, na začiatku vznikla AXIOMATICKA_INTELIGENCIA, odrázil som sa od Pána Bayes-a, Markov chain bol zvažovaný tiež.
+##### Nevznikol naraz, ale postupne, matematika, príšla až neskor. Je to proces, trajektoria...
+
+> Bezpečnosť inteligentných systémov, sa nemôže začínať až na úrovni správania.
+Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
 ___
-![References VECTLAB Research Node](https://img.shields.io/badge/references-VECTLAB%E2%84%A2%20Research%20Node-lightgrey)
+
+### "Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných."
+
+#### To nie je slovná hračka. To je fundamentálne iná ontológia.
+___
 [![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=for-the-badge&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/rischo32/Vectaetos)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 [![Vectaetos](https://img.shields.io/badge/ΦVectaetos.eu-0066cc?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTIxLjQgMTYuM2wtMS40IDEuNEwyMC40IDIxLjRsLTEuNCAxLjRMMjUuOCAxNy43bC0xLjQtMS40TDE2IDEyLjVsMS40IDEuM0wyMS40IDE2LjN6Ii8+PC9zdmc+)](https://vectaetos.eu)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
-![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)
-___
-![Vectaetos](badge.svg)
-___
-[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19370185.svg)](https://doi.org/10.5281/zenodo.19370185)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
+![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)   
 
+###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+
+https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
+___
+##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
+
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
+___
+#### LICENSES STACK : 
+→ VCL-2.0 : [![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
+
+→ AEPL-2.0 : [![AEPL-2.0-VECTAETOS DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574489.svg)](https://doi.org/10.5281/zenodo.20574489)
+
+→ VNAL-1.1 : [![VNAL-1.1 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20571153.svg)](https://doi.org/10.5281/zenodo.20571153) 
+
+→ VPL-1.0 : [![VPL-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574386.svg)](https://doi.org/10.5281/zenodo.20574386)
+
+→ VTP-1.0 : [![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
+___
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12869/badge)](https://www.bestpractices.dev/projects/12869)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
 ___
 #### Level 0 — Fundamental Repository Perimeter
+###### These guards protect the root boundary of the repository.
 [![Kanonická ontologická stráž](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-ontology-guard.yml)
 [![vectaetos-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-boundary-guard.yml)
 [![semantic-integrity](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/semantic-integrity.yml)
@@ -42,43 +59,49 @@ ___
 [![vectaetos-code-behavior-audit](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vectaetos-code-behavior-audit.yml)
 [![empirical-claim-guard](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/empirical-claim-guard.yml)
 [![repo-layer-boundary-guard](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-layer-boundary-guard.yml)
-[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
 
-    These guards protect the root boundary of the repository.
 ___
 #### Level 1 — Specialized Ontological Perimeter
 [![triality-guard](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/triality-guard.yml)
 [![qe-aporia-guard](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/qe-aporia-guard.yml)
 [![Vector Drift Guard](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/vector_drift_guard.yml)
 [![Coherence Vocabulary Guard](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/coherence_vocabulary_guard_workflow.yml)
-___
-#### Level 2 — Semantic / Ontological Vocabulary Perimeter
-
-#### Level 3 — Code Behavior Perimeter
-
-#### Level 4 — Bridge / Projection / Trace Perimeter
-
-#### Level 5 — Runtime / Evidence / Release Perimeter
-[![license-stack-guard](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml)
-___
-
-    "Ostatné vrstvy perimeter bezpecnostnej matice a ich strazcovia budú radené až ku koncu"
-
 [![Epistemic Observatory](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/observatory.yml)
 [![Φ State Update](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/phi_state.yml)
 [![Vortex Determinism Verification](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/vortex_determinism.yml)
-___
+[![no-feedback-loop-guard](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/no-feedback-loop-guard.yml)
 
+___
+#### Level 2 — Semantic / Ontological Vocabulary Perimeter
+___
+#### Level 3 — Code Behavior Perimeter
+___
+#### Level 4 — Bridge / Projection / Trace Perimeter
+___
+#### Level 5 — Runtime / Evidence / Release Perimeter
+[![license-stack-guard](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/VECTAETOS/actions/workflows/license-stack-guard.yml)
+
+#### Dodatočné GUARDY : 
+[![Guard PIS 01 / Minimal Protected Surface](https://github.com/rischo32/VECTAETOS/actions/workflows/protected-surface-guard.yml/badge.svg)](https://github.com/rischo32/VECTAETOS/actions/workflows/protected-surface-guard.yml)
 [![repo-boundaries](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/repo-boundaries.yml)
 [![anchor-hash](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/anchor-hash.yml)
 [![canonical-anchor](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml/badge.svg)](https://github.com/rischo32/Vectaetos/actions/workflows/canonical-anchor.yml)
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
 [![Repository Summary](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
-___
-             "Cogito cohaerenter ergo sum possibile"
 
-                 "Welcome to a new epistemic era"
+___
+    Ne-rozhodovacia architektúra neznamená, že okolo nej neexistujú rozhodnutia. Znamená, že žiadne rozhodnutie nesmie byť vložené do Φ ako jeho vnútorná vlastnosť, cieľ, preferencia alebo autorita.
+    VECTAETOS™ môže určiť hranicu reprezentovateľnosti, ale nesmie z nej spraviť verdikt typu „lepšie“, „správne“, „bezpečné“ alebo „má sa vykonať“.
+    Rozhodnutie patrí mimo Φ: človeku, governance, repozitárovému procesu alebo implementačnému perimeteru — a aj tam iba ako verziovaný záväzok, nie ako pravda.          
+___ 
+    VECTAETOS nemožno korektne pochopiť z jednej LLM odpovede; jedna odpoveď je vždy iba projekcia, nie celé pochopenie Φ
+___
+
+For a public explanation of why VECTAETOS is a post-AGI epistemic
+security architecture rather than a behavioral alignment product, see
+[TERMINATOR_PROBLEM.md](./TERMINATOR_PROBLEM.md).
+___
 
 > Vectaetos does not generate intelligence.
 > It constrains the space in which intelligence can remain valid.
@@ -86,15 +109,7 @@ ___
      Ontologically Asymmetric Architectural Triality [ OAAT ]
 
 #### Je architektúra, kde systém tvorí jeden celok, ale jeho vrstvy nemajú rovnaký ontologický status.
-
-> Bezpečnosť inteligentných systémov sa nemôže začínať až na úrovni správania.
-Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
 ___
-
-## "Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných."
-
-#### To nie je slovná hračka. To je fundamentálne iná ontológia.
-
 #### VECTAETOS™ stojí na tom, že:
 
     Nekoná z predpokladu pravdy, 
@@ -105,9 +120,12 @@ ___
     vyššie vrstvy sú ontologicky odvodené 
     a nemajú standalone legitimitu.
 __________________________
-#### VECTAETOS™ grounds ontology, ASIMULATOR™ explores procedural possibility, and ASI_MOD™ articulates dialogue; the three repositories form one coherent architecture only so long as none collapses into the ontological role of another.
-
-#### VECTAETOS™ zakladá ontológiu, ASIMULATOR™ skúma procedurálne možnosti a ASI_MOD™ artikuluje dialóg; tri repozitáre tvoria jednu koherentnú architektúru len dovtedy, kým sa žiadne z nich nezrúti do ontologickej úlohy iného.
+    Repozitárny guard VECTAETOS exponuje sémantický, architektonický
+    a behaviorálny drift voči kanonickým anchorom a behaviorálnym kontraktom.
+    Nedefinuje ontológiu, nedokazuje pravdu, nevaliduje bezpečnosť,
+    neoptimalizuje architektúru a neautorizuje deployment. LSP diagnostika je
+    poradná. CLI/CI enforcement chráni iba stav repozitára. Žiadny guard nesmie
+    mutovať Φ, Σ, R, K(Φ), κ, QE, kanonické anchory ani hranice downstream vrstiev.
 __________________________
 > Vectaetos™ models tension, paradox, coherence boundaries, and aporia as geometric phenomena — not as errors.
 
@@ -148,16 +166,16 @@ ___
 
 ___
 
-
 | Tᵢ | Cᵢ | μᵢ | Aᵢⱼ | h | sú auditné observables.
 Nie sú K(Φ).
 Nie sú κ.
 Nie sú rozhodnutie.
 Nie sú validácia deploymentu.
 Nezasahujú späť do Φ.
+
 ____
-Nemáme algoritmus, lebo ho nepotrebujeme.
-Máme priestor, v ktorom algoritmy strácajú zmysel.
+    Nemáme algoritmus, lebo ho nepotrebujeme.
+    Máme priestor, v ktorom algoritmy strácajú zmysel.
 ____
 Vectaetos is no longer a proposal.
 
@@ -179,13 +197,13 @@ Nie systém odpovedí.
 Ale systém reprezentovateľnosti.
 __________________________
 A security architecture that protects the structural
- representability of knowledge states rather than
- the behavioral alignment of intelligent systems.
+representability of knowledge states rather than
+the behavioral alignment of intelligent systems.
 
-Vectaetos je ontologická architektúra inteligencie
- postavená na princípe entropickej pokory,
- ktorá modeluje dynamiku epistemických trajektórií
- bez teleológie, optimalizácie a rozhodovacej autority.
+    VECTAETOS je ontologická architektúra inteligencie
+    postavená na princípe entropickej pokory,
+    ktorá modeluje dynamiku epistemických trajektórií
+    bez teleológie, optimalizácie a rozhodovacej autority.
  ___________________________________
 Vectaetos is a non-agentic epistemic field formalism designed to describe how meaning, 
 coherence, and uncertainty interact within complex questions.
@@ -196,32 +214,19 @@ It preserves the conditions under which understanding remains possible.
 Truth is not treated as a point.  
 Truth is treated as a field.
 ________________________________
+
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
 
 "Vectaetos nepredstiera poznanie pravdy o realite.
 Operuje opatrne, z vedomej neistoty o nej."
-
-Namiesto hľadania odpovedí skúma, čo robí otázku zmysluplnou.
-Vectaetos nerozhoduje.
-
-------------------
-## Vortex Root Core
-
-The Simulation Vortex is defined by [`docs/VORTEX_ROOT_CORE_0.1.md`](docs/VORTEX_ROOT_CORE_0.1.md).
-
-It is a non-agentic trajectory generator within fixed Φ topology.  
-It does not optimize, rank, recommend, mutate R, compute K(Φ), estimate κ, or select trajectories.
 ---------------------------------------
 CANONICAL STATUS
 
-Vectaetos is defined through canonical anchors contained in this repository.
-
-Canonical definitions are immutable.
-
-Future versions may extend the framework, but never redefine its ontological core.
-
-Any ontological change creates a new lineage.
++ Vectaetos is defined through canonical anchors contained in this repository.
++ Canonical definitions are immutable.
++ Future versions may extend the framework, but never redefine its ontological core.
++ Any ontological change creates a new lineage.
 
 ## Canonical Releases
 
@@ -238,12 +243,10 @@ No ontological modification. Formal precision extension only.
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552)
 
 ---
-
 All releases are archival and immutable.  
 Any ontological change creates a new major lineage.
 
 ------------------------------------------------------------
-
 WHAT VECTAETOS IS
 
 Vectaetos defines Φ — an epistemic field.
@@ -252,17 +255,17 @@ Vectaetos defines Φ — an epistemic field.
 Φ is not an intelligence.  
 Φ is not an algorithm.
 
-Φ is a structured configuration of meaning under tension.
+    Φ is a structured configuration of meaning under tension.
 
 Vectaetos shifts epistemic focus:
 
-objects      → relations  
-answers      → coherence  
-decisions    → boundaries  
+    objects      → relations  
+    answers      → coherence  
+    decisions    → boundaries  
 
 Vectaetos does not produce solutions.
 
-It reveals the structural configuration that generates a question.
+    It reveals the structural configuration that generates a question.
 ------------------------------------------------------------
 
 WHAT VECTAETOS IS NOT
@@ -288,114 +291,16 @@ ONTOLOGICAL CORE
 
 The field is stabilized by eight axiomatic centers.
 
-INT — Intention  
-LEX — Existence  
-VER — Truth  
-LIB — Freedom  
-UNI — Unity  
-REL — Reciprocity  
-WIS — Wisdom  
-CRE — Creation  
+    INT — Intention  
+    LEX — Existence  
+    VER — Truth  
+    LIB — Freedom  
+    UNI — Unity  
+    REL — Reciprocity  
+    WIS — Wisdom  
+    CRE — Creation  
 
 These axioms form the topological geometry of meaning within the field.
-------------------------------------------------------------
-
-QE — Qualitative Epistemic Aporia
-
-QE represents a legitimate epistemic state in which representability reaches an aporetic boundary.
-
-It marks non-realizability of a coherent projection under the current field configuration.
-
-QE does not force substitution, recovery, completion, or artificial continuation.
-
-Silence is therefore a valid descriptive outcome.
-
-------------------------------------------------------------
-
-EPISTEMIC GATES
-
-All inputs pass through the epistemic gates of representability.
-
-3Gate:
-
-Width  
-Depth  
-Height  
-
-These gates evaluate whether a question can exist coherently within the epistemic space.
-
-If representability fails, the field Φ is never accessed.
-------------------------------------------------------------
-
-COHERENCE
-
-K(Φ) — Coherence Predicate
-
-K(Φ) evaluates whether a configuration within Φ remains structurally coherent.
-
-κ — Coherence Boundary
-
-A non-numerical boundary beyond which meaning collapses into contradiction.
-------------------------------------------------------------
-
-NON-INTERVENTION REGIME
-
-NIR — Non-Intervention Regime
-
-NIR is a global ontological constraint.
-
-It prevents the transformation of epistemic projection into operational authority.
-
-NIR is not a module and not a pipeline step.
-
-It is an immunity condition of the field itself.
-
-If intervention would occur, the system weakens, redirects, or remains silent.
-
-
-------------------------------------------------------------
-
-SIMULATION VORTEX
-
-Vectaetos includes an exploratory external component called the Simulation Vortex.
-
-The vortex:
-
-generates candidate trajectories  
-explores structural deformation of Φ  
-never decides  
-never optimizes  
-never modifies Φ  
-
-The vortex exposes possible configurations of meaning.
-
-It never prescribes action.
-------------------------------------------------------------
-
-RUNIC PROJECTION
-
-Runes are symbolic projections of the state of Φ.
-
-They are descriptive glyphs representing structural coherence or fragmentation.
-
-Projekcie, runy a glyphy vystavujú deskriptívne štrukturálne stavy; neinterpretujú, nepredpisujú, nerozhodujú, neodporúčajú ani nepíšu späť do Φ.
-
-They indicate epistemic configuration only.
-------------------------------------------------------------
-
-LANGUAGE LAYER
-
-Large Language Models are used only as linguistic adapters.
-
-Their role is to translate projections into human language.
-
-LLMs:
-
-do not reason for the system  
-do not control the system  
-do not modify Φ  
-
-They render text.
 ------------------------------------------------------------
 
 CANONICAL DIALOGUE PIPELINE
@@ -410,17 +315,9 @@ Human
 → LLM Adapter
 → Descriptive Output
 
-
 There are no feedback loops.
 No component issues commands.
 The system remains descriptive.
-
-    Repozitárny guard VECTAETOS exponuje sémantický, architektonický
-    a behaviorálny drift voči kanonickým anchorom a behaviorálnym kontraktom.
-    Nedefinuje ontológiu, nedokazuje pravdu, nevaliduje bezpečnosť,
-    neoptimalizuje architektúru a neautorizuje deployment. LSP diagnostika je
-    poradná. CLI/CI enforcement chráni iba stav repozitára. Žiadny guard nesmie
-    mutovať Φ, Σ, R, K(Φ), κ, QE, kanonické anchory ani hranice downstream vrstiev.
 ------------------------------------------------------------
 
 
@@ -438,8 +335,6 @@ Vectaetos is not intended for automation or decision delegation.
 
 ------------------------------------------------------------
 
-------------------------------------------------------------
-
 CITATION
 
 Fonfára, Richard (2026)
@@ -454,25 +349,6 @@ See `CITATION.cff` for full metadata.
 
 ------------------------------------------------------------
 
-## Licensing
-
-Vectaetos Core:
-- VCL-1.0 (non-authoritative ontology)
-
-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18395048.svg)](https://doi.org/10.5281/zenodo.18395048) VCL-1.0
-  
-Implementations (Vortex / Asimulator):
-- VNAL-1.0 (behavioral restrictions)
-
-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19478683.svg)](https://doi.org/10.5281/zenodo.19478683)
-
-- AEPL-1.2
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17931554.svg)](https://doi.org/10.5281/zenodo.17931554) 
-
-These layers are strictly separated.
-
-See LICENSE.md
-
 ## Compliance
 
 Vectaetos 1.x includes a regulatory position statement
@@ -483,15 +359,6 @@ See:
 /infrastructure/legal//EU_AI_ACT_POSITION.md
 
 ------------------------------------------------------------
-## Papers
-
-- Vectaetos: Epistemic Field Architecture  
-  [PDF](papers/Vectaetos_ArXiv_Preprint_v1.pdf)
-
-- Epistemic Cryptography  
-  [Zenodo DOI](https://zenodo.org/records/18911932)
-
-  ______________________
 
 FINAL NOTE
 
@@ -520,15 +387,12 @@ Zenodo DOIs:
 ## Core Lineage
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18076787.svg)](https://doi.org/10.5281/zenodo.18076787) Intrinsic Humility  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18138226.svg)](https://doi.org/10.5281/zenodo.18138226) Entropic Humility  
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18739552.svg)](https://doi.org/10.5281/zenodo.18739552) Vectaetos™ 1.1
 
 ## Structural Layer
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18676110.svg)](https://doi.org/10.5281/zenodo.18676110) Epistemic Cryptography  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18911932.svg)](https://doi.org/10.5281/zenodo.18911932) Epistemic Cryptography (Extended)
 
 ## Representation
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19148358.svg)](https://doi.org/10.5281/zenodo.19148358) TetraGlyph
-
 ____________________________________________
 ### External Systems
 
@@ -548,12 +412,17 @@ These violate the ontological constraints of VECTAETOS.
 It is governed by a separate license (VNAL-1.0).
 _________________________________________
 
-    ## VECTAETOS™
+# VECTAETOS™
+
+[![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
 
     Onto-Epistemic Field Framework
-
-    © 2026 Vectaetos
-    Developed by Richard Fonfára
-
-    All projections are descriptive and non-prescriptive.
-    Usage is governed by the applicable license layer.
+    © 2026 Richard Fonfára / VECTAETOS Project.  
+    All projections are descriptive and non-prescriptive.  
+    Usage is governed by the applicable VECTAETOS™ license layer.
+___
+    VECTAETOS™, VECTAETΦS™, VECTAETOS FOUNDATIONS, VECTLAB™, VECTLAB Research Node, 
+    and related marks are associated with the VECTAETOS project by Richard Fonfára. 
+    This work is independent unless explicitly marked as official. 
+    Use of the marks does not imply endorsement, certification, deployment validity, 
+    ňdefense readiness, operational capability, safety guarantee, or decision authority.

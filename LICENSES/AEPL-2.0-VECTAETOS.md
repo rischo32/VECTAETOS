@@ -1,15 +1,19 @@
 # AXIOMATIC EPISTEMIC PUBLIC LICENSE
 ## AEPL-2.0-VECTAETOS
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574489.svg)](https://doi.org/10.5281/zenodo.20574489)
 
 **Status:** Draft for project and legal review  
 **Version:** 2.0-draft  
-**License type:** Custom software / tooling license with epistemic boundary conditions  
+**License type:** Custom source-available / research-permissive software and tooling license with epistemic boundary conditions  
 **Applies to:** code, guards, scripts, adapters, tools, tests, contracts, and repository automation  
-**Legal note:** Not legal advice.
+**Canonical Status:** candidate  
+**Legal Status:** Not legal advice; legal review pending  
+**Execution Power:** none  
+**Feedback into Φ:** none
 
 ## 1. Purpose
 
-This license governs the use, copying, modification, redistribution, and embedding of VECTAETOS™ software, tooling, guards, adapters, scripts, contracts, and implementation artefacts.
+This license governs the use, copying, modification, redistribution, and embedding of VECTAETOS™ software, tooling, guards, adapters, scripts, contracts, and implementation artifacts.
 
 Its purpose is to permit research and implementation while preventing the software layer from being misrepresented as an ontology, decision authority, optimizer, deployment validator, or truth system.
 
@@ -141,9 +145,11 @@ VECTAETOS safety score
 VECTAETOS decision engine
 ```
 
-## 10. Termination
+## 10. Non-Satisfaction of Conditions
 
-Any violation of Sections 4, 5, 6, 7, 8, or 9 terminates the rights granted under this license until the violation is corrected.
+If Sections 4, 5, 6, 7, 8, or 9 are violated, the permission granted by this license is not satisfied for the violating use.
+
+Rights may be restored once the violation is corrected, misleading claims are removed, and the covered software is brought back into compliance with this license.
 
 ## 11. No Warranty
 

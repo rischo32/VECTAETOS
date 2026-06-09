@@ -39,7 +39,7 @@ be the fixed set of invariant axiomatic singularities.
 Let:
 
 $$
-R \in \mathfrak{so}(8)
+R \in C^1\simeq\mathfrak{so}(8)
 $$
 
 be the antisymmetric relational tension matrix, with:
@@ -170,13 +170,13 @@ $$
 by:
 
 $$
-(d_1R)_{ijk}=R_{ij}+R_{jk}+R_{ki}
+(d_1(R))_{ijk}=R_{ij}+R_{jk}+R_{ki}
 $$
 
 The epistemic curvature is:
 
 $$
-\Delta=d_1R
+\Delta=d_1(R)
 $$
 
 Thus:
@@ -230,7 +230,7 @@ $$
 whenever:
 
 $$
-\Delta=d_1R
+\Delta=d_1(R)
 $$
 
 Important clarification:
@@ -258,7 +258,7 @@ Define the algebraic curvature domain as the image of the first coboundary map:
 $$
 \mathcal{D}_{\mathrm{alg}}
 :=
-\operatorname{Im}\!\left(d_1:C^1\to C^2\right)
+\mathrm{Im}\left(d_1:C^1\to C^2\right)
 \subseteq C^2
 $$
 
@@ -270,7 +270,8 @@ $$
 \left\{
 \Delta\in C^2
 \;\middle|\;
-\exists R\in C^1\simeq\mathfrak{so}(8):
+\exists R\in C^1\simeq\mathfrak{so}(8)
+\text{ such that }
 \Delta=d_1(R)
 \right\}
 $$
@@ -322,7 +323,7 @@ define the induced signed cochain action:
 $$
 (\tau\cdot \Delta)_{ijk}
 =
-\operatorname{sgn}(\tau|_{ijk})\,
+\mathrm{sgn}\left(\tau|_{\{i,j,k\}}\right)\,
 \Delta_{\tau(i)\tau(j)\tau(k)}
 $$
 
@@ -375,19 +376,19 @@ $$
 =
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T})
+\mathrm{Fix}(\mathcal{T})
 $$
 
 where:
 
 $$
-\operatorname{Fix}(\mathcal{T})
+\mathrm{Fix}(\mathcal{T})
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
+\;\middle|\;
 P_{\mathcal{T}}\Delta=\Delta
-\}
+\right\}
 $$
 
 Thus:
@@ -399,7 +400,7 @@ $$
 \Delta\in C^2
 \mid
 \exists R\in\mathfrak{so}(8):
-\Delta=d_1R,\;
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta
 \}
@@ -473,7 +474,7 @@ $$
 \Delta\in C^2
 \mid
 \exists R\in\mathfrak{so}(8):
-\Delta=d_1R,\;
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta,\;
 \mathrm{Rep}(\Delta)=1
@@ -489,7 +490,7 @@ $$
 =
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T})
+\mathrm{Fix}(\mathcal{T})
 \cap
 \mathcal{R}_{\mathrm{rep}}
 }
@@ -500,11 +501,11 @@ where:
 $$
 \mathcal{R}_{\mathrm{rep}}
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
+\;\middle|\;
 \mathrm{Rep}(\Delta)=1
-\}
+\right\}
 $$
 
 𝒟 is the domain of admissible curvature.
@@ -524,7 +525,13 @@ $$
 Define:
 
 $$
-E=\{\Phi=(\Sigma,R)\mid d_1R\in\mathcal{D}\}
+E=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+R\in C^1\simeq\mathfrak{so}(8),\;
+d_1(R)\in\mathcal{D}
+\right\}
 $$
 
 Thus:
@@ -532,7 +539,7 @@ Thus:
 $$
 \Phi\in E
 \iff
-d_1R\in\mathcal{D}
+d_1(R)\in\mathcal{D}
 $$
 
 E is the space of representable epistemic field configurations.
@@ -561,7 +568,7 @@ $$
 \boxed{
 K(\Phi)=1
 \iff
-d_1R\in\mathcal{D}
+d_1(R)\in\mathcal{D}
 }
 $$
 
@@ -569,7 +576,7 @@ $$
 \boxed{
 K(\Phi)=0
 \iff
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 }
 $$
 
@@ -594,7 +601,12 @@ K is a predicate of ontological representability.
 Define the epistemic carrier:
 
 $$
-\Xi=\{\Phi\mid K(\Phi)=1\}
+\Xi=
+\left\{
+\Phi
+\;\middle|\;
+K(\Phi)=1
+\right\}
 $$
 
 In the canonical 1.x interpretation:
@@ -662,7 +674,12 @@ $$
 Define:
 
 $$
-QE=\{\Phi\mid K(\Phi)=0\}
+QE=
+\left\{
+\Phi
+\;\middle|\;
+K(\Phi)=0
+\right\}
 $$
 
 Equivalently:
@@ -671,7 +688,7 @@ $$
 \boxed{
 QE
 \iff
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 }
 $$
 
@@ -692,7 +709,7 @@ QE is the state of non-representability.
 When:
 
 $$
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 $$
 
 the field configuration does not belong to \(E\).
@@ -706,13 +723,16 @@ The epistemic condition is QE.
 A trajectory:
 
 $$
-\gamma=\{\Phi(t_0),\Phi(t_1),\ldots,\Phi(t_n)\}
+\gamma=
+\left\{
+\Phi(t_0),\Phi(t_1),\ldots,\Phi(t_n)
+\right\}
 $$
 
 is admissible iff:
 
 $$
-\forall t_i:\; d_1R(t_i)\in\mathcal{D}
+\forall t_i:\; d_1\!\left(R(t_i)\right)\in\mathcal{D}
 $$
 
 Thus:
@@ -724,7 +744,7 @@ $$
 If:
 
 $$
-\exists t_i:\; d_1R(t_i)\notin\mathcal{D}
+\exists t_i:\; d_1\!\left(R(t_i)\right)\notin\mathcal{D}
 $$
 
 then:
@@ -775,7 +795,7 @@ QE is not represented as field content.
 QE is the state of non-representability that occurs when:
 
 $$
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 $$
 
 If QE occurs, the system may only expose a non-representability marker.
@@ -839,7 +859,7 @@ $$
 
 $$
 \boxed{
-\Delta=d_1R
+\Delta=d_1(R)
 }
 $$
 
@@ -847,26 +867,34 @@ $$
 \boxed{
 \mathcal{D}
 =
-\{
-\Delta
-\mid
-\Delta=d_1R,\;
+\left\{
+\Delta\in C^2
+\;\middle|\;
+\exists R\in C^1\simeq\mathfrak{so}(8)
+\text{ such that }
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta,\;
 \mathrm{Rep}(\Delta)=1
-\}
+\right\}
 }
 $$
 
 $$
 \boxed{
-E=\{\Phi=(\Sigma,R)\mid d_1R\in\mathcal{D}\}
+E=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+R\in C^1\simeq\mathfrak{so}(8),\;
+d_1(R)\in\mathcal{D}
+\right\}
 }
 $$
 
 $$
 \boxed{
-K(\Phi)=1\iff d_1R\in\mathcal{D}
+K(\Phi)=1\iff d_1(R)\in\mathcal{D}
 }
 $$
 
@@ -884,7 +912,7 @@ $$
 
 $$
 \boxed{
-QE\iff d_1R\notin\mathcal{D}
+QE\iff d_1(R)\notin\mathcal{D}
 }
 $$
 

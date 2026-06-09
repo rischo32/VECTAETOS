@@ -1,11 +1,16 @@
 # VECTAETOS™ TRADEMARK AND COMPATIBILITY POLICY
 ## VTP-1.0
 
+[![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
+
 **Status:** Draft for project and legal review  
 **Version:** 1.0-draft  
 **Nature:** Trademark, public identity, and compatibility-use policy  
 **Not a software license**  
-**Legal note:** Not legal advice. Trademark rights depend on jurisdiction, registration status, actual use, and applicable law.
+**Canonical Status:** candidate  
+**Legal Status:** Not legal advice. Trademark rights depend on jurisdiction, registration status, actual use, and applicable law; legal review pending  
+**Execution Power:** none  
+**Feedback into Φ:** none
 
 ## 1. Purpose
 
@@ -152,7 +157,7 @@ VECTLAB is a research node, not an authority.
 Slovensky:
 
 ```text
-VECTLAB je výskumná noda, nie autorita.
+VECTLAB je výskumný uzol, nie autorita.
 ```
 
 ## 10. Defense and Protection Boundary
@@ -187,8 +192,8 @@ guaranteed defense capability
 Canonical sentence:
 
 ```text
-Defense and protection are admissible.
-Weaponization and attack are not.
+Defensive research and protective documentation hardening are admissible.
+Weaponization, targeting, attack, surveillance, and operational command are not.
 ```
 
 ## 11. Enforcement

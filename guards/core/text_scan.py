@@ -227,13 +227,33 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
 )
 
 
+# Strong operational context markers. These are enough on their own to mark
+# a negated/meta match as an operational review finding instead of a safe
+# prose negation.
 OPERATIONAL_TOKEN_PATTERN = re.compile(
     r"(?<![=!<>])=(?!=)"
     r"|\b(def|class|return|yield|raise|except|try|if|elif|else|for|while|import|from)\b"
     r"|\b(subprocess|requests|socket|urllib|open|write|eval|exec|compile|random)\b"
-    r"|\b(argmax|argmin|select|choose|optimi[sz]e|optimaliz|handler|repair|fallback)\b"
+    r"|\b(argmax|argmin|handler|repair)\b"
     r"|\.(open|write|write_text|write_bytes|rename|replace|unlink|remove)\s*\("
     r"|\b(Path|os|sys|shutil)\s*\(",
+    flags=re.IGNORECASE,
+)
+
+
+# Weak operational verbs are not enough by themselves. They are common in
+# protective prose such as "Phi must never optimize trajectories." They become
+# operational only when a nearby review/code cue is also present.
+REVIEW_CONTEXT_PATTERN = re.compile(
+    r"\b("
+    r"review|code|function|method|handler|implementation|runtime|scanner|guard|"
+    r"test|fixture|commit|diff|pr|pull request|workflow|ci|runner|pytest"
+    r")\b",
+    flags=re.IGNORECASE,
+)
+
+WEAK_OPERATIONAL_VERB_PATTERN = re.compile(
+    r"\b(select|choose|optimi[sz]e|optimaliz|fallback)\w*\b",
     flags=re.IGNORECASE,
 )
 
@@ -473,7 +493,13 @@ def has_meta_context(
 
 
 def has_operational_context(context: str) -> bool:
-    return OPERATIONAL_TOKEN_PATTERN.search(context) is not None
+    if OPERATIONAL_TOKEN_PATTERN.search(context):
+        return True
+
+    return (
+        REVIEW_CONTEXT_PATTERN.search(context) is not None
+        and WEAK_OPERATIONAL_VERB_PATTERN.search(context) is not None
+    )
 
 
 def classify_context(
@@ -696,6 +722,8 @@ __all__ = [
     "NEGATED_MORPHOLOGY_PATTERN",
     "META_CONTEXT_TOKENS",
     "OPERATIONAL_TOKEN_PATTERN",
+    "REVIEW_CONTEXT_PATTERN",
+    "WEAK_OPERATIONAL_VERB_PATTERN",
     "ContextDecision",
     "ScanRule",
     "TextMatch",

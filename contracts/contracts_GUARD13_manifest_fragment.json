@@ -1,0 +1,34 @@
+{
+  "id": "GUARD-13",
+  "name": "ek_observable_non_authority_guard",
+  "path": "guards/ek_observable_non_authority_guard.py",
+  "level": 2,
+  "class": "ek_observable_boundary",
+  "active": true,
+  "required": true,
+  "needs_git_diff": false,
+  "needs_contract": false,
+  "command_templates": {
+    "report": [
+      "${PYTHON}",
+      "guards/ek_observable_non_authority_guard.py",
+      "--root",
+      "${ROOT}",
+      "--mode",
+      "report"
+    ],
+    "ci": [
+      "${PYTHON}",
+      "guards/ek_observable_non_authority_guard.py",
+      "--root",
+      "${ROOT}",
+      "--mode",
+      "strict"
+    ]
+  },
+  "exit_mapping": {
+    "0": "ok",
+    "1": "finding",
+    "2": "error"
+  }
+}

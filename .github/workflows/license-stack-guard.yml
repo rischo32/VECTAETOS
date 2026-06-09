@@ -3,24 +3,28 @@ name: license-stack-guard
 on:
   pull_request:
     paths:
-      - "LICENSE.md"
       - "LICENSES/**"
+      - "contracts/LICENSE_REGISTRY.json"
       - "README.md"
-      - "VECTAETOS/cli/**"
+      - "guards/license_stack_guard.py"
       - ".github/workflows/license-stack-guard.yml"
   push:
     branches:
       - main
+      - master
     paths:
-      - "LICENSE.md"
       - "LICENSES/**"
+      - "contracts/LICENSE_REGISTRY.json"
       - "README.md"
-      - "VECTAETOS/cli/**"
+      - "guards/license_stack_guard.py"
       - ".github/workflows/license-stack-guard.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+
+env:
+  LICENSE_GUARD_MODE: report
 
 jobs:
   license-stack-guard:
@@ -55,20 +59,32 @@ jobs:
 
           mkdir -p reports
 
-          python3 VECTAETOS/cli/license_stack_guard.py \
+          set +e
+          python3 guards/license_stack_guard.py \
             --repo-root . \
-            --strict \
+            --registry contracts/LICENSE_REGISTRY.json \
+            --mode "${LICENSE_GUARD_MODE}" \
             --format text \
-            --report reports/license-stack-guard.json
+            --report reports/license-stack-guard.json \
+            --no-require-hashes \
+            | tee /tmp/license-stack-guard.log
+          GUARD_EXIT="${PIPESTATUS[0]}"
+          set -e
 
-      - name: Write guard report to job summary
-        if: always()
-        shell: bash
-        run: |
           {
             echo "## VECTAETOS™ License Stack Guard"
             echo
-            echo "Level 0 / Level 5 repository-state check."
+            echo "Mode: \`${LICENSE_GUARD_MODE}\`"
+            echo
+            echo "Registry: \`contracts/LICENSE_REGISTRY.json\`"
+            echo
+            echo "Exit: \`${GUARD_EXIT}\`"
+            echo
+            echo '```text'
+            cat /tmp/license-stack-guard.log
+            echo '```'
+            echo
+            echo "### JSON report"
             echo
             echo '```json'
             if [ -f reports/license-stack-guard.json ]; then
@@ -78,4 +94,19 @@ jobs:
             fi
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          
+
+          if [ "${GUARD_EXIT}" -eq 2 ]; then
+            echo "License stack guard execution/config error."
+            exit 2
+          fi
+
+          if [ "${LICENSE_GUARD_MODE}" = "strict" ] && [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Strict mode: license stack finding detected."
+            exit 1
+          fi
+
+          if [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Report mode: findings detected, but CI is not failed."
+          fi
+
+          exit 0

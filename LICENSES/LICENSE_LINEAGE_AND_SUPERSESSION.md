@@ -1,9 +1,12 @@
 # VECTAETOS™ License Lineage and Supersession
 
-**Status:** Draft  
-**Version:** 0.1  
+**Status:** Draft for project and legal review  
+**Version:** 0.2  
 **Role:** Historical and operational map of VECTAETOS license evolution  
-**Legal note:** Not legal advice.
+**Canonical Status:** candidate  
+**Legal Status:** Not legal advice; legal review pending  
+**Execution Power:** none  
+**Feedback into Φ:** none
 
 ## 1. Purpose
 

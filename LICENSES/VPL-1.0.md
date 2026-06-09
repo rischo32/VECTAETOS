@@ -1,11 +1,15 @@
 # VECTAETOS™ PROJECTION LICENSE
 ## VPL-1.0
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574386.svg)](https://doi.org/10.5281/zenodo.20574386)
 
 **Status:** Draft for project and legal review  
 **Version:** 1.0-draft  
 **License type:** Custom projection / symbolic artifact / trace license  
 **Applies to:** TetraGlyph, runes, glyphs, projections, EK traces, fingerprints, Merkle roots, ledger language, symbolic renderings  
-**Legal note:** Not legal advice.
+**Canonical Status:** candidate  
+**Legal Status:** Not legal advice; legal review pending  
+**Execution Power:** none  
+**Feedback into Φ:** none
 
 ## 1. Purpose
 
@@ -83,9 +87,11 @@ This ledger validates deployment.
 This projection is the official interpretation.
 ```
 
-## 9. Termination
+## 9. Non-Satisfaction of Conditions
 
-Any violation of Sections 4, 5, or 6 terminates the rights granted under this license until corrected.
+If Sections 4, 5, or 6 are violated, the permission granted by this license is not satisfied for the violating use.
+
+Rights may be restored once the violation is corrected, misleading claims are removed, and the covered artifacts are brought back into compliance with this license.
 
 ## 10. No Warranty
 

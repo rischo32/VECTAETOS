@@ -1,11 +1,15 @@
 # VECTAETOS™ NON-AGENTIC LICENSE
 ## VNAL-1.1
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20571153.svg)](https://doi.org/10.5281/zenodo.20571153)
 
 **Status:** Draft for project and legal review  
 **Version:** 1.1-draft  
-**License type:** Custom behavioral implementation license  
+**License type:** Custom behavioral implementation license with epistemic boundary conditions  
 **Applies to:** implementation systems, simulators, runtime structures, ASIMULATOR-like systems, output-producing prototypes  
-**Legal note:** Not legal advice.
+**Canonical Status:** candidate  
+**Legal Status:** Not legal advice; legal review pending  
+**Execution Power:** none  
+**Feedback into Φ:** none
 
 ## 1. Purpose
 
@@ -98,9 +102,11 @@ safety guarantee
 authority-certified result
 ```
 
-## 9. Termination
+## 9. Non-Satisfaction of Conditions
 
-Any violation of Sections 5, 6, 7, or 8 automatically terminates rights granted under this license until corrected.
+If Sections 5, 6, 7, or 8 are violated, the permission granted by this license is not satisfied for the violating use.
+
+Rights may be restored once the violation is corrected, misleading claims are removed, and the covered system is brought back into compliance with this license.
 
 ## 10. Disclaimer
 

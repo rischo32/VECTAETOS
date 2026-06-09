@@ -1,5 +1,7 @@
 # VECTAETOS™ / VECTLAB™ — Trademark Policy (TM Policy)
 
+[![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
+
 **Status:** Public Policy 
 **Scope:** VECTAETOS™, VECTAETΦS™, VECTAETOS FOUNDATIONS, VECTLAB™, VECTLAB Research Node, VECTLAB Epistemic Shield, related names, marks, logos, glyphs, badges, repositories, domains, public identifiers, and derivative/confusingly similar identifiers 
 **Owner / Maintainer:** Richard Fonfára / VECTAETOS Project 

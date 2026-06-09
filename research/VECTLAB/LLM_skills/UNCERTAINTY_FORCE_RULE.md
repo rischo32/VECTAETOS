@@ -1,6 +1,6 @@
-# UNCERTAINTY_FORCE_RULE.behavior.md
+# UNCERTAINTY_FORCE_RULE.md
 
-## Behaviorálny dodatok k pracovnému kontraktu
+## Behaviorálny kontraktor
 
 **Status:** pracovný invariant  
 **Layer:** LLM Adapter / Context Assembly / Behavior Contract  

@@ -1,6 +1,8 @@
 # VECTAETOS™ CANONICAL LICENSE
 ## VCL-2.0
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
+___
 **Status:** Draft for project and legal review  
 **Version:** 2.0-draft  
 **License type:** Custom canonical ontology / documentation license  
