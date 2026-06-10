@@ -36,6 +36,9 @@ ___
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Position%20Statement-black?style=flat-square)](./infrastructure/legal/EU_AI_ACT_POSITION.md)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--5980--8940-green?logo=orcid)](https://orcid.org/0009-0008-5980-8940)
 [![committers.top badge](https://user-badge.committers.top/slovakia/rischo32.svg)](https://user-badge.committers.top/slovakia/rischo32)
+____
+    Nemáme algoritmus, lebo ho nepotrebujeme.
+    Máme priestor, v ktorom algoritmy strácajú zmysel.
 ___
 #### LICENSES STACK : 
 → VCL-2.0 : [![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
@@ -83,7 +86,9 @@ ___
 [![Repository Inventory](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/repository-inventory.yml)
 [![Repository Summary](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
-
+___
+#### "Vectaetos nepredstiera poznanie pravdy o realite.
+#### Operuje opatrne, z vedomej neistoty o nej."
 ___
     Ne-rozhodovacia architektúra neznamená, že okolo nej neexistujú rozhodnutia. Znamená, že žiadne rozhodnutie nesmie byť vložené do Φ ako jeho vnútorná vlastnosť, cieľ, preferencia alebo autorita.
     VECTAETOS™ môže určiť hranicu reprezentovateľnosti, ale nesmie z nej spraviť verdikt typu „lepšie“, „správne“, „bezpečné“ alebo „má sa vykonať“.
@@ -166,11 +171,7 @@ Nie sú κ.
 Nie sú rozhodnutie.
 Nie sú validácia deploymentu.
 Nezasahujú späť do Φ.
-
-____
-    Nemáme algoritmus, lebo ho nepotrebujeme.
-    Máme priestor, v ktorom algoritmy strácajú zmysel.
-____
+___
 Vectaetos is no longer a proposal.
 
 It is a constrained epistemic system under active expansion.
@@ -211,9 +212,6 @@ ________________________________
 
 "QE Apória nie je slabosť systému.
 Je to jeho architektonická cnosť."
-
-"Vectaetos nepredstiera poznanie pravdy o realite.
-Operuje opatrne, z vedomej neistoty o nej."
 ---------------------------------------
 CANONICAL STATUS
 
