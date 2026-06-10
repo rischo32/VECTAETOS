@@ -19,7 +19,7 @@ Boundary:
     This guard does not prove truth.
     This guard does not validate safety.
     This guard does not authorize deployment.
-    This guard does not mutate Φ.
+    This guard does not mutate Phi.
     This guard does not modify repository files.
     This guard does not auto-fix ontology-facing text.
 
@@ -62,7 +62,9 @@ def _prepend_import_root(root: Path) -> None:
 
 def _bootstrap_repo_import_path() -> Path:
     """
-    Ensure guards.core is imported from the repository root or trusted runtime.
+    Ensure guards.core is imported from the repository root.
+
+    This is a CLI thinker guard bootstrap. It does not define ontology.
     """
     script_path = Path(__file__).resolve()
     cwd = Path.cwd().resolve()
@@ -124,7 +126,8 @@ def load_scan_rules(contract_path: Path) -> list[ScanRule]:
     """
     Load contract and convert contract rules into text scan rules.
 
-    Contract rules are projections of anchors. They are not ontology.
+    Contract rules are machine-readable projections of anchors.
+    They are not ontology.
     """
     document = load_contract(contract_path)
 
@@ -150,7 +153,7 @@ def iter_candidate_text_files(root: Path) -> Iterable[Path]:
     Iterate repository text files deterministically.
 
     Heavy/generated technical directories are skipped by paths.iter_repo_files.
-    Semantic inclusion/exclusion remains governed by the contract and scanner.
+    Semantic inclusion/exclusion remains governed by contract and scanner logic.
     """
     yield from iter_repo_files(
         root,
