@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="VECTAETOS badge with 8-point static singularities and rotating orbit">
+  <style>
+    .bg{fill:#050505}
+    .label{font-family:monospace;fill:#eaeaea}
+    .title{font-size:22px;letter-spacing:.18em}
+    .subtitle{font-size:12px;letter-spacing:.25em;opacity:.6}
+    .orbit-ring{stroke:#eaeaea;stroke-width:1;stroke-dasharray:3 10;fill:none;opacity:.35}
+    .core{stroke:#eaeaea;stroke-width:5;fill:none;opacity:.9}
+    .dot{fill:#eaeaea}
+    .orbit-spin{
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: orbitSpin 60s linear infinite;
+    }
+    @keyframes orbitSpin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+  </style>
+
+  <rect class="bg" width="420" height="120"/>
+
+  <g transform="translate(10,0)">
+
+    <!-- ROTATING: only the dashed orbit ring -->
+    <g class="orbit-spin" aria-hidden="true">
+      <circle class="orbit-ring" cx="60" cy="60" r="44"/>
+    </g>
+
+    <!-- STATIC: core circle -->
+    <circle class="core" cx="60" cy="60" r="30"/>
+
+    <!-- STATIC: 8 singularities in 4 symmetric pairs (±20° od každého kardinálneho bodu, r=44) -->
+    <!-- top pair -->
+    <circle class="dot" cx="44.9511" cy="18.6535" r="2.4" opacity=".92"/>
+    <circle class="dot" cx="75.0489" cy="18.6535" r="2.4" opacity=".92"/>
+    <!-- right pair -->
+    <circle class="dot" cx="101.3465" cy="44.9511" r="2.4" opacity=".85"/>
+    <circle class="dot" cx="101.3465" cy="75.0489" r="2.4" opacity=".85"/>
+    <!-- bottom pair -->
+    <circle class="dot" cx="75.0489" cy="101.3465" r="2.4" opacity=".92"/>
+    <circle class="dot" cx="44.9511" cy="101.3465" r="2.4" opacity=".92"/>
+    <!-- left pair -->
+    <circle class="dot" cx="18.6535" cy="75.0489" r="2.4" opacity=".85"/>
+    <circle class="dot" cx="18.6535" cy="44.9511" r="2.4" opacity=".85"/>
+
+  </g>
+
+  <text class="label title"    x="150" y="55">VECTAETOS™</text>
+  <text class="label subtitle" x="150" y="85">Onto-epistemic © field</text>
+</svg>
