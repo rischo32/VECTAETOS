@@ -3,7 +3,7 @@
 
 #### ...Welcome to a new epistemic era... 
 ___
-![Vectaetos](badge.svg)
+![Vectaetos](badge2.svg)
 
 #### VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
 
