@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1",
+  "unlock_id": "UNLOCK-YYYY-MM-DD-short-name",
+  "mode": "solo_maintainer",
+  "paths_allowed": [
+    "guards/core/text_scan.py"
+  ],
+  "reason": "Describe the exact protected-surface maintenance reason.",
+  "signed_by": "Richard Fonfára",
+  "confirmation": "I confirm solo-maintainer protected-surface unlock.",
+  "ai_review": {
+    "used": true,
+    "advisory_only": true,
+    "notes": "AI review may inspect drift, syntax, and guard behavior, but is not an independent human approval."
+  },
+  "expires_utc": "YYYY-MM-DDT23:59:00Z",
+  "ontology_authority": false,
+  "auto_fix_allowed": false
+}

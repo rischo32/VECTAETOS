@@ -2,63 +2,122 @@ name: Epistemic Observatory
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - ".github/workflows/observatory.yml"
+      - "vortex/**"
+      - "scripts/generate_visuals.py"
+      - "forensics/**"
+      - "requirements.txt"
+
   workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *"
+
+permissions:
+  contents: read
 
 jobs:
   observatory:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
-      # 📦 Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 🐍 Python
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      # 📦 Dependencies
-      - name: Install dependencies
+      - name: Manual trusted checkout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
         run: |
-          python -m pip install --upgrade pip
-          pip install numpy matplotlib
+          set -euo pipefail
 
-      # 🧠 PYTHONPATH
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
+          git checkout --force FETCH_HEAD
+
+      - name: Verify Python
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          if sys.version_info < (3, 11):
+              raise SystemExit("Python >= 3.11 required")
+          print("[OK] Python runtime is compatible")
+          PY
+
+      - name: Install runtime dependencies
+        run: |
+          set -euo pipefail
+
+          python3 -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            python3 -m pip install -r requirements.txt
+          else
+            python3 -m pip install numpy matplotlib
+          fi
+
       - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-
-      # 🔁 Vortex
-      - name: Run Vortex
-        run: python vortex/vortex_runner.py
-
-      # 🔍 Debug (safe)
-      - name: Debug artifacts
         run: |
-          ls -la
-          ls -la artifacts || true
+          set -euo pipefail
+          echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> "${GITHUB_ENV}"
+
+      - name: Prepare runtime observatory directory
+        run: |
+          set -euo pipefail
+          mkdir -p .runtime/observatory
+
+      - name: Compile observatory scripts
+        run: |
+          set -euo pipefail
+
+          if [ -f "vortex/vortex_runner.py" ]; then
+            python3 -m py_compile vortex/vortex_runner.py
+          fi
+
+          if [ -f "scripts/generate_visuals.py" ]; then
+            python3 -m py_compile scripts/generate_visuals.py
+          fi
+
+      - name: Run Vortex projection
+        run: |
+          set -euo pipefail
+
+          if [ -f "vortex/vortex_runner.py" ]; then
+            python3 vortex/vortex_runner.py
+          else
+            echo "[SKIP] vortex/vortex_runner.py not present."
+          fi
+
+      - name: Generate runtime visual projection
+        run: |
+          set -euo pipefail
+
+          if [ -f "scripts/generate_visuals.py" ]; then
+            python3 scripts/generate_visuals.py
+          else
+            echo "[SKIP] scripts/generate_visuals.py not present."
+          fi
+
+      - name: Show runtime observatory outputs
+        if: always()
+        run: |
+          set -euo pipefail
+
+          echo "=== RUNTIME OBSERVATORY ==="
+          ls -la .runtime/observatory || true
+
+          echo "=== DOCS / OBSERVATORY working-tree state, not committed ==="
           ls -la docs/observatory || true
 
-      # 🧠 Forensics → vizualizácia
-      - name: Generate visuals
-        run: python scripts/generate_visuals.py
+          echo "=== GIT STATUS, informational only ==="
+          git status --porcelain || true
 
-      # 🚀 PR (žiadny push na main)
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: auto/observatory-${{ github.run_id }}
-          commit-message: "auto(Φ): observatory update"
-          title: "auto(Φ): observatory update"
-          body: "Automated epistemic projection update."
-          add-paths: |
-            docs/observatory/*.png
+      - name: Confirm non-persistent observatory mode
+        run: |
+          set -euo pipefail
+          echo "[OK] Observatory completed in runtime-only mode."
+          echo "[OK] No branch creation."
+          echo "[OK] No pull request creation."
+          echo "[OK] No repository write-back."

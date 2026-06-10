@@ -1,0 +1,201 @@
+name: Vector Drift Guard
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  VECTOR_DRIFT_FAIL_AT: "0.70"
+  VECTOR_DRIFT_ENFORCE: "false"
+
+jobs:
+  vector_drift_guard:
+    name: Run Vector Drift Guard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Manual checkout
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SHA: ${{ github.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          git init .
+          git config --global --add safe.directory "$PWD"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+
+          if [ "${EVENT_NAME}" = "pull_request" ]; then
+            if [ -z "${PR_HEAD_SHA}" ]; then
+              echo "::error title=missing_pr_head_sha::Pull request head SHA is empty."
+              exit 2
+            fi
+            git fetch --no-tags --depth=1 origin "${PR_HEAD_SHA}"
+          else
+            git fetch --no-tags --depth=1 origin "${SHA}"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Verify Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+
+      - name: Check guard exists
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f "guards/vector_drift_guard.py" ]; then
+            echo "::error title=missing_guard::guards/vector_drift_guard.py not found."
+            exit 2
+          fi
+
+      - name: Build scan target list
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          find . -type f \
+            \( \
+              -name "*.md" -o \
+              -name "*.txt" -o \
+              -name "*.yml" -o \
+              -name "*.yaml" -o \
+              -name "*.json" -o \
+              -name "*.html" -o \
+              -name "*.css" -o \
+              -name "*.js" -o \
+              -name "*.ts" \
+            \) \
+            ! -path "./.git/*" \
+            ! -path "./node_modules/*" \
+            ! -path "./dist/*" \
+            ! -path "./build/*" \
+            ! -path "./.venv/*" \
+            ! -path "./venv/*" \
+            | sort > /tmp/vector_drift_targets.txt
+
+          echo "Scan targets:"
+          cat /tmp/vector_drift_targets.txt
+
+          if [ ! -s /tmp/vector_drift_targets.txt ]; then
+            echo "::warning title=no_scan_targets::No text targets found for Vector Drift Guard."
+          fi
+
+      - name: Run Vector Drift Guard report
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s /tmp/vector_drift_targets.txt ]; then
+            echo '{"vector_drift":0,"classification":"NO_TARGETS","finding_count":0,"scores":{},"findings":[]}' > vector_drift_report.json
+            exit 0
+          fi
+
+          mapfile -t TARGETS < /tmp/vector_drift_targets.txt
+
+          python3 guards/vector_drift_guard.py \
+            --files "${TARGETS[@]}" \
+            --mode json \
+            > vector_drift_report.json
+
+          python3 guards/vector_drift_guard.py \
+            --files "${TARGETS[@]}" \
+            --mode report \
+            --max_findings 80
+
+      - name: Write GitHub summary
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = json.loads(Path("vector_drift_report.json").read_text(encoding="utf-8"))
+          summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
+
+          scores = report.get("scores", {})
+          findings = report.get("findings", [])
+
+          lines = []
+          lines.append("# Vector Drift Guard")
+          lines.append("")
+          lines.append(f"- **Vector_Drift:** `{report.get('vector_drift')}`")
+          lines.append(f"- **Classification:** `{report.get('classification')}`")
+          lines.append(f"- **Findings:** `{report.get('finding_count')}`")
+          lines.append("")
+          lines.append("## Component scores")
+          lines.append("")
+          lines.append("| Component | Score |")
+          lines.append("|---|---:|")
+
+          for key, value in scores.items():
+              lines.append(f"| `{key}` | `{value}` |")
+
+          lines.append("")
+          lines.append("## First findings")
+          lines.append("")
+
+          if not findings:
+              lines.append("No drift findings.")
+          else:
+              for item in findings[:25]:
+                  lines.append(
+                      f"- `{item.get('component')}` / `{item.get('code')}` "
+                      f"at `{item.get('file')}:{item.get('line')}`"
+                  )
+
+          lines.append("")
+          lines.append("> Vector_Drift is an external audit observable over visible traces. It is not K(Φ), not κ, not truth, not safety, and not decision authority.")
+          lines.append("")
+
+          summary.write_text("\n".join(lines), encoding="utf-8")
+          PY
+
+      - name: Enforce threshold
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          report = json.loads(Path("vector_drift_report.json").read_text(encoding="utf-8"))
+
+          drift = float(report.get("vector_drift", 0.0))
+          fail_at = float(os.environ.get("VECTOR_DRIFT_FAIL_AT", "0.70"))
+          enforce = os.environ.get("VECTOR_DRIFT_ENFORCE", "false").lower() == "true"
+
+          print(f"Vector_Drift={drift}")
+          print(f"Fail threshold={fail_at}")
+          print(f"Enforce={enforce}")
+
+          if enforce and drift >= fail_at:
+              print(f"::error title=vector_drift_threshold_exceeded::Vector_Drift {drift} >= {fail_at}")
+              sys.exit(1)
+
+          if not enforce and drift >= fail_at:
+              print(f"::warning title=vector_drift_threshold_exceeded_not_enforced::Vector_Drift {drift} >= {fail_at}")
+
+          sys.exit(0)
+          PY

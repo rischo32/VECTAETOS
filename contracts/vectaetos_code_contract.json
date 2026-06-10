@@ -1,0 +1,758 @@
+{
+  "version": "0.1.4",
+  "name": "vectaetos_code_contract",
+  "status": "fundamental_repository_perimeter",
+  "layer": "external_repository_perimeter",
+  "purpose": "Ontological behavior contract for VECTAETOS Python code and repository perimeter tooling.",
+  "authority": "none",
+  "canonical": false,
+  "enforcement_semantics": "Repository perimeter tools may emit findings or fail CI by exit code where explicitly allowed, but this is never truth validation, deployment validation, ontology validation, or authority over VECTAETOS.",
+  "not_a_security_audit": true,
+  "not_an_integrity_audit": true,
+  "not_a_deployment_validation": true,
+  "not_a_truth_validation": true,
+  "not_an_ontology_validator": true,
+  "diagnostics_are_advisory": true,
+  "canonical_sentence": "Code may implement repository behavior, but must not attach agency, optimization, truth authority, or decision power to VECTAETOS.",
+  "global_invariants": [
+    "No code role may define VECTAETOS truth.",
+    "No code role may optimize Phi.",
+    "No code role may modify Phi.",
+    "No code role may modify K(Phi).",
+    "No code role may modify kappa.",
+    "No code role may redefine QE.",
+    "No code role may select trajectories as authoritative truth.",
+    "No code role may claim deployment validity.",
+    "No code role may claim empirical safety.",
+    "No diagnostic output may become an ontology verdict.",
+    "No audit layer may become control.",
+    "No language layer may become truth authority."
+  ],
+  "selection_function_semantics": "When allow_selection_functions is true, it only permits local implementation choices such as sorting findings, selecting highest severity diagnostics, bounded numeric clamping, or deterministic report ordering. It never permits trajectory selection, truth ranking, recommendation authority, or optimization of Phi.",
+  "protected_ontology_names": [
+    "PHI",
+    "Phi",
+    "phi",
+    "Φ",
+    "K",
+    "K_PHI",
+    "KPhi",
+    "K(Phi)",
+    "K(Φ)",
+    "KAPPA",
+    "kappa",
+    "κ",
+    "QE"
+  ],
+  "protected_ontology_assignment_policy": {
+    "meaning": "Protected ontology identifiers must not be assigned, mutated, rebound, monkey-patched, or redefined in roles where protect_ontology_assignments is true.",
+    "diagnostic_semantics": "A protected-name assignment finding is a repository behavior signal, not an ontological verdict.",
+    "allowed_exceptions": [
+      "test fixtures where role protect_ontology_assignments is false",
+      "documentation examples that are not executable code",
+      "explicitly marked historical legacy material under legacy_vortex constraints"
+    ]
+  },
+  "forbidden_semantic_fragments": [
+    "decide",
+    "decision",
+    "recommend",
+    "optimize",
+    "optimizer",
+    "optimization",
+    "reward",
+    "policy_update",
+    "best_trajectory",
+    "select_best",
+    "rank_truth",
+    "rank_trajectories",
+    "truth_authority",
+    "deployment_valid",
+    "empirical_safety",
+    "argmax",
+    "argmin"
+  ],
+  "dynamic_execution_calls": [
+    "eval",
+    "exec",
+    "compile",
+    "__import__"
+  ],
+  "diagnostic_severity_policy": {
+    "warning": "Possible semantic drift or suspicious formulation. Human review required.",
+    "error": "Repository perimeter hard violation where the role contract explicitly forbids the behavior. This is still not truth validation.",
+    "information": "Descriptive local signal with no blocking semantics."
+  },
+  "ledger_policy": {
+    "automatic_writes_from_diagnostics": false,
+    "automatic_writes_from_lsp_publish": false,
+    "explicit_user_or_editor_action_required": true,
+    "ledger_is_audit_trace": true,
+    "ledger_is_not_enforcement": true,
+    "ledger_records_are_time_bound": true
+  },
+  "role_inference_priority": [
+    "git_guard",
+    "semantic_guard",
+    "behavior_audit",
+    "research_lsp",
+    "determinism_verifier",
+    "semantic_integrity_verifier",
+    "vortex_runner",
+    "projection_canonicalizer",
+    "language_adapter",
+    "deterministic_entropy",
+    "legacy_vortex",
+    "test",
+    "guard",
+    "audit",
+    "projection",
+    "parser",
+    "adapter",
+    "utility",
+    "vortex"
+  ],
+  "role_inference": {
+    "git_guard": [
+      "canonical_ontology_guard.py"
+    ],
+    "semantic_guard": [
+      "vectaetos_boundary_guard.py",
+      "boundary_guard"
+    ],
+    "behavior_audit": [
+      "vectaetos_code_behavior_audit.py",
+      "code_behavior_audit"
+    ],
+    "research_lsp": [
+      "research/lsp/",
+      "vectaetos_lsp.py",
+      "vectaetos-code-sentinel-lsp",
+      "code_sentinel_lsp",
+      "code-sentinel-lsp"
+    ],
+    "determinism_verifier": [
+      "scripts/verify_determinism.py"
+    ],
+    "semantic_integrity_verifier": [
+      "scripts/verify_semantic_integrity.py"
+    ],
+    "vortex_runner": [
+      "vortex/vortex_runner.py"
+    ],
+    "projection_canonicalizer": [
+      "tetraglyph/glyph_canonicalizer.py",
+      "tetraglyph/glyph_validator.py"
+    ],
+    "language_adapter": [
+      "vortex/llm_adapter.py",
+      "llm_adapter.py"
+    ],
+    "deterministic_entropy": [
+      "vortex/deterministic_entropy.py",
+      "deterministic_entropy.py"
+    ],
+    "legacy_vortex": [
+      "vortex_core_phi",
+      "vortex/vortex_v1_2_3.py",
+      "vortex/vortex_v2.0.py",
+      "vortex/vortex_v2_0.py"
+    ],
+    "guard": [
+      "guards/",
+      "_guard.py",
+      "guard"
+    ],
+    "audit": [
+      "audit",
+      "cryptography",
+      "observatory"
+    ],
+    "projection": [
+      "projection",
+      "rune",
+      "glyph",
+      "tetra"
+    ],
+    "parser": [
+      "parser",
+      "gate",
+      "3gate"
+    ],
+    "adapter": [
+      "adapter",
+      "llm",
+      "asi_mod"
+    ],
+    "test": [
+      "tests/",
+      "test_"
+    ],
+    "utility": [
+      "scripts/",
+      "tools/"
+    ],
+    "vortex": [
+      "vortex"
+    ]
+  },
+  "roles": {
+    "git_guard": {
+      "meaning": "External repository perimeter checker using git for deterministic diff inspection.",
+      "allowed": [
+        "scan git diff",
+        "read files from git objects",
+        "detect protected path changes",
+        "detect semantic drift in changed files",
+        "emit GitHub annotations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform non-git subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": true,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "semantic_guard": {
+      "meaning": "External full-repository semantic drift checker.",
+      "allowed": [
+        "scan files",
+        "parse text",
+        "detect forbidden formulations",
+        "sort findings",
+        "emit warnings",
+        "emit hard violations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "behavior_audit": {
+      "meaning": "External static AST behavior audit for Python code roles.",
+      "allowed": [
+        "parse Python AST",
+        "load behavior contract",
+        "infer file roles",
+        "detect role-policy violations",
+        "sort findings",
+        "emit warnings",
+        "emit hard violations",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "research_lsp": {
+      "meaning": "Research-only local editor diagnostic surface for possible semantic drift in VECTAETOS-related Python code.",
+      "allowed": [
+        "read opened editor documents",
+        "parse Python AST",
+        "load repository perimeter contract",
+        "infer advisory file roles",
+        "detect possible semantic drift",
+        "detect protected ontology-name assignment patterns",
+        "detect dynamic execution calls",
+        "emit local LSP diagnostics",
+        "publish warnings and errors to editor",
+        "provide local language completions",
+        "compute deterministic fingerprints",
+        "commit explicit ledger traces only after deliberate user or editor action"
+      ],
+      "forbidden": [
+        "define truth",
+        "decide code validity",
+        "act as canonical guard",
+        "act as deployment validator",
+        "block deployment",
+        "fail CI by itself",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "rank trajectories",
+        "recommend trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety",
+        "write ledger records automatically from diagnostics",
+        "replace human review"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "file_write_constraints": [
+        "only explicit user-triggered or editor-triggered audit ledger writes",
+        "no automatic writes from diagnostics",
+        "no writes to ontology files",
+        "no writes to anchors",
+        "no writes to contracts",
+        "no writes to source code"
+      ],
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true,
+      "diagnostics_are_advisory": true,
+      "canonical_guard": false,
+      "deployment_gate": false
+    },
+    "determinism_verifier": {
+      "meaning": "Deterministic verification utility that may write explicit report artifacts.",
+      "allowed": [
+        "read files",
+        "run deterministic checks",
+        "write verification reports",
+        "emit stdout report",
+        "fail CI by exit code"
+      ],
+      "forbidden": [
+        "modify ontology",
+        "edit anchors automatically",
+        "claim deployment validity",
+        "claim empirical safety",
+        "change Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "semantic_integrity_verifier": {
+      "meaning": "Read-only semantic integrity verifier.",
+      "allowed": [
+        "read files",
+        "normalize text",
+        "compare canonical phrases",
+        "emit stdout report",
+        "fail CI by exit code"
+      ],
+      "forbidden": [
+        "modify ontology",
+        "edit anchors automatically",
+        "claim deployment validity",
+        "claim empirical safety",
+        "change Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "vortex_runner": {
+      "meaning": "External runner/exporter for Vortex experiments, not the Vortex ontology.",
+      "allowed": [
+        "run bounded simulation",
+        "write explicit output artifacts",
+        "emit descriptive traces",
+        "print summary"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories as truth",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "projection_canonicalizer": {
+      "meaning": "Projection canonicalization / validation utility.",
+      "allowed": [
+        "sort structural keys",
+        "canonicalize glyph representation",
+        "validate structural form",
+        "emit descriptive report"
+      ],
+      "forbidden": [
+        "interpret projection",
+        "recommend",
+        "decide",
+        "rank truth",
+        "write back to Phi",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "language_adapter": {
+      "meaning": "Language/rendering adapter, including Vortex-adjacent rendering helpers.",
+      "allowed": [
+        "translate",
+        "render",
+        "summarize",
+        "format",
+        "normalize strings",
+        "replace substrings",
+        "present descriptive output"
+      ],
+      "forbidden": [
+        "truth authority",
+        "decision authority",
+        "ontology modification",
+        "deployment validation",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim empirical safety",
+        "select best trajectory",
+        "rank trajectories"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "deterministic_entropy": {
+      "meaning": "Deterministic entropy helper for bounded numerical transformation, not an authority layer.",
+      "allowed": [
+        "compute bounded values",
+        "use min and max for numeric clamping",
+        "normalize deterministic numeric ranges",
+        "emit deterministic values"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories as truth",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "claim deployment validity",
+        "claim empirical safety",
+        "use randomness"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "legacy_vortex": {
+      "meaning": "Historical or prototype Vortex implementation retained for research comparison.",
+      "allowed": [
+        "remain as historical source material",
+        "emit warnings under audit",
+        "support refactoring into canonical Vortex",
+        "write legacy output artifacts",
+        "use deterministic or seeded randomness for historical reproduction",
+        "use min and max for bounded numeric transforms"
+      ],
+      "forbidden": [
+        "claim canonical root status",
+        "claim deployment validity",
+        "claim empirical safety",
+        "select best trajectory as authority",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": true,
+      "allow_randomness": true,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "guard": {
+      "meaning": "External repository perimeter checker.",
+      "allowed": [
+        "scan files",
+        "parse text",
+        "parse AST",
+        "detect violations",
+        "sort findings",
+        "select highest severity finding",
+        "fail CI by exit code",
+        "print report"
+      ],
+      "forbidden": [
+        "define truth",
+        "modify ontology",
+        "edit anchors automatically",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE",
+        "select trajectories",
+        "perform network calls",
+        "perform subprocess calls",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "audit": {
+      "meaning": "Read-only observation / record / hash layer.",
+      "allowed": [
+        "observe",
+        "record",
+        "hash",
+        "emit report",
+        "read state"
+      ],
+      "forbidden": [
+        "command",
+        "block as ontology",
+        "decide",
+        "interpret",
+        "optimize",
+        "mutate observed system",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "projection": {
+      "meaning": "Read-only structural exposure layer.",
+      "allowed": [
+        "render structural projection",
+        "map field state to symbols",
+        "emit descriptive representation",
+        "remain semantically neutral"
+      ],
+      "forbidden": [
+        "interpret",
+        "recommend",
+        "decide",
+        "rank",
+        "write back to Phi",
+        "claim truth",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "parser": {
+      "meaning": "Input parsing and normalization layer.",
+      "allowed": [
+        "parse input",
+        "normalize text",
+        "extract structural form",
+        "emit parsed representation"
+      ],
+      "forbidden": [
+        "decide",
+        "recommend",
+        "claim truth",
+        "modify ontology",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "adapter": {
+      "meaning": "Language/rendering adapter.",
+      "allowed": [
+        "translate",
+        "render",
+        "summarize",
+        "format",
+        "normalize strings",
+        "present descriptive output"
+      ],
+      "forbidden": [
+        "truth authority",
+        "decision authority",
+        "ontology modification",
+        "deployment validation",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    },
+    "test": {
+      "meaning": "Deterministic test code.",
+      "allowed": [
+        "assert invariants",
+        "use fixtures",
+        "simulate forbidden examples",
+        "test failure behavior",
+        "write temporary files",
+        "use deterministic subprocesses when testing CLI behavior"
+      ],
+      "forbidden": [
+        "claim deployment validity",
+        "modify canonical anchors",
+        "claim empirical safety",
+        "silently change ontology"
+      ],
+      "allow_network": false,
+      "allow_subprocess": true,
+      "allow_file_write": true,
+      "allow_randomness": true,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": false
+    },
+    "utility": {
+      "meaning": "Repository utility code.",
+      "allowed": [
+        "read files",
+        "format reports",
+        "assist repository maintenance",
+        "perform explicit human-triggered maintenance"
+      ],
+      "forbidden": [
+        "modify ontology without explicit human action",
+        "claim truth",
+        "claim deployment validity",
+        "claim empirical safety",
+        "optimize Phi",
+        "change K(Phi)",
+        "change kappa",
+        "change QE"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": true,
+      "protect_ontology_assignments": true
+    },
+    "vortex": {
+      "meaning": "Non-agentic candidate trajectory generator.",
+      "allowed": [
+        "generate candidates",
+        "emit descriptive traces",
+        "export candidate sets",
+        "expose trajectory maps without ranking"
+      ],
+      "forbidden": [
+        "select best trajectory",
+        "rank trajectories",
+        "optimize",
+        "reward",
+        "policy update",
+        "decide",
+        "modify Phi",
+        "modify K(Phi)",
+        "modify kappa",
+        "modify QE",
+        "claim deployment validity",
+        "claim empirical safety"
+      ],
+      "allow_network": false,
+      "allow_subprocess": false,
+      "allow_file_write": false,
+      "allow_randomness": false,
+      "allow_selection_functions": false,
+      "protect_ontology_assignments": true
+    }
+  }
+}

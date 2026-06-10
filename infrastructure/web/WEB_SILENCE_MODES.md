@@ -56,6 +56,9 @@ Ticho je tu **aktívnym bezpečnostným stavom**.
 
 ### 3.2 Ticho NIR (Non-Intervention Regime)
 
+Canonical meaning in this context: NIR = Non-Intervention Regime.
+
+
 #### Podmienky vzniku
 - implicitná alebo explicitná požiadavka na zásah do reality
 - inštruktívny, manipulatívny alebo preskriptívny vstup

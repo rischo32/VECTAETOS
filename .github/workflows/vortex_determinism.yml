@@ -2,41 +2,99 @@ name: Vortex Determinism Verification
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
-      - 'vortex/**'
-      - 'scripts/verify_determinism.py'
-      - 'requirements.txt'
+      - "vortex/**"
+      - "scripts/verify_determinism.py"
+      - "requirements.txt"
+      - ".github/workflows/vortex_determinism.yml"
+
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
     paths:
-      - 'vortex/**'
-      - 'scripts/verify_determinism.py'
-      - 'requirements.txt'
+      - "vortex/**"
+      - "scripts/verify_determinism.py"
+      - "requirements.txt"
+      - ".github/workflows/vortex_determinism.yml"
+
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   verify-determinism:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+    steps:
+      - name: Manual trusted checkout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_SHA_VALUE: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          git init --initial-branch=main .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if [ "${EVENT_NAME}" = "pull_request" ]; then
+            git fetch --no-tags --depth=1 origin "refs/pull/${PR_NUMBER}/head"
+          else
+            git fetch --no-tags --depth=1 origin "${GITHUB_SHA_VALUE}"
+          fi
+
+          git checkout --force FETCH_HEAD
+
+      - name: Check Python runtime
+        run: |
+          set -euo pipefail
+
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          if sys.version_info < (3, 11):
+              raise SystemExit("Python >= 3.11 required")
+          print("[OK] Python runtime is compatible")
+          PY
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          set -euo pipefail
+
+          python3 -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            python3 -m pip install -r requirements.txt
+          else
+            echo "[WARN] requirements.txt not found; installing minimal Vortex dependencies."
+            python3 -m pip install numpy scipy
+          fi
+
+      - name: Compile determinism verifier
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/verify_determinism.py
 
       - name: Run determinism verification
-        run: python scripts/verify_determinism.py
+        env:
+          PYTHONHASHSEED: "0"
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_determinism.py
 
-      - name: Upload artifacts
+      - name: Inspect runtime determinism report
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: vortex-determinism-artifacts
-          path: artifacts/
+        run: |
+          set -euo pipefail
+
+          echo "=== RUNTIME DETERMINISM ==="
+          ls -la .runtime/determinism || true
+
+          if [ -f ".runtime/determinism/verification_report.json" ]; then
+            echo "=== REPORT ==="
+            cat .runtime/determinism/verification_report.json
+          fi

@@ -127,7 +127,7 @@ This formulation captures **cyclic relational tension**.
 
 ---
 
-# A6. Quantum Epistemic Discontinuity (QE)
+# A6.  QE Aporia 
 
 Let G(Φ) be a graph:
 

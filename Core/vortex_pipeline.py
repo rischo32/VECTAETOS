@@ -187,17 +187,22 @@ def compute_epistemic(sigma_sequence: list[dict[str, Any]], R: list[list[float]]
     mu_sequence = []
     total_asymmetry = 0.0
     proof_states = []
+
     for entry in sigma_sequence:
         sigma = entry["sigma"] if "sigma" in entry else entry
         t_values = [sigma[pole]["T"] for pole in SIGMA]
         mean_t = sum(t_values) / len(t_values)
         mu = [_round_float(abs(sigma[pole]["T"] - mean_t) + (1.0 - sigma[pole]["C"])) for pole in SIGMA]
+
         matrix = _relational_matrix_from_sigma(sigma)
         canonical_A = _canonicalize_matrix(matrix)
         delta = _delta_from_matrix(canonical_A)
         triality_variance = _triality_variance(delta)
-        asymmetry = _round_float(sum(abs(canonical_A[i][j]) for i in range(len(SIGMA)) for j in range(i + 1, len(SIGMA))))
+        asymmetry = _round_float(
+            sum(abs(canonical_A[i][j]) for i in range(len(SIGMA)) for j in range(i + 1, len(SIGMA)))
+        )
         total_asymmetry = _round_float(total_asymmetry + asymmetry)
+
         proof_states.append(
             {
                 "canonical_A": canonical_A,
@@ -206,9 +211,11 @@ def compute_epistemic(sigma_sequence: list[dict[str, Any]], R: list[list[float]]
             }
         )
         mu_sequence.append(mu)
+
     total_mu = _round_float(sum(sum(mu) for mu in mu_sequence))
     denominator = total_mu + total_asymmetry
     topological_humility = 0.0 if denominator == 0.0 else _round_float(total_mu / denominator)
+
     proof = {
         "canonical_A": [state["canonical_A"] for state in proof_states],
         "delta": [state["delta"] for state in proof_states],
@@ -222,6 +229,7 @@ def compute_epistemic(sigma_sequence: list[dict[str, Any]], R: list[list[float]]
             }
         ),
     }
+
     return {
         "mu": mu_sequence,
         "total_asymmetry": total_asymmetry,
@@ -230,28 +238,33 @@ def compute_epistemic(sigma_sequence: list[dict[str, Any]], R: list[list[float]]
     }
 
 
-def detect_QE(phi: Phi, sigma: dict[str, PoleState], trials: int = 50) -> bool:
-    rng = random.Random()
+def detect_QE(phi: Phi, sigma: dict[str, PoleState], seed: int, step: int, trials: int = 50) -> bool:
+    rng = random.Random((seed << 32) ^ step)
+
     for _ in range(trials):
-        seed = rng.randint(0, 2**32 - 1)
-        candidate = evolve_sigma(phi, perturb_sigma(sigma, seed))
+        perturb_seed = rng.randint(0, 2**32 - 1)
+        candidate = evolve_sigma(phi, perturb_sigma(sigma, perturb_seed))
         if K_phi(candidate):
             return False
+
     return True
 
 
-def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, Any]]:
+def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int, seed: int) -> list[dict[str, Any]]:
     states = []
     current = sigma
     topo = topology_hash(phi.R)
-    rng = random.Random()
+    rng = random.Random(seed)
+
     for t in range(steps):
-        seed = rng.randint(0, 2**32 - 1)
-        candidate = evolve_sigma(phi, perturb_sigma(current, seed))
-        if detect_QE(phi, current):
+        perturb_seed = rng.randint(0, 2**32 - 1)
+        candidate = evolve_sigma(phi, perturb_sigma(current, perturb_seed))
+
+        if detect_QE(phi, current, seed, t):
             label = "QE"
         else:
             label = "REALIZABLE"
+
         states.append(
             {
                 "step": t,
@@ -261,14 +274,17 @@ def vortex(phi: Phi, sigma: dict[str, PoleState], steps: int) -> list[dict[str, 
             }
         )
         current = candidate
+
     return states
 
 
 def run(seed: int | None = 42, steps: int = 50) -> dict[str, Any]:
     phi = construct_phi(seed=seed)
     sigma = sample_sigma(seed=seed)
-    states = vortex(phi, sigma, steps)
+    states = vortex(phi, sigma, steps, seed)
+
     return {
+        "seed": seed,
         "phi": {
             "Sigma": phi.Sigma,
             "R": phi.R,

@@ -1,6 +1,7 @@
-VECTAETOS — Research Layer
+VECTAETOS™ — Research Layer 
+& VECTLAB™ / VECTLABS™ Research Node
 
-Status: NON-CANONICAL
+Status: CANONICAL - RESEARCH
 Authority: None
 Execution Power: None
 
