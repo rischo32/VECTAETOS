@@ -1,7 +1,16 @@
 # VECTAETOS™ License Stack
 
-[![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
+→ VCL-2.0 : [![VCL-2.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533697.svg)](https://doi.org/10.5281/zenodo.20533697)
 
+→ AEPL-2.0 : [![AEPL-2.0-VECTAETOS DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574489.svg)](https://doi.org/10.5281/zenodo.20574489)
+
+→ VNAL-1.1 : [![VNAL-1.1 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20571153.svg)](https://doi.org/10.5281/zenodo.20571153) 
+
+→ VPL-1.0 : [![VPL-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20574386.svg)](https://doi.org/10.5281/zenodo.20574386)
+
+→ VTP-1.0 : [![VTP-1.0 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20534913.svg)](https://doi.org/10.5281/zenodo.20534913)
+
+___
 **Status:** Repository license gateway  
 **Version:** license-stack-gateway-0.2  
 **Nature:** Custom epistemic / software / projection / identity licensing stack  
