@@ -60,11 +60,11 @@ except ModuleNotFoundError:
 
 
 DEFAULT_CONTEXT_RADIUS = 3
-DEFAULT_NEGATION_WINDOW = 120
+DEFAULT_NEGATION_WINDOW = 160
 
 
 NEGATION_TOKENS: tuple[str, ...] = (
-    # English
+    # English. Keep these relational; avoid broad tokens such as "non-".
     "not",
     "no",
     "never",
@@ -74,10 +74,11 @@ NEGATION_TOKENS: tuple[str, ...] = (
     "are not",
     "must not",
     "should not",
+    "shall not",
+    "may not",
     "cannot",
     "can not",
     "without",
-    "non-",
     # Slovak / Czech, accentless forms are intentional; normalize_text()
     # removes diacritics before matching.
     "nie",
@@ -97,6 +98,10 @@ NEGATION_TOKENS: tuple[str, ...] = (
     "nema sa",
     "nemaju",
     "nemaju sa",
+    "nepozna",
+    "nepoznaju",
+    "nevykonava",
+    "nevykonavaju",
     "nevytvara",
     "nevytvaraju",
     "neoptimalizuje",
@@ -175,6 +180,8 @@ NEGATED_MORPHOLOGY_PATTERN = re.compile(
     r"|trenu\w*"
     r"|uc\w*"
     r"|vytvar\w*"
+    r"|pozn\w*"
+    r"|vykonav\w*"
     r")(?![a-z0-9_])",
     flags=re.IGNORECASE,
 )
@@ -183,7 +190,11 @@ NEGATED_MORPHOLOGY_PATTERN = re.compile(
 META_CONTEXT_TOKENS: tuple[str, ...] = (
     # English
     "forbidden",
+    "forbidden conversion",
+    "forbidden transformation",
     "invalid",
+    "invalid claim",
+    "incompatible transformation",
     "anti-pattern",
     "antipattern",
     "negative example",
@@ -195,7 +206,9 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
     "must not be used",
     "must not be interpreted",
     "must not be framed",
+    "must never",
     "not allowed",
+    "not permitted",
     "prohibited",
     "disallowed",
     "blocked vocabulary",
@@ -211,6 +224,22 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
     "example forbidden",
     "safe wording",
     "forbidden wording",
+    "safer wording",
+    "guard pattern",
+    "pattern declaration",
+    "pattern registry",
+    "forbidden phrase",
+    "forbidden phrases",
+    "forbidden examples",
+    "forbidden claims",
+    "claim limit",
+    "boundary clause",
+    "boundary clauses",
+    "license restriction",
+    "license restrictions",
+    "restrictions",
+    "shall not",
+    "may not",
     # Slovak / Czech, accentless forms are intentional.
     "zakazane",
     "zakazana",
@@ -224,15 +253,45 @@ META_CONTEXT_TOKENS: tuple[str, ...] = (
     "nema sa",
     "nespravna formulacia",
     "migracna mapa",
+    "zakazana formulacia",
+    "hranica slovnika",
+    "bezpecna formulacia",
 )
 
 
-# Strong operational context markers. These are enough on their own to mark
-# a negated/meta match as an operational review finding instead of a safe
-# prose negation.
+# Pattern declarations and machine-readable guard vocabulary. These should not
+# be interpreted as active repository doctrine.
+PATTERN_DECLARATION_PATTERN = re.compile(
+    r"(?<![A-Za-z0-9_])"
+    r"[A-Z][A-Z0-9_]*(?:"
+    r"_PATTERN|_PATTERNS|_RULE|_RULES|_TOKEN|_TOKENS|_DRIFT|_LANGUAGE|_TERMS"
+    r")"
+    r"(?![A-Za-z0-9_])"
+)
+
+GUARD_DECLARATION_PATTERN = re.compile(
+    r"\b("
+    r"rule_id|pattern|patterns|pattern_text|forbidden_conversion|safer_form|"
+    r"observed_pattern|protected_object|anchor_ref|contract_ref|message"
+    r")\b\s*[:=]",
+    flags=re.IGNORECASE,
+)
+
+
+# Explicit negative machine-readable assertions.
+BOOLEAN_FALSE_CONTEXT_PATTERN = re.compile(
+    r"(?:(?:uses|is|has|allows|enables|validates|proves|authorizes|decides|selects)"
+    r"[A-Za-z0-9_]*|[A-Za-z0-9_]*(?:safety|deployment|validity|truth|score|metric|threshold)[A-Za-z0-9_]*)"
+    r"\s*(?::|=|==)\s*(?:False|false|0)\b"
+)
+
+
+# Strong operational context markers. These indicate code or runtime surfaces.
+# Avoid overly broad keywords such as plain "if", because prose often contains
+# "if" in explanatory text and that should not turn safe negation into a WARN.
 OPERATIONAL_TOKEN_PATTERN = re.compile(
     r"(?<![=!<>])=(?!=)"
-    r"|\b(def|class|return|yield|raise|except|try|if|elif|else|for|while|import|from)\b"
+    r"|\b(def|class|return|yield|raise|except|import|from)\b"
     r"|\b(subprocess|requests|socket|urllib|open|write|eval|exec|compile|random)\b"
     r"|\b(argmax|argmin|handler|repair)\b"
     r"|\.(open|write|write_text|write_bytes|rename|replace|unlink|remove)\s*\("
@@ -255,6 +314,25 @@ REVIEW_CONTEXT_PATTERN = re.compile(
 WEAK_OPERATIONAL_VERB_PATTERN = re.compile(
     r"\b(select|choose|optimi[sz]e|optimaliz|fallback)\w*\b",
     flags=re.IGNORECASE,
+)
+
+
+SAFE_RELATION_PATTERN = re.compile(
+    r"\b("
+    r"is\s+not|are\s+not|does\s+not|do\s+not|must\s+not|should\s+not|shall\s+not|"
+    r"may\s+not|cannot|can\s+not|never|without|"
+    r"nie\s+je|nie\s+su|nejde\s+o|nesmie|nesmu|nema\s+sa|nemaju\s+sa|"
+    r"nevalid\w*|nedokaz\w*|neautoriz\w*|nerozhod\w*|neoptimaliz\w*|"
+    r"nepredstav\w*|neznamen\w*|nepozn\w*|nevykonav\w*"
+    r")\b"
+    r".{0,120}\b("
+    r"score|skore|metric|metrika|threshold|prahov|parameter|scalar|number|"
+    r"value|objective|target|reward|optimization|optimaliz|fitness|loss|"
+    r"accuracy|performance|benchmark|validity|deployment|safety|safe|proof|"
+    r"proves|validates|validation|selector|ranking|error|bug|fallback|failure|"
+    r"exception|recovery|chyba|zlyhan"
+    r")\b",
+    flags=re.IGNORECASE | re.DOTALL,
 )
 
 
@@ -484,6 +562,22 @@ def has_negation_near(
     return contains_any_token(region, tokens) or has_negated_morphology(region)
 
 
+def has_safe_relation_negation(line: str, context: str) -> bool:
+    compact = " ".join((line + "\n" + context).split())
+    normalized = normalize_text(compact)
+
+    if "!=" in compact or "\u2260" in compact or "\\neq" in compact:
+        return True
+
+    if SAFE_RELATION_PATTERN.search(normalized):
+        return True
+
+    if BOOLEAN_FALSE_CONTEXT_PATTERN.search(line):
+        return True
+
+    return False
+
+
 def has_meta_context(
     context: str,
     *,
@@ -492,9 +586,71 @@ def has_meta_context(
     return contains_any_token(context, tokens)
 
 
+def is_pattern_declaration(line: str, context: str) -> bool:
+    if PATTERN_DECLARATION_PATTERN.search(line):
+        return True
+
+    if GUARD_DECLARATION_PATTERN.search(line):
+        return True
+
+    lowered = normalize_text(line)
+    return (
+        ("pattern" in lowered or "rule_id" in lowered)
+        and ("drift" in lowered or "forbidden" in lowered or "language" in lowered)
+    )
+
+
+def is_forbidden_example_context(line: str, context: str) -> bool:
+    normalized_line = normalize_text(line)
+    normalized_context = normalize_text(context)
+
+    if has_meta_context(context):
+        return True
+
+    if ("->" in line or "\u2192" in line or "becomes" in normalized_line) and (
+        "forbidden" in normalized_context
+        or "invalid" in normalized_context
+        or "drift" in normalized_context
+        or "must not" in normalized_context
+        or "nesmie" in normalized_context
+        or "vocabulary lock" in normalized_context
+    ):
+        return True
+
+    if "convert" in normalized_line and (
+        "must not" in normalized_context
+        or "shall not" in normalized_context
+        or "may not" in normalized_context
+        or "forbidden" in normalized_context
+        or "prohibited" in normalized_context
+        or "license" in normalized_context
+        or "nesmie" in normalized_context
+        or "zakazane" in normalized_context
+    ):
+        return True
+
+    return False
+
+
 def has_operational_context(context: str) -> bool:
     if OPERATIONAL_TOKEN_PATTERN.search(context):
-        return True
+        # Avoid treating Markdown tables / prose with "=" as code unless there
+        # is a stronger code cue nearby.
+        if REVIEW_CONTEXT_PATTERN.search(context) is not None:
+            return True
+        if re.search(
+            r"^\s*(def|class|return|yield|raise|except|import|from)\b",
+            context,
+            flags=re.IGNORECASE | re.MULTILINE,
+        ):
+            return True
+        if re.search(r"\.(open|write|write_text|write_bytes|rename|replace|unlink|remove)\s*\(", context):
+            return True
+        if re.search(r"\b(subprocess|requests|socket|urllib|eval|exec|compile|random)\b", context):
+            return True
+        if BOOLEAN_FALSE_CONTEXT_PATTERN.search(context):
+            return False
+        return False
 
     return (
         REVIEW_CONTEXT_PATTERN.search(context) is not None
@@ -509,12 +665,22 @@ def classify_context(
     start: int,
     end: int,
 ) -> tuple[ContextDecision, bool, bool, bool]:
-    negated = has_negation_near(line, start, end) or contains_any_token(
-        context,
-        ("\u2260", "!=", "\\neq"),
+    negated = (
+        has_negation_near(line, start, end)
+        or contains_any_token(context, ("\u2260", "!=", "\\neq"))
+        or has_safe_relation_negation(line, context)
     )
-    meta = has_meta_context(context)
+    meta = has_meta_context(context) or is_pattern_declaration(line, context) or is_forbidden_example_context(line, context)
     operational = has_operational_context(context)
+
+    if is_pattern_declaration(line, context):
+        return ContextDecision.META_EXAMPLE, negated, True, operational
+
+    if BOOLEAN_FALSE_CONTEXT_PATTERN.search(line):
+        return ContextDecision.NEGATED_SAFE, True, meta, operational
+
+    if has_safe_relation_negation(line, context):
+        return ContextDecision.NEGATED_SAFE, True, meta, operational
 
     if meta and operational:
         return ContextDecision.META_OPERATIONAL_REVIEW, negated, meta, operational
@@ -721,9 +887,13 @@ __all__ = [
     "NEGATION_TOKENS",
     "NEGATED_MORPHOLOGY_PATTERN",
     "META_CONTEXT_TOKENS",
+    "PATTERN_DECLARATION_PATTERN",
+    "GUARD_DECLARATION_PATTERN",
+    "BOOLEAN_FALSE_CONTEXT_PATTERN",
     "OPERATIONAL_TOKEN_PATTERN",
     "REVIEW_CONTEXT_PATTERN",
     "WEAK_OPERATIONAL_VERB_PATTERN",
+    "SAFE_RELATION_PATTERN",
     "ContextDecision",
     "ScanRule",
     "TextMatch",
@@ -739,7 +909,10 @@ __all__ = [
     "has_negated_morphology",
     "build_context",
     "has_negation_near",
+    "has_safe_relation_negation",
     "has_meta_context",
+    "is_pattern_declaration",
+    "is_forbidden_example_context",
     "has_operational_context",
     "classify_context",
     "line_excerpt",
