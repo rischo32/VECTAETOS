@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 VECTAETOS — GUARD-12 Coherence Vocabulary Guard
 
@@ -20,19 +21,90 @@ Boundary:
     It does not modify files.
     It does not validate deployment.
     It does not prove safety.
-    It does not interpret Φ, K(Φ), κ, QE, Vortex, Projection, or EK.
-    It does not create feedback into Φ.
+    It does not interpret Phi, K(Phi), kappa, QE, Vortex, Projection, or EK.
+    It does not create feedback into Phi.
+
+Runtime posture:
+    This guard imports the shared guard kernel from the repository root.
+
+    When VECTAETOS_TRUSTED_RUNTIME_ROOT is set, imports are resolved from that
+    trusted runtime root. This mirrors GUARD-01 runtime discipline and prevents
+    accidental import from an unintended execution path.
 
 Python:
     3.11+
+
+Exit codes:
+    0 = pass, or report mode with findings
+    1 = strict mode with configured blocking findings
+    2 = guard infrastructure failure / confidence unavailable
 """
 
 from __future__ import annotations
 
 import argparse
+import os
+import re
 import sys
 from collections.abc import Iterable
 from pathlib import Path
+
+
+# ---------------------------------------------------------------------------
+# Import bootstrap
+# ---------------------------------------------------------------------------
+
+
+def _prepend_import_root(root: Path) -> None:
+    """
+    Put a single import root at sys.path[0].
+
+    If the path already exists elsewhere in sys.path, remove it first so it
+    cannot appear after an unintended working-tree path.
+    """
+
+    root_str = str(root)
+    sys.path[:] = [entry for entry in sys.path if entry != root_str]
+    sys.path.insert(0, root_str)
+
+
+def _bootstrap_repo_import_path() -> Path:
+    """
+    Ensure shared guard modules import from a trusted repository root.
+
+    CI may set VECTAETOS_TRUSTED_RUNTIME_ROOT to a base-ref copy such as
+    `.trusted/base`. When that variable is set, this guard must prefer that
+    root for guards.core.* imports.
+
+    Local execution falls back to roots derived from this file and the current
+    working directory.
+    """
+
+    script_path = Path(__file__).resolve()
+    cwd = Path.cwd().resolve()
+
+    trusted_root_raw = os.environ.get("VECTAETOS_TRUSTED_RUNTIME_ROOT", "").strip()
+    if trusted_root_raw:
+        trusted_root = Path(trusted_root_raw).resolve()
+        _prepend_import_root(trusted_root)
+        return trusted_root
+
+    candidates = [
+        script_path.parent.parent,
+        cwd,
+        cwd.parent,
+    ]
+
+    for candidate in candidates:
+        if (candidate / "guards" / "core" / "findings.py").is_file():
+            _prepend_import_root(candidate)
+            return candidate
+
+    _prepend_import_root(cwd)
+    return cwd
+
+
+REPO_IMPORT_ROOT = _bootstrap_repo_import_path()
 
 try:
     from guards.core.findings import (
@@ -47,35 +119,27 @@ try:
     )
     from guards.core.paths import iter_repo_files, normalize_repo_path
     from guards.core.perimeter import EnforcementMode
-    from guards.core.reporting import (
-        exit_code_for,
-        print_text_report,
-        render_json,
-        write_json,
-    )
+    from guards.core.reporting import exit_code_for, print_text_report, write_json
     from guards.core.text_scan import make_rule, scan_file_to_findings
-except ModuleNotFoundError:
-    # Allows direct local execution when cwd is guards/ during maintenance.
-    from core.findings import (  # type: ignore
-        Confidence,
-        DriftVector,
-        EvidenceClass,
-        Finding,
-        IntegrityPosture,
-        PerimeterLevel,
-        PerimeterScope,
-        Severity,
-    )
-    from core.paths import iter_repo_files, normalize_repo_path  # type: ignore
-    from core.perimeter import EnforcementMode  # type: ignore
-    from core.reporting import exit_code_for, print_text_report, render_json, write_json  # type: ignore
-    from core.text_scan import make_rule, scan_file_to_findings  # type: ignore
+except ModuleNotFoundError as exc:
+    print("::error title=GUARD-12-IMPORT-ERROR::Cannot import guards.core shared kernel.")
+    print("")
+    print("GUARD-12-IMPORT-ERROR")
+    print(str(exc))
+    print("")
+    print(f"cwd: {Path.cwd()}")
+    print(f"script: {Path(__file__).resolve()}")
+    print(f"repo_import_root: {REPO_IMPORT_ROOT}")
+    print(f"trusted_runtime_root: {os.environ.get('VECTAETOS_TRUSTED_RUNTIME_ROOT', '')}")
+    print("")
+    print("Fail-closed: shared guard kernel is unavailable.")
+    raise SystemExit(2)
 
 
 GUARD_ID = "GUARD-12"
 GUARD_FILE = "guards/coherence_vocabulary_guard.py"
 GUARD_NAME = "VECTAETOS Coherence Vocabulary Guard"
-VERSION = "0.2.0-core-refactor"
+VERSION = "0.3.0-core-trusted-bootstrap"
 CONTRACT_SCHEMA_VERSION = "1.0"
 
 
@@ -146,8 +210,6 @@ EXCLUDED_PREFIXES = (
 
 
 def join_terms(terms: tuple[str, ...]) -> str:
-    import re
-
     return "(?:" + "|".join(re.escape(term) for term in terms) + ")"
 
 
@@ -156,43 +218,48 @@ def near(left: str, right: str, width: int = 90) -> str:
 
 
 # Guard-safe construction: keep risky phrases fragmented.
+PHI_SYMBOL = "\u03a6"
+KAPPA_SYMBOL = "\u03ba"
+SCRIPT_D_SYMBOL = "\U0001d49f"
+
 K_TOKEN = (
     r"(?:"
-    r"K\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
-    r"|K𝒟\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
-    r"|K_D\s*\(\s*(?:Φ|Phi|PHI)\s*\)"
+    rf"K\s*\(\s*(?:{re.escape(PHI_SYMBOL)}|Phi|PHI)\s*\)"
+    rf"|K{re.escape(SCRIPT_D_SYMBOL)}\s*\(\s*(?:{re.escape(PHI_SYMBOL)}|Phi|PHI)\s*\)"
+    rf"|K_D\s*\(\s*(?:{re.escape(PHI_SYMBOL)}|Phi|PHI)\s*\)"
     r"|K_\\?mathcal\{D\}\s*\(\s*\\?Phi\s*\)"
     r")"
 )
 
-C_TOKEN = r"(?:C\s*\(\s*(?:Φ|Phi|PHI)\s*\)|C_Phi|CΦ)"
-H_TOKEN = r"(?:H\s*\(\s*(?:Φ|Phi|PHI)\s*\)|H_Phi|HΦ)"
-KAPPA_TOKEN = r"(?:κ|kappa|\\kappa)"
+C_TOKEN = rf"(?:C\s*\(\s*(?:{re.escape(PHI_SYMBOL)}|Phi|PHI)\s*\)|C_Phi|C{re.escape(PHI_SYMBOL)})"
+H_TOKEN = rf"(?:H\s*\(\s*(?:{re.escape(PHI_SYMBOL)}|Phi|PHI)\s*\)|H_Phi|H{re.escape(PHI_SYMBOL)})"
+KAPPA_TOKEN = rf"(?:{re.escape(KAPPA_SYMBOL)}|kappa|\\kappa)"
 
 Q_EK_TOKEN = (
     r"(?:"
-    r"Qᵢ\^?EK"
-    r"|Q_i\^?EK"
+    r"Q_i\^?EK"
     r"|Q_i_EK"
     r"|Q\\?_i\^?\{?EK\}?"
+    r"|Qᵢ\^?EK"
     r")"
 )
 
 C_EK_TOKEN = (
     r"(?:"
-    r"Cᵢ\^?EK"
-    r"|C_i\^?EK"
+    r"C_i\^?EK"
     r"|C_i_EK"
     r"|C\\?_i\^?\{?EK\}?"
+    r"|Cᵢ\^?EK"
     r")"
 )
 
 H_TOPO_TOKEN = r"(?:h_topo|h\(\s*t\s*\)|hTopo|topological humility)"
-QE_TOKEN = r"(?:QE|QE𝒟|QE_D|Qualitative Epistemic Aporia)"
+QE_TOKEN = rf"(?:QE|QE{re.escape(SCRIPT_D_SYMBOL)}|QE_D|Qualitative Epistemic Aporia)"
 
 
 K_DRIFT_TERMS = (
     "sco" + "re",
+    "skore",
     "metr" + "ic",
     "metrik" + "a",
     "reward",
@@ -204,6 +271,12 @@ K_DRIFT_TERMS = (
     "rank",
     "validity",
     "deployment",
+    "fitness",
+    "loss",
+    "accuracy",
+    "performance",
+    "benchmark",
+    "optimum",
 )
 
 
@@ -219,7 +292,6 @@ KAPPA_DRIFT_TERMS = (
     "metrik" + "a",
     "scalar",
     "number",
-    "číslo",
     "cislo",
     "hodnota",
     "value",
@@ -252,6 +324,11 @@ EK_AUTHORITY_TERMS = (
     "selection",
     "rank",
     "ranking",
+    "truth witness",
+    "legal validity",
+    "certifies",
+    "guarantees",
+    "authorizes",
 )
 
 
@@ -265,6 +342,8 @@ QE_DRIFT_TERMS = (
     "recovery",
     "chyba",
     "zlyhan",
+    "crash",
+    "recovery mode",
 )
 
 
@@ -298,9 +377,9 @@ def build_rules() -> list:
             message="Kappa vocabulary must remain boundary vocabulary.",
             vector=DriftVector.V3_FORBIDDEN_CONVERSION,
             severity=Severity.HARD,
-            protected_object="κ",
-            forbidden_conversion="κ -> threshold / parameter / metric / scalar / number",
-            safer_form="Use κ only as boundary-of-representability language.",
+            protected_object="kappa",
+            forbidden_conversion="kappa -> threshold / parameter / metric / scalar / number",
+            safer_form="Use kappa only as boundary-of-representability language.",
             **common,
         ),
         make_rule(
@@ -312,8 +391,8 @@ def build_rules() -> list:
             message="Active comparison with kappa is incompatible with the vocabulary lock.",
             vector=DriftVector.V3_FORBIDDEN_CONVERSION,
             severity=Severity.HARD,
-            protected_object="κ",
-            forbidden_conversion="κ -> numeric comparison boundary",
+            protected_object="kappa",
+            forbidden_conversion="kappa -> numeric comparison boundary",
             safer_form="Use domain membership or boundary language instead of scalar comparison.",
             **common,
         ),
@@ -387,7 +466,12 @@ def build_rules() -> list:
 
 
 def is_excluded_path(path: Path, root: Path, extra_excluded_dirs: set[str]) -> bool:
-    rel = normalize_repo_path(path.relative_to(root)) if path.is_absolute() else normalize_repo_path(path)
+    try:
+        rel_path = path.relative_to(root)
+    except ValueError:
+        rel_path = path
+
+    rel = normalize_repo_path(rel_path)
 
     if rel in EXCLUDED_FILES:
         return True
@@ -466,19 +550,22 @@ def main(argv: list[str]) -> int:
         return 2
 
     extra_excluded_dirs = {item.strip() for item in args.exclude_dir if item.strip()}
+    title = f"{GUARD_ID} / {GUARD_NAME} v{VERSION}"
+    fail_on = Severity.HARD
 
     try:
         files_scanned, findings = scan_root(root, extra_excluded_dirs)
-    except OSError as exc:
-        print(f"ERROR: scan failed: {exc}", file=sys.stderr)
+    except Exception as exc:
+        print("::error title=GUARD-12-RUNTIME-ERROR::Coherence vocabulary guard failed internally.")
+        print("")
+        print("GUARD-12-RUNTIME-ERROR")
+        print(str(exc))
+        print("")
+        print("Fail-closed: guard runtime error blocks the check.")
         return 2
 
-    title = f"{GUARD_ID} / {GUARD_NAME} v{VERSION}"
-    mode = args.mode
-    fail_on = Severity.HARD
-
     print(f"Files scanned: {files_scanned}")
-    print_text_report(findings, title=title, mode=mode, fail_on=fail_on, root=root)
+    print_text_report(findings, title=title, mode=args.mode, fail_on=fail_on, root=root)
 
     if args.json_out:
         try:
@@ -495,4 +582,3 @@ def main(argv: list[str]) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))
-    
