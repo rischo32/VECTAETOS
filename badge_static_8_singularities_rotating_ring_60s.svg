@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="VECTAETOS badge with eight fixed singularity dots and a rotating ring">
+  <title>VECTAETOS badge — eight fixed singularity dots, rotating ring</title>
+  <desc>Eight equally spaced singularity dots remain stationary while only the dashed outer ring rotates clockwise once every 60 seconds.</desc>
+  <defs>
+    <style>
+      .rotating-ring {
+        fill: none;
+        stroke: #FF6B00;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-dasharray: 36 10 6 10;
+        transform-origin: 50px 50px;
+        animation: vectaetos-ring-spin 60s linear infinite;
+      }
+
+      .singularity-dot {
+        fill: #FF6B00;
+      }
+
+      .center-core {
+        fill: #FF6B00;
+        opacity: 0.14;
+      }
+
+      @keyframes vectaetos-ring-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .rotating-ring {
+          animation: none;
+        }
+      }
+    </style>
+  </defs>
+
+  <circle class="rotating-ring" cx="50" cy="50" r="30"/>
+  <circle class="center-core" cx="50" cy="50" r="3.6"/>
+
+  <g aria-label="fixed singularities">
+    <circle class="singularity-dot" cx="50" cy="20" r="2.2"/>
+    <circle class="singularity-dot" cx="71.213" cy="28.787" r="2.2"/>
+    <circle class="singularity-dot" cx="80" cy="50" r="2.2"/>
+    <circle class="singularity-dot" cx="71.213" cy="71.213" r="2.2"/>
+    <circle class="singularity-dot" cx="50" cy="80" r="2.2"/>
+    <circle class="singularity-dot" cx="28.787" cy="71.213" r="2.2"/>
+    <circle class="singularity-dot" cx="20" cy="50" r="2.2"/>
+    <circle class="singularity-dot" cx="28.787" cy="28.787" r="2.2"/>
+  </g>
+</svg>
