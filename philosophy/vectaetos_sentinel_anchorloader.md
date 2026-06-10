@@ -20,6 +20,7 @@ description: >
 ## 0. Status
 
 **Status:** WORKING SKILL / LSP-ADAPTER DISCIPLINE  
+**Revision:** tier-first AnchorLoader ranking / recency cannot override canonical precedence  
 **Canonical status:** non-core unless explicitly ratified by canonical repository review  
 **Layer:** LLM Adapter / Developer-Surface / LSP + CLI Audit Assistance  
 **Authority:** none  
@@ -708,9 +709,16 @@ hash sa číta ako meaning proof
 
 ---
 
-## 17. Dynamic Anchor Loading — AnchorLoader + Semantic Gravity
+## 17. Dynamic Anchor Loading — AnchorLoader + Tiered Semantic Gravity
 
 Hover text may be loaded from live anchor documents instead of a static dictionary.
+
+Core correction:
+
+```text
+Canonical precedence is not a score bonus.
+Canonical precedence is a tier sorted before gravity.
+```
 
 Architecture:
 
@@ -721,17 +729,69 @@ anchors/*.md
         ↓
 AnchorLoader.query(term)
         ↓
-gravity = 0.45·similarity
-        + 0.20·importance
-        + 0.15·recency
-        + 0.10·reliability
-        + 0.10·continuity
+candidate filtering by semantic relevance
+        ↓
+tier-first ranking:
+    1. canonical_tier / review status / path status
+    2. gravity score inside the same tier only
         ↓
 HoverBudget(max_chars=500, safety_margin=100)
         ↓
 top-k items
         ↓
 AnchorHoverProvider._format()
+```
+
+Gravity remains an ergonomic retrieval signal:
+
+```text
+gravity = 0.50·similarity
+        + 0.20·importance
+        + 0.10·recency
+        + 0.10·reliability
+        + 0.10·continuity
+```
+
+Hard invariant:
+
+```text
+Recency may affect ordering only inside the same canonical tier.
+Recency must never override canonical status, review status, conflict precedence, or path status.
+```
+
+Do **not** implement canonical precedence as a scalar bonus such as:
+
+```python
+canonical_lock = 0.5
+```
+
+Reason:
+
+```text
+A scalar bonus still collapses precedence into one numeric score.
+Tier-first ranking preserves the boundary:
+canonical precedence first, gravity second.
+```
+
+Tier model:
+
+```text
+canonical / official frozen anchor      → tier 50
+working anchor / canonical candidate    → tier 40
+contract / machine-readable projection  → tier 30
+reference / packaged skill context      → tier 20
+draft / research / staging              → tier 10
+experiment / playground / scratch       → tier 0
+```
+
+Conflict discipline:
+
+```text
+- Higher tier is shown before lower tier when both are semantically relevant.
+- Lower tier may appear as secondary context.
+- Lower tier must not be formatted as canonical reference.
+- If lower tier conflicts with higher tier, hover must expose the conflict or omit lower tier.
+- Gravity score must not be rendered as confidence, truth, validity, safety, or ontology.
 ```
 
 Invarianty:
@@ -742,10 +802,11 @@ Invarianty:
 - anchor_hash() verifies bytes, not truth.
 - Gravity score ≠ truth score.
 - Gravity score ≠ canonical precedence.
-- Recency may affect hover retrieval order only.
+- Recency may affect hover retrieval order only within the same tier.
 - Recency must not override canonical status, anchor precedence, conflict order, or review status.
 - may_claim_truth: false applies even when text comes from a canonical anchor.
 - Every hover must include source → heading.
+- Every hover must include tier / role marker when non-canonical context is shown.
 - No hover may become a verdict.
 ```
 
@@ -772,7 +833,7 @@ export VECTAETOS_ANCHORS_PATH=/path/to/your/anchors
 Degradation cascade:
 
 ```text
-live anchor query (top-k gravity)
+live anchor query (tier-first top-k)
   ↓ if VECTAETOS_ANCHORS_PATH missing or unavailable
 static fallback hover_map
   ↓ if term unknown
@@ -782,6 +843,13 @@ None
 None is a valid output.
 
 No hover is not a failure.
+
+Implementation note:
+
+```text
+The final reference implementation is `anchor_loader_tiered.py`.
+It uses canonical_tier(item) before gravity_score(item, semantic_sim).
+```
 
 ---
 
@@ -828,11 +896,51 @@ class AnchorLoader:
     def anchor_hash(self) -> str: ...
 ```
 
+AnchorLoader ranking must expose or internally use:
+
+```python
+def canonical_tier(item: ContextItem) -> int: ...
+def gravity_score(item: ContextItem, semantic_sim: float) -> float: ...
+def ranking_key(item: ContextItem, semantic_sim: float) -> tuple[int, float, float, str, str]: ...
+```
+
+Ordering rule:
+
+```text
+canonical_tier first
+gravity_score second
+deterministic path / heading fallback last
+```
+
+Forbidden implementation:
+
+```text
+single scalar score where recency can outrank canonical status
+single scalar canonical_lock bonus as the only precedence protection
+```
+
+Allowed implementation:
+
+```text
+tier-first ranking
+recency only inside same tier
+non-canonical context marked as secondary
+```
+
 AnchorHoverProvider should expose:
 
 ```python
 class AnchorHoverProvider:
     def hover(self, term: str) -> str | None: ...
+```
+
+Hover formatting requirements:
+
+```text
+- Canonical context must be labeled as canonical / working anchor / contract / reference / draft / experiment.
+- Non-canonical context must never be rendered as canonical reference.
+- Every hover must include source → heading.
+- Every hover must include: diagnostic ≠ truth; hover ≠ verdict.
 ```
 
 Implementation requirements:
