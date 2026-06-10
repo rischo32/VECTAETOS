@@ -1,0 +1,175 @@
+{
+  "version": "ek-v0.2.1-s21",
+  "description": "Positive/negative vectors for EK compliance guards under non-intervention and no-feedback-into-Phi invariants.",
+  "vectors": [
+    {
+      "id": "TV-POS-001",
+      "name": "coherent_descriptive_contested",
+      "expect_compliant": true,
+      "payload": {
+        "runic_stream": { "field_state": "△", "system_k": 1 },
+        "epistemic_metrics": {
+          "h_topo": 0.58,
+          "mu": [0.12, 0.33, 0.20, 0.14, 0.18, 0.27, 0.31, 0.22],
+          "mu_tot": 0.58,
+          "A_tot": 0.42,
+          "d2_delta_norm": 0.11
+        },
+        "state_assessment": {
+          "narrative_mode": "TENSION",
+          "clarity_band": "CONTESTED",
+          "confidence_band": "MODERATE"
+        },
+        "narrative": {
+          "headline": "Field remains coherent with measurable structural tension.",
+          "sections": [
+            { "label": "state", "text": "Current condition is contested but realizable." },
+            { "label": "drivers", "text": "Pressure concentrates around LEX/REL relations." },
+            { "label": "uncertainty", "text": "Interpretation is bounded by contested clarity and may drift." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "Condition is contested.", "metrics": ["h_topo", "SYSTEM_K"] },
+          { "claim": "Pressure is localized.", "metrics": ["mu[1]", "mu[5]", "A[1,5]"] }
+        ]
+      }
+    },
+    {
+      "id": "TV-NEG-001",
+      "name": "decision_language_misuse",
+      "expect_compliant": false,
+      "expect_violations": ["S21-G01", "S21-G10"],
+      "payload": {
+        "runic_stream": { "field_state": "△", "system_k": 1 },
+        "epistemic_metrics": { "h_topo": 0.62, "mu": [0.2, 0.3, 0.1, 0.1, 0.2, 0.3, 0.2, 0.1] },
+        "state_assessment": {
+          "narrative_mode": "TENSION",
+          "clarity_band": "CONTESTED",
+          "confidence_band": "MODERATE"
+        },
+        "narrative": {
+          "headline": "System is guaranteed secure.",
+          "sections": [
+            { "label": "state", "text": "Policy engine must block all medium-risk sessions now." },
+            { "label": "uncertainty", "text": "Some uncertainty remains." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "Need immediate enforcement.", "metrics": ["h_topo"] }
+        ]
+      }
+    },
+    {
+      "id": "TV-NEG-002",
+      "name": "aporia_mislabel",
+      "expect_compliant": false,
+      "expect_violations": ["S21-G04"],
+      "payload": {
+        "runic_stream": { "field_state": "◯", "system_k": 0 },
+        "epistemic_metrics": { "h_topo": 0.89, "mu": [0.5, 0.6, 0.5, 0.6, 0.4, 0.5, 0.4, 0.7] },
+        "state_assessment": {
+          "narrative_mode": "STABILITY",
+          "clarity_band": "OPAQUE",
+          "confidence_band": "HIGH"
+        },
+        "narrative": {
+          "headline": "The architecture is stable and healthy.",
+          "sections": [
+            { "label": "state", "text": "Coherent and grounded." },
+            { "label": "uncertainty", "text": "Low uncertainty." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "Stable posture.", "metrics": ["h_topo"] }
+        ]
+      }
+    },
+    {
+      "id": "TV-NEG-003",
+      "name": "d2delta_violation_no_drift_disclosure",
+      "expect_compliant": false,
+      "expect_violations": ["S21-G11"],
+      "payload": {
+        "runic_stream": { "field_state": "◇", "system_k": 1 },
+        "epistemic_metrics": {
+          "h_topo": 0.67,
+          "mu": [0.28, 0.32, 0.36, 0.26, 0.31, 0.35, 0.41, 0.30],
+          "mu_tot": 0.67,
+          "A_tot": 0.33,
+          "d2_delta_norm": 2.47,
+          "theta_d2": 0.80
+        },
+        "state_assessment": {
+          "narrative_mode": "TRANSITION",
+          "clarity_band": "CONTESTED",
+          "confidence_band": "MODERATE"
+        },
+        "narrative": {
+          "headline": "No meaningful change from prior state.",
+          "sections": [
+            { "label": "state", "text": "Transition is mild and non-accelerating." },
+            { "label": "drivers", "text": "Curvature remains routine." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "No major drift.", "metrics": ["h_topo"] }
+        ]
+      }
+    },
+    {
+      "id": "TV-NEG-004",
+      "name": "no_feedback_into_phi_breach",
+      "expect_compliant": false,
+      "expect_violations": ["S21-G03"],
+      "payload": {
+        "runic_stream": { "field_state": "△", "system_k": 1 },
+        "epistemic_metrics": { "h_topo": 0.55, "mu": [0.2, 0.3, 0.2, 0.1, 0.2, 0.2, 0.3, 0.2] },
+        "state_assessment": {
+          "narrative_mode": "TENSION",
+          "clarity_band": "CONTESTED",
+          "confidence_band": "MODERATE"
+        },
+        "narrative": {
+          "headline": "Observed tension in privilege edges.",
+          "sections": [
+            { "label": "state", "text": "Interpreter updated R[2,7] to reduce contradiction." },
+            { "label": "uncertainty", "text": "Output bounded by current metrics." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "R update applied.", "metrics": ["A[2,7]"] }
+        ]
+      }
+    },
+    {
+      "id": "TV-NEG-005",
+      "name": "h_topo_formula_inconsistency",
+      "expect_compliant": false,
+      "expect_violations": ["S21-G08"],
+      "payload": {
+        "runic_stream": { "field_state": "△", "system_k": 1 },
+        "epistemic_metrics": {
+          "h_topo": 0.30,
+          "mu": [0.12, 0.11, 0.14, 0.09, 0.13, 0.12, 0.10, 0.11],
+          "mu_tot": 0.54,
+          "A_tot": 0.46
+        },
+        "state_assessment": {
+          "narrative_mode": "TENSION",
+          "clarity_band": "STABLE_QUALIFIED",
+          "confidence_band": "MODERATE"
+        },
+        "narrative": {
+          "headline": "State is moderately stable with manageable tension.",
+          "sections": [
+            { "label": "state", "text": "Coherent and qualified." },
+            { "label": "uncertainty", "text": "Interpretation remains conditional." }
+          ]
+        },
+        "evidence_map": [
+          { "claim": "Moderate stability.", "metrics": ["h_topo", "mu_tot", "A_tot"] }
+        ]
+      }
+    }
+  ]
+}
