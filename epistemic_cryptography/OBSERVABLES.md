@@ -1,4 +1,5 @@
 EK observables / traces / audit artifacts, nie samotná EK
+___
 
     T_EK
     Q_EK
@@ -13,7 +14,7 @@ EK observables / traces / audit artifacts, nie samotná EK
     Merkle root
     QE marker
 
-    ___
+___
 
     T_i^EK      = local relational tension observable
     chi_i^EK    = local curvature load observable
@@ -23,3 +24,40 @@ EK observables / traces / audit artifacts, nie samotná EK
     h_topo^EK   = topological humility observable
     H_EK        = temporal humility trace
     LTL         = layered append-only audit ledger
+___
+EK INSET — READ-ONLY AUDIT
+
+input:
+
+      R^EK
+      or reconstructed R_hat^EK
+
+curvature:
+ 
+      Δ^EK = d1(R^EK)
+      Δ^EK ∈ Im(d1)
+      d2Δ = 0 if Δ supplied directly
+
+observables:
+
+      T^EK
+      χ^EK
+      Q^EK
+      μ^EK
+      A^EK
+      h_topo^EK
+
+ledger:
+
+      LTL append-only
+      fingerprint preimage p_t^EK
+      SHA256 / SHA3-512
+      optional Merkle root
+
+forbidden:
+
+      write-back into Φ
+      Vortex control
+      K(Φ) measurement
+      κ inference
+      decision authority
