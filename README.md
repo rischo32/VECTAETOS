@@ -1,3 +1,4 @@
+###### Čo sa týka webovej stranky, experimentujeme..
 ### "Cogito cohaerenter, possibile sum ergo"
 ###### "Na prvý pohľad nemusí byť VECTAETOS okamžite intuitívny. 
 
@@ -9,8 +10,7 @@ ___
 
     Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
 
-###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky, na začiatku vznikla AXIOMATICKA_INTELIGENCIA, odrázil som sa od Pána Bayes-a, Markov chain bol zvažovaný tiež.
-##### Nevznikol naraz, ale postupne, matematika, príšla až neskor. Je to proces, trajektoria...
+###### A nie, nie je to myslené ako marketing. Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky...
 
 > Bezpečnosť inteligentných systémov, sa nemôže začínať až na úrovni správania.
 Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
