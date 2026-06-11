@@ -1,0 +1,175 @@
+{
+  "nodes": [
+    {
+      "id": "field",
+      "label": "field",
+      "x": 0.09,
+      "y": 0.43,
+      "r": 7
+    },
+    {
+      "id": "boundary",
+      "label": "boundary",
+      "x": 0.1,
+      "y": 0.48,
+      "r": 8
+    },
+    {
+      "id": "topology",
+      "label": "topology",
+      "x": 0.07,
+      "y": 0.73,
+      "r": 6
+    },
+    {
+      "id": "ontology",
+      "label": "ontology",
+      "x": 0.065,
+      "y": 0.86,
+      "r": 7
+    },
+    {
+      "id": "nonagentic",
+      "label": "non-agentic",
+      "x": 0.09,
+      "y": 0.91,
+      "r": 7
+    },
+    {
+      "id": "projection",
+      "label": "projection",
+      "x": 0.105,
+      "y": 0.89,
+      "r": 5
+    },
+    {
+      "id": "episteme",
+      "label": "episteme",
+      "x": 0.22,
+      "y": 0.81,
+      "r": 7
+    },
+    {
+      "id": "coherence",
+      "label": "coherence",
+      "x": 0.4,
+      "y": 0.68,
+      "r": 7
+    },
+    {
+      "id": "symmetry",
+      "label": "symmetry",
+      "x": 0.61,
+      "y": 0.77,
+      "r": 8
+    },
+    {
+      "id": "descriptive",
+      "label": "descriptive",
+      "x": 0.625,
+      "y": 0.84,
+      "r": 6
+    },
+    {
+      "id": "tension",
+      "label": "tension",
+      "x": 0.625,
+      "y": 0.47,
+      "r": 6
+    },
+    {
+      "id": "humility",
+      "label": "humility",
+      "x": 0.58,
+      "y": 0.32,
+      "r": 8
+    },
+    {
+      "id": "structure",
+      "label": "structure",
+      "x": 0.69,
+      "y": 0.24,
+      "r": 5
+    },
+    {
+      "id": "so8",
+      "label": "so(8)",
+      "x": 0.84,
+      "y": 0.2,
+      "r": 8
+    },
+    {
+      "id": "triality",
+      "label": "triality",
+      "x": 0.84,
+      "y": 0.36,
+      "r": 7
+    }
+  ],
+  "edges": [
+    [
+      "field",
+      "boundary"
+    ],
+    [
+      "boundary",
+      "topology"
+    ],
+    [
+      "topology",
+      "ontology"
+    ],
+    [
+      "ontology",
+      "nonagentic"
+    ],
+    [
+      "ontology",
+      "projection"
+    ],
+    [
+      "topology",
+      "episteme"
+    ],
+    [
+      "episteme",
+      "coherence"
+    ],
+    [
+      "coherence",
+      "symmetry"
+    ],
+    [
+      "symmetry",
+      "descriptive"
+    ],
+    [
+      "symmetry",
+      "tension"
+    ],
+    [
+      "tension",
+      "humility"
+    ],
+    [
+      "humility",
+      "structure"
+    ],
+    [
+      "structure",
+      "so8"
+    ],
+    [
+      "so8",
+      "triality"
+    ],
+    [
+      "structure",
+      "triality"
+    ],
+    [
+      "tension",
+      "structure"
+    ]
+  ]
+}
