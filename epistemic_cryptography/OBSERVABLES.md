@@ -1,4 +1,4 @@
-EK observables / traces / audit artifacts, nie samotná EK
+EK observables / traces / audit artifacts
 ___
 
     T_EK
