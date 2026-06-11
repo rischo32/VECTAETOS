@@ -1,0 +1,38 @@
+[
+  {
+    "title": "VCL-2.0 — Canonical Ontology License",
+    "doi": "10.5281/zenodo.20533697",
+    "url": "https://doi.org/10.5281/zenodo.20533697",
+    "layer": "Ontology",
+    "description": "Canonical ontology layer. Read-only posture in this prototype."
+  },
+  {
+    "title": "VTP-1.0 — Trademark and Compatibility Policy",
+    "doi": "10.5281/zenodo.20534913",
+    "url": "https://doi.org/10.5281/zenodo.20534913",
+    "layer": "Identity",
+    "description": "Identity and compatibility boundary."
+  },
+  {
+    "title": "VNAL-1.1 — Non-Agentic License",
+    "doi": "10.5281/zenodo.20571153",
+    "url": "https://doi.org/10.5281/zenodo.20571153",
+    "layer": "Ethics / Core",
+    "description": "Behavioral non-agentic license layer.",
+    "warning": true
+  },
+  {
+    "title": "VPL-1.0 — Projection License",
+    "doi": "10.5281/zenodo.20574386",
+    "url": "https://doi.org/10.5281/zenodo.20574386",
+    "layer": "Projection",
+    "description": "Projection and trace artifacts."
+  },
+  {
+    "title": "AEPL v2.0 — Axiomatic Epistemic Public License",
+    "doi": "10.5281/zenodo.20574489",
+    "url": "https://doi.org/10.5281/zenodo.20574489",
+    "layer": "Software",
+    "description": "Software and tooling layer."
+  }
+]

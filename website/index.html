@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050805" />
+  <title>VECTAETOS™ Interface Prototype</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+<body>
+  <noscript>Táto stránka potrebuje JavaScript pre interaktívne okná, terminál a topology canvas.</noscript>
+
+  <section id="boot" class="boot" aria-label="Boot sequence">
+    <div class="boot-lines" aria-live="polite">
+      <p>VectaetOS v1.0.0</p>
+      <p>Initializing descriptive interface...</p>
+      <p>Loading so(8) topology...</p>
+      <p>Mapping relational tensions...</p>
+      <p>Coherence check: No blocker detected</p>
+      <p>Triality alignment: Display consistent</p>
+      <p class="ok">Boot complete. Interface ready.</p>
+    </div>
+  </section>
+
+  <main id="app" class="app hidden" data-font="default" data-theme="field">
+    <aside class="sidebar" aria-label="VECTAETOS modules">
+      <button class="nav-btn active" data-open="terminal" title="Terminal"><span class="ico">›_</span><span>Terminal</span></button>
+      <button class="nav-btn" data-open="papers" title="Papers"><span class="ico">▤</span><span>Papers</span></button>
+      <button class="nav-btn" data-open="licenses" title="License Stack"><span class="ico">⬡</span><span>License<br>Stack</span></button>
+      <button class="nav-btn" data-open="topology" title="Field Topology"><span class="ico">⌘</span><span>Field<br>Topology</span></button>
+      <button class="nav-btn" data-open="notes" title="Notes"><span class="ico">□</span><span>Notes</span></button>
+      <button class="nav-btn" data-open="settings" title="Settings"><span class="ico">⚙</span><span>Settings</span></button>
+      <button class="nav-btn" data-open="about" title="About VectaetOS"><span class="ico">▱</span><span>About<br>VectaetOS</span></button>
+      <button class="nav-btn" data-open="doi" title="DOI Registry"><span class="ico">↗</span><span>DOI<br>Registry</span></button>
+    </aside>
+
+    <section class="field-bg" aria-hidden="true">
+      <canvas id="ambientCanvas"></canvas>
+    </section>
+
+    <section id="windows" class="windows" aria-live="polite"></section>
+
+    <footer class="statusbar">
+      <span><i class="dot"></i> VectaetOS</span>
+      <button id="focusActive" class="status-pill">Terminal</button>
+      <time id="clock">--:--</time>
+    </footer>
+  </main>
+
+  <template id="window-template">
+    <article class="win" role="dialog" aria-modal="false">
+      <header class="win-title">
+        <span class="win-name"></span>
+        <nav class="win-controls" aria-label="Window controls">
+          <button data-action="minimize" title="Minimize">−</button>
+          <button data-action="maximize" title="Maximize">□</button>
+          <button data-action="close" title="Close">×</button>
+        </nav>
+      </header>
+      <div class="win-body"></div>
+    </article>
+  </template>
+
+  <script defer src="./src/app.js"></script>
+</body>
+</html>
