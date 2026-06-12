@@ -6,17 +6,19 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
+
+##### VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+
+https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
+
+    " Cogito cohaerenter, possibile sum ergo "
 ___
 ![Vectaetos](badge2.svg)
-##### [____ __ __ _     Welcome tO a new epistemic era     _ __ __ ____]
+### [____ __ __ _     Welcome tO a new epistemic era     _ __ __ ____]
 
-####  VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
-> " Cogito cohaerenter, possibile sum ergo "
+###  VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
 
-    Nie je to safety guarantee, 
-    ani behavioral alignment product, 
-    a popravde, nemáme ani L4 verifikáciu bezpečnosťi 
-    v "REALITE" (naozaj, fyzicky).
+> Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
 
 ###### A nie, nie je to myslené ako marketing. 
 > Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky...
@@ -25,14 +27,8 @@ ___
 
 > " Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných. "
 
-    To nie je slovná hračka. 
-    To je fundamentálne iná ontológia.
-___
-
-
-##### VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
-
-https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
+#### To nie je slovná hračka. 
+### To je fundamentálne iná ontológia.
 ___
 ##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
 
