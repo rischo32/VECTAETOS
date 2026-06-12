@@ -246,11 +246,11 @@ QE is non-representability.
 | Φ = (Σ, R) | Relational epistemic field | Encodes invariant singularities and antisymmetric tensions | Agency, preference, command, goal function |
 | RMK | Relational carrier of R | Descriptive continuity of relational structure | Mutation of Φ, feedback into Φ, adaptive authority |
 | Δ / 𝒟 / E / κ / QE | Curvature and boundary surface | Marks representability / non-representability | Scoring, filtering, deployment threshold, safety cutoff |
-| Vortex | Trajectory exposure | Exposes possible deformations | Preferred trajectory, attractor, reward, selection |
-| Projection Deformation | Readable projection | Renders structural form | Reader authority, normative closure |
+| Vortex | Trajectory exposure | Exposes possible deformations | Privileged trajectory, attractor framing, reward framing, closure as outcome |
+| Projection Deformation | Readable projection | Renders structural form | Reader-side mandate, normative closure |
 | Epistemic Cryptography | Structural audit | Integrity, provenance, tamper-evidence, trace geometry | Truth proof, compliance certification, control layer |
 | TetraGlyph | Symbolic artifact | Machine-verifiable projection trace | Self-reading, verdict, truth witness |
-| LLM Adapter | Language surface | Human-readable articulation | Authoritative factual claims, legal advice, adjudication module |
+| LLM Adapter | Language surface | Human-readable articulation | Fact-making claims, legal advice, adjudication module |
 | Human Interpretation | Downstream reading | Explicit interpretation and responsibility | Retroactive mutation of ontology |
 
 ---
@@ -384,8 +384,8 @@ NIR prohibits:
 - feedback into Φ
 - lower-layer mutation of higher layers
 - audit becoming ontology
-- readable exposure promoted into downstream reading
-- language becoming truth authority
+- readable exposure assigned normative uptake
+- language assigned fact-making status
 ```
 
 ---
