@@ -247,10 +247,10 @@ QE is non-representability.
 | RMK | Relational carrier of R | Descriptive continuity of relational structure | Mutation of Φ, feedback into Φ, adaptive authority |
 | Δ / 𝒟 / E / κ / QE | Curvature and boundary surface | Marks representability / non-representability | Scoring, filtering, deployment threshold, safety cutoff |
 | Vortex | Trajectory exposure | Exposes possible deformations | Preferred trajectory, attractor, reward, selection |
-| Projection Deformation | Readable projection | Renders structural form | Interpretation authority, prescription, closure |
+| Projection Deformation | Readable projection | Renders structural form | Reader authority, normative closure |
 | Epistemic Cryptography | Structural audit | Integrity, provenance, tamper-evidence, trace geometry | Truth proof, compliance certification, control layer |
-| TetraGlyph | Symbolic artifact | Machine-verifiable projection trace | Self-interpretation, verdict, truth witness |
-| LLM Adapter | Language surface | Human-readable articulation | Truth authority, legal advice, decision module |
+| TetraGlyph | Symbolic artifact | Machine-verifiable projection trace | Self-reading, verdict, truth witness |
+| LLM Adapter | Language surface | Human-readable articulation | Authoritative factual claims, legal advice, adjudication module |
 | Human Interpretation | Downstream reading | Explicit interpretation and responsibility | Retroactive mutation of ontology |
 
 ---
@@ -384,7 +384,7 @@ NIR prohibits:
 - feedback into Φ
 - lower-layer mutation of higher layers
 - audit becoming ontology
-- projection becoming interpretation
+- readable exposure promoted into downstream reading
 - language becoming truth authority
 ```
 
