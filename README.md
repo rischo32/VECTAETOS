@@ -27,7 +27,7 @@ ___
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
 ![VECTAETOS™ terminology](https://img.shields.io/badge/uses-VECTAETOS%E2%84%A2%20terminology-lightgrey)   
 
-###  VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
+##### VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 
 https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
 ___
@@ -87,9 +87,16 @@ ___
 [![Repository Summary](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/summary.yml)
 [![Master Index Router Guard](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml/badge.svg?branch=main)](https://github.com/rischo32/Vectaetos/actions/workflows/master-index-router-guard.yml)
 ___
-#### "Vectaetos nepredstiera poznanie pravdy o realite.
-#### Operuje opatrne, z vedomej neistoty o nej."
-___
+
+ "Vectaetos nepredstiera poznanie pravdy o realite.
+- Operuje opatrne, z vedomej neistoty o nej."
+---
+
+"Meta-matematika VECTAETOSU nepopisuje 
+čo sa má stať, ale čo sa môže stať bez rozpadu zmyslu."
+---
+
+
     Ne-rozhodovacia architektúra neznamená, že okolo nej neexistujú rozhodnutia. Znamená, že žiadne rozhodnutie nesmie byť vložené do Φ ako jeho vnútorná vlastnosť, cieľ, preferencia alebo autorita.
     VECTAETOS™ môže určiť hranicu reprezentovateľnosti, ale nesmie z nej spraviť verdikt typu „lepšie“, „správne“, „bezpečné“ alebo „má sa vykonať“.
     Rozhodnutie patrí mimo Φ: človeku, governance, repozitárovému procesu alebo implementačnému perimeteru — a aj tam iba ako verziovaný záväzok, nie ako pravda.          
