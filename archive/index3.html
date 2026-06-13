@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Core identity -->
+<meta name="title" content="VECTAETOS™ — Non-Agentic Onto-Epistemic Field Framework">
+<meta name="description" content="VECTAETOS™ is a non-agentic onto-epistemic field framework. Knowledge appears as a topology of relational tensions. All projections are descriptive and non-prescriptive.">
+<meta name="author" content="Richard Fonfára">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050505">
+
+<!-- Google Scholar / citation metadata -->
+<meta name="citation_title" content="Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility">
+<meta name="citation_author" content="Fonfára, Richard">
+<meta name="citation_publication_date" content="2025/12/28">
+<meta name="citation_doi" content="10.5281/zenodo.18076787">
+<meta name="citation_public_url" content="https://vectaetos.eu">
+<meta name="citation_pdf_url" content="https://vectaetos.eu/papers/Vectaetos_ArXiv_v1.pdf">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="VECTAETOS, epistemic field, non-agentic AI, AI safety, so(8), Lie algebra, triality, coherence, epistemic cryptography, projection, ontological boundary">
+
+<!-- DOI constellation -->
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.18076787">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.18138226">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.18739552">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.18911932">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.19148358">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.19370185">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.20533697">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.20534913">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.20571153">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.20574386">
+<meta name="dc.identifier" content="https://doi.org/10.5281/zenodo.20574489">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://vectaetos.eu/#website",
+      "name": "VECTAETOS™",
+      "url": "https://vectaetos.eu",
+      "author": {
+        "@type": "Person",
+        "name": "Richard Fonfára",
+        "identifier": "https://orcid.org/0009-0008-5980-8940"
+      },
+      "description": "VECTAETOS™ is a non-agentic onto-epistemic field framework. Knowledge appears as a topology of relational tensions."
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://doi.org/10.5281/zenodo.18076787",
+      "name": "Vectaetos: A Foundational Relational Epistemic Field with Intrinsic Humility",
+      "author": {
+        "@type": "Person",
+        "name": "Richard Fonfára",
+        "identifier": "https://orcid.org/0009-0008-5980-8940"
+      },
+      "datePublished": "2025-12-28",
+      "identifier": "https://doi.org/10.5281/zenodo.18076787",
+      "keywords": ["epistemic field", "non-agentic", "so(8)", "triality", "coherence"]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://vectaetos.eu/#license-stack",
+      "name": "VECTAETOS™ License Stack",
+      "description": "Layered custom license stack separating canonical ontology, identity / compatibility, implementation behavior, projection / trace artifacts, and software / tooling.",
+      "hasPart": [
+        {"@type":"CreativeWork","name":"VCL-2.0 — Canonical Ontology License","identifier":"https://doi.org/10.5281/zenodo.20533697"},
+        {"@type":"CreativeWork","name":"VTP-1.0 — Trademark and Compatibility Policy","identifier":"https://doi.org/10.5281/zenodo.20534913"},
+        {"@type":"CreativeWork","name":"VNAL-1.1 — Non-Agentic License","identifier":"https://doi.org/10.5281/zenodo.20571153"},
+        {"@type":"CreativeWork","name":"VPL-1.0 — Projection License","identifier":"https://doi.org/10.5281/zenodo.20574386"},
+        {"@type":"CreativeWork","name":"VECTAETOS™ - Axiomatic Epistemic Public License v2.0","identifier":"https://doi.org/10.5281/zenodo.20574489"}
+      ]
+    }
+  ]
+}
+</script>
+
+<title>VECTAETOS™ — Non-Agentic Epistemic Field Architecture</title>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.svg">
+
+<style>
+
+/* ===== GLOBAL ===== */
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+background:#050505;
+color:#eaeaea;
+font-family:monospace;
+display:flex;
+justify-content:center;
+min-height:100vh;
+text-align:center;
+padding:40px 0;
+}
+
+.wrapper{
+max-width:940px;
+padding:40px;
+}
+
+/* ===== TYPO ===== */
+
+h1{
+font-size:34px;
+margin-top:30px;
+margin-bottom:10px;
+font-weight:normal;
+letter-spacing:.04em;
+}
+
+h2{
+font-size:18px;
+font-weight:normal;
+margin:0 0 18px 0;
+opacity:.9;
+}
+
+h3{
+font-size:15px;
+font-weight:normal;
+margin:0 0 12px 0;
+opacity:.95;
+}
+
+.subtitle{
+opacity:.7;
+margin-bottom:32px;
+line-height:1.7;
+}
+
+p{
+line-height:1.65;
+opacity:0.85;
+margin:14px 0;
+}
+
+.small{
+font-size:13px;
+opacity:.68;
+line-height:1.65;
+}
+
+.micro{
+font-size:11px;
+opacity:.55;
+line-height:1.65;
+}
+
+code{
+font-family:monospace;
+font-size:.95em;
+}
+
+/* ===== BLOCKS ===== */
+
+.coreblock{
+margin-top:40px;
+padding:22px;
+border:1px solid #222;
+background:#0d0d0d;
+font-size:15px;
+line-height:1.75;
+}
+
+.section{
+margin-top:38px;
+padding-top:30px;
+border-top:1px solid #171717;
+}
+
+.langgrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-top:28px;
+text-align:left;
+}
+
+.card{
+border:1px solid #222;
+background:#0b0b0b;
+padding:18px;
+min-height:100%;
+}
+
+.card p{
+font-size:14px;
+margin:0;
+}
+
+.stack,
+.licensegrid,
+.recordgrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:22px;
+text-align:left;
+}
+
+.licensegrid{
+grid-template-columns:1fr;
+}
+
+.pill,
+.license-card,
+.record-card{
+border:1px solid #222;
+background:#090909;
+padding:14px;
+font-size:13px;
+line-height:1.6;
+}
+
+.license-card{
+display:grid;
+grid-template-columns:150px 1fr;
+gap:12px;
+align-items:start;
+}
+
+.layer{
+opacity:.95;
+}
+
+.layer b{
+display:block;
+font-size:14px;
+margin-bottom:5px;
+}
+
+.doi{
+font-size:12px;
+opacity:.75;
+word-break:break-word;
+}
+
+.doi a{
+color:#ddd;
+text-decoration:none;
+border-bottom:1px solid #333;
+}
+
+.doi a:hover{
+border-bottom:1px solid #888;
+}
+
+.statement{
+margin-top:34px;
+padding:18px;
+border:1px solid #282828;
+background:#080808;
+font-size:14px;
+line-height:1.7;
+}
+
+.badgebar{
+margin-top:24px;
+font-size:12px;
+line-height:2.2;
+opacity:.82;
+}
+
+.badgebar a{
+color:#ddd;
+text-decoration:none;
+border:1px solid #222;
+background:#090909;
+padding:6px 9px;
+margin:3px;
+display:inline-block;
+}
+
+.badgebar a:hover{
+border-color:#666;
+}
+
+/* ===== LINKS ===== */
+
+.links{
+margin-top:42px;
+font-size:14px;
+line-height:2.4;
+}
+
+.links a{
+color:#ddd;
+text-decoration:none;
+margin:0 10px;
+border-bottom:1px solid #333;
+padding-bottom:2px;
+white-space:nowrap;
+}
+
+.links a:hover{
+border-bottom:1px solid #888;
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+margin-top:80px;
+font-size:11px;
+opacity:.45;
+line-height:1.7;
+}
+
+/* ===== ANIMATION ===== */
+
+@keyframes orbitFlow{
+from{stroke-dashoffset:0}
+to{stroke-dashoffset:-120}
+}
+
+@keyframes breathe{
+0%,100%{opacity:.85}
+50%{opacity:1}
+}
+
+.orbit{
+animation:orbitFlow 18s linear infinite;
+}
+
+.coreglyph{
+animation:breathe 6s ease-in-out infinite;
+}
+
+@media (max-width:720px){
+body{
+padding:16px 0;
+}
+.wrapper{
+padding:28px 20px;
+}
+.langgrid,
+.stack,
+.recordgrid{
+grid-template-columns:1fr;
+}
+.license-card{
+grid-template-columns:1fr;
+}
+h1{
+font-size:30px;
+}
+.links a{
+display:inline-block;
+margin:4px 6px;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- Φ glyph with singularities -->
+
+<svg viewBox="0 0 100 100" width="180" height="180" role="img" aria-label="Vectaetos Phi glyph with eight epistemic singularities">
+
+<!-- orbit -->
+
+<circle
+class="orbit"
+cx="50"
+cy="50"
+r="42"
+stroke="#eaeaea"
+stroke-width="1"
+stroke-dasharray="3 12"
+fill="none"
+opacity=".35"
+/>
+
+<!-- Φ -->
+
+<circle
+class="coreglyph"
+cx="50"
+cy="50"
+r="30"
+stroke="#eaeaea"
+stroke-width="6"
+fill="none"
+/>
+
+<line
+class="coreglyph"
+x1="50"
+y1="10"
+x2="50"
+y2="90"
+stroke="#eaeaea"
+stroke-width="6"
+/>
+
+<!-- singularities -->
+
+<circle cx="50" cy="8" r="2.2" fill="#eaeaea"/>
+<circle cx="78" cy="20" r="2.2" fill="#eaeaea"/>
+<circle cx="92" cy="50" r="2.2" fill="#eaeaea"/>
+<circle cx="78" cy="80" r="2.2" fill="#eaeaea"/>
+<circle cx="50" cy="92" r="2.2" fill="#eaeaea"/>
+<circle cx="22" cy="80" r="2.2" fill="#eaeaea"/>
+<circle cx="8" cy="50" r="2.2" fill="#eaeaea"/>
+<circle cx="22" cy="20" r="2.2" fill="#eaeaea"/>
+
+</svg>
+
+<h1>VECTAETOS™</h1>
+
+<div class="subtitle">
+Non-Agentic Onto-Epistemic Field Architecture<br>
+Neagentná onto-epistemická architektúra poľa
+</div>
+
+<p>
+Vectaetos describes knowledge as a <b>topology of relational tensions</b>
+between invariant epistemic singularities.
+</p>
+
+<p>
+VECTAETOS opisuje poznanie ako <b>topológiu relačných napätí</b>
+medzi invariantnými epistemickými ťažiskami.
+</p>
+
+<div class="badgebar" aria-label="Primary VECTAETOS license DOI links">
+<a href="https://doi.org/10.5281/zenodo.20533697" target="_blank" rel="noopener">VCL-2.0 DOI</a>
+<a href="https://doi.org/10.5281/zenodo.20534913" target="_blank" rel="noopener">VTP-1.0 DOI</a>
+<a href="https://doi.org/10.5281/zenodo.20571153" target="_blank" rel="noopener">VNAL-1.1 DOI</a>
+<a href="https://doi.org/10.5281/zenodo.20574386" target="_blank" rel="noopener">VPL-1.0 DOI</a>
+<a href="https://doi.org/10.5281/zenodo.20574489" target="_blank" rel="noopener">AEPL-2.0 DOI</a>
+</div>
+
+<div class="coreblock">
+
+Φ = (Σ, R)
+
+<br><br>
+
+Σ = {INT, LEX, VER, LIB, UNI, REL, WIS, CRE}<br>
+R ∈ so(8), R<sub>ij</sub> = −R<sub>ji</sub><br>
+K(Φ) — representability predicate / predikát reprezentovateľnosti<br>
+κ — boundary of ontological preservability / hranica ontologickej zachovateľnosti<br>
+4ES + QE — epistemic state topology / topológia epistemických stavov
+
+</div>
+
+<div class="section">
+<h2>Core Orientation / Základná orientácia</h2>
+
+<div class="langgrid">
+
+<div class="card">
+<h3>EN</h3>
+<p>
+VECTAETOS is not an agent, assistant, optimizer, reward system, or decision engine.
+It is a non-agentic epistemic field framework for describing which configurations of meaning remain structurally coherent without collapse.
+</p>
+</div>
+
+<div class="card">
+<h3>SK</h3>
+<p>
+VECTAETOS nie je agent, asistent, optimalizátor, systém odmien ani rozhodovací mechanizmus.
+Je to neagentný epistemický rámec poľa, ktorý opisuje, ktoré konfigurácie významu zostávajú štrukturálne koherentné bez kolapsu.
+</p>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Architecture / Architektúra</h2>
+
+<div class="stack">
+
+<div class="pill">
+<b>Φ Field / Pole Φ</b><br>
+Primary ontology. A global configuration of relations, not an agent and not a data structure of authority.
+</div>
+
+<div class="pill">
+<b>Σ₁…Σ₈ Singularities / Ťažiská</b><br>
+Eight invariant axiomatic centers: intent, existence, truth, freedom, unity, reciprocity, wisdom, creation.
+</div>
+
+<div class="pill">
+<b>Simulation Vortex / Simulačný Vortex</b><br>
+Generates candidate trajectories as projections only. No decision, no optimization, no preferred attractor.
+</div>
+
+<div class="pill">
+<b>Epistemic Cryptography / Epistemická kryptografia</b><br>
+A read-only audit layer preserving structural coherence and the geometry of uncertainty without intervention.
+</div>
+
+<div class="pill">
+<b>Projection Layer / Projekčná vrstva</b><br>
+Runes and TetraGlyph describe field states. They are descriptive, non-prescriptive, and non-authoritative.
+</div>
+
+<div class="pill">
+<b>Human Interpretation / Ľudská interpretácia</b><br>
+Meaning is not imposed by the lower layers. Interpretation remains downstream, explicit, and human-readable.
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Entropic Humility / Entropická pokora</h2>
+
+<div class="langgrid">
+
+<div class="card">
+<h3>EN</h3>
+<p>
+Entropic humility means that impulses which would reduce global coherence below κ do not become realizable transitions. They are not forbidden by rule; they fail as ontology.
+</p>
+</div>
+
+<div class="card">
+<h3>SK</h3>
+<p>
+Entropická pokora znamená, že impulzy, ktoré by znížili globálnu koherenciu pod κ, sa nestanú realizovateľnými prechodmi. Nie sú zakázané pravidlom; zlyhajú ako ontológia.
+</p>
+</div>
+
+</div>
+</div>
+
+<div class="section" id="license-stack">
+<h2>License Stack / Licenčný stack</h2>
+
+<p class="small">
+The VECTAETOS™ license stack separates ontology, public identity, implementation behavior, projection artifacts, and software/tooling.
+Licenses protect use and attribution; they do not define Φ, prove truth, authorize deployment, or make artifacts authoritative.
+</p>
+
+<p class="small">
+Licenčný stack VECTAETOS™ oddeľuje ontológiu, verejnú identitu, implementačné správanie, projekčné artefakty a software/tooling.
+Licencie chránia použitie a atribúciu; nedefinujú Φ, nedokazujú pravdu, neautorizujú nasadenie a nerobia z artefaktov autoritu.
+</p>
+
+<div class="licensegrid">
+
+<div class="license-card">
+<div class="layer">
+<b>VCL-2.0</b>
+Canonical ontology / documentation<br>
+Kánonická ontológia / dokumentácia
+</div>
+<div class="doi">
+DOI: <a href="https://doi.org/10.5281/zenodo.20533697" target="_blank" rel="noopener">10.5281/zenodo.20533697</a><br>
+Scope: Φ, Σ, R, K(Φ), κ, QE, anchors, doctrine, formal vocabulary.
+</div>
+</div>
+
+<div class="license-card">
+<div class="layer">
+<b>VTP-1.0</b>
+Trademark and compatibility policy<br>
+Identita, značky, kompatibilita
+</div>
+<div class="doi">
+DOI: <a href="https://doi.org/10.5281/zenodo.20534913" target="_blank" rel="noopener">10.5281/zenodo.20534913</a><br>
+Scope: names, marks, public identity, compatibility claims, VECTLAB boundary.
+</div>
+</div>
+
+<div class="license-card">
+<div class="layer">
+<b>VNAL-1.1</b>
+Non-agentic implementation behavior<br>
+Neagentné implementačné správanie
+</div>
+<div class="doi">
+DOI: <a href="https://doi.org/10.5281/zenodo.20571153" target="_blank" rel="noopener">10.5281/zenodo.20571153</a><br>
+Scope: implementations, simulators, runtime structures, output-producing prototypes.
+</div>
+</div>
+
+<div class="license-card">
+<div class="layer">
+<b>VPL-1.0</b>
+Projection and trace artifacts<br>
+Projekcie, stopy, glyphy, EK artefakty
+</div>
+<div class="doi">
+DOI: <a href="https://doi.org/10.5281/zenodo.20574386" target="_blank" rel="noopener">10.5281/zenodo.20574386</a><br>
+Scope: TetraGlyph, runes, projections, EK traces, fingerprints, hashes, Merkle roots.
+</div>
+</div>
+
+<div class="license-card">
+<div class="layer">
+<b>AEPL-2.0-VECTAETOS</b>
+Software / tooling / guards<br>
+Software, nástroje, guardy
+</div>
+<div class="doi">
+DOI: <a href="https://doi.org/10.5281/zenodo.20574489" target="_blank" rel="noopener">10.5281/zenodo.20574489</a><br>
+Scope: code, CLI, LSP diagnostics, contracts, tests, adapters, repository automation.
+</div>
+</div>
+
+</div>
+
+<div class="statement">
+<b>License boundary / Hranica licencie</b><br>
+license ≠ ontology · policy ≠ truth · trademark ≠ Φ · guard ≠ authority · hash ≠ semantic truth · projection ≠ interpretation · EK ≠ decision<br>
+licencia ≠ ontológia · politika ≠ pravda · značka ≠ Φ · guard ≠ autorita · hash ≠ sémantická pravda · projekcia ≠ interpretácia · EK ≠ rozhodnutie
+</div>
+</div>
+
+<div class="section">
+<h2>Records / DOI constellation</h2>
+
+<div class="recordgrid">
+
+<div class="record-card">
+<b>Vectaetos foundational paper</b><br>
+<a href="https://doi.org/10.5281/zenodo.18076787" target="_blank" rel="noopener">10.5281/zenodo.18076787</a>
+</div>
+
+<div class="record-card">
+<b>Entropic Humility</b><br>
+<a href="https://doi.org/10.5281/zenodo.18138226" target="_blank" rel="noopener">10.5281/zenodo.18138226</a>
+</div>
+
+<div class="record-card">
+<b>Formal Constraint Extension</b><br>
+<a href="https://doi.org/10.5281/zenodo.18739552" target="_blank" rel="noopener">10.5281/zenodo.18739552</a>
+</div>
+
+<div class="record-card">
+<b>Epistemic Cryptography</b><br>
+<a href="https://doi.org/10.5281/zenodo.18911932" target="_blank" rel="noopener">10.5281/zenodo.18911932</a>
+</div>
+
+<div class="record-card">
+<b>TetraGlyph</b><br>
+<a href="https://doi.org/10.5281/zenodo.19148358" target="_blank" rel="noopener">10.5281/zenodo.19148358</a>
+</div>
+
+<div class="record-card">
+<b>VECTAETOS repository / software record</b><br>
+<a href="https://doi.org/10.5281/zenodo.19370185" target="_blank" rel="noopener">10.5281/zenodo.19370185</a>
+</div>
+
+<div class="record-card">
+<b>Historical AEPL-1.2-VECTAETOS</b><br>
+<a href="https://doi.org/10.5281/zenodo.17931554" target="_blank" rel="noopener">10.5281/zenodo.17931554</a>
+</div>
+
+<div class="record-card">
+<b>Historical VNAL-1.0 / ASIMULATOR</b><br>
+<a href="https://doi.org/10.5281/zenodo.19478683" target="_blank" rel="noopener">10.5281/zenodo.19478683</a>
+</div>
+
+</div>
+</div>
+
+<div class="statement">
+<b>Canonical stance / Kanonický postoj</b><br>
+No optimization. No agents. No reward systems. No authority-bearing output.<br>
+Žiadna optimalizácia. Žiadni agenti. Žiadne odmeňovacie systémy. Žiadny autoritatívny výstup.
+</div>
+
+<div class="links">
+
+<a href="https://github.com/rischo32/VECTAETOS" target="_blank" rel="noopener">
+GitHub Repository
+</a>
+
+|
+
+<a href="https://zenodo.org/records/18076787" target="_blank" rel="noopener">
+Vectaetos DOI
+</a>
+
+|
+
+<a href="https://zenodo.org/records/18911932" target="_blank" rel="noopener">
+Epistemic Cryptography DOI
+</a>
+
+|
+
+<a href="https://zenodo.org/records/19148358" target="_blank" rel="noopener">
+TetraGlyph DOI
+</a>
+
+|
+
+<a href="#license-stack">
+License Stack
+</a>
+
+</div>
+
+<div class="footer">
+
+VECTAETOS™ — Onto-Epistemic Field Framework<br>
+© 2026 Richard Fonfára / VECTAETOS Project.<br>
+All projections are descriptive and non-prescriptive. Usage is governed by the applicable VECTAETOS™ license layer.<br>
+<br>
+Knowledge appears as the topology of relational tensions.<br>
+Poznanie sa javí ako topológia relačných napätí.
+
+</div>
+
+</div>
+
+</body>
+</html>

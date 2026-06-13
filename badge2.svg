@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="VECTAETOS badge with 8-point rotating orbit">
+  <style>
+    .bg{fill:#050505}
+    .label{font-family:monospace;fill:#eaeaea}
+    .title{font-size:22px;letter-spacing:.18em}
+    .subtitle{font-size:12px;letter-spacing:.25em;opacity:.6}
+    .orbit-ring{stroke:#eaeaea;stroke-width:1;stroke-dasharray:3 10;fill:none;opacity:.35}
+    .core{stroke:#eaeaea;stroke-width:5;fill:none;opacity:.9}
+    .dot{fill:#eaeaea}
+    .orbit-group{
+      animation: orbitSpin 60s linear infinite;
+      transform-origin: 60px 60px;
+      transform-box: view-box;
+    }
+    @keyframes orbitSpin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+  </style>
+
+  <rect class="bg" width="420" height="120"/>
+
+  <g transform="translate(10,0)">
+    <circle class="core" cx="60" cy="60" r="30"/>
+    <g class="orbit-group" aria-hidden="true">
+      <circle class="orbit-ring" cx="60" cy="60" r="44"/>
+      <circle class="dot" cx="60" cy="16" r="2.4" opacity=".95"/>
+      <circle class="dot" cx="91.1127" cy="28.8873" r="2.4" opacity=".9"/>
+      <circle class="dot" cx="104" cy="60" r="2.4" opacity=".85"/>
+      <circle class="dot" cx="91.1127" cy="91.1127" r="2.4" opacity=".8"/>
+      <circle class="dot" cx="60" cy="104" r="2.4" opacity=".75"/>
+      <circle class="dot" cx="28.8873" cy="91.1127" r="2.4" opacity=".8"/>
+      <circle class="dot" cx="16" cy="60" r="2.4" opacity=".85"/>
+      <circle class="dot" cx="28.8873" cy="28.8873" r="2.4" opacity=".9"/>
+    </g>
+  </g>
+
+  <text class="label title" x="150" y="55">VECTAETOS™</text>
+  <text class="label subtitle" x="150" y="85">Onto-epistemic © field</text>
+</svg>

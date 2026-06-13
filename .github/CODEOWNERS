@@ -1,4 +1,28 @@
-*rischo32
+* @rischo32
+
+/README.md @rischo32
+/LICENSE.md @rischo32
+/SECURITY.md @rischo32
+/ANCHOR_INDEX.md @rischo32
+/RCHITECTURE.md @rischo32
+/DIALOGUE_PIPELINE.md @rischo32
+/EMPIRICAL_SAFETY_PRIOR.md @rischo32
+/ENTROPIC_HUMILITY.md @rischo32
+/LICENCE.md @rischo32
+/NOTICE.md @rischo32
+/READ_THIS_FIRST.md @rischo32
+/RESEARCH_INDEX.md @rischo32
+/TERMINATOR_PROBLEM.md @rischo32
+/index.html @rischo32
+/requirements.txt @rischo32
+/glyph.html @rischo32
+/favicon.svg @rischo32
+/badge.svg @rischo32
+/VECTAETOS_CORE_1.0.md @rischo32
+/UNIFIED_ARCHITECTURE.md @rischo32
+/TRIADIC_ARCHITECTURE.md @rischo32
+/TRADEMARK_POLICY.md @rischo32
+
 /formal/ @rischo32
 /anchors/ @rischo32
 /contracts/ @rischo32
@@ -16,7 +40,7 @@
 /experimental/ @rischo32
 /philosophy/ @rischo32
 /papers/ @rischo32
-/config/@rischo32
+/config/ @rischo32
 /EAI/ @rischo32 
 /audit/ @rischo32
 /governance/ @rischo32
@@ -24,3 +48,9 @@
 /tests/ @rischo32
 /tetraglyph/ @rischo32
 /corpus/ @rischo32
+/guards/ @rischo32
+/ek_core/ @rischo32
+/knowledge_base/ @rischo32
+/METAMATEMATICS/ @rischo32
+/LICENSES/ @rischo32
+/cli/ @rischo32

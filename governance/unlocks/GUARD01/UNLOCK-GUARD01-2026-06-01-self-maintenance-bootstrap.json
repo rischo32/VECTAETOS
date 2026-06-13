@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1",
+  "unlock_id": "UNLOCK-GUARD01-2026-06-01-self-maintenance-bootstrap",
+  "mode": "guard01_self_maintenance",
+  "paths_allowed": [
+    "guards/canonical_ontology_guard.py"
+  ],
+  "reason": "Bootstrap GUARD-01 self-maintenance unlock validation before refactoring the canonical ontology guard.",
+  "signed_by": "Richard Fonfára",
+  "confirmation": "I confirm GUARD-01 self-maintenance unlock.",
+  "expires_utc": "2026-06-07T23:59:00Z",
+  "ontology_authority": false,
+  "auto_fix_allowed": false,
+  "ai_review": {
+    "used": true,
+    "advisory_only": true,
+    "notes": "AI review is advisory only and is not an independent approver."
+  }
+}

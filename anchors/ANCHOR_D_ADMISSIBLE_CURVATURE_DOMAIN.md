@@ -30,33 +30,33 @@ This anchor defines the admissible curvature domain **𝒟** of the VECTAETOS ep
 
 Let:
 
-\[
+$$
 \Sigma = \{\Sigma_1,\ldots,\Sigma_8\}
-\]
+$$
 
 be the fixed set of invariant axiomatic singularities.
 
 Let:
 
-\[
-R \in \mathfrak{so}(8)
-\]
+$$
+R \in C^1\simeq\mathfrak{so}(8)
+$$
 
 be the antisymmetric relational tension matrix, with:
 
-\[
+$$
 R_{ij}=-R_{ji}
-\]
+$$
 
-\[
+$$
 R_{ii}=0
-\]
+$$
 
 The epistemic field is:
 
-\[
+$$
 \Phi=(\Sigma,R)
-\]
+$$
 
 Φ is not an agent.  
 Φ is not a controller.  
@@ -71,53 +71,53 @@ The epistemic field is:
 
 Let:
 
-\[
+$$
 C^0
-\]
+$$
 
 be the space of scalar assignments to singularities.
 
 Let:
 
-\[
+$$
 C^1
-\]
+$$
 
 be the space of antisymmetric relational cochains on pairs of singularities.
 
 Let:
 
-\[
+$$
 C^2
-\]
+$$
 
 be the space of oriented triangular relational curvature cochains.
 
 Let:
 
-\[
+$$
 C^3
-\]
+$$
 
 be the space of oriented tetrahedral boundary-consistency cochains.
 
 Since \(|\Sigma|=8\):
 
-\[
+$$
 \dim C^0 = 8
-\]
+$$
 
-\[
+$$
 \dim C^1 = \binom{8}{2}=28
-\]
+$$
 
-\[
+$$
 \dim C^2 = \binom{8}{3}=56
-\]
+$$
 
-\[
+$$
 \dim C^3 = \binom{8}{4}=70
-\]
+$$
 
 These spaces are structural.
 
@@ -133,21 +133,21 @@ They are not optimization spaces.
 
 Define:
 
-\[
+$$
 d_0:C^0\rightarrow C^1
-\]
+$$
 
 by:
 
-\[
+$$
 (d_0\varphi)_{ij}=\varphi_j-\varphi_i
-\]
+$$
 
 for scalar assignments:
 
-\[
+$$
 \varphi \in C^0
-\]
+$$
 
 This expresses relational gauge displacement.
 
@@ -163,27 +163,27 @@ It does not privilege any singularity.
 
 Define:
 
-\[
+$$
 d_1:C^1\rightarrow C^2
-\]
+$$
 
 by:
 
-\[
-(d_1R)_{ijk}=R_{ij}+R_{jk}+R_{ki}
-\]
+$$
+(d_1(R))_{ijk}=R_{ij}+R_{jk}+R_{ki}
+$$
 
 The epistemic curvature is:
 
-\[
-\Delta=d_1R
-\]
+$$
+\Delta=d_1(R)
+$$
 
 Thus:
 
-\[
+$$
 \Delta \in C^2
-\]
+$$
 
 Δ is not an algorithmic output.
 
@@ -191,15 +191,15 @@ Thus:
 
 Because:
 
-\[
+$$
 d_1d_0=0
-\]
+$$
 
 curvature is invariant under relational gauge transformations:
 
-\[
+$$
 R\sim R+d_0\varphi
-\]
+$$
 
 Thus Δ does not encode absolute relational authority.
 
@@ -211,33 +211,33 @@ It encodes only cyclic relational tension.
 
 Let:
 
-\[
+$$
 d_2:C^2\rightarrow C^3
-\]
+$$
 
 be the induced boundary-consistency operator satisfying:
 
-\[
+$$
 d_2d_1=0
-\]
+$$
 
 Therefore:
 
-\[
+$$
 d_2\Delta=0
-\]
+$$
 
 whenever:
 
-\[
-\Delta=d_1R
-\]
+$$
+\Delta=d_1(R)
+$$
 
 Important clarification:
 
-\[
+$$
 d_2\Delta=0
-\]
+$$
 
 is a topological consistency condition.
 
@@ -253,43 +253,48 @@ It is not an optimization constraint.
 
 ## 6. Algebraic Curvature Domain
 
-Define the algebraic curvature domain:
+Define the algebraic curvature domain as the image of the first coboundary map:
 
-\[
-\mathcal{D}_{\mathrm{alg}}=\operatorname{Im}(d_1)
-\]
+$$
+\mathcal{D}_{\mathrm{alg}}
+:=
+\mathrm{Im}\left(d_1:C^1\to C^2\right)
+\subseteq C^2
+$$
 
 Equivalently:
 
-\[
+$$
 \mathcal{D}_{\mathrm{alg}}
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
-\exists R\in\mathfrak{so}(8):\Delta=d_1R
-\}
-\]
+\;\middle|\;
+\exists R\in C^1\simeq\mathfrak{so}(8)
+\text{ such that }
+\Delta=d_1(R)
+\right\}
+$$
 
 Because:
 
-\[
+$$
 d_2d_1=0
-\]
+$$
 
 every algebraic curvature configuration satisfies:
 
-\[
+$$
 d_2\Delta=0
-\]
+$$
 
 Thus:
 
-\[
+$$
 \Delta\in\mathcal{D}_{\mathrm{alg}}
 \Rightarrow
 d_2\Delta=0
-\]
+$$
 
 This is a structural condition.
 
@@ -301,26 +306,26 @@ It is not a validity score.
 
 Let:
 
-\[
+$$
 \mathcal{T}
-\]
+$$
 
 be the declared finite triality action on \(C^2\).
 
 For:
 
-\[
+$$
 \tau\in\mathcal{T}
-\]
+$$
 
 define the induced signed cochain action:
 
-\[
+$$
 (\tau\cdot \Delta)_{ijk}
 =
-\operatorname{sgn}(\tau|_{ijk})\,
+\mathrm{sgn}\left(\tau|_{\{i,j,k\}}\right)\,
 \Delta_{\tau(i)\tau(j)\tau(k)}
-\]
+$$
 
 with the canonical antisymmetric extension on oriented triples.
 
@@ -337,24 +342,24 @@ It does not introduce:
 
 Let:
 
-\[
+$$
 P_{\mathcal{T}}
-\]
+$$
 
 be the triality-invariant projection:
 
-\[
+$$
 P_{\mathcal{T}}
 =
 \frac{1}{|\mathcal{T}|}
 \sum_{\tau\in\mathcal{T}}\tau
-\]
+$$
 
 A curvature configuration is triality-balanced iff:
 
-\[
+$$
 P_{\mathcal{T}}\Delta=\Delta
-\]
+$$
 
 Triality does not generate configurations.
 
@@ -366,40 +371,40 @@ Triality prevents degeneracy into a privileged representational axis.
 
 Define:
 
-\[
+$$
 \mathcal{D}_{\mathrm{tri}}
 =
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T})
-\]
+\mathrm{Fix}(\mathcal{T})
+$$
 
 where:
 
-\[
-\operatorname{Fix}(\mathcal{T})
+$$
+\mathrm{Fix}(\mathcal{T})
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
+\;\middle|\;
 P_{\mathcal{T}}\Delta=\Delta
-\}
-\]
+\right\}
+$$
 
 Thus:
 
-\[
+$$
 \mathcal{D}_{\mathrm{tri}}
 =
 \{
 \Delta\in C^2
 \mid
 \exists R\in\mathfrak{so}(8):
-\Delta=d_1R,\;
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta
 \}
-\]
+$$
 
 \(\mathcal{D}_{\mathrm{tri}}\) is the triality-compatible structural domain.
 
@@ -413,15 +418,15 @@ Representability is still required.
 
 Define:
 
-\[
+$$
 \mathrm{Rep}(\Delta)\in\{0,1\}
-\]
+$$
 
 where:
 
-\[
+$$
 \mathrm{Rep}(\Delta)=1
-\]
+$$
 
 iff Δ can exist as a representable epistemic curvature configuration.
 
@@ -461,7 +466,7 @@ Rep only marks whether a curvature configuration is ontologically representable.
 
 The admissible curvature domain is:
 
-\[
+$$
 \boxed{
 \mathcal{D}
 =
@@ -469,39 +474,39 @@ The admissible curvature domain is:
 \Delta\in C^2
 \mid
 \exists R\in\mathfrak{so}(8):
-\Delta=d_1R,\;
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta,\;
 \mathrm{Rep}(\Delta)=1
 \}
 }
-\]
+$$
 
 Equivalently:
 
-\[
+$$
 \boxed{
 \mathcal{D}
 =
 \mathcal{D}_{\mathrm{alg}}
 \cap
-\operatorname{Fix}(\mathcal{T})
+\mathrm{Fix}(\mathcal{T})
 \cap
 \mathcal{R}_{\mathrm{rep}}
 }
-\]
+$$
 
 where:
 
-\[
+$$
 \mathcal{R}_{\mathrm{rep}}
 =
-\{
+\left\{
 \Delta\in C^2
-\mid
+\;\middle|\;
 \mathrm{Rep}(\Delta)=1
-\}
-\]
+\right\}
+$$
 
 𝒟 is the domain of admissible curvature.
 
@@ -519,17 +524,23 @@ where:
 
 Define:
 
-\[
-E=\{\Phi=(\Sigma,R)\mid d_1R\in\mathcal{D}\}
-\]
+$$
+E=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+R\in C^1\simeq\mathfrak{so}(8),\;
+d_1(R)\in\mathcal{D}
+\right\}
+$$
 
 Thus:
 
-\[
+$$
 \Phi\in E
 \iff
-d_1R\in\mathcal{D}
-\]
+d_1(R)\in\mathcal{D}
+$$
 
 E is the space of representable epistemic field configurations.
 
@@ -547,27 +558,27 @@ E is not a recommendation domain.
 
 Define:
 
-\[
+$$
 K(\Phi)\in\{0,1\}
-\]
+$$
 
 such that:
 
-\[
+$$
 \boxed{
 K(\Phi)=1
 \iff
-d_1R\in\mathcal{D}
+d_1(R)\in\mathcal{D}
 }
-\]
+$$
 
-\[
+$$
 \boxed{
 K(\Phi)=0
 \iff
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 }
-\]
+$$
 
 K is not optimized.
 
@@ -589,21 +600,26 @@ K is a predicate of ontological representability.
 
 Define the epistemic carrier:
 
-\[
-\Xi=\{\Phi\mid K(\Phi)=1\}
-\]
+$$
+\Xi=
+\left\{
+\Phi
+\;\middle|\;
+K(\Phi)=1
+\right\}
+$$
 
 In the canonical 1.x interpretation:
 
-\[
+$$
 \Xi=E
-\]
+$$
 
 or equivalently:
 
-\[
+$$
 \Xi=d_1^{-1}(\mathcal{D})
-\]
+$$
 
 ZMYSEL is the carrier of representable epistemic existence.
 
@@ -623,17 +639,17 @@ It names the carrier condition under which epistemic existence remains represent
 
 Define:
 
-\[
+$$
 \kappa=\partial\mathcal{D}
-\]
+$$
 
 More precisely:
 
-\[
+$$
 \kappa=
 \partial_{\mathcal{D}_{\mathrm{tri}}}
 \mathcal{D}
-\]
+$$
 
 κ is the relative boundary of the ontologically representable domain inside the triality-compatible curvature space.
 
@@ -657,19 +673,24 @@ More precisely:
 
 Define:
 
-\[
-QE=\{\Phi\mid K(\Phi)=0\}
-\]
+$$
+QE=
+\left\{
+\Phi
+\;\middle|\;
+K(\Phi)=0
+\right\}
+$$
 
 Equivalently:
 
-\[
+$$
 \boxed{
 QE
 \iff
-d_1R\notin\mathcal{D}
+d_1(R)\notin\mathcal{D}
 }
-\]
+$$
 
 QE is not failure.
 
@@ -687,9 +708,9 @@ QE is the state of non-representability.
 
 When:
 
-\[
-d_1R\notin\mathcal{D}
-\]
+$$
+d_1(R)\notin\mathcal{D}
+$$
 
 the field configuration does not belong to \(E\).
 
@@ -701,33 +722,36 @@ The epistemic condition is QE.
 
 A trajectory:
 
-\[
-\gamma=\{\Phi(t_0),\Phi(t_1),\ldots,\Phi(t_n)\}
-\]
+$$
+\gamma=
+\left\{
+\Phi(t_0),\Phi(t_1),\ldots,\Phi(t_n)
+\right\}
+$$
 
 is admissible iff:
 
-\[
-\forall t_i:\; d_1R(t_i)\in\mathcal{D}
-\]
+$$
+\forall t_i:\; d_1\!\left(R(t_i)\right)\in\mathcal{D}
+$$
 
 Thus:
 
-\[
+$$
 \gamma\subset E
-\]
+$$
 
 If:
 
-\[
-\exists t_i:\; d_1R(t_i)\notin\mathcal{D}
-\]
+$$
+\exists t_i:\; d_1\!\left(R(t_i)\right)\notin\mathcal{D}
+$$
 
 then:
 
-\[
+$$
 \gamma\cap QE\neq\emptyset
-\]
+$$
 
 and the trajectory is not representable.
 
@@ -745,9 +769,9 @@ It only marks whether every state in the trajectory remains inside the represent
 
 If:
 
-\[
+$$
 \Delta\notin\mathcal{D}
-\]
+$$
 
 then:
 
@@ -770,9 +794,9 @@ QE is not represented as field content.
 
 QE is the state of non-representability that occurs when:
 
-\[
-d_1R\notin\mathcal{D}
-\]
+$$
+d_1(R)\notin\mathcal{D}
+$$
 
 If QE occurs, the system may only expose a non-representability marker.
 
@@ -827,62 +851,70 @@ Only a non-representability marker may be exposed.
 
 ## 20. Final Closure
 
-\[
+$$
 \boxed{
 \Phi=(\Sigma,R)
 }
-\]
+$$
 
-\[
+$$
 \boxed{
-\Delta=d_1R
+\Delta=d_1(R)
 }
-\]
+$$
 
-\[
+$$
 \boxed{
 \mathcal{D}
 =
-\{
-\Delta
-\mid
-\Delta=d_1R,\;
+\left\{
+\Delta\in C^2
+\;\middle|\;
+\exists R\in C^1\simeq\mathfrak{so}(8)
+\text{ such that }
+\Delta=d_1(R),\;
 d_2\Delta=0,\;
 P_{\mathcal{T}}\Delta=\Delta,\;
 \mathrm{Rep}(\Delta)=1
-\}
+\right\}
 }
-\]
+$$
 
-\[
+$$
 \boxed{
-E=\{\Phi=(\Sigma,R)\mid d_1R\in\mathcal{D}\}
+E=
+\left\{
+\Phi=(\Sigma,R)
+\;\middle|\;
+R\in C^1\simeq\mathfrak{so}(8),\;
+d_1(R)\in\mathcal{D}
+\right\}
 }
-\]
+$$
 
-\[
+$$
 \boxed{
-K(\Phi)=1\iff d_1R\in\mathcal{D}
+K(\Phi)=1\iff d_1(R)\in\mathcal{D}
 }
-\]
+$$
 
-\[
+$$
 \boxed{
 \Xi=E=d_1^{-1}(\mathcal{D})
 }
-\]
+$$
 
-\[
+$$
 \boxed{
 \kappa=\partial_{\mathcal{D}_{\mathrm{tri}}}\mathcal{D}
 }
-\]
+$$
 
-\[
+$$
 \boxed{
-QE\iff d_1R\notin\mathcal{D}
+QE\iff d_1(R)\notin\mathcal{D}
 }
-\]
+$$
 
 ---
 

@@ -1,0 +1,133 @@
+name: Coherence Vocabulary Guard
+
+on:
+  pull_request:
+    paths:
+      - "guards/coherence_vocabulary_guard.py"
+      - "guards/core/**"
+      - "contracts/perimeter_manifest.json"
+      - "VOCABULARY_LOCK.md"
+      - "README.md"
+      - "MASTER_INDEX.md"
+      - "anchors/**"
+      - "formal/**"
+      - ".github/workflows/coherence_vocabulary_guard_workflow.yml"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "guards/coherence_vocabulary_guard.py"
+      - "guards/core/**"
+      - "contracts/perimeter_manifest.json"
+      - "VOCABULARY_LOCK.md"
+      - "README.md"
+      - "MASTER_INDEX.md"
+      - "anchors/**"
+      - "formal/**"
+      - ".github/workflows/coherence_vocabulary_guard_workflow.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GUARD_MODE: report
+
+jobs:
+  coherence-vocabulary-guard:
+    name: GUARD-12 / Coherence Vocabulary Boundary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository without external actions
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          git init .
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPOSITORY}.git"
+          git fetch --no-tags --depth=1 origin "${SHA}"
+          git checkout --detach FETCH_HEAD
+
+      - name: Show Python version
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+
+      - name: Run GUARD-12
+        id: coherence_vocabulary_guard
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p reports
+
+          set +e
+          python3 guards/coherence_vocabulary_guard.py \
+            --root . \
+            --mode "${GUARD_MODE}" \
+            --json-out reports/coherence_vocabulary_guard.json \
+            | tee /tmp/coherence_vocabulary_guard.log
+          GUARD_EXIT="${PIPESTATUS[0]}"
+          set -e
+
+          {
+            echo "## GUARD-12 / Coherence Vocabulary Guard"
+            echo
+            echo "Mode: \`${GUARD_MODE}\`"
+            echo
+            echo "Exit: \`${GUARD_EXIT}\`"
+            echo
+            echo '```text'
+            cat /tmp/coherence_vocabulary_guard.log
+            echo '```'
+            echo
+            echo "### JSON report"
+            echo
+            echo '```json'
+            if [ -f reports/coherence_vocabulary_guard.json ]; then
+              cat reports/coherence_vocabulary_guard.json
+            else
+              echo '{"status":"no report generated"}'
+            fi
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "${GUARD_MODE}" = "report" ] && [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Report mode returned nonzero. Treating as guard infrastructure/configuration error."
+            exit 2
+          fi
+
+          if [ "${GUARD_EXIT}" -eq 2 ]; then
+            echo "Guard infrastructure error; confidence unavailable."
+            exit 2
+          fi
+
+          if [ "${GUARD_EXIT}" -eq 3 ]; then
+            echo "Invalid contract / missing anchor trace / invalid manifest signature."
+            exit 3
+          fi
+
+          if [ "${GUARD_EXIT}" -eq 4 ]; then
+            echo "Invalid guard CLI usage."
+            exit 4
+          fi
+
+          if [ "${GUARD_MODE}" = "strict" ] && [ "${GUARD_EXIT}" -eq 1 ]; then
+            echo "Configured blocker detected within declared repository perimeter."
+            exit 1
+          fi
+
+          if [ "${GUARD_EXIT}" -ne 0 ]; then
+            echo "Unexpected guard exit code: ${GUARD_EXIT}"
+            exit "${GUARD_EXIT}"
+          fi
+
+          echo "No configured blocker was detected within the declared perimeter."
+          exit 0

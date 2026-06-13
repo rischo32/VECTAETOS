@@ -5,6 +5,8 @@
 **SK:** Verejný epistemický korpus · neautoritatívny · read-only podľa návrhu · append-only podľa disciplíny  
 **EN:** Public epistemic corpus · non-authoritative · read-only by design · append-only by discipline
 
+• Niektoré su duplicitne
+
 ---
 
 ## 0. Účel / Purpose

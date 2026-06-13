@@ -1,5 +1,12 @@
 # EMPIRICKÁ PRIORITA BEZPEČNOSTI
 
+### Technológie nie sú hračky... a práve presne preto : ASI_MOD bol dočasne odstranení ako 3 downstream vrstva, a ASIMULATOR pozastavení a odstránení z "public" 
+
++ žiadna jednostranná legitimácia
++ žiadna predčasná operatívna expanzia
++ žiadny prechod k ASI-like ambícii bez spoločného bezpečnostného konsenzu
++ rozhodnutie patrí okrúhlemu stolu kompetentných aktérov, nie jednému človeku
+
 Ani ASIMULATOR, ani ASI_MOD nebudú vyvíjané, prezentované ani legitimizované
 ako vyššie operačné vrstvy, vykonávacie mosty alebo autoritatívne prevádzkové substráty,
 kým nebude VECTAETOS empiricky overený

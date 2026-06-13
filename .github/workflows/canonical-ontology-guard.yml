@@ -1,18 +1,18 @@
-name: Kanonická ontologická stráž
+name: Guard 01 / Kanonický ontologický strážca
 
 on:
-  push:
-    branches: [main]
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   canonical-ontology-guard:
-    name: Guard 01 / Canonical Ontology Boundary
-    runs-on: ubuntu-latest
+    name: Guard 01 / Kanonický ontologický strážca
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Manual trusted checkout
@@ -24,40 +24,48 @@ jobs:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           PUSH_BEFORE_SHA: ${{ github.event.before }}
-          PUSH_AFTER_SHA: ${{ github.event.after }}
+          PUSH_AFTER_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
           NULL_SHA="0000000000000000000000000000000000000000"
-          GUARD_PATH="guards/canonical_ontology_guard.py"
-          TRUSTED_GUARD="/tmp/canonical_ontology_guard.py"
+          REPO_ROOT="${PWD}"
+          TRUSTED_ROOT=".trusted/base"
+          TRUSTED_ROOT_ABS="${REPO_ROOT}/${TRUSTED_ROOT}"
+          TRUSTED_LOG_DIR=".trusted/logs"
+          TRUSTED_LOG_ABS="${REPO_ROOT}/${TRUSTED_LOG_DIR}"
+          TRUSTED_GUARD_REL="guards/canonical_ontology_guard.py"
 
-          git init .
+          if [ ! -d .git ]; then
+            git init .
+          fi
+
           git config --global --add safe.directory "$PWD"
-
+          git remote remove origin 2>/dev/null || true
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
-            echo "Manual checkout for pull_request #${PR_NUMBER}"
+          BASE_REF=""
+          HEAD_REF=""
+          TRUSTED_REF=""
+          BOOTSTRAP_MODE="false"
 
-            if [ -z "${PR_BASE_SHA}" ] || [ -z "${PR_HEAD_SHA}" ]; then
-              echo "::error title=Missing PR SHA::Pull request base/head SHA is missing."
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "Manual trusted checkout for pull request #${PR_NUMBER}"
+
+            if [ -z "${PR_BASE_SHA:-}" ] || [ -z "${PR_HEAD_SHA:-}" ] || [ -z "${PR_NUMBER:-}" ]; then
+              echo "::error title=Missing pull request metadata::Pull request base/head SHA or PR number is missing."
               exit 2
             fi
 
             git fetch --no-tags --depth=1 origin "${PR_BASE_SHA}"
-
             git fetch --no-tags --depth=1 origin "pull/${PR_NUMBER}/head:refs/remotes/origin/pr-head"
             git checkout --force refs/remotes/origin/pr-head
 
-            RESOLVED_HEAD="$(git rev-parse HEAD)"
-
-            echo "base=${PR_BASE_SHA}" >> "${GITHUB_OUTPUT}"
-            echo "head=${RESOLVED_HEAD}" >> "${GITHUB_OUTPUT}"
-            echo "trusted_ref=${PR_BASE_SHA}" >> "${GITHUB_OUTPUT}"
-
+            BASE_REF="${PR_BASE_SHA}"
+            HEAD_REF="$(git rev-parse HEAD)"
+            TRUSTED_REF="${PR_BASE_SHA}"
           else
-            echo "Manual checkout for push"
+            echo "Manual trusted checkout for push"
 
             BEFORE="${PUSH_BEFORE_SHA:-$NULL_SHA}"
             AFTER="${PUSH_AFTER_SHA:-$GITHUB_SHA}"
@@ -73,37 +81,166 @@ jobs:
               git fetch --no-tags --depth=1 origin "${BEFORE}" || true
             fi
 
-            RESOLVED_HEAD="$(git rev-parse HEAD)"
-
-            echo "base=${BEFORE}" >> "${GITHUB_OUTPUT}"
-            echo "head=${RESOLVED_HEAD}" >> "${GITHUB_OUTPUT}"
-            echo "trusted_ref=${BEFORE}" >> "${GITHUB_OUTPUT}"
+            BASE_REF="${BEFORE}"
+            HEAD_REF="$(git rev-parse HEAD)"
+            TRUSTED_REF="${BEFORE}"
           fi
 
-          TRUSTED_REF="$(grep '^trusted_ref=' "${GITHUB_OUTPUT}" | tail -n1 | cut -d= -f2-)"
+          rm -rf ".trusted"
+          mkdir -p "${TRUSTED_ROOT_ABS}/guards/core" "${TRUSTED_LOG_ABS}"
 
-          if [ -n "${TRUSTED_REF}" ] && [ "${TRUSTED_REF}" != "${NULL_SHA}" ] && git cat-file -e "${TRUSTED_REF}:${GUARD_PATH}" 2>/dev/null; then
-            echo "Loading trusted guard from previous/base ref: ${TRUSTED_REF}"
-            git show "${TRUSTED_REF}:${GUARD_PATH}" > "${TRUSTED_GUARD}"
-          else
-            echo "Trusted previous guard not found; using working-tree guard."
-            if [ ! -f "${GUARD_PATH}" ]; then
-              echo "::error title=Guard missing::${GUARD_PATH} does not exist."
+          echo "Resolved base ref: ${BASE_REF}"
+          echo "Resolved head ref: ${HEAD_REF}"
+          echo "Resolved trusted ref: ${TRUSTED_REF}"
+
+          write_trusted_file() {
+            local rel_path="$1"
+            local out_path="${TRUSTED_ROOT_ABS}/${rel_path}"
+
+            mkdir -p "$(dirname "${out_path}")"
+
+            if [ -n "${TRUSTED_REF}" ] && [ "${TRUSTED_REF}" != "${NULL_SHA}" ] && git cat-file -e "${TRUSTED_REF}:${rel_path}" 2>/dev/null; then
+              git show "${TRUSTED_REF}:${rel_path}" > "${out_path}"
+              return 0
+            fi
+
+            return 1
+          }
+
+          if ! write_trusted_file "${TRUSTED_GUARD_REL}"; then
+            echo "::warning title=Bootstrap mode::Trusted guard not found on base/previous ref; using current working tree guard."
+            if [ ! -f "${TRUSTED_GUARD_REL}" ]; then
+              echo "::error title=Guard missing::${TRUSTED_GUARD_REL} does not exist in working tree."
               exit 2
             fi
-            cp "${GUARD_PATH}" "${TRUSTED_GUARD}"
+            cp "${TRUSTED_GUARD_REL}" "${TRUSTED_ROOT_ABS}/${TRUSTED_GUARD_REL}"
+            BOOTSTRAP_MODE="true"
           fi
 
-          python3 -m py_compile "${TRUSTED_GUARD}"
+          CORE_FILES=(
+            "guards/core/findings.py"
+            "guards/core/reporting.py"
+            "guards/core/contracts.py"
+            "guards/core/text_scan.py"
+            "guards/core/ast_scan.py"
+            "guards/core/paths.py"
+            "guards/core/roles.py"
+            "guards/core/perimeter.py"
+            "guards/core/capabilities.py"
+            "guards/core/immutable_blob.py"
+          )
 
-          echo "guard=${TRUSTED_GUARD}" >> "${GITHUB_OUTPUT}"
+          for rel_path in "${CORE_FILES[@]}"; do
+            if ! write_trusted_file "${rel_path}"; then
+              if [ "${BOOTSTRAP_MODE}" = "true" ] && [ -f "${rel_path}" ]; then
+                cp "${rel_path}" "${TRUSTED_ROOT_ABS}/${rel_path}"
+              fi
+            fi
+          done
+
+          : > "${TRUSTED_ROOT_ABS}/guards/__init__.py"
+          : > "${TRUSTED_ROOT_ABS}/guards/core/__init__.py"
+
+          while IFS= read -r -d '' pyfile; do
+            python3 -m py_compile "${pyfile}"
+          done < <(find "${TRUSTED_ROOT_ABS}" -type f -name '*.py' -print0)
+
+          echo "base=${BASE_REF}" >> "${GITHUB_OUTPUT}"
+          echo "head=${HEAD_REF}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_ref=${TRUSTED_REF}" >> "${GITHUB_OUTPUT}"
+          echo "repo_root=${REPO_ROOT}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_root=${TRUSTED_ROOT}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_root_abs=${TRUSTED_ROOT_ABS}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_guard=${TRUSTED_ROOT_ABS}/${TRUSTED_GUARD_REL}" >> "${GITHUB_OUTPUT}"
+          echo "trusted_log=${TRUSTED_LOG_ABS}/canonical_ontology_guard.log" >> "${GITHUB_OUTPUT}"
+          echo "bootstrap_mode=${BOOTSTRAP_MODE}" >> "${GITHUB_OUTPUT}"
 
       - name: Run canonical ontology guard
+        id: guard
         shell: bash
         run: |
           set -euo pipefail
 
-          python3 "${{ steps.checkout.outputs.guard }}" \
-            --base "${{ steps.checkout.outputs.base }}" \
-            --head "${{ steps.checkout.outputs.head }}" \
-            --mode strict
+          REPO_ROOT="${{ steps.checkout.outputs.repo_root }}"
+          TRUSTED_ROOT_ABS="${{ steps.checkout.outputs.trusted_root_abs }}"
+          LOG_PATH="${{ steps.checkout.outputs.trusted_log }}"
+
+          mkdir -p "$(dirname "${LOG_PATH}")"
+
+          set +e
+          (
+            cd "${TRUSTED_ROOT_ABS}"
+
+            GIT_DIR="${REPO_ROOT}/.git" \
+            GIT_WORK_TREE="${REPO_ROOT}" \
+            VECTAETOS_TRUSTED_RUNTIME_ROOT="${TRUSTED_ROOT_ABS}" \
+            PYTHONPATH="${TRUSTED_ROOT_ABS}" \
+            python3 "guards/canonical_ontology_guard.py" \
+              --base "${{ steps.checkout.outputs.base }}" \
+              --head "${{ steps.checkout.outputs.head }}" \
+              --mode strict
+          ) | tee "${LOG_PATH}"
+
+          GUARD_EXIT="${PIPESTATUS[0]}"
+          set -e
+
+          echo "exit_code=${GUARD_EXIT}" >> "${GITHUB_OUTPUT}"
+
+      - name: Write workflow summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          LOG_PATH="${{ steps.checkout.outputs.trusted_log }}"
+          EXIT_CODE="${{ steps.guard.outputs.exit_code }}"
+          BASE_REF="${{ steps.checkout.outputs.base }}"
+          HEAD_REF="${{ steps.checkout.outputs.head }}"
+          TRUSTED_REF="${{ steps.checkout.outputs.trusted_ref }}"
+          BOOTSTRAP="${{ steps.checkout.outputs.bootstrap_mode }}"
+
+          {
+            echo "# Guard 01 / Kanonický ontologický strážca"
+            echo ""
+            echo "- Mode: \`strict\`"
+            echo "- Exit code: \`${EXIT_CODE}\`"
+            echo "- Base ref: \`${BASE_REF}\`"
+            echo "- Head ref: \`${HEAD_REF}\`"
+            echo "- Trusted ref: \`${TRUSTED_REF}\`"
+            echo "- Bootstrap mode: \`${BOOTSTRAP}\`"
+            echo ""
+            echo '```text'
+            if [ -f "${LOG_PATH}" ]; then
+              cat "${LOG_PATH}"
+            else
+              echo "No guard log was produced."
+            fi
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Enforce guard result
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          EXIT_CODE="${{ steps.guard.outputs.exit_code }}"
+
+          case "${EXIT_CODE}" in
+            0)
+              echo "Kanonický ontologický strážca passed within declared perimeter."
+              exit 0
+              ;;
+            1)
+              echo "::error title=Canonical ontology drift detected::Configured hard finding detected within declared perimeter."
+              exit 1
+              ;;
+            2)
+              echo "::error title=Canonical ontology guard execution error::Guard failed to execute cleanly."
+              exit 2
+              ;;
+            *)
+              echo "::error title=Unexpected guard exit code::Unexpected exit code: ${EXIT_CODE}"
+              exit 2
+              ;;
+          esac

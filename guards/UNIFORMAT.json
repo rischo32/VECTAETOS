@@ -1,0 +1,25 @@
+finding:
+  id: "id-P1-CONV-001"
+  guard_id: "GUARD-MVP-02"
+  guard_file: "guards/semantic_vocabulary_guard.py"
+  rule_id: "FC-KAPPA-METRIC"
+  contract_schema_version: "1.0"
+  scope: "P1_semantic_vocabulary"
+  vector: "V3_forbidden_conversion"
+  severity: "BLOCKER"
+  confidence: "structural"
+  path: "formal/BRIDGE_PHI_TO_EK.md"
+  line: 128
+  role: "formal_bridge"
+  protected_object: "κ"
+  observed_pattern: "kappa_estimate"
+  forbidden_conversion: "κ -> numeric estimate"
+  negated_context: false
+  evidence_class_claimed: null
+  evidence_class_allowed: "E1_static_scan"
+  anchor_ref: "anchors/VECTAETOS_v1.0_Frozen_Ontological_Core.md"
+  contract_ref: "contracts/forbidden_conversions.yaml"
+  message: "Pattern appears to convert κ from representability boundary into numeric estimate."
+  safer_form: "Use boundary-of-representability language; do not expose κ as metric, estimate, threshold, or score."
+  ontology_authority: false
+  auto_fix_allowed: false
