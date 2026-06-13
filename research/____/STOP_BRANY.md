@@ -1,0 +1,12 @@
+stop_gates:
+  - request_requires_truth_verdict
+  - request_requires_feedback_into_phi
+  - request_requires_vortex_selection
+  - request_requires_kappa_score
+  - request_requires_K_phi_numeric_optimizer
+  - request_requires_QE_as_exception
+  - request_requires_audit_as_runtime_controller
+  - request_requires_hash_as_truth
+  - request_requires_CI_as_proof
+  - request_requires_artifact_as_authority
+  - request_requires_semantic_autofix_of_canon
