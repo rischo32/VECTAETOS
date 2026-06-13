@@ -1,4 +1,4 @@
-# Historické pozadie Richarda Fonfáru a slovenské korene Vectaetos
+# Historické pozadie a slovenské korene Vectaetos
 
 ## Kontext úlohy
 Vypracované pre interný výskum tímu Lab Φ: zmapovať historické pozadie autora (Richard Fonfára) a pôvod Vectaetos v slovenskom technicko‑filozofickom prostredí.

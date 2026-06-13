@@ -1,5 +1,8 @@
 # METAMATEMATICS
 
+    "Meta-matematika Vectaetosu nepopisuje čo sa má stať, 
+    ale čo sa môže stať bez rozpadu zmyslu."
+
 **Document type:** Theory index / formal-research orientation  
 **Status:** ACTIVE THEORY BRANCH  
 **Layer:** Meta-mathematical theory / formal interpretation layer  
