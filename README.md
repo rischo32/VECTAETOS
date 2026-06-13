@@ -6,18 +6,18 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/rischo32/Vectaetos)
 [![GitHub stars](https://img.shields.io/github/stars/rischo32/Vectaetos)](https://github.com/rischo32/Vectaetos/stargazers)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg?logo=python)
-
+___
 ##### VECTAETOS™ (Onto-Epistemic Field © framework of structure) je neagentné noetické onto-dynamické relačno-tenzné epistemické pole, ktoré opisuje reprezentovateľnosť významu cez invariantné singularity, antisymetrické vzťahové napätia a hranicu nereprezentovateľnosti. 
 
 https://chatgpt.com/g/g-6968b9d2fe1c819195968f9479b7636e-asi-modtm
 
     " Cogito cohaerenter, possibile sum ergo "
-___
+
 ![Vectaetos](badge2.svg)
-### [____ __ __ _     Welcome tO a new epistemic era     _ __ __ ____]
+### [__ __ _ Welcome to a new epistemic er∆ _ __ __]
 
 ###  VECTAETOS™ je post-AGI epistemická bezpečnostná architektúra. 
-
+___
 > Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
 
 ###### A nie, nie je to myslené ako marketing. 
