@@ -1,567 +1,671 @@
 {
-  "schema_version": "0.1.0",
-  "manifest_name": "vectaetos_perimeter_manifest",
-  "status": "active_manifest_candidate",
-  "location": "contracts/perimeter_manifest.json",
-  "role": "deterministic guard command registry",
-  "runner_policy": {
-    "runner_has_semantic_authority": false,
-    "runner_may_modify_files": false,
-    "runner_may_suppress_findings": false,
-    "runner_may_execute_only_manifest_commands": true,
-    "guard_order_is_deterministic": true
-  },
-  "variables": {
-    "ROOT": ".",
-    "BASE_SHA": "${BASE_SHA}",
-    "HEAD_SHA": "${HEAD_SHA}",
-    "PYTHON": "python3",
-    "CODE_CONTRACT": "contracts/vectaetos_code_contract.json",
-    "VECTOR_DRIFT_FAIL_AT": "0.70"
-  },
-  "exit_policy": {
-    "guard_exit_0": "ok",
-    "guard_exit_1": "finding_or_policy_failure",
-    "guard_exit_2": "execution_or_configuration_error",
-    "runner_exit_0": "all_required_guards_ok",
-    "runner_exit_1": "one_or_more_required_guards_reported_findings",
-    "runner_exit_2": "one_or_more_required_guards_failed_to_execute",
-    "runner_exit_3": "manifest_or_runner_error"
-  },
-  "profiles": {
-    "report": {
-      "description": "non-blocking local visibility profile",
-      "default_exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
+    "schema_version": "0.1.1",
+    "manifest_name": "vectaetos_perimeter_manifest",
+    "status": "active_report_first_candidate",
+    "location": "contracts/perimeter_manifest.json",
+    "role": "deterministic guard command registry",
+    "posture": "report-first visibility manifest; not a canonical ontology source",
+    "runner_policy": {
+        "runner_has_semantic_authority": false,
+        "runner_may_modify_files": false,
+        "runner_may_suppress_findings": false,
+        "runner_may_execute_only_manifest_commands": true,
+        "guard_order_is_deterministic": true,
+        "report_first": true,
+        "strict_ci_blocking_enabled": false
     },
-    "ci": {
-      "description": "blocking repository perimeter profile",
-      "default_exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
+    "variables": {
+        "ROOT": ".",
+        "BASE_SHA": "HEAD~1",
+        "HEAD_SHA": "HEAD",
+        "PYTHON": "python3",
+        "CODE_CONTRACT": "contracts/vectaetos_code_contract.json",
+        "GUARD13_CONTRACT": "contracts/guard13_ek_observable_rules.json",
+        "LICENSE_REGISTRY": "contracts/LICENSE_REGISTRY.json",
+        "VECTOR_DRIFT_FAIL_AT": "0.70"
+    },
+    "exit_policy": {
+        "guard_exit_0": "ok",
+        "guard_exit_1": "finding_or_policy_failure",
+        "guard_exit_2": "execution_or_configuration_error",
+        "guard_exit_3": "contract_or_manifest_error_when_used_by_guard",
+        "runner_exit_0": "report_first_completed_without_required_guard_error",
+        "runner_exit_1": "one_or_more_required_guards_reported_findings",
+        "runner_exit_2": "one_or_more_required_guards_failed_to_execute",
+        "runner_exit_3": "manifest_or_runner_error",
+        "note": "In this report-first manifest, active guards are intentionally non-required until the perimeter is calibrated. Findings and guard errors remain visible in the runner report."
+    },
+    "profiles": {
+        "report": {
+            "description": "non-blocking local visibility profile",
+            "default_exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        "ci": {
+            "description": "report-first CI visibility profile; guard findings are visible but the runner does not block until required=true is promoted per guard",
+            "default_exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        }
+    },
+    "guards": [
+        {
+            "id": "GUARD-01",
+            "name": "canonical_ontology_guard",
+            "path": "guards/canonical_ontology_guard.py",
+            "level": 0,
+            "class": "canonical_repository_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": true,
+            "needs_contract": false,
+            "notes": "Diff-based guard. BASE_SHA and HEAD_SHA default to HEAD~1/HEAD for local report visibility and should be overridden by CI.",
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/canonical_ontology_guard.py",
+                    "--base",
+                    "${BASE_SHA}",
+                    "--head",
+                    "${HEAD_SHA}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/canonical_ontology_guard.py",
+                    "--base",
+                    "${BASE_SHA}",
+                    "--head",
+                    "${HEAD_SHA}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-02",
+            "name": "vectaetos_boundary_guard",
+            "path": "guards/vectaetos_boundary_guard.py",
+            "level": 0,
+            "class": "semantic_repository_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/vectaetos_boundary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/vectaetos_boundary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-03",
+            "name": "vectaetos_code_behavior_audit",
+            "path": "guards/vectaetos_code_behavior_audit.py",
+            "level": 3,
+            "class": "python_behavior_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": true,
+            "contract_path": "${CODE_CONTRACT}",
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/vectaetos_code_behavior_audit.py",
+                    "--root",
+                    "${ROOT}",
+                    "--contract",
+                    "${CODE_CONTRACT}"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/vectaetos_code_behavior_audit.py",
+                    "--root",
+                    "${ROOT}",
+                    "--contract",
+                    "${CODE_CONTRACT}"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-04",
+            "name": "empirical_claim_guard",
+            "path": "guards/empirical_claim_guard.py",
+            "level": 5,
+            "class": "evidence_claim_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/empirical_claim_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/empirical_claim_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-05",
+            "name": "repo_layer_boundary_guard",
+            "path": "guards/repo_layer_boundary_guard.py",
+            "level": 0,
+            "class": "repository_layer_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/repo_layer_boundary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/repo_layer_boundary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-06",
+            "name": "no_feedback_loop_guard",
+            "path": "guards/no_feedback_loop_guard.py",
+            "level": 1,
+            "class": "acyclic_repository_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/no_feedback_loop_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/no_feedback_loop_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-07",
+            "name": "vortex_non_agentic_guard",
+            "path": "guards/vortex_non_agentic_guard.py",
+            "level": 1,
+            "class": "vortex_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/vortex_non_agentic_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/vortex_non_agentic_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-08",
+            "name": "qe_aporia_guard",
+            "path": "guards/qe_aporia_guard.py",
+            "level": 1,
+            "class": "qe_aporia_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/qe_aporia_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/qe_aporia_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-09",
+            "name": "triality_guard",
+            "path": "guards/triality_guard.py",
+            "level": 1,
+            "class": "triality_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/triality_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/triality_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-10",
+            "name": "vector_drift_guard",
+            "path": "guards/vector_drift_guard.py",
+            "level": 2,
+            "class": "drift_observable_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/vector_drift_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/vector_drift_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "ci",
+                    "--fail_at",
+                    "${VECTOR_DRIFT_FAIL_AT}"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-11",
+            "name": "master_index_router_guard",
+            "path": "guards/master_index_router_guard.py",
+            "level": 0,
+            "class": "router_integrity_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/master_index_router_guard.py",
+                    "--repo-root",
+                    "${ROOT}",
+                    "--mode",
+                    "check"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/master_index_router_guard.py",
+                    "--repo-root",
+                    "${ROOT}",
+                    "--mode",
+                    "check"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-12",
+            "name": "coherence_vocabulary_guard",
+            "path": "guards/coherence_vocabulary_guard.py",
+            "level": 2,
+            "class": "coherence_vocabulary_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/coherence_vocabulary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/coherence_vocabulary_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-13",
+            "name": "ek_observable_non_authority_guard",
+            "path": "guards/ek_observable_non_authority_guard.py",
+            "level": 4,
+            "class": "ek_observable_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": true,
+            "contract_path": "${GUARD13_CONTRACT}",
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/ek_observable_non_authority_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--contract",
+                    "${GUARD13_CONTRACT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/ek_observable_non_authority_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--contract",
+                    "${GUARD13_CONTRACT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-14",
+            "name": "bridge_phi_to_ek_guard",
+            "path": "guards/bridge_phi_to_ek_guard.py",
+            "level": 4,
+            "class": "planned_bridge_boundary",
+            "active": false,
+            "required": false,
+            "report_first": true,
+            "reason_inactive": "planned guard; file not present yet",
+            "needs_git_diff": false,
+            "needs_contract": false,
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/bridge_phi_to_ek_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "report"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/bridge_phi_to_ek_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--mode",
+                    "strict"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        },
+        {
+            "id": "GUARD-31",
+            "name": "license_stack_guard",
+            "path": "guards/license_stack_guard.py",
+            "level": 5,
+            "class": "license_stack_boundary",
+            "active": true,
+            "required": false,
+            "report_first": true,
+            "needs_git_diff": false,
+            "needs_contract": true,
+            "contract_path": "${LICENSE_REGISTRY}",
+            "command_templates": {
+                "report": [
+                    "${PYTHON}",
+                    "guards/license_stack_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--registry",
+                    "${LICENSE_REGISTRY}",
+                    "--mode",
+                    "report",
+                    "--no-require-hashes"
+                ],
+                "ci": [
+                    "${PYTHON}",
+                    "guards/license_stack_guard.py",
+                    "--root",
+                    "${ROOT}",
+                    "--registry",
+                    "${LICENSE_REGISTRY}",
+                    "--mode",
+                    "strict",
+                    "--no-require-hashes"
+                ]
+            },
+            "exit_mapping": {
+                "0": "ok",
+                "1": "finding",
+                "2": "error",
+                "3": "error"
+            }
+        }
+    ],
+    "execution_order": [
+        "GUARD-01",
+        "GUARD-02",
+        "GUARD-03",
+        "GUARD-04",
+        "GUARD-05",
+        "GUARD-06",
+        "GUARD-07",
+        "GUARD-08",
+        "GUARD-09",
+        "GUARD-10",
+        "GUARD-11",
+        "GUARD-12",
+        "GUARD-13",
+        "GUARD-14",
+        "GUARD-31"
+    ],
+    "promotion_policy": {
+        "current_phase": "report_first_alignment",
+        "required_promotion_rule": "Set required=true per guard only after the guard has a stable command surface, calibrated findings, and known CI environment inputs.",
+        "do_not_promote": [
+            "GUARD-00",
+            "GUARD-14",
+            "GUARD-15",
+            "GUARD-16",
+            "GUARD-17",
+            "GUARD-18",
+            "GUARD-19",
+            "GUARD-20",
+            "GUARD-21",
+            "GUARD-22",
+            "GUARD-23",
+            "GUARD-24",
+            "GUARD-25",
+            "GUARD-26",
+            "GUARD-27",
+            "GUARD-28",
+            "GUARD-29",
+            "GUARD-30"
+        ]
+    },
+    "runner_requirements": {
+        "skip_inactive_guards": true,
+        "fail_if_required_guard_missing": true,
+        "fail_if_command_template_missing_for_profile": true,
+        "preserve_guard_stdout": true,
+        "preserve_guard_stderr": true,
+        "produce_json_summary": true,
+        "do_not_retry_failed_guards_automatically": true
     }
-  },
-  "guards": [
-    {
-      "id": "GUARD-01",
-      "name": "canonical_ontology_guard",
-      "path": "guards/canonical_ontology_guard.py",
-      "level": 0,
-      "class": "canonical_repository_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": true,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/canonical_ontology_guard.py",
-          "--base",
-          "${BASE_SHA}",
-          "--head",
-          "${HEAD_SHA}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/canonical_ontology_guard.py",
-          "--base",
-          "${BASE_SHA}",
-          "--head",
-          "${HEAD_SHA}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-02",
-      "name": "vectaetos_boundary_guard",
-      "path": "guards/vectaetos_boundary_guard.py",
-      "level": 0,
-      "class": "semantic_repository_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/vectaetos_boundary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/vectaetos_boundary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-03",
-      "name": "vectaetos_code_behavior_audit",
-      "path": "guards/vectaetos_code_behavior_audit.py",
-      "level": 0,
-      "class": "python_behavior_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": true,
-      "contract_path": "${CODE_CONTRACT}",
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/vectaetos_code_behavior_audit.py",
-          "--root",
-          "${ROOT}",
-          "--contract",
-          "${CODE_CONTRACT}"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/vectaetos_code_behavior_audit.py",
-          "--root",
-          "${ROOT}",
-          "--contract",
-          "${CODE_CONTRACT}"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-04",
-      "name": "empirical_claim_guard",
-      "path": "guards/empirical_claim_guard.py",
-      "level": 0,
-      "class": "evidence_claim_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/empirical_claim_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/empirical_claim_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-05",
-      "name": "repo_layer_boundary_guard",
-      "path": "guards/repo_layer_boundary_guard.py",
-      "level": 0,
-      "class": "repository_layer_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/repo_layer_boundary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/repo_layer_boundary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-06",
-      "name": "no_feedback_loop_guard",
-      "path": "guards/no_feedback_loop_guard.py",
-      "level": 0,
-      "class": "acyclic_repository_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/no_feedback_loop_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/no_feedback_loop_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-07",
-      "name": "vortex_non_agentic_guard",
-      "path": "guards/vortex_non_agentic_guard.py",
-      "level": 0,
-      "class": "vortex_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/vortex_non_agentic_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/vortex_non_agentic_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-08",
-      "name": "qe_aporia_guard",
-      "path": "guards/qe_aporia_guard.py",
-      "level": 1,
-      "class": "qe_aporia_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/qe_aporia_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/qe_aporia_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-09",
-      "name": "triality_guard",
-      "path": "guards/triality_guard.py",
-      "level": 1,
-      "class": "triality_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/triality_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/triality_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-10",
-      "name": "vector_drift_guard",
-      "path": "guards/vector_drift_guard.py",
-      "level": 1,
-      "class": "drift_observable_boundary",
-      "active": true,
-      "required": false,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/vector_drift_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/vector_drift_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "ci",
-          "--fail_at",
-          "${VECTOR_DRIFT_FAIL_AT}"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-11",
-      "name": "master_index_router_guard",
-      "path": "guards/master_index_router_guard.py",
-      "level": 1,
-      "class": "router_integrity_boundary",
-      "active": true,
-      "required": true,
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/master_index_router_guard.py",
-          "--repo-root",
-          "${ROOT}",
-          "--mode",
-          "check"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/master_index_router_guard.py",
-          "--repo-root",
-          "${ROOT}",
-          "--mode",
-          "check"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-12",
-      "name": "coherence_vocabulary_guard",
-      "path": "guards/coherence_vocabulary_guard.py",
-      "level": 1,
-      "class": "planned_vocabulary_boundary",
-      "active": false,
-      "required": false,
-      "reason_inactive": "planned guard; file not present yet",
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/coherence_vocabulary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/coherence_vocabulary_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    },
-    {
-      "id": "GUARD-13",
-      "name": "ek_observable_non_authority_guard",
-      "path": "guards/ek_observable_non_authority_guard.py",
-      "level": 4,
-      "class": "ek_observable_boundary",
-      "active": true,
-      "required": false,
-      "needs_git_diff": false,
-      "needs_contract": true,
-      "contract_path": "contracts/guard13_ek_observable_rules.json",
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/ek_observable_non_authority_guard.py",
-          "--root",
-          "${ROOT}",
-          "--contract",
-          "contracts/guard13_ek_observable_rules.json",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/ek_observable_non_authority_guard.py",
-          "--root",
-          "${ROOT}",
-          "--contract",
-          "contracts/guard13_ek_observable_rules.json",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error",
-        "3": "error"
-      }
-    },
-    {
-      "id": "GUARD-14",
-      "name": "bridge_phi_to_ek_guard",
-      "path": "guards/bridge_phi_to_ek_guard.py",
-      "level": 2,
-      "class": "planned_bridge_boundary",
-      "active": false,
-      "required": false,
-      "reason_inactive": "planned guard; file not present yet",
-      "needs_git_diff": false,
-      "needs_contract": false,
-      "command_templates": {
-        "report": [
-          "${PYTHON}",
-          "guards/bridge_phi_to_ek_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "report"
-        ],
-        "ci": [
-          "${PYTHON}",
-          "guards/bridge_phi_to_ek_guard.py",
-          "--root",
-          "${ROOT}",
-          "--mode",
-          "strict"
-        ]
-      },
-      "exit_mapping": {
-        "0": "ok",
-        "1": "finding",
-        "2": "error"
-      }
-    }
-  ],
-  "execution_order": [
-    "GUARD-01",
-    "GUARD-02",
-    "GUARD-03",
-    "GUARD-04",
-    "GUARD-05",
-    "GUARD-06",
-    "GUARD-07",
-    "GUARD-08",
-    "GUARD-09",
-    "GUARD-10",
-    "GUARD-11",
-    "GUARD-12",
-    "GUARD-13",
-    "GUARD-14"
-  ],
-  "runner_requirements": {
-    "skip_inactive_guards": true,
-    "fail_if_required_guard_missing": true,
-    "fail_if_command_template_missing_for_profile": true,
-    "preserve_guard_stdout": true,
-    "preserve_guard_stderr": true,
-    "produce_json_summary": true,
-    "do_not_retry_failed_guards_automatically": true
-  }
 }
