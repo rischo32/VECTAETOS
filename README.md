@@ -21,14 +21,12 @@ ___
 > Nie je to safety guarantee, ani behavioral alignment product, a popravde, nemáme ani L4 verifikáciu bezpečnosťi v "REALITE" (naozaj, fyzicky).
 
 ###### A nie, nie je to myslené ako marketing. 
-> Jednoducho, ale presne, VECTAETOS™ vznikal 2 roky...
-
-##### Bezpečnosť inteligentných systémov, sa nemôže začínať až na úrovni správania. Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
+> Bezpečnosť inteligentných systémov, sa nemôže začínať až na úrovni správania. Musí začínať na úrovni ontologickej podmienky toho, čo vôbec môže vzniknúť.
 
 > " Priestor musí byť najprv bezpečný → potom v ňom môže vzniknúť čokoľvek bez toho, aby to zničilo seba alebo iných. "
 
 #### To nie je slovná hračka. 
-### To je fundamentálne iná ontológia.
+### To je fundamentálne iná ontológia...
 ___
 ##### VECTAETOS™ FOUNDATIONS označuje budúci pluralitný správcovský a výskumno-vzdelávací zámer okolo VECTAETOS™ a VECTLABS™. Nevlastní význam VECTAETOS™, nemení Φ, nerozhoduje o pravde a nevystupuje ako autoritatívny interpret epistemického poľa.
 
