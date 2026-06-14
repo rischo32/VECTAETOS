@@ -8,8 +8,6 @@
 **Optimization authority:** none  
 **Feedback into Phi:** none  
 **Current repository notation:** Level 0-5, not Px  
-**Naming discipline:** preserve explicit repository names such as `_MATICA_PERIMETER.md`
-
 ---
 
 ## 0. Boundary
@@ -341,7 +339,6 @@ Before returning Python code, check:
 
 ```text
 [ ] Current repo notation uses Level 0-5, not Px.
-[ ] `_MATICA_PERIMETER.md` prefix is preserved when referenced.
 [ ] Module has a short boundary docstring if it is a guard.
 [ ] New protected concepts have a compact UCEBNA note.
 [ ] Evidence class is not overclaimed.
