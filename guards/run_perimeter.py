@@ -7,7 +7,7 @@ Role:
     Deterministic manifest-driven runner for repository perimeter guards.
 
 This runner:
-    - reads guards/perimeter_manifest.json
+    - reads contracts/perimeter_manifest.json
     - expands explicit variables
     - executes active guard command templates in deterministic order
     - preserves stdout/stderr
@@ -48,7 +48,7 @@ from typing import Any, Iterable
 
 
 RUNNER_NAME = "VECTAETOS Perimeter Guard Runner"
-RUNNER_VERSION = "0.1.0"
+RUNNER_VERSION = "0.1.1"
 
 
 # ---------------------------------------------------------------------------
@@ -743,13 +743,13 @@ def build_summary(
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run VECTAETOS perimeter guards from guards/perimeter_manifest.json.",
+        description="Run VECTAETOS perimeter guards from contracts/perimeter_manifest.json.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("--root", default=".", help="Repository root.")
     parser.add_argument(
         "--manifest",
-        default="guards/perimeter_manifest.json",
+        default="contracts/perimeter_manifest.json",
         help="Path to perimeter manifest, relative to root unless absolute.",
     )
     parser.add_argument(
